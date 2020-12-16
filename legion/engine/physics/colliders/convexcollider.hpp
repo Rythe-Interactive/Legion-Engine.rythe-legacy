@@ -59,28 +59,15 @@ namespace legion::physics
 
         }
 
-
-        /**@brief Does one step of the convex hull generation
-         * Just for debug purposes
-         */
-        void doStep(legion::core::mesh_handle& mesh)
-        {
-            ConstructConvexHullWithMesh(mesh);
-            ++step;
-        }
-
-
-        //TODO(algorythmix,jelled1st) This desperately needs cleanup
-        //TODO(cont.) investigate unused variables! (projected)
-        //LIKE A LOT OF CLEANUP
-
         /**@brief Constructs a polyhedron-shaped convex hull that encompasses the given mesh.
         * @param meshHandle - The mesh handle to lock the mesh and the mesh to create a hull from
         */
         void ConstructConvexHullWithMesh(legion::core::mesh_handle& meshHandle)
         {
-            // Step 0 - Create inital hull
-            if (step == 0)
+            std::vector<math::vec3> toBeSorted;
+            std::vector<std::vector<math::vec3>> faceVertMap;
+            std::unordered_map<HalfEdgeFace*, int> faceIndexMap;
+            //Create inital hull
             {
                 auto meshLockPair = meshHandle.get();
 
@@ -210,11 +197,10 @@ namespace legion::physics
                     toBeSorted.push_back(mesh.vertices.at(i));
                 }
             }
-            // end of Step 0 - Create inital hull
+            // end of initial hull creation
 
-            // Step 1 and up, add a vert to the hull
-            if (step == 0) return;
-            while (looped < step)
+            // Loop to add all viable vertices to the hull
+            while (true)
             {
                 // Section here is return condition
                 if (toBeSorted.size() == 0)
@@ -385,8 +371,6 @@ namespace legion::physics
                     HalfEdgeFace* pairing = createdFaces.at(i)->startEdge->pairingEdge->face;
                     HalfEdgeFace::makeNormalsConvexWithFace(*createdFaces.at(i), *pairing);
                 }
-                // We increase looped counter for debug tools
-                ++looped;
             }
 
             AssertEdgeValidity();
@@ -931,13 +915,6 @@ namespace legion::physics
 
         std::vector<math::vec3> vertices;
         std::vector<HalfEdgeFace*> halfEdgeFaces;
-
-        // Convex hull generation debug stuffs
-        int step = 0;
-        std::vector<math::vec3> toBeSorted;
-        std::vector<std::vector<math::vec3>> faceVertMap;
-        std::unordered_map<HalfEdgeFace*, int> faceIndexMap;
-        int looped = 0;
 
         //feature id container
     };

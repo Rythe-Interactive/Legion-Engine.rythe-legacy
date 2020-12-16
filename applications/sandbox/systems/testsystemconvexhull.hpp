@@ -32,16 +32,13 @@ public:
 
     core::ecs::entity_handle physicsEnt;
     core::mesh_handle meshH;
-    int pStep = 0;
 
     virtual void setup()
     {
         app::InputSystem::createBinding<convex_hull_step>(app::inputmap::method::ENTER);
         app::InputSystem::createBinding<convex_hull_draw>(app::inputmap::method::M);
-        app::InputSystem::createBinding<convex_hull_info>(app::inputmap::method::I);
         bindToEvent<convex_hull_step, &TestSystemConvexHull::convexHullStep>();
         bindToEvent<convex_hull_draw, &TestSystemConvexHull::convexHullDraw>();
-        bindToEvent<convex_hull_info, &TestSystemConvexHull::convexHullInfo>();
 
         createProcess<&TestSystemConvexHull::update>("Update");
 
@@ -59,7 +56,7 @@ public:
             app::ContextHelper::makeContextCurrent(window);
 
             cube = rendering::ModelCache::create_model("cube", "assets://models/cube.obj"_view);
-            model = rendering::ModelCache::create_model("model", "assets://models/convexhulltest_0.obj"_view);
+            model = rendering::ModelCache::create_model("model", "assets://models/suzanne.obj"_view);
             wireFrameH = rendering::MaterialCache::create_material("wireframe", "assets://shaders/wireframe.shs"_view);
             vertexColor = rendering::MaterialCache::create_material("vertexColor", "assets://shaders/vertexcolor.shs"_view);
 
@@ -201,11 +198,8 @@ public:
         if (action->value)
         {
             auto pc = physicsEnt.read_component<physics::physicsComponent>();
-            if (collider == nullptr) collider = pc.ConstructConvexHull(meshH);
-            else pc.ConstructConvexHull(meshH, *collider);
+            collider = pc.ConstructConvexHull(meshH);
             physicsEnt.write_component(pc);
-
-            ++pStep;
         }
     }
 
@@ -213,8 +207,6 @@ public:
     {
         if (action->value)
         {
-            if (pStep > 0)
-            {
                 auto debugDrawEdges = [](legion::physics::HalfEdgeEdge* edge)
                 {
                     if (!edge || !edge->nextEdge) return;
@@ -230,19 +222,6 @@ public:
                     // Draw normals
                     debug::drawLine(faces.at(i)->centroid, faces.at(i)->centroid + faces.at(i)->normal * 0.3f, math::colors::white);
                 }
-            }
-        }
-    }
-
-    void convexHullInfo(convex_hull_info* action)
-    {
-        if (action->value)
-        {
-            auto faces = collider->GetHalfEdgeFaces();
-            for (int i = 0; i < faces.size(); ++i)
-            {
-                log::debug("Face {}: {} {} {}", i, faces.at(i)->startEdge->edgePosition, faces.at(i)->startEdge->nextEdge->edgePosition, faces.at(i)->startEdge->prevEdge->edgePosition);
-            }
         }
     }
 };
