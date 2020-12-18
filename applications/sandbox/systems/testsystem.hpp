@@ -726,7 +726,7 @@ public:
         //    }
         //}
 
-        //scenemanagement::SceneManager::createScene("Main", sceneEntity);
+        scenemanagement::SceneManager::createScene("Main");
 
         //sceneEntity.destroy();
 
@@ -739,11 +739,65 @@ public:
         //createProcess<&TestSystem::drawInterval>("TestChain");
     }
 
+    void update(time::span deltaTime)
+    {
+        static float timer = 0;
+        static id_type sphereId = nameHash("sphere");
+
+        auto [entities, lock] = m_ecs->getEntities();
+        size_type entityCount;
+
+        {
+            async::readonly_guard guard(lock);
+            entityCount = entities.size();
+        }
+
+        if (entityCount < 200)
+        {
+            timer += deltaTime;
+
+            if (timer >= 0.1)
+            {
+                timer -= 0.1;
+                auto ent = createEntity();
+                ent.add_components<rendering::mesh_renderable>(mesh_filter(MeshCache::get_handle(sphereId)), rendering::mesh_renderer(pbrH));
+                ent.add_component<sah>({});
+                ent.add_components<transform>(position(math::linearRand(math::vec3(-10, -21, -10), math::vec3(10, -1, 10))), rotation(), scale());
+            }
+        }
+
+        static auto sahQuery = createQuery<sah, rotation, position>();
+
+        sahQuery.queryEntities();
+        for (auto entity : sahQuery)
+        {
+            auto rot = entity.read_component<rotation>();
+
+            rot *= math::angleAxis(math::deg2rad(45.f * deltaTime), math::vec3(0, 1, 0));
+
+            entity.write_component(rot);
+
+            auto pos = entity.read_component<position>();
+            debug::drawLine(pos, pos + rot.forward(), math::colors::magenta);
+        }
+
+        if (rotate && !physics::PhysicsSystem::IsPaused)
+        {
+            for (auto entity : physicsFrictionTestRotators)
+            {
+                auto rot = entity.read_component<rotation>();
+
+                rot *= math::angleAxis(math::deg2rad(-20.f * deltaTime), math::vec3(0, 0, 1));
+
+                entity.write_component(rot);
+            }
+        }
+    }
+
     void testPhysicsEvent(physics::trigger_event* evnt)
     {
         log::debug("received trigger event {}", evnt->manifold.isColliding);
     }
-
     void setupPhysicsCDUnitTest(rendering::model_handle cubeH, rendering::material_handle wireframeH)
     {
         physics::cube_collider_params cubeParams;
@@ -1683,7 +1737,6 @@ public:
 
         //Pyramid Stack
     }
-
 #pragma region input stuff
     void onLightSwitch(light_switch* action)
     {
@@ -1737,7 +1790,6 @@ public:
             on = !on;
         }
     }
-
     void onTonemapSwitch(tonemap_switch* action)
     {
         static gfx::tonemapping_type algorithm = gfx::tonemapping_type::aces;
@@ -1779,7 +1831,6 @@ public:
             }
         }
     }
-
     void onSphereAAMove(audio_move* action)
     {
         auto posH = audioSphereLeft.get_component_handle<position>();
@@ -1787,7 +1838,6 @@ public:
         move = math::normalize(move * math::vec3(1, 0, 1)) * action->value * action->input_delta * 10.f;
         posH.fetch_add(move);
     }
-
     void onSphereAAStrive(audio_strive* action)
     {
         auto posH = audioSphereLeft.get_component_handle<position>();
@@ -1795,7 +1845,6 @@ public:
         move = math::normalize(move * math::vec3(1, 0, 1)) * action->value * action->input_delta * 10.f;
         posH.fetch_add(move);
     }
-
     void onGainChange(gain_change* action)
     {
         if (action->value == 0) return;
@@ -1812,7 +1861,6 @@ public:
         source.setGain(g);
         sourceH.write(source);
     }
-
     void onPitchChange(pitch_change* action)
     {
         if (action->value == 0) return;
@@ -1823,7 +1871,6 @@ public:
         source.setPitch(p);
         sourceH.write(source);
     }
-
     void audioTestInput(audio_test_input* action)
     {
         using namespace audio;
@@ -1832,7 +1879,6 @@ public:
         source.disableSpatialAudio();
         sourceH.write(source);
     }
-
     void onUnitPhysicsUnitTestMove(physics_test_move* action)
     {
         for (auto entity : physicsUnitTestCD)
@@ -1847,7 +1893,6 @@ public:
 
         }
     }
-
     void playAudioSource(play_audio_source* action)
     {
         {
@@ -1863,7 +1908,6 @@ public:
             sourceH.write(source);
         }
     }
-
     void pauseAudioSource(pause_audio_source* action)
     {
         {
@@ -1879,7 +1923,6 @@ public:
             sourceH.write(source);
         }
     }
-
     void stopAudioSource(stop_audio_source* action)
     {
         {
@@ -1895,7 +1938,6 @@ public:
             sourceH.write(source);
         }
     }
-
     void rewindAudioSource(rewind_audio_source* action)
     {
         auto sourceH = audioSphereLeft.get_component_handle<audio::audio_source>();
@@ -1904,62 +1946,6 @@ public:
         sourceH.write(source);
     }
 #pragma endregion
-
-    void update(time::span deltaTime)
-    {
-        static float timer = 0;
-        static id_type sphereId = nameHash("sphere");
-
-        auto [entities, lock] = m_ecs->getEntities();
-        size_type entityCount;
-
-        {
-            async::readonly_guard guard(lock);
-            entityCount = entities.size();
-        }
-
-        if (entityCount < 200)
-        {
-            timer += deltaTime;
-
-            if (timer >= 0.1)
-            {
-                timer -= 0.1;
-                auto ent = createEntity();
-                ent.add_components<rendering::mesh_renderable>(mesh_filter(MeshCache::get_handle(sphereId)), rendering::mesh_renderer(pbrH));
-                ent.add_component<sah>({});
-                ent.add_components<transform>(position(math::linearRand(math::vec3(-10, -21, -10), math::vec3(10, -1, 10))), rotation(), scale());
-            }
-        }
-
-        static auto sahQuery = createQuery<sah, rotation, position>();
-
-        sahQuery.queryEntities();
-        for (auto entity : sahQuery)
-        {
-            auto rot = entity.read_component<rotation>();
-
-            rot *= math::angleAxis(math::deg2rad(45.f * deltaTime), math::vec3(0, 1, 0));
-
-            entity.write_component(rot);
-
-            auto pos = entity.read_component<position>();
-            debug::drawLine(pos, pos + rot.forward(), math::colors::magenta);
-        }
-
-        if (rotate && !physics::PhysicsSystem::IsPaused)
-        {
-            for (auto entity : physicsFrictionTestRotators)
-            {
-                auto rot = entity.read_component<rotation>();
-
-                rot *= math::angleAxis(math::deg2rad(-20.f * deltaTime), math::vec3(0, 0, 1));
-
-                entity.write_component(rot);
-            }
-        }
-    }
-
     void drawInterval(time::span deltaTime)
     {
         static auto physicsQuery = createQuery< physics::physicsComponent>();
@@ -2128,7 +2114,6 @@ public:
         debug::drawLine(p1p2, p3p4, math::colors::green, 5.0f);
 
     }
-
     void onActivateUnitTest2(activate_CRtest2* action)
     {
         static bool activated = false;
@@ -2139,7 +2124,6 @@ public:
             auto crb = m_ecs->createComponent<physics::rigidbody>(staticToOBBEnt);
         }
     }
-
     void onActivateUnitTest3(activate_CRtest3* action)
     {
         if (action->value)
@@ -2147,7 +2131,6 @@ public:
             auto crb = m_ecs->createComponent<physics::rigidbody>(staticToEdgeEnt);
         }
     }
-
     void onExtendedPhysicsContinueRequest(extendedPhysicsContinue* action)
     {
         if (action->value)
@@ -2160,7 +2143,6 @@ public:
         }
 
     }
-
     void onNextPhysicsTimeStepRequest(nextPhysicsTimeStepContinue* action)
     {
         if (!(action->value))
@@ -2171,7 +2153,6 @@ public:
         }
 
     }
-
     void FrictionTestActivate(activateFrictionTest* action)
     {
         if (action->value)
@@ -2220,7 +2201,6 @@ public:
 
         }
     }
-
     void CreateCubeStack(int height, int width, int breadth, math::vec3 startPosition, math::vec3 offset,
         physics::cube_collider_params cubeParams, float cubeFriction, rendering::model_handle cubeH, rendering::material_handle wireframeH, bool addRigidbody = true)
     {

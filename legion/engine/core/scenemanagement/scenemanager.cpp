@@ -54,9 +54,6 @@ namespace legion::core::scenemanagement
         return true;
     }
 
-
-
-
     ecs::component_handle<scene> SceneManager::getScene(std::string name)
     {
         return SceneManager::sceneList[nameHash(name)];
