@@ -2,8 +2,7 @@
 #include <core/core.hpp>
 #include <core/logging/logging.hpp>
 
-using namespace legion;
-using namespace legion::core::filesystem::literals;
+using namespace legion::rendering;
 
 class LightManager final : public System<LightManager>
 {
@@ -15,7 +14,6 @@ public:
 
     virtual void setup()
     {
-        createEntity();
         createProcess<&LightManager::update>("Update");
     }
 
@@ -29,8 +27,8 @@ public:
      */
     static ecs::entity_handle createLight()
     {
-        auto light = createEntity();
-        light.add_component<rendering::light>(rendering::light::directional(math::color(1, 1, 0.8f), 10.f));
+        auto light = m_ecs->createEntity();
+        light.add_component<rendering::light>(rendering::light::directional(math::color(1, 0, 0), 10.f));
         light.add_components<transform>(position(), rotation(rotation::lookat(math::vec3(1, 1, 1), math::vec3::zero)), scale());
         return light;
     }
@@ -41,7 +39,7 @@ public:
      */
     static ecs::entity_handle createLight(math::quat rot)
     {
-        auto light = createEntity();
+        auto light = m_ecs->createEntity();
         light.add_component<rendering::light>(rendering::light::directional(math::color(1, 1, 0.8f), 10.f));
         light.add_components<transform>(position(), rotation(rot), scale());
         return light;
@@ -54,7 +52,7 @@ public:
      */
     static ecs::entity_handle createLight(math::color color, float intensity, math::quat rot)
     {
-        auto light = createEntity();
+        auto light = m_ecs->createEntity();
         light.add_component<rendering::light>(rendering::light::directional(color, intensity));
         light.add_components<transform>(position(), rotation(rotation::lookat(math::vec3(1, 1, 1), math::vec3::zero)), scale());
         return light;
@@ -69,7 +67,7 @@ public:
      */
     static ecs::entity_handle createLight(rendering::light type, math::vec3 pos, math::quat rot, math::vec3 s)
     {
-        auto light = createEntity();
+        auto light = m_ecs->createEntity();
         light.add_component<rendering::light>(type);
         light.add_components<transform>(position(pos), rotation(rot), scale(s));
         return light;
@@ -82,7 +80,7 @@ public:
      */
     static ecs::entity_handle createLight(mesh_filter mesh, mesh_renderer material)
     {
-        auto light = createEntity();
+        auto light = m_ecs->createEntity();
         light.add_components<rendering::mesh_renderable>(mesh, material);
         light.add_component<rendering::light>(rendering::light::directional(math::color(1, 1, 0.8f), 10.f));
         light.add_components<transform>(position(20, 20, 20), rotation::lookat(math::vec3(1, 1, 1), math::vec3::zero), scale());
@@ -97,7 +95,7 @@ public:
      */
     static ecs::entity_handle createLight(mesh_filter mesh, mesh_renderer material, rendering::light type)
     {
-        auto light = createEntity();
+        auto light = m_ecs->createEntity();
         light.add_components<rendering::mesh_renderable>(mesh, material);
         light.add_component<rendering::light>(type);
         light.add_components<transform>(position(20, 20, 20), rotation::lookat(math::vec3(1, 1, 1), math::vec3::zero), scale());
@@ -115,7 +113,7 @@ public:
      */
     static ecs::entity_handle createLight(mesh_filter mesh, mesh_renderer material, rendering::light type, math::vec3 pos, math::quat rot, math::vec3 s)
     {
-        auto light = createEntity();
+        auto light = m_ecs->createEntity();
         light.add_components<rendering::mesh_renderable>(mesh, material);
         light.add_component<rendering::light>(type);
         light.add_components<transform>(position(pos), rotation(rot), scale(s));
@@ -123,3 +121,4 @@ public:
     }
 
 };
+

@@ -30,6 +30,8 @@
 #include "../data/pp_blur.hpp"
 #include "../data/pp_edgedetect.hpp"
 
+#include "../systems/lightsystem.hpp"
+
 using namespace legion;
 
 
@@ -141,7 +143,7 @@ public:
 
     virtual void setup()
     {
-        
+
 
 #pragma region Input binding
         app::InputSystem::createBinding<physics_test_move>(app::inputmap::method::LEFT, -1.f);
@@ -379,13 +381,13 @@ public:
             gnomeMH.set_param("discardExcess", false);
             gnomeMH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
 
-            lavaH = rendering::MaterialCache::create_material("planet",pbrShader);
-            lavaH.set_param("material_input.albedo",rendering::TextureCache::create_texture("assets://textures/lava/Stylized_Lava_Rocks_001_basecolor.jpg"_view));
-            lavaH.set_param("material_input.normalHeight",rendering::TextureCache::create_texture("assets://textures/lava/Stylized_Lava_Rocks_001_normal.jpg"_view));
+            lavaH = rendering::MaterialCache::create_material("planet", pbrShader);
+            lavaH.set_param("material_input.albedo", rendering::TextureCache::create_texture("assets://textures/lava/Stylized_Lava_Rocks_001_basecolor.jpg"_view));
+            lavaH.set_param("material_input.normalHeight", rendering::TextureCache::create_texture("assets://textures/lava/Stylized_Lava_Rocks_001_normal.jpg"_view));
             lavaH.set_param("material_input.MRDAo", rendering::TextureCache::create_texture("assets://textures/lava/Stylized_Lava_Rocks_001_ambientOcclusion.jpg"_view));
             lavaH.set_param("material_input.emissive", rendering::TextureCache::create_texture("assets://textures/lava/Stylized_Lava_Rocks_001_basecolor.jpg"_view));
-            lavaH.set_param("material_input.heightScale",0.f);
-            lavaH.set_param("discardExcess",false);
+            lavaH.set_param("material_input.heightScale", 0.f);
+            lavaH.set_param("discardExcess", false);
             lavaH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
 
             normalH = rendering::MaterialCache::create_material("normal", "assets://shaders/normal.shs"_view);
@@ -398,7 +400,7 @@ public:
         }
 #pragma endregion
 #pragma region Lights
-       LightManager::createLight();
+        LightManager::createLight();
 #pragma endregion
 #pragma region Entities
         //Planet

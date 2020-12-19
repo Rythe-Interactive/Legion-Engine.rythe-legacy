@@ -2,7 +2,6 @@
 #include <core/core.hpp>
 #include <core/math/math.hpp>
 #include "../systems/testsystem.hpp"
-
 #include "../systems/testsystemconvexhull.hpp"
 //#include "../systems/testsystem2.hpp"
 //#include"../systems/pointcloudtestsystem2.hpp"

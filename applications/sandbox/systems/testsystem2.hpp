@@ -54,8 +54,8 @@ public:
         app::window window = m_ecs->world.get_component_handle<app::window>().read();
 
           {
-              async::readwrite_guard guard(*window.lock);
-              app::ContextHelper::makeContextCurrent(window);
+              app::context_guard guard(window);
+              //app::ContextHelper::makeContextCurrent(window);
 
 
               auto colorshader = rendering::ShaderCache::create_shader("color", "assets://shaders/color.shs"_view);
@@ -116,8 +116,8 @@ public:
             y = -height + rnd() * (height - (-height));
             z = -depth + rnd() * (depth - (-depth));
             points.push_back(math::vec3(x, y, z));*/
-            async::readwrite_guard guard(*window.lock);
-            app::ContextHelper::makeContextCurrent(window);
+            //async::readwrite_guard guard(*window.lock);
+            //app::ContextHelper::makeContextCurrent(window);
 
 
             auto colorshader = rendering::ShaderCache::create_shader("color", "assets://shaders/color.shs"_view);
