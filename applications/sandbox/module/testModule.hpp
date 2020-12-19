@@ -8,6 +8,7 @@
 //#include"../systems/pointcloudtestsystem2.hpp"
 #include "../systems/simplecameracontroller.hpp"
 #include "../systems/gui_test.hpp"
+#include "../systems/lightsystem.hpp"
 
 #include <rendering/systems/pointcloudgeneration.hpp>
 
@@ -20,6 +21,8 @@ public:
     virtual void setup() override
     {
         reportComponentType<sah>();
+        reportComponentType<planet>();
+        reportSystem<LightManager>();
         reportSystem<TestSystem>();
         reportSystem<SimpleCameraController>();
         reportSystem<GuiTestSystem>();

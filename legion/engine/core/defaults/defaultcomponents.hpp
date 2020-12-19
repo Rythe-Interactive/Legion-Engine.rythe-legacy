@@ -37,7 +37,6 @@ namespace legion::core
             return *this;
         }
     };
-
     struct rotation : public math::quat
     {
         rotation() : math::quat(1, 0, 0, 0) {}
@@ -86,12 +85,10 @@ namespace legion::core
 
         L_NODISCARD static rotation lookat(math::vec3 position, math::vec3 center, math::vec3 up = math::vec3::up);
     };
-
     L_NODISCARD inline rotation rotation::lookat(math::vec3 position, math::vec3 center, math::vec3 up)
     {
         return math::conjugate(math::normalize(math::toQuat(math::lookAt(position, center, up))));
     }
-
 
     struct scale : public math::vec3
     {
@@ -119,7 +116,6 @@ namespace legion::core
         }
 
     };
-
 
     struct transform : public ecs::archetype<position, rotation, scale>
     {
@@ -198,6 +194,11 @@ namespace legion::core
         explicit mesh_filter(const mesh_handle& src) { id = src.id; };
 
         bool operator==(const mesh_filter& other) const { return id == other.id; }
+    };
+
+    struct planet
+    {
+        planet() = default;
     };
 }
 
