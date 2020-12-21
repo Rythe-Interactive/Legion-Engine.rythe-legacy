@@ -22,7 +22,6 @@ class GuiTestSystem : public System<GuiTestSystem>
     math::mat4 projection = math::mat4(1.0f);
     math::mat4 model = math::mat4(1.0f);
 
-
     void setup() override
     {
 
@@ -47,11 +46,13 @@ class GuiTestSystem : public System<GuiTestSystem>
         //gui code goes here
         ImGuiStage::addGuiRender<GuiTestSystem,&GuiTestSystem::onGUI>(this);
         createProcess<&GuiTestSystem::update>("Update");
-    }
 
+    }
+  
     void onGUI()
     {
-        ImGuiIO& io = ImGui::GetIO();
+        ImGuiIO& io = ImGui::GetIO();       
+
 
         setProjectionAndView(io.DisplaySize.x/io.DisplaySize.y);
 

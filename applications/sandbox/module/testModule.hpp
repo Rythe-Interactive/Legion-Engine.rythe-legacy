@@ -10,7 +10,7 @@
 #include "../systems/gui_test.hpp"
 
 #include <rendering/systems/pointcloudgeneration.hpp>
-
+#include "../systems/shaderguikitchen.hpp"
 
 using namespace legion;
 
@@ -21,7 +21,8 @@ public:
     {
         reportSystem<TestSystemConvexHull>();
         reportSystem<SimpleCameraController>();
-        reportSystem<GuiTestSystem>();
+     //   reportSystem<GuiTestSystem>();
+        reportSystem<ShaderGuiKitchen>();
     }
 
     virtual priority_type priority() override
