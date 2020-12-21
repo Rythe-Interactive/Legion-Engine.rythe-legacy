@@ -31,6 +31,7 @@
 #include "../data/pp_edgedetect.hpp"
 
 #include "../systems/lightsystem.hpp"
+#include "../systems/starsystem.hpp"
 
 using namespace legion;
 
@@ -407,6 +408,12 @@ public:
             ent.add_components<rendering::mesh_renderable>(mesh_filter(sphereH.get_mesh()), rendering::mesh_renderer(lavaH));
             ent.add_components<transform>(position(0, 0.01f, -10), rotation(), scale(10));
         }
+
+        StarSystem::generateStartSystem(math::vec3(0, 0, 0));
+
+        StarSystem::generateStartSystem(math::vec3(3, 4, 1));
+
+        StarSystem::generateStartSystem(math::vec3(7, 13, 5));
 
         //Axes
         {

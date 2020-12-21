@@ -8,6 +8,7 @@
 #include "../systems/simplecameracontroller.hpp"
 #include "../systems/gui_test.hpp"
 #include "../systems/lightsystem.hpp"
+#include "../systems/starsystem.hpp"
 
 #include <rendering/systems/pointcloudgeneration.hpp>
 
@@ -21,6 +22,7 @@ public:
     {
         reportComponentType<sah>();
         reportComponentType<planet>();
+        reportSystem<StarSystem>();
         reportSystem<LightManager>();
         reportSystem<TestSystem>();
         reportSystem<SimpleCameraController>();

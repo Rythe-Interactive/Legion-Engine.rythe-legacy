@@ -114,6 +114,13 @@ namespace legion::core
             z = src.z;
             return *this;
         }
+        scale& operator/(float&& src)
+        {
+            x /= src;
+            y /= src;
+            z /= src;
+            return *this;
+        }
 
     };
 
@@ -196,10 +203,7 @@ namespace legion::core
         bool operator==(const mesh_filter& other) const { return id == other.id; }
     };
 
-    struct planet
-    {
-        planet() = default;
-    };
+
 }
 
 #if !defined(DOXY_EXCLUDE)
