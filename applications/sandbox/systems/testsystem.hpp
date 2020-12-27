@@ -265,6 +265,7 @@ public:
             uvH = rendering::MaterialCache::create_material("uv", "assets://shaders/uv.shs"_view);
 
             auto colorshader = rendering::ShaderCache::create_shader("color", "assets://shaders/color.shs"_view);
+
             directionalLightMH = rendering::MaterialCache::create_material("directional light", colorshader);
             directionalLightMH.set_param("color", math::color(1, 1, 0.8f));
 
@@ -399,7 +400,18 @@ public:
         }
 #pragma endregion
 #pragma region Lights
-        LightManager::createLight();
+        /*LightManager::createLight();*/
+        //auto colorshader = rendering::ShaderCache::create_shader("color", "assets://shaders/color.shs"_view);
+
+        //directionalLightMH = rendering::MaterialCache::create_material("directional light", colorshader);
+        //directionalLightMH.set_param("color", math::color(1, 1, 0.8f));
+
+        //directionalLightH = rendering::ModelCache::create_model("directional light", "assets://models/directional-light.obj"_view);
+        //{
+        //    auto light = m_ecs->createEntity();
+        //    light.add_component<rendering::light>(rendering::light::directional(math::color(1, 1, 1), 10.f));
+        //    light.add_components<transform>(position(), rotation(rotation::lookat(math::vec3(1, 1, 1), math::vec3::zero)), scale());
+        //}
 #pragma endregion
 #pragma region Entities
         //Planet
