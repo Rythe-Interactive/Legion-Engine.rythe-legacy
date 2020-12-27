@@ -412,6 +412,13 @@ public:
         //    light.add_component<rendering::light>(rendering::light::directional(math::color(1, 1, 1), 10.f));
         //    light.add_components<transform>(position(), rotation(rotation::lookat(math::vec3(1, 1, 1), math::vec3::zero)), scale());
         //}
+
+        {
+            sun = createEntity();
+            sun.add_components<rendering::mesh_renderable>(mesh_filter(directionalLightH.get_mesh()), rendering::mesh_renderer(directionalLightMH));
+            sun.add_component<rendering::light>(rendering::light::directional(math::color(1, 1, 0.8f), 10.f));
+            sun.add_components<transform>(position(10, 10, 10), rotation::lookat(math::vec3(1, 1, 1), math::vec3::zero), scale());
+        }
 #pragma endregion
 #pragma region Entities
         //Planet
