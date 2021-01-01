@@ -12,7 +12,6 @@ namespace legion::rendering
         mesh_renderer() = default;
         explicit mesh_renderer(const material_handle& src) { material = src; }
         mesh_renderer(const material_handle& src, const model_handle& model) { material = src; m_tempHandle = model; }
-
         static void init(mesh_renderer& src, ecs::entity_handle owner)
         {
             OPTICK_EVENT();
@@ -55,5 +54,18 @@ namespace legion::rendering
     {
         OPTICK_EVENT();
         archive(get_model(), get_material());
+        model_handle modelH;
+        material_handle materialH;
+        if (typeid(archive) == typeid(cereal::JSONInputArchive))
+        {
+            modelH.serialize(archive);
+            materialH.serialize(archive);
+        }
+        else if (typeid(archive) == typeid(cereal::JSONOutputArchive))
+        {
+            modelH = get_model();
+            materialH = get_material();
+            archive(modelH, materialH);
+        }
     }
 }

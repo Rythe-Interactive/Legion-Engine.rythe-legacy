@@ -77,6 +77,8 @@ namespace legion::rendering
         if (m_materials.count(id))
             return { id };
 
+        serialization::IniSerializer<shader_handle>::makeIni(name,shader);
+
         if (shader == invalid_shader_handle)
         {
             log::error("Tried to create a material named {} with an invalid shader.", name);
@@ -104,6 +106,8 @@ namespace legion::rendering
             return { id };
 
         auto shader = ShaderCache::create_shader(shaderFile, settings);
+
+        serialization::IniSerializer<shader_handle>::makeIni(name, shader);
 
         if (shader == invalid_shader_handle)
         {
@@ -134,12 +138,33 @@ namespace legion::rendering
         return invalid_material_handle;
     }
 
+    std::vector<material> MaterialCache::get_all_materials()
+    {
+        std::vector<material> output;
+        //for (auto& material : m_materials)
+        //{
+        //    output.push_back(material.second);
+        //}
+        return output;
+    }
+
     void material_handle::bind()
     {
         async::readonly_guard guard(MaterialCache::m_materialLock);
         MaterialCache::m_materials[id].bind();
     }
 
+    L_NODISCARD const std::string& material_handle::get_name()
+    {
+        async::readonly_guard guard(MaterialCache::m_materialLock);
+        return MaterialCache::m_materials[id].get_name();
+    }
+
+
+    L_NODISCARD const std::unordered_map<id_type, std::unique_ptr<material_parameter_base>>& material_handle::get_params()
+    {
+        async::readonly_guard guard(MaterialCache::m_materialLock);
+        return MaterialCache::m_materials[id].get_params();
     std::string material_handle::get_name()
     {
         async::readonly_guard guard(MaterialCache::m_materialLock);

@@ -71,7 +71,8 @@ namespace legion::core::ecs
             if constexpr (serialization::has_serialize<component_type, void(cereal::JSONOutputArchive&)>::value)
             {
                 async::readonly_guard guard(m_lock);
-                oarchive(cereal::make_nvp("Component Name", std::string(typeName<component_type>())));
+                std::string componentType = std::string(typeName<component_type>());
+                oarchive(cereal::make_nvp("Component Name", componentType));
                 m_components[entityId].serialize(oarchive);
             }
             else
@@ -84,18 +85,33 @@ namespace legion::core::ecs
             OPTICK_EVENT();
             oarchive(cereal::make_nvp("Component Name", std::string(typeName<component_type>())));
         }
-        virtual void serialize(cereal::JSONInputArchive& oarchive, id_type entityId) override
+        virtual void serialize(cereal::JSONInputArchive& iarchive, id_type entityId) override
         {
             OPTICK_EVENT();
             if constexpr (serialization::has_serialize<component_type, void(cereal::JSONOutputArchive&)>::value)
             {
                 async::readonly_guard guard(m_lock);
-                oarchive(cereal::make_nvp("Component Name", std::string(typeName<component_type>())));
-                m_components[entityId].serialize(oarchive);
+                std::string componentType = std::string(typeName<component_type>());
+                //if (componentType._Equal("struct legion::core::mesh_filter"))
+                //{
+                //    std::string filePath;
+                //    iarchive(cereal::make_nvp("Component Name", std::string(typeName<component_type>())), cereal::make_nvp("Filename", filePath));
+                //}
+                ////else if (componentType._Equal("struct legion::rendering::mesh_renderer"))
+                ////{
+                ////    std::string filePath;
+                ////    oarchive(cereal::make_nvp("Component Name", std::string(typeName<component_type>())/*, cereal::make_nvp("Filename", filePath)*/));
+                ////}
+                //else
+                //{
+                //    iarchive(cereal::make_nvp("Component Name", std::string(typeName<component_type>())));
+                //}
+                iarchive(cereal::make_nvp("Component Name", std::string(typeName<component_type>())));
+                m_components[entityId].serialize(iarchive);
             }
             else
             {
-                oarchive(cereal::make_nvp("Component Name", std::string(typeName<component_type>())));
+                iarchive(cereal::make_nvp("Component Name", std::string(typeName<component_type>())));
             }
         }
         virtual void serialize(cereal::BinaryInputArchive& oarchive, id_type entityId) override
