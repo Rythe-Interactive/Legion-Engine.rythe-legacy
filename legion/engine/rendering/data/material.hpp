@@ -169,8 +169,6 @@ namespace legion::rendering
             shader_handle::release();
         }
 
-        std::string get_name();
-
         /**@brief Set the value of a parameter by name.
          */
         template<typename T>
@@ -203,7 +201,7 @@ namespace legion::rendering
 
         L_NODISCARD const std::string& get_name();
 
-        L_NODISCARD const std::unordered_map<id_type, std::unique_ptr<material_parameter_base>>& get_params();
+        //L_NODISCARD const std::unordered_map<id_type, std::unique_ptr<material_parameter_base>>& get_params();
 
         /**@brief Get attribute bound to a certain name.
          */

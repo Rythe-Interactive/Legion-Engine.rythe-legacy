@@ -3,12 +3,12 @@
 #include <core/math/math.hpp>
 #include "../systems/testsystem.hpp"
 #include "../systems/testsystemconvexhull.hpp"
-//#include "../systems/testsystem2.hpp"
-//#include"../systems/pointcloudtestsystem2.hpp"
+#include "../systems/testsystem2.hpp"
+#include"../systems/pointcloudtestsystem2.hpp"
 #include "../systems/simplecameracontroller.hpp"
 #include "../systems/gui_test.hpp"
 #include "../systems/testsystem2.hpp"
-//#include"../systems/pointcloudtestsystem2.hpp"
+#include"../systems/pointcloudtestsystem2.hpp"
 #include "../systems/simplecameracontroller.hpp"
 #include "../systems/scenetestsystem1.hpp"
 #include "../systems/lightsystem.hpp"
@@ -28,8 +28,6 @@ public:
         reportSystem<StarSystem>();
         reportSystem<LightManager>();
         reportSystem<TestSystem>();
-
-        reportComponentType<sah>();
         //reportSystem<SceneTestSystem1>();
         reportSystem<SimpleCameraController>();
         reportSystem<GuiTestSystem>();

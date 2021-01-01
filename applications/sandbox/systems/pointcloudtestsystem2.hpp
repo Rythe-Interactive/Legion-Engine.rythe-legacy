@@ -47,7 +47,7 @@ public:
         image_handle image;
         app::window window = m_ecs->world.get_component_handle<app::window>().read();
         {
-            async::readwrite_guard guard(*window.lock);
+            app::context_guard guard(window);
             app::ContextHelper::makeContextCurrent(window);
             auto colorshader = rendering::ShaderCache::create_shader("color", "assets://shaders/color.shs"_view);
             particleMaterial = rendering::MaterialCache::create_material("directional light", colorshader);

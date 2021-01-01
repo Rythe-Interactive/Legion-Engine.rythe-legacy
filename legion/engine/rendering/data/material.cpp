@@ -154,6 +154,7 @@ namespace legion::rendering
         MaterialCache::m_materials[id].bind();
     }
 
+
     L_NODISCARD const std::string& material_handle::get_name()
     {
         async::readonly_guard guard(MaterialCache::m_materialLock);
@@ -161,15 +162,17 @@ namespace legion::rendering
     }
 
 
-    L_NODISCARD const std::unordered_map<id_type, std::unique_ptr<material_parameter_base>>& material_handle::get_params()
-    {
-        async::readonly_guard guard(MaterialCache::m_materialLock);
-        return MaterialCache::m_materials[id].get_params();
-    std::string material_handle::get_name()
-    {
-        async::readonly_guard guard(MaterialCache::m_materialLock);
-        return MaterialCache::m_materials[id].m_name;
-    }
+    //L_NODISCARD const std::unordered_map<id_type, std::unique_ptr<material_parameter_base>>& material_handle::get_params()
+    //{
+    //    async::readonly_guard guard(MaterialCache::m_materialLock);
+    //    return MaterialCache::m_materials[id].get_params();
+    //}
+
+    //std::string material_handle::get_name()
+    //{
+    //    async::readonly_guard guard(MaterialCache::m_materialLock);
+    //    return MaterialCache::m_materials[id].m_name;
+    //}
 
     attribute material_handle::get_attribute(const std::string& name)
     {
