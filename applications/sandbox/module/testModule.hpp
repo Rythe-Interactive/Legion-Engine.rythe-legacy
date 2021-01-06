@@ -23,7 +23,9 @@ class TestModule : public Module
 public:
     virtual void setup() override
     {
+        app::WindowSystem::requestWindow(world_entity_id, math::ivec2(1920, 1080), "LEGION Engine", "Legion Icon", nullptr, nullptr, 1); // Create the request for the main window.
         reportComponentType<sah>();
+
         reportComponentType<planet>();
         reportSystem<StarSystem>();
         reportSystem<LightManager>();
