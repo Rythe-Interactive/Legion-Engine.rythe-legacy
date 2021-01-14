@@ -28,16 +28,16 @@ public:
     virtual void setup() override
     {
         //reportSystem<TestSystem>();
-        reportSystem<TestSystemConvexHull>();
+        //reportSystem<TestSystemConvexHull>();
         app::WindowSystem::requestWindow(world_entity_id, math::ivec2(1920, 1080), "LEGION Engine", "Legion Icon", nullptr, nullptr, 1); // Create the request for the main window.
         reportComponentType<sah>();
-        reportComponentType<ext::animation>();
-        reportSystem<ext::Animator>();
-        reportSystem<ext::AnimationEditor>();
+        //reportComponentType<ext::animation>();
+        //reportSystem<ext::Animator>();
+        //reportSystem<ext::AnimationEditor>();
         reportSystem<TestSystem>();
         reportSystem<SimpleCameraController>();
         reportSystem<GuiTestSystem>();
-        reportSystem<physics::PhysicsFractureTestSystem>();
+        //reportSystem<physics::PhysicsFractureTestSystem>();
 
     }
 
