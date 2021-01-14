@@ -54,6 +54,9 @@
     <ClCompile Include="components\fracturer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="systems\ray_cast_system.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cube_collider_params.hpp">
@@ -168,6 +171,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="components\fracturer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="data\ray.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="data\triangle.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="systems\ray_cast_system.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="components\ray_intersectable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ray_utils\ray_intersect.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ray_utils\ray_from_screenpos.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,7 @@
 #pragma once
 #include <core/events/event.hpp>
 #include <physics/data/physics_manifold.hpp>
+#include <physics/ray_utils/ray_intersect.hpp>
 
 namespace legion::physics {
 
@@ -84,5 +85,11 @@ namespace legion::physics {
     struct collision_event : public collision_event_base<collision_event>
     {
         using collision_event_base<collision_event>::collision_event_base;
+    };
+
+    struct ray_collision_event : public events::event<ray_collision_event>
+    {
+        detail::ray_hit_info event_data;
+        ecs::entity_handle target;
     };
 }

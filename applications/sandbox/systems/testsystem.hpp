@@ -202,6 +202,7 @@ public:
 
         bindToEvent< nextEdge_action, &TestSystem::OnNextEdge>();
         bindToEvent<nextPairing_action, &TestSystem::OnNextPair>();
+        bindToEvent<physics::ray_collision_event, &TestSystem::OnRayCollision>();
 
         //bindToEvent< extendedPhysicsContinue, &TestSystem::onExtendedPhysicsContinueRequest>();
         //bindToEvent<nextPhysicsTimeStepContinue, &TestSystem::onNextPhysicsTimeStepRequest>();
@@ -1025,6 +1026,13 @@ public:
     void testPhysicsEvent(physics::trigger_event* evnt)
     {
         log::debug("received trigger event {}", evnt->manifold.isColliding);
+    }
+
+    void OnRayCollision(physics::ray_collision_event* evnt)
+    {
+        position p = evnt->event_data.position;
+        audioSphereLeft.write_component(p);
+        log::debug("Position: {}",p);
     }
 
     void setupPhysicsCDUnitTest(rendering::model_handle cubeH, rendering::material_handle wireframeH)

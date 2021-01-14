@@ -414,6 +414,7 @@
     <ClInclude Include="common\managed_resource.hpp" />
     <ClInclude Include="async\spinlock.hpp" />
     <ClInclude Include="async\rw_spinlock.hpp" />
+    <ClInclude Include="math\screen_to_world.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\ecsregistry.cpp">

@@ -6,24 +6,28 @@
 #include <physics/components/rigidbody.hpp>
 #include <physics/mesh_splitter_utils/mesh_splitter.hpp>
 
+#include "systems/ray_cast_system.hpp"
+
 namespace legion::physics
 {
     class PhysicsModule : public Module
     {
     public:
 
-        virtual void setup() override
+        void setup() override
         {
             addProcessChain("Physics");
             reportSystem<PhysicsSystem>();
+            reportSystem<RayCastSystem>();
             reportComponentType<physicsComponent>();
             reportComponentType<rigidbody>();
             reportComponentType<identifier>();
             reportComponentType<MeshSplitter>();
+            reportComponentType<ray_intersection_marker>();
             //reportComponentType <addRB>();
         }
 
-        virtual priority_type priority() override
+        priority_type priority() override
         {
             return 20;
         }

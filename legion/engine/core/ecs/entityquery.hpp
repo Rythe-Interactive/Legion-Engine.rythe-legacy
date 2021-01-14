@@ -20,7 +20,6 @@ namespace legion::core::ecs
      */
     class EntityQuery
     {
-    private:
         QueryRegistry* m_registry;
         EcsRegistry* m_ecsRegistry;
         id_type m_id;

@@ -3,6 +3,7 @@
 #include <audio/audio.hpp>
 #include <application/application.hpp>
 #include <rendering/rendering.hpp>
+#include <physics/ray_utils/ray_from_screenpos.hpp>
 
 using namespace legion;
 
@@ -19,6 +20,9 @@ struct fullscreen_action : public app::input_action<fullscreen_action> {};
 struct escape_cursor_action : public app::input_action<escape_cursor_action> {};
 struct vsync_action : public app::input_action<vsync_action> {};
 
+struct raycast_action : public app::input_action<raycast_action> {};
+
+
 class SimpleCameraController final : public System<SimpleCameraController>
 {
 public:
@@ -29,7 +33,7 @@ public:
     bool escaped = true;
     float movementspeed = 5.f;
 
-    virtual void setup()
+    void setup() override
     {
 #pragma region Input binding
         app::InputSystem::createBinding<player_move>(app::inputmap::method::W, 1.f);
@@ -46,6 +50,7 @@ public:
         app::InputSystem::createBinding<exit_action>(app::inputmap::method::ESCAPE);
         app::InputSystem::createBinding<fullscreen_action>(app::inputmap::method::F11);
         app::InputSystem::createBinding<escape_cursor_action>(app::inputmap::method::MOUSE_RIGHT);
+        app::InputSystem::createBinding<raycast_action>(app::inputmap::method::MOUSE_LEFT);
         app::InputSystem::createBinding<vsync_action>(app::inputmap::method::F1);
 
         bindToEvent<player_move, &SimpleCameraController::onPlayerMove>();
@@ -58,7 +63,7 @@ public:
         bindToEvent<fullscreen_action, &SimpleCameraController::onFullscreen>();
         bindToEvent<escape_cursor_action, &SimpleCameraController::onEscapeCursor>();
         bindToEvent<vsync_action, &SimpleCameraController::onVSYNCSwap>();
-
+        bindToEvent<raycast_action, &SimpleCameraController::onRayCast>();
 #pragma endregion
 
         app::window window = world.read_component<app::window>();
@@ -85,6 +90,9 @@ public:
         groundplane.add_component<rendering::mesh_renderer>({ groundmat, rendering::ModelCache::create_model("floor", "assets://models/plane.obj"_view) });
         groundplane.add_components<transform>();
         groundplane.write_component(scale(250.f));
+        groundplane.add_component<physics::ray_intersection_marker>();
+
+
         camera = createEntity();
         camera.add_components<transform>(position(0.f, 3.f, 0.f), rotation::lookat(math::vec3::zero, math::vec3::forward), scale());
         camera.add_component<audio::audio_listener>();
@@ -225,6 +233,24 @@ public:
                 src = (rotation)math::conjugate(math::toQuat(math::lookAt(math::vec3(0.f, 0.f, 0.f), fwd, math::cross(right, fwd))));
             });
     }
+
+    void onRayCast(raycast_action* action)
+    {
+
+
+        if(action->pressed())
+        {
+            auto mpos = application::InputSystem::getMousePosition();
+            auto cam = camera.read_component<rendering::camera>();
+            auto wnd = cam.targetWindow.read();
+
+            physics::ray mouseRay = legion::physics::rayFromScreenCoords(
+                mpos,camera.read_component<transform>(),cam.fov,wnd.size());
+
+            physics::RayCastSystem::dispatchRayCast(mouseRay,physics::RayCastSystem::ALL);
+        }
+    }
+
 #pragma endregion
 
 };

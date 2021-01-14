@@ -268,11 +268,20 @@ namespace legion::core::ecs
 
         /**@brief Shortcut to component_handle::read
          */
-        template<typename component_type>
+        template<typename component_type,doesnt_inherit_from<component_type,archetype_base> = 0>
         L_NODISCARD component_type read_component() const
         {
             return get_component_handle<component_type>().read();
         }
+
+        /**@brief Shortcut to component_handle::read
+         */
+        template<typename archetype_type,inherits_from<archetype_type,archetype_base> = 0>
+        L_NODISCARD archetype_type read_component() const
+        {
+            return archetype_type(get_component_handles<archetype_type>());
+        }
+
 
         /**@brief Shortcut to component_handle::write
          */

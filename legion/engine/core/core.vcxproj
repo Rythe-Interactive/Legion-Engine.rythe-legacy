@@ -475,6 +475,7 @@ del ".\xcopyexclude"</Command>
     <ClInclude Include="math\math.hpp" />
     <ClInclude Include="math\geometry.hpp" />
     <ClInclude Include="math\precision.hpp" />
+    <ClInclude Include="math\screen_to_world.hpp" />
     <ClInclude Include="math\trigonometry.hpp" />
     <ClInclude Include="platform\platform.hpp" />
     <ClInclude Include="scenemanagement\scene.hpp" />

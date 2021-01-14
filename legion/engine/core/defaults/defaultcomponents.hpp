@@ -64,25 +64,25 @@ namespace legion::core
             return *this;
         }
 
-        L_NODISCARD math::vec3 right()
+        L_NODISCARD math::vec3 right() const
         {
             OPTICK_EVENT();
             return math::toMat3(*this) * math::vec3::right;
         }
 
-        L_NODISCARD math::vec3 up()
+        L_NODISCARD math::vec3 up() const
         {
             OPTICK_EVENT();
             return math::toMat3(*this) * math::vec3::up;
         }
 
-        L_NODISCARD math::vec3 forward()
+        L_NODISCARD math::vec3 forward() const
         {
             OPTICK_EVENT();
             return math::toMat3(*this) * math::vec3::forward;
         }
 
-        L_NODISCARD math::mat3 matrix()
+        L_NODISCARD math::mat3 matrix() const
         {
             OPTICK_EVENT();
             return math::toMat3(*this);

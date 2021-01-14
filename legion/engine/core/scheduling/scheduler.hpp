@@ -42,9 +42,9 @@ namespace legion::core::scheduling
             runnable(const delegate<void(void*)>& func, void* param) : func(func), param(param) {}
 
             delegate<void(void*)> func;
-            void* param;
+            void * param;
 
-            void operator()(void)
+            void operator()()
             {
                 if (func != nullptr)
                     func(param);

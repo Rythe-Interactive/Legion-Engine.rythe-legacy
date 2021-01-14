@@ -37,6 +37,8 @@ namespace legion::application
 
         const std::string& title() const;
 
+        float aspect() const { return static_cast<float>(m_size.x)/static_cast<float>(m_size.y); }
+
     private:
         std::string m_title;
         bool m_isFullscreen;
