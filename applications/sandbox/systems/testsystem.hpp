@@ -86,6 +86,12 @@ struct activateFrictionTest : public app::input_action<activateFrictionTest> {};
 //struct extendedPhysicsContinue : public app::input_action<extendedPhysicsContinue> {};
 //struct nextPhysicsTimeStepContinue : public app::input_action<nextPhysicsTimeStepContinue> {};
 
+const int N = 10;
+const int size = (N + 2) * (N + 2);
+
+#define IX(i,j) ((i)+(N+2)*(j))
+#define SWAP(x0,x) {float *tmp=x0;x0=x;x=tmp;}
+
 using namespace legion::core::filesystem::literals;
 
 class TestSystem final : public System<TestSystem>
@@ -98,6 +104,16 @@ public:
     rendering::material_handle pbrH;
     rendering::material_handle copperH;
     rendering::material_handle aluminumH;
+    float visc = 0.5f;
+    float diffuseRate = 0.000001f;
+
+    float u[size]; //x velocity
+    float v[size]; // y velocity
+    float u_prev[size]; // previous x velocity
+    float v_prev[size]; // previous y velocity
+
+    float dens[size]; // density value
+    float dens_prev[size]; // previous density value;
 
 
     virtual void setup()
@@ -295,118 +311,20 @@ public:
             ent.add_component<sah>({});
             ent.add_components<transform>(position(0, 3, -6.5f), rotation(), scale());
         }
-
+        dens_prev[50] = 1.0f;
+        log::debug(dens[50]);
+        vel_step(u, v, u_prev, v_prev, visc, 0.02f);
+        dens_step(dens, dens_prev, u, v, diffuseRate, 0.02f);
+        log::debug(dens[50]);
 #pragma endregion
         createProcess<&TestSystem::update>("Update");
         createProcess<&TestSystem::drawInterval>("Update");
         createProcess<&TestSystem::physicsUpdate>("Physics", 0.02f);
     }
 
-#pragma region input stuff
-    void onLightSwitch(light_switch* action)
-    {
-        static bool on = true;
-
-        static auto decalH = gfx::MaterialCache::get_material("decal");
-
-        if (!action->value)
-        {
-            //auto light = sun.read_component<rendering::light>();
-            if (on)
-            {
-                /*light.set_intensity(0.f);
-                sun.write_component(light);*/
-
-                if (sun)
-                    sun.destroy();
-
-                decalH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
-                pbrH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
-                copperH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
-                aluminumH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
-               /* ironH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
-                slateH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
-                rockH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
-                rock2H.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
-                fabricH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
-                bogH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
-                paintH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
-                skyboxH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));*/
-            }
-            else
-            {
-                if (!sun)
-                {
-                    sun = createEntity();
-                    sun.add_components<rendering::mesh_renderable>(
-                        mesh_filter(MeshCache::get_handle("directional light")),
-                        rendering::mesh_renderer(rendering::MaterialCache::get_material("directional light")));
-
-                    sun.add_component<rendering::light>(rendering::light::directional(math::color(1, 1, 0.8f), 10.f));
-                    sun.add_components<transform>(position(10, 10, 10), rotation::lookat(math::vec3(1, 1, 1), math::vec3::zero), scale());
-                }
-
-                decalH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
-                pbrH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
-                copperH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
-                aluminumH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
-               /* ironH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
-                slateH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
-                rockH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
-                rock2H.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
-                fabricH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
-                bogH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
-                paintH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
-                skyboxH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));*/
-            }
-            on = !on;
-        }
-    }
-
-    void onTonemapSwitch(tonemap_switch* action)
-    {
-        static gfx::tonemapping_type algorithm = gfx::tonemapping_type::aces;
-
-        if (!action->value)
-        {
-            switch (algorithm)
-            {
-            case gfx::tonemapping_type::aces:
-                gfx::Tonemapping::setAlgorithm(gfx::tonemapping_type::reinhard);
-                algorithm = gfx::tonemapping_type::reinhard;
-                log::debug("Reinhard tonemapping");
-                break;
-            case gfx::tonemapping_type::reinhard:
-                gfx::Tonemapping::setAlgorithm(gfx::tonemapping_type::reinhard_jodie);
-                algorithm = gfx::tonemapping_type::reinhard_jodie;
-                log::debug("Reinhard Jodie tonemapping");
-                break;
-            case gfx::tonemapping_type::reinhard_jodie:
-                gfx::Tonemapping::setAlgorithm(gfx::tonemapping_type::legion);
-                algorithm = gfx::tonemapping_type::legion;
-                log::debug("Legion tonemapping");
-                break;
-            case gfx::tonemapping_type::legion:
-                gfx::Tonemapping::setAlgorithm(gfx::tonemapping_type::unreal3);
-                algorithm = gfx::tonemapping_type::unreal3;
-                log::debug("Unreal3 tonemapping");
-                break;
-            case gfx::tonemapping_type::unreal3:
-                gfx::Tonemapping::setAlgorithm(gfx::tonemapping_type::aces);
-                algorithm = gfx::tonemapping_type::aces;
-                log::debug("ACES tonemapping");
-                break;
-            default:
-                gfx::Tonemapping::setAlgorithm(gfx::tonemapping_type::legion);
-                algorithm = gfx::tonemapping_type::legion;
-                log::debug("Legion tonemapping");
-                break;
-            }
-        }
-    }
-#pragma endregion
     void update(time::span deltaTime)
     {
+        
         /*static auto sahQuery = createQuery<sah, rotation, position>();
 
         for (auto entity : sahQuery)
@@ -421,21 +339,24 @@ public:
             debug::drawLine(pos, pos + rot.forward(), math::colors::magenta);
         }*/
 
-      /*  if (rotate && !physics::PhysicsSystem::IsPaused)
-        {
-            for (auto entity : physicsFrictionTestRotators)
-            {
-                auto rot = entity.read_component<rotation>();
+        /*  if (rotate && !physics::PhysicsSystem::IsPaused)
+          {
+              for (auto entity : physicsFrictionTestRotators)
+              {
+                  auto rot = entity.read_component<rotation>();
 
-                rot *= math::angleAxis(math::deg2rad(-20.f * deltaTime), math::vec3(0, 0, 1));
+                  rot *= math::angleAxis(math::deg2rad(-20.f * deltaTime), math::vec3(0, 0, 1));
 
-                entity.write_component(rot);
-            }
-        }*/
+                  entity.write_component(rot);
+              }
+          }*/
+
+
     }
-
     void physicsUpdate(time::span deltaTime)
     {
+        //log::debug("Physics delta : {}", deltaTime.seconds());
+
         //static ecs::EntityQuery halfEdgeQuery = createQuery<physics::MeshSplitter>();
 
         //halfEdgeQuery.queryEntities();
@@ -569,6 +490,121 @@ public:
         //    }
 
         //}
+
+
+    }
+
+    void set_bnd(int b, float* x)
+    {
+        int i;
+        for (i = 1; i <= N; i++) {
+            x[IX(0, i)] = b == 1 ? -x[IX(1, i)] : x[IX(1, i)];
+            x[IX(N + 1, i)] = b == 1 ? -x[IX(N, i)] : x[IX(N, i)];
+            x[IX(i, 0)] = b == 2 ? -x[IX(i, 1)] : x[IX(i, 1)];
+            x[IX(i, N + 1)] = b == 2 ? -x[IX(i, N)] : x[IX(i, N)];
+        }
+        x[IX(0, 0)] = 0.5 * (x[IX(1, 0)] + x[IX(0, 1)]);
+        x[IX(0, N + 1)] = 0.5 * (x[IX(1, N + 1)] + x[IX(0, N)]);
+        x[IX(N + 1, 0)] = 0.5 * (x[IX(N, 0)] + x[IX(N + 1, 1)]);
+        x[IX(N + 1, N + 1)] = 0.5 * (x[IX(N, N + 1)] + x[IX(N + 1, N)]);
+    }
+
+    void add_source(float* x, float* s, float dt)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            x[i] += s[i] * dt;
+        }
+    }
+
+    void diffuse(int b, float* x, float* x0, float diff, float dt)
+    {
+        float a = dt * diff * N * N;
+
+        for (int k = 0; k < 20; k++)
+        {
+            for (int i = 1; i <= N; i++)
+            {
+                for (int j = 1; j <= N; j++)
+                {
+                    x[IX(i, j)] = (x0[IX(i, j)] + a * (x[IX(i - 1, j)] + x[IX(i + 1, j)] +
+                        x[IX(i, j - 1)] + x[IX(i, j + 1)])) / (1 + 4 * a);
+                }
+            }
+            set_bnd(b, x);
+        }
+    }
+
+    void advect(int b, float* d, float* d0, float* u, float* v, float dt)
+    {
+        int i, j, i0, j0, i1, j1;
+        float x, y, s0, t0, s1, t1, dt0;
+        dt0 = dt * N;
+
+        for (i = 1; i <= N; i++) {
+            for (j = 1; j <= N; j++) {
+                x = i - dt0 * u[IX(i, j)]; y = j - dt0 * v[IX(i, j)];
+                if (x < 0.5) x = 0.5; if (x > N + 0.5) x = N + 0.5; i0 = (int)x; i1 = i0 + 1;
+                if (y < 0.5) y = 0.5; if (y > N + 0.5) y = N + 0.5; j0 = (int)y; j1 = j0 + 1;
+                s1 = x - i0; s0 = 1 - s1;
+                t1 = y - j0; t0 = 1 - t1;
+                d[IX(i, j)] = s0 * (t0 * d0[IX(i0, j0)] + t1 * d0[IX(i0, j1)]) +
+                    s1 * (t0 * d0[IX(i1, j0)] + t1 * d0[IX(i1, j1)]);
+            }
+        }
+        set_bnd(b, d);
+
+    }
+
+    void project(float* u, float* v, float* p, float* div)
+    {
+        int i, j, k;
+        float h;
+        h = 1.0 / N;
+        for (i = 1; i <= N; i++) {
+            for (j = 1; j <= N; j++) {
+                div[IX(i, j)] = -0.5 * h * (u[IX(i + 1, j)] - u[IX(i - 1, j)] +
+                    v[IX(i, j + 1)] - v[IX(i, j - 1)]);
+                p[IX(i, j)] = 0;
+            }
+        }
+        set_bnd(0, div); set_bnd(0, p);
+        for (k = 0; k < 20; k++) {
+            for (i = 1; i <= N; i++) {
+                for (j = 1; j <= N; j++) {
+                    p[IX(i, j)] = (div[IX(i, j)] + p[IX(i - 1, j)] + p[IX(i + 1, j)] +
+                        p[IX(i, j - 1)] + p[IX(i, j + 1)]) / 4;
+                }
+            }
+            set_bnd(0, p);
+        }
+        for (i = 1; i <= N; i++) {
+            for (j = 1; j <= N; j++) {
+                u[IX(i, j)] -= 0.5 * (p[IX(i + 1, j)] - p[IX(i - 1, j)]) / h;
+                v[IX(i, j)] -= 0.5 * (p[IX(i, j + 1)] - p[IX(i, j - 1)]) / h;
+            }
+        }
+        set_bnd(1, u); set_bnd(2, v);
+    }
+
+    void dens_step(float* x, float* x0, float* u, float* v, float diff, float dt)
+    {
+        add_source(x, x0, dt);
+        SWAP(x0, x);
+        diffuse(0, x, x0, diff, dt);
+        SWAP(x0, x);
+        advect(0, x, x0, u, v, dt);
+    }
+
+    void vel_step(float* u, float* v, float* u0, float* v0, float visc, float dt)
+    {
+        add_source(u, u0, dt); add_source(v, v0, dt);
+        SWAP(u0, u); diffuse(1, u, u0, visc, dt);
+        SWAP(v0, v); diffuse(2, v, v0, visc, dt);
+        project(u, v, u0, v0);
+        SWAP(u0, u); SWAP(v0, v);
+        advect(1, u, u0, u0, v0, dt); advect(2, v, v0, u0, v0, dt);
+        project(u, v, u0, v0);
     }
 
     void differentInterval(time::span deltaTime)
@@ -591,7 +627,6 @@ public:
             //std::cout << "This is a fixed interval!! " << (frameCount / accumulated) << "fps " << deltaTime.milliseconds() << "ms" << std::endl;
         }
     }
-
     void drawInterval(time::span deltaTime)
     {
         static auto physicsQuery = createQuery< physics::physicsComponent>();
@@ -760,4 +795,107 @@ public:
         debug::drawLine(p1p2, p3p4, math::colors::green, 5.0f);
 
     }
+#pragma region input stuff
+    void onLightSwitch(light_switch* action)
+    {
+        static bool on = true;
+
+        static auto decalH = gfx::MaterialCache::get_material("decal");
+
+        if (!action->value)
+        {
+            //auto light = sun.read_component<rendering::light>();
+            if (on)
+            {
+                /*light.set_intensity(0.f);
+                sun.write_component(light);*/
+
+                if (sun)
+                    sun.destroy();
+
+                decalH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
+                pbrH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
+                copperH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
+                aluminumH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
+                /* ironH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
+                 slateH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
+                 rockH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
+                 rock2H.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
+                 fabricH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
+                 bogH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
+                 paintH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));
+                 skyboxH.set_param("skycolor", math::color(0.0001f, 0.0005f, 0.0025f));*/
+            }
+            else
+            {
+                if (!sun)
+                {
+                    sun = createEntity();
+                    sun.add_components<rendering::mesh_renderable>(
+                        mesh_filter(MeshCache::get_handle("directional light")),
+                        rendering::mesh_renderer(rendering::MaterialCache::get_material("directional light")));
+
+                    sun.add_component<rendering::light>(rendering::light::directional(math::color(1, 1, 0.8f), 10.f));
+                    sun.add_components<transform>(position(10, 10, 10), rotation::lookat(math::vec3(1, 1, 1), math::vec3::zero), scale());
+                }
+
+                decalH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
+                pbrH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
+                copperH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
+                aluminumH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
+                /* ironH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
+                 slateH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
+                 rockH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
+                 rock2H.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
+                 fabricH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
+                 bogH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
+                 paintH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
+                 skyboxH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));*/
+            }
+            on = !on;
+        }
+    }
+
+    void onTonemapSwitch(tonemap_switch* action)
+    {
+        static gfx::tonemapping_type algorithm = gfx::tonemapping_type::aces;
+
+        if (!action->value)
+        {
+            switch (algorithm)
+            {
+            case gfx::tonemapping_type::aces:
+                gfx::Tonemapping::setAlgorithm(gfx::tonemapping_type::reinhard);
+                algorithm = gfx::tonemapping_type::reinhard;
+                log::debug("Reinhard tonemapping");
+                break;
+            case gfx::tonemapping_type::reinhard:
+                gfx::Tonemapping::setAlgorithm(gfx::tonemapping_type::reinhard_jodie);
+                algorithm = gfx::tonemapping_type::reinhard_jodie;
+                log::debug("Reinhard Jodie tonemapping");
+                break;
+            case gfx::tonemapping_type::reinhard_jodie:
+                gfx::Tonemapping::setAlgorithm(gfx::tonemapping_type::legion);
+                algorithm = gfx::tonemapping_type::legion;
+                log::debug("Legion tonemapping");
+                break;
+            case gfx::tonemapping_type::legion:
+                gfx::Tonemapping::setAlgorithm(gfx::tonemapping_type::unreal3);
+                algorithm = gfx::tonemapping_type::unreal3;
+                log::debug("Unreal3 tonemapping");
+                break;
+            case gfx::tonemapping_type::unreal3:
+                gfx::Tonemapping::setAlgorithm(gfx::tonemapping_type::aces);
+                algorithm = gfx::tonemapping_type::aces;
+                log::debug("ACES tonemapping");
+                break;
+            default:
+                gfx::Tonemapping::setAlgorithm(gfx::tonemapping_type::legion);
+                algorithm = gfx::tonemapping_type::legion;
+                log::debug("Legion tonemapping");
+                break;
+            }
+        }
+    }
+#pragma endregion
 };
