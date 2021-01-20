@@ -90,6 +90,7 @@ namespace legion::rendering
     {
         app::gl_id textureId = invalid_id;
 
+        std::string path;
         texture_components channels;
         texture_type type;
         texture_format format;

@@ -10,6 +10,7 @@
 #include <cereal/archives/portable_binary.hpp>
 #include <core/ecs/component_handle.hpp>
 
+#include <core/filesystem/assetimporter.hpp>
 
 namespace legion::core
 {
@@ -182,9 +183,34 @@ namespace legion::core
     struct mesh_filter : public mesh_handle
     {
         mesh_filter() = default;
-        explicit mesh_filter(const mesh_handle& src) { id = src.id; };
+        explicit mesh_filter(const mesh_handle& src) : mesh_handle(src) {}
 
         bool operator==(const mesh_filter& other) const { return id == other.id; }
+
+        template<class Archive>
+        void save(Archive& oa)
+        {
+            if(id != invalid_id)
+                oa(id, cereal::make_nvp("Filepath", get().second.filePath));
+            else
+            {
+                log::error("Deserialized Mesh was missing!");
+                std::string missing = "engine://resources/invalid/missing_mesh.obj";
+                oa(id,cereal::make_nvp("Filepath",missing));
+            }
+        }
+
+        template<class Archive>
+        void load(Archive& oa)
+        {
+            std::string filepath;
+            oa(id, cereal::make_nvp("Filepath", filepath));
+
+            auto copy = default_mesh_settings;
+            copy.contextFolder = fs::view(filepath).parent();
+            id = MeshCache::create_mesh(filepath, fs::view(filepath),copy).id;
+        }
+
     };
 }
 

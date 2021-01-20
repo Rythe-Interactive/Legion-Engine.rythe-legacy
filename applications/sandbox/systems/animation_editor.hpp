@@ -134,7 +134,7 @@ namespace ext
                 vertexColorMaterial = rendering::MaterialCache::create_material("color shader - Animator", "assets://shaders/texture.shs"_view);
             }
 
-            // create a new entity that we can attach the animation to 
+            // create a new entity that we can attach the animation to
             m_cubeEntity = createEntity();
             //TODO(algo-ryth-mix): In the future this boilerplate code should
             //TODO(cont.)          go in favor of a raycasting system.

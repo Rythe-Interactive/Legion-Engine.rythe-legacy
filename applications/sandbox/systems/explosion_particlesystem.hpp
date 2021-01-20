@@ -58,7 +58,7 @@ public:
     }
     /**
      * @brief The setup function used to initialize all the particles.
-	 */
+     */
     void setup(ecs::component_handle<rendering::particle_emitter> emitter_handle) const override
     {
         auto vertPositions = m_explosionModel.get_mesh().get().second.vertices;
@@ -74,7 +74,7 @@ public:
         {
             #pragma region Create particle
             //Checks the emitter if it has a recycled particle to use, if not it creates a new one.
-            ecs::component_handle<rendering::particle> particleComponent = checkToRecycle(emitter_handle);
+            ecs::component_handle<particle> particleComponent = checkToRecycle(emitter);
 
             auto ent = particleComponent.entity;
             //Checks if the entity has a transform, if not it adds one.
@@ -96,7 +96,7 @@ public:
             #pragma region Set directions
             //Calculates position offset from center to create a direction for the velocity.
             math::vec3 pointPos = emitterPos + vert_position;
-            math::vec3 pointDirection = math::normalize(pointPos - emitterPos);
+            math::vec3 pointDirection = normalize(pointPos - emitterPos);
             #pragma endregion
             #pragma region Set parameter values
             //Read particle component to set its lifetime and its velocity.
@@ -111,7 +111,10 @@ public:
     /**
      * @brief The update function that loops through all particles to update their positions, scale and color.
      */
-    void update(std::vector<ecs::entity_handle> particle_list, ecs::component_handle<rendering::particle_emitter> particle_emitter, time::span delta_time) const override
+    void update(
+        std::vector<ecs::entity_handle>& particle_list,
+        ecs::component_handle<particle_emitter> particle_emitter,
+        time::span delta_time) const override
     {
         //Read the scale of the emitter.
         auto scaleOfEmitter = particle_emitter.entity.get_component_handle<scale>().read();
@@ -134,7 +137,7 @@ public:
                 if (particle.lifeTime >= m_maxLifeTime* scaleOfEmitter.r)
                 {
                     #pragma region Check if still alive
-                    cleanUpParticle(particleEnt, particle_emitter);
+                    cleanUpParticle(particleEnt, emitter);
                     #pragma endregion 
                 }
                 else
@@ -160,7 +163,7 @@ public:
                         //Update color
                         auto meshRenderer = particleEnt.get_component_handle<rendering::mesh_renderer>().read();
                         rendering::material_handle matHandle = meshRenderer.material;
-                        math::color rgba = math::lerp(m_beginColor, m_endColor, (particle.lifeTime / m_maxLifeTime));
+                        math::color rgba = lerp(m_beginColor, m_endColor, (particle.lifeTime / m_maxLifeTime));
                         matHandle.set_param("color", rgba);
                     }
 

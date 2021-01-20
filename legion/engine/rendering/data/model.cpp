@@ -174,7 +174,7 @@ namespace legion::rendering
             // Copy the sub-mesh data.
             auto [lock, data] = handle.get();
             async::readonly_guard guard(lock);
-            meshName = data.fileName;
+            meshName = data.filePath;
 
             for (auto& submeshData : data.submeshes)
                 model.submeshes.push_back(submeshData);
@@ -222,7 +222,7 @@ namespace legion::rendering
             // Copy the sub-mesh data.
             auto [lock, data] = handle.get();
             async::readonly_guard guard(lock);
-            meshName = data.fileName;
+            meshName = data.filePath;
 
             for (auto& submeshData : data.submeshes)
                 model.submeshes.push_back(submeshData);
@@ -270,7 +270,7 @@ namespace legion::rendering
             // Copy the sub-mesh data.
             auto [lock, data] = handle.get();
             async::readonly_guard guard(lock);
-            meshName = data.fileName;
+            meshName = data.filePath;
 
             for (auto& submeshData : data.submeshes)
                 model.submeshes.push_back(submeshData);
@@ -316,7 +316,7 @@ namespace legion::rendering
             // Copy the sub-mesh data.
             auto [lock, data] = handle.get();
             async::readonly_guard guard(lock);
-            meshName = data.fileName;
+            meshName = data.filePath;
 
             for (auto& submeshData : data.submeshes)
                 model.submeshes.push_back(submeshData);
@@ -363,7 +363,7 @@ namespace legion::rendering
             // Copy the sub-mesh data.
             auto [lock, data] = mesh.get();
             async::readonly_guard guard(lock);
-            meshName = data.fileName;
+            meshName = data.filePath;
 
             for (auto& submeshData : data.submeshes)
                 model.submeshes.push_back(submeshData);
@@ -410,7 +410,7 @@ namespace legion::rendering
             // Copy the sub-mesh data.
             auto [lock, data] = mesh.get();
             async::readonly_guard guard(lock);
-            meshName = data.fileName;
+            meshName = data.filePath;
 
             for (auto& submeshData : data.submeshes)
                 model.submeshes.push_back(submeshData);
@@ -427,7 +427,7 @@ namespace legion::rendering
         {
             auto [lock, rawmesh] = mesh.get();
             async::mixed_multiguard guard(m_modelNameLock, async::lock_state_read, lock, async::lock_state_write);
-            m_modelNames[id] = rawmesh.fileName;
+            m_modelNames[id] = rawmesh.filePath;
         }
 
         log::trace("Created model {} with mesh: {}", id, meshName);

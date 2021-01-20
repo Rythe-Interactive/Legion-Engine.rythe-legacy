@@ -69,14 +69,41 @@ public:
             app::context_guard guard(window);
             setupCameraEntity();
         }
+
+        createProcess<&SimpleCameraController::onGetCamera>("Update", 0.5f);
+    }
+
+    void onGetCamera(time::span)
+    {
+        static auto query = createQuery<rendering::camera>();
+        query.queryEntities();
+        if (query.size())
+        {
+            camera = query[0];
+        }
     }
 
     void setupCameraEntity()
     {
+        material_handle pbrH = MaterialCache::get_material("pbr");
+        if (pbrH == invalid_material_handle)
+        {
+            const auto pbrShader = ShaderCache::create_shader("pbr", "assets://shaders/pbr.shs"_view);
+            pbrH = MaterialCache::create_material("pbr", pbrShader);
+            pbrH.set_param(SV_ALBEDO, TextureCache::create_texture("engine://resources/default/albedo"_view));
+            pbrH.set_param(SV_NORMALHEIGHT, TextureCache::create_texture("engine://resources/default/normalHeight"_view));
+            pbrH.set_param(SV_MRDAO, TextureCache::create_texture("engine://resources/default/MRDAo"_view));
+            pbrH.set_param(SV_EMISSIVE, TextureCache::create_texture("engine://resources/default/emissive"_view));
+            pbrH.set_param(SV_HEIGHTSCALE, 1.f);
+            pbrH.set_param("discardExcess", false);
+            pbrH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
+        }
+
         skybox = createEntity();
         auto skyboxMat = rendering::MaterialCache::create_material("skybox", "assets://shaders/skybox.shs"_view);
         skyboxMat.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
-        skybox.add_components<rendering::mesh_renderable>(mesh_filter(rendering::ModelCache::get_mesh("cube")), rendering::mesh_renderer(skyboxMat));
+        skybox.add_components<mesh_renderer>(
+            { skyboxMat, ModelCache::create_model("cube","assets://models/cube.obj"_view) });
         skybox.add_components<transform>();
 
         groundplane = createEntity();
@@ -102,7 +129,7 @@ public:
         ent.set_parent(camera);
 
         auto ent2 = createEntity();
-        ent2.add_component<rendering::mesh_renderer>({ rendering::MaterialCache::get_material("pbr"), rendering::ModelCache::get_handle("cube") });
+        ent2.add_component<mesh_renderer>({ rendering::MaterialCache::get_material("pbr"), rendering::ModelCache::get_handle("cube") });
         ent2.add_components<transform>(position(-7.f, 2.f, 10.f), rotation::lookat(math::vec3::zero, math::vec3::forward), scale());
         ent2.set_parent(ent);
     }
@@ -162,8 +189,8 @@ public:
 
         auto posH = camera.get_component_handle<position>();
         auto rot = camera.get_component_handle<rotation>().read();
-        math::vec3 move = math::toMat3(rot) * math::vec3::forward;
-        move = math::normalize(move * math::vec3(1, 0, 1)) * action->value * action->input_delta * movementspeed;
+        math::vec3 move = toMat3(rot) * math::vec3::forward;
+        move = normalize(move * math::vec3(1, 0, 1)) * action->value * action->input_delta * movementspeed;
         posH.fetch_add(move);
     }
 
@@ -174,8 +201,8 @@ public:
 
         auto posH = camera.get_component_handle<position>();
         auto rot = camera.get_component_handle<rotation>().read();
-        math::vec3 move = math::toMat3(rot) * math::vec3::right;
-        move = math::normalize(move * math::vec3(1, 0, 1)) * action->value * action->input_delta * movementspeed;
+        math::vec3 move = toMat3(rot) * math::vec3::right;
+        move = normalize(move * math::vec3(1, 0, 1)) * action->value * action->input_delta * movementspeed;
         posH.fetch_add(move);
     }
 
@@ -198,7 +225,7 @@ public:
         auto rotH = camera.get_component_handle<rotation>();
         rotH.read_modify_write([&](rotation& src)
             {
-                src = math::angleAxis(action->value * action->input_delta * 500.f, math::vec3::up) *  src;
+                src = angleAxis(action->value * action->input_delta * 500.f, math::vec3::up) * src;
             });
     }
 
@@ -210,11 +237,11 @@ public:
         auto rotH = camera.get_component_handle<rotation>();
         rotH.read_modify_write([&](rotation& src)
             {
-                math::mat3 rot = math::toMat3(src);
+                math::mat3 rot = toMat3(src);
                 math::vec3 right = rot * math::vec3::right;
-                math::vec3 fwd = math::normalize(math::cross(right, math::vec3::up));
+                math::vec3 fwd = normalize(cross(right, math::vec3::up));
                 math::vec3 up = rot * math::vec3::up;
-                float angle = math::orientedAngle(fwd, up, right);
+                float angle = orientedAngle(fwd, up, right);
 
                 angle += action->value * action->input_delta * 500.f;
 
@@ -223,9 +250,9 @@ public:
                 if (angle < -(math::pi<float>() - 0.001f))
                     angle = -(math::pi<float>() - 0.001f);
 
-                up = math::mat3(math::axisAngleMatrix(right, angle)) * fwd;
-                fwd = math::cross(right, up);
-                src = (rotation)math::conjugate(math::toQuat(math::lookAt(math::vec3::zero, fwd, up)));
+                up = math::mat3(axisAngleMatrix(right, angle)) * fwd;
+                fwd = cross(right, up);
+                src = (rotation)conjugate(toQuat(lookAt(math::vec3::zero, fwd, up)));
             });
     }
 #pragma endregion

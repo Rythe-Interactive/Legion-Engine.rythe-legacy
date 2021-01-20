@@ -1,5 +1,5 @@
 #pragma once
-#include<core/core.hpp>
+#include <core/core.hpp>
 #include <core/math/math.hpp>
 #include <core/logging/logging.hpp>
 #include <application/application.hpp>
@@ -7,7 +7,7 @@
 using namespace legion;
 using namespace rendering;
 //system to test the point cloud generation system and the point cloud component
-class pointcloudtestsystem2 final : public legion::core::System<pointcloudtestsystem2>
+class pointcloudtestsystem2 final : public core::System<pointcloudtestsystem2>
 {
 public:
     ecs::entity_handle player;
@@ -18,14 +18,14 @@ public:
     struct player_look_x : public app::input_axis<player_look_x> {};
     struct player_look_y : public app::input_axis<player_look_y> {};
 
-    virtual void setup() override
+    void setup() override
     {
         //create particle system material
         material_handle particleMaterial;
         material_handle billboardMat;
-        rendering::material_handle rockH;
+        material_handle rockH;
         //rendering::texture m_normalMap;
-        rendering::texture_handle m_normalMap;
+        texture_handle m_normalMap;
         image_handle image;
         model_handle modelHandle;
         app::window window = m_ecs->world.get_component_handle<app::window>().read();
@@ -43,13 +43,13 @@ public:
             ModelCache::create_model("room", "assets://models/fireplace_room.obj"_view);
 
 
-            auto colorshader = rendering::ShaderCache::create_shader("color", "assets://shaders/color.shs"_view);
-            auto billBoardsh = rendering::ShaderCache::create_shader("billboard", "assets://shaders/pointShader.shs"_view);
-            billboardMat = rendering::MaterialCache::create_material("billboardMat", billBoardsh);
+            auto colorshader = ShaderCache::create_shader("color", "assets://shaders/color.shs"_view);
+            auto billBoardsh = ShaderCache::create_shader("billboard", "assets://shaders/pointShader.shs"_view);
+            billboardMat = MaterialCache::create_material("billboardMat", billBoardsh);
             billboardMat.set_param("fixedSize", true);
-            billboardMat.set_param("_texture", rendering::TextureCache::create_texture("assets://textures/sphere.png"_view));
+            billboardMat.set_param("_texture", TextureCache::create_texture("assets://textures/sphere.png"_view));
 
-            particleMaterial = rendering::MaterialCache::create_material("directional light", colorshader);
+            particleMaterial = MaterialCache::create_material("directional light", colorshader);
             particleMaterial.set_param("color", math::colors::blue);
 
             image = ImageCache::create_image("normal image", "assets://textures/nullHeight.png"_view);
