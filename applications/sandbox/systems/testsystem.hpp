@@ -82,11 +82,12 @@ struct activate_CRtest2 : public app::input_action<activate_CRtest2> {};
 struct activate_CRtest3 : public app::input_action<activate_CRtest3> {};
 
 struct activateFrictionTest : public app::input_action<activateFrictionTest> {};
+struct addDens : public app::input_action<addDens> {};
 //
 //struct extendedPhysicsContinue : public app::input_action<extendedPhysicsContinue> {};
 //struct nextPhysicsTimeStepContinue : public app::input_action<nextPhysicsTimeStepContinue> {};
 
-const int N = 10;
+const int N = 100;
 const int size = (N + 2) * (N + 2);
 
 #define IX(i,j) ((i)+(N+2)*(j))
@@ -99,13 +100,45 @@ class TestSystem final : public System<TestSystem>
 public:
     ecs::entity_handle audioSphereLeft;
     ecs::entity_handle audioSphereRight;
-
     ecs::entity_handle sun;
+
+    rendering::model_handle directionalLightH;
+    rendering::model_handle spotLightH;
+    rendering::model_handle pointLightH;
+    rendering::model_handle cubeH;
+    rendering::model_handle sphereH;
+    rendering::model_handle suzanneH;
+    rendering::model_handle gnomeH;
+    rendering::model_handle uvsphereH;
+    rendering::model_handle axesH;
+    rendering::model_handle submeshtestH;
+    rendering::model_handle planeH;
+    rendering::model_handle floorH;
+    rendering::model_handle magneticLowH;
+    rendering::model_handle cylinderH;
+    rendering::model_handle billboardH;
+
+    rendering::material_handle wireframeH;
+    rendering::material_handle vertexColorH;
+    rendering::material_handle uvH;
+    rendering::material_handle textureH;
+    rendering::material_handle texture2H;
+    rendering::material_handle directionalLightMH;
+    rendering::material_handle spotLightMH;
+    rendering::material_handle pointLightMH;
+    rendering::material_handle gizmoMH;
+    rendering::material_handle normalH;
+    rendering::material_handle billboardMH;
+    rendering::material_handle particleMH;
+    rendering::material_handle fixedSizeBillboardMH;
+    rendering::material_handle fixedSizeParticleMH;
     rendering::material_handle pbrH;
     rendering::material_handle copperH;
     rendering::material_handle aluminumH;
+    rendering::material_handle colorH;
+
     float visc = 0.5f;
-    float diffuseRate = 0.000001f;
+    float diffuseRate = 0.001f;
 
     float u[size]; //x velocity
     float v[size]; // y velocity
@@ -115,56 +148,32 @@ public:
     float dens[size]; // density value
     float dens_prev[size]; // previous density value;
 
+    std::vector<math::color> colorData;
+    rendering::buffer colorBuffer;
 
+    std::vector<ecs::entity_handle> particles;
     virtual void setup()
     {
+
         physics::PrimitiveMesh::SetECSRegistry(m_ecs);
 
 #pragma region Input binding
 
         app::InputSystem::createBinding<light_switch>(app::inputmap::method::F);
         app::InputSystem::createBinding<tonemap_switch>(app::inputmap::method::G);
+        app::InputSystem::createBinding<addDens>(app::inputmap::method::Q);
 
 
         bindToEvent<light_switch, &TestSystem::onLightSwitch>();
         bindToEvent<tonemap_switch, &TestSystem::onTonemapSwitch>();
+        bindToEvent<addDens, &TestSystem::add_density>();
 
 #pragma endregion
 
 #pragma region Model and material loading
         const float additionalLightIntensity = 0.5f;
 
-        rendering::model_handle directionalLightH;
-        rendering::model_handle spotLightH;
-        rendering::model_handle pointLightH;
-        rendering::model_handle cubeH;
-        rendering::model_handle sphereH;
-        rendering::model_handle suzanneH;
-        rendering::model_handle gnomeH;
-        rendering::model_handle uvsphereH;
-        rendering::model_handle axesH;
-        rendering::model_handle submeshtestH;
-        rendering::model_handle planeH;
-        rendering::model_handle floorH;
-        rendering::model_handle magneticLowH;
-        rendering::model_handle cylinderH;
-        rendering::model_handle billboardH;
 
-        rendering::material_handle wireframeH;
-        rendering::material_handle vertexColorH;
-
-        rendering::material_handle uvH;
-        rendering::material_handle textureH;
-        rendering::material_handle texture2H;
-        rendering::material_handle directionalLightMH;
-        rendering::material_handle spotLightMH;
-        rendering::material_handle pointLightMH;
-        rendering::material_handle gizmoMH;
-        rendering::material_handle normalH;
-        rendering::material_handle billboardMH;
-        rendering::material_handle particleMH;
-        rendering::material_handle fixedSizeBillboardMH;
-        rendering::material_handle fixedSizeParticleMH;
 
         app::window window = m_ecs->world.get_component_handle<app::window>().read();
         rendering::material_handle floorMH;
@@ -219,6 +228,9 @@ public:
             aluminumH.set_param("discardExcess", false);
             aluminumH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
 
+            auto colorShader = rendering::ShaderCache::create_shader("color","assets://shaders/color.shs"_view);
+            colorH = rendering::MaterialCache::create_material("fluid", colorShader);
+            colorH.set_param("color", math::color(0.1f, 0.3f, 1.0f));
 
             normalH = rendering::MaterialCache::create_material("normal", "assets://shaders/normal.shs"_view);
             normalH.set_param(SV_NORMALHEIGHT, rendering::TextureCache::create_texture("engine://resources/default/normalHeight"_view));
@@ -264,7 +276,7 @@ public:
         //time::timer clock;
         //time::timer entityClock;
         //time::time_span<time64> entityTime;
-        //for (int i = 0; i < 00; i++)
+        //for (int i = 0; i < 100; i++)
         //{
         //    auto ent = createEntity();
         //    ent.add_components<rendering::mesh_renderable>(mesh_filter(sphereH.get_mesh()), rendering::mesh_renderer(pbrH));
@@ -311,11 +323,26 @@ public:
             ent.add_component<sah>({});
             ent.add_components<transform>(position(0, 3, -6.5f), rotation(), scale());
         }
-        dens_prev[50] = 1.0f;
-        log::debug(dens[50]);
-        vel_step(u, v, u_prev, v_prev, visc, 0.02f);
-        dens_step(dens, dens_prev, u, v, diffuseRate, 0.02f);
-        log::debug(dens[50]);
+
+
+        auto colorShader = rendering::ShaderCache::create_shader("color", "assets://shaders/color.shs"_view);
+        for (int x = 0; x < N+2; x++)
+        {
+            for (int y = 0; y < N+2; y++)
+            {
+                float sizeRatio = 5.0f / (float)(N + 2.0f);
+                auto ent = createEntity();
+
+                //std::string matName = std::string("Particle{}",IX(x,y));
+                //rendering::material_handle color = rendering::MaterialCache::create_material(matName, colorShader);
+                colorH.set_param("color", math::color(0, 0, 0));
+
+                ent.add_components<rendering::mesh_renderable>(mesh_filter(sphereH.get_mesh()), rendering::mesh_renderer(colorH));
+                ent.add_components<transform>(position(x*sizeRatio, y*sizeRatio, 0), rotation(), scale(sizeRatio));
+
+                particles.push_back(ent);
+            }
+        }
 #pragma endregion
         createProcess<&TestSystem::update>("Update");
         createProcess<&TestSystem::drawInterval>("Update");
@@ -324,7 +351,7 @@ public:
 
     void update(time::span deltaTime)
     {
-        
+
         /*static auto sahQuery = createQuery<sah, rotation, position>();
 
         for (auto entity : sahQuery)
@@ -355,6 +382,23 @@ public:
     }
     void physicsUpdate(time::span deltaTime)
     {
+
+        vel_step(u, v, u_prev, v_prev, visc, deltaTime);
+        dens_step(dens, dens_prev, u, v, diffuseRate, deltaTime);
+
+
+        for (int i = 0; i < size; i++)
+        {
+            //auto pos = particles[i].read_component<position>();
+            //pos += math::vec3(u[i], v[i], 0);
+            //particles[i].write_component(pos);
+            colorData[i] = math::color(u[i], v[i], 0);
+            colorBuffer = rendering::buffer(GL_ARRAY_BUFFER, colorData, GL_STREAM_DRAW);
+            auto renderer = particles[i].read_component<rendering::mesh_renderable>();
+            renderer.get_model().overwrite_buffer(colorBuffer, SV_COLOR, true);
+            particles[i].write_component(renderer);
+        }
+
         //log::debug("Physics delta : {}", deltaTime.seconds());
 
         //static ecs::EntityQuery halfEdgeQuery = createQuery<physics::MeshSplitter>();
@@ -492,6 +536,13 @@ public:
         //}
 
 
+    }
+
+    void add_density(addDens* action)
+    {
+        log::debug("Adding Density and Velocity");
+        dens_prev[2000] = 1000000.0f;
+        u_prev[2000] = 5000.f;
     }
 
     void set_bnd(int b, float* x)

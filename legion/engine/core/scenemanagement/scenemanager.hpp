@@ -42,6 +42,7 @@ namespace legion::core::scenemanagement
                         {
                             auto fileName = file.get_filename().decay();
                             log::debug("Added {}",fileName);
+                            fileName = fileName.substr(0,fileName.length()-10);
                             sceneNames.emplace(nameHash(fileName), fileName);
                         }
                     }
