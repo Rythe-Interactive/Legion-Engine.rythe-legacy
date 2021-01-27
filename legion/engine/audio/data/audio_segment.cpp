@@ -8,16 +8,16 @@ namespace legion::audio
     id_type audio_segment::m_lastId = 1;
 
     audio_segment::audio_segment(byte* data, ALuint bufferId, size_type samples, int channels, int sampleRate, int layer, int avg_bitRate) :
-        audioBufferId(bufferId), samples(samples), channels(channels), sampleRate(sampleRate), layer(layer), avg_bitrate_kbps(avg_bitRate)
+        audioBufferId(bufferId), samples(samples), channels(channels), sampleRate(sampleRate), layer(layer), avg_bitrate_kbps(avg_bitRate), m_data(data)
     {
         std::lock_guard guard(m_refsLock);
         m_id = m_lastId++;
         m_refs[m_id]++;
-        this->m_data = data;
     }
 
     audio_segment::audio_segment(const audio_segment& other) :
-        m_data(other.m_data), audioBufferId(other.audioBufferId), samples(other.samples), channels(other.channels), sampleRate(other.sampleRate), layer(other.layer), avg_bitrate_kbps(other.avg_bitrate_kbps), m_id(other.m_id), m_next(other.m_next)
+        audioBufferId(other.audioBufferId), samples(other.samples), channels(other.channels), sampleRate(other.sampleRate),
+        layer(other.layer), avg_bitrate_kbps(other.avg_bitrate_kbps), m_id(other.m_id), m_data(other.m_data), m_next(other.m_next)
     {
         if (m_id)
         {
@@ -27,7 +27,8 @@ namespace legion::audio
     }
 
     audio_segment::audio_segment(audio_segment&& other) :
-        m_data(other.m_data), audioBufferId(other.audioBufferId), samples(other.samples), channels(other.channels), sampleRate(other.sampleRate), layer(other.layer), avg_bitrate_kbps(other.avg_bitrate_kbps), m_id(other.m_id), m_next(other.m_next)
+        audioBufferId(other.audioBufferId), samples(other.samples), channels(other.channels), sampleRate(other.sampleRate), layer(other.layer),
+        avg_bitrate_kbps(other.avg_bitrate_kbps), m_id(other.m_id), m_data(other.m_data), m_next(other.m_next)
     {
         if (m_id)
         {
