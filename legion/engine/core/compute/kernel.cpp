@@ -197,7 +197,7 @@ namespace legion::core::compute
             size,
             nullptr,
             globals.data(),
-            locals.data(),
+            nullptr,
             0,
             nullptr,
             nullptr
