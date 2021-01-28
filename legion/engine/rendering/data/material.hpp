@@ -274,6 +274,8 @@ namespace legion::rendering
          * @return material_handle Handle to a material attached to the given name, may be invalid if there is no material attached to that name yet.
          */
         static material_handle get_material(const std::string& name);
+
+        //static 
     };
 
 #pragma region implementations

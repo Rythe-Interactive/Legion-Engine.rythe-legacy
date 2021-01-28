@@ -296,6 +296,7 @@ namespace legion::core
          */
         static image_handle create_image(const std::string& name, const filesystem::view& file, image_import_settings settings = default_image_settings);
         static image_handle create_image(const filesystem::view& file, image_import_settings settings = default_image_settings);
+        static image_handle create_image(const std::string& name, std::vector<math::color>& data, math::ivec2 size, image_components components, channel_format format);
         static image_handle insert_image(image&& img);
 
         /**@brief Returns a handle to a image with a certain name. Will return invalid_image_handle if the requested image doesn't exist.
