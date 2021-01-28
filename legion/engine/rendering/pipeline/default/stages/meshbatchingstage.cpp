@@ -21,7 +21,6 @@ namespace  legion::rendering
 
         static auto renderablesQuery = createQuery<position, rotation, scale, mesh_filter, mesh_renderer>();
         renderablesQuery.queryEntities();
-
         auto& positions = renderablesQuery.get<position>();
         auto& rotations = renderablesQuery.get<rotation>();
         auto& scales = renderablesQuery.get<scale>();

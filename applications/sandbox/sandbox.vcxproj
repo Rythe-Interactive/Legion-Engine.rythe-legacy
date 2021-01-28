@@ -120,6 +120,7 @@
     <ClInclude Include="systems\gui_test.hpp" />
     <ClInclude Include="systems\pointcloudtestsystem2.hpp" />
     <ClInclude Include="systems\explosion_particlesystem.hpp" />
+    <ClInclude Include="systems\pointcloud_animation_system.hpp" />
     <ClInclude Include="systems\pointcloud_particlesystem.hpp" />
     <ClInclude Include="data\pp_blur.hpp" />
     <ClInclude Include="data\pp_bloom.hpp" />

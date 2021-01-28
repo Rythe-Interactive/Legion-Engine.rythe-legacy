@@ -38,6 +38,7 @@ public:
         image_handle normal;
         image_handle albedo;
         image_handle albedo2;
+        image_handle albedo3;
         model_handle testHandle;
         material_handle testMat;
         app::window window = m_ecs->world.get_component_handle<app::window>().read();
@@ -48,6 +49,7 @@ public:
             ModelCache::create_model("cube", "assets://models/Cube.obj"_view);
             ModelCache::create_model("plane", "assets://models/plane.obj"_view);
             ModelCache::create_model("billboard", "assets://models/billboard.obj"_view);
+            ModelCache::create_model("AirPlane", "assets://models/AirPlane.glb"_view);
 
             ModelCache::create_model("uvsphere", "assets://models/uvsphere.obj"_view);
             ModelCache::create_model("sphere", "assets://models/sphere.obj"_view);
@@ -69,8 +71,9 @@ public:
             particleMaterial.set_param("color", math::colors::blue);
 
             normal = ImageCache::create_image("normal image", "assets://textures/nullHeight.png"_view);
-            albedo = ImageCache::create_image("albedo image", "assets://textures/rock-albedo.png"_view);
-            albedo2 = ImageCache::create_image("albedo2 image", "assets://textures/copper-albedo.png"_view);
+            albedo = ImageCache::create_image("albedo image", "assets://textures/blue.png"_view);
+            albedo2 = ImageCache::create_image("albedo2 image", "assets://textures/green.png"_view);
+            albedo3 = ImageCache::create_image("albedo3 image", "assets://textures/red.png"_view);  
         }
         material_handle mat = MaterialCache::get_material("uv");
         mesh_handle uvMesh = MeshCache::get_handle("uvsphere");
@@ -78,14 +81,30 @@ public:
         mesh_handle sphereMesh = MeshCache::get_handle("sphere");
         mesh_handle suzanneeMesh = MeshCache::get_handle("suzanne");
         mesh_handle sponzaMesh = MeshCache::get_handle("sponza");
+        mesh_handle airPlaine = MeshCache::get_handle("AirPlane");
         //mesh_handle CarnegieMansion = MeshCache::get_handle("CarnegieMansion");
-        auto ent2 = createEntity();
+        /*auto ent2 = createEntity();
         auto trans2 = ent2.add_components<transform>(position(0, 1, 5), rotation(), scale(0.5f));
-        ent2.add_component<point_cloud>(point_cloud(sphereMesh, trans2, billboardMat, albedo, normal, 50000, 0.005f));
+        ent2.add_component<point_cloud>(point_cloud(sphereMesh, trans2, billboardMat, albedo, normal, 5000, 0.05f));*/
 
-        auto ent1 = createEntity();
-        auto trans1 = ent1.add_components<transform>(position(1.5f, 1, 5), rotation(), scale(0.5f));
-        ent1.add_component<point_cloud>(point_cloud(suzanneeMesh, trans1, billboardMat, albedo2, normal, 50000, 0.005f));
+     /*   auto ent = createEntity();
+        auto trans = ent.add_components<transform>(position(0, 2, 15), rotation(), scale(0.5f));
+        ent.add_component<point_cloud>(point_cloud(sphereMesh, trans, billboardMat, albedo3, normal, 1500, 0.05f));*/
+
+        /*for(int i = 0; i < 8; i++)
+        {
+            auto ent = createEntity();
+            auto trans = ent.add_components<transform>(position(0, 2, 4+i*2 ), rotation(), scale(0.5f));
+            ent.add_component<point_cloud>(point_cloud(sphereMesh, trans, billboardMat, albedo, normal, 1500, 0.05f));
+
+            auto ent2 = createEntity();
+            auto trans2 = ent2.add_components<transform>(position(3.0f, 2, 4 + i*2), rotation(), scale(0.5f));
+            ent2.add_component<point_cloud>(point_cloud(sphereMesh, trans2, billboardMat, albedo2, normal, 1500, 0.05f));
+        }*/
+
+        auto ent2 = createEntity();
+        auto trans2 = ent2.add_components<transform>(position(3.0f, 2, 5), rotation(), scale(0.5f));
+        ent2.add_component<point_cloud>(point_cloud(airPlaine, trans2, billboardMat, albedo2, normal, 50000, 0.05f));
 
 
        /* auto ent4 = createEntity();

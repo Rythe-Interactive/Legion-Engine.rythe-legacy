@@ -12,7 +12,15 @@ shader(vertex)
     void main(void)
     {
         gl_Position = BillboardModelToScreenSpacePosition(position);
-        PropagateStdIO();
+        
+
+        //PropagateStdIO();
+        int index = gl_InstanceID;
+        stdout(uv) = stdin(uv);
+        //float c = (index+1) / 3592.0f;
+        stdout(vertexcolor) =  vertexcolor;
+
+        //
     }
 }
 

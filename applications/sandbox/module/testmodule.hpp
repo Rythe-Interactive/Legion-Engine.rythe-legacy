@@ -6,6 +6,7 @@
 #include "../systems/testsystemconvexhull.hpp"
 //#include "../systems/testsystem2.hpp"
 #include"../systems/pointcloudtestsystem2.hpp"
+#include "../systems/pointcloud_animation_system.hpp"
 #include "../systems/simplecameracontroller.hpp"
 #include "../systems/gui_test.hpp"
 
@@ -29,18 +30,19 @@ public:
     {
         //  reportSystem<TestSystem>();
          // reportSystem<TestSystemConvexHull>();
-        
+
         app::WindowSystem::requestWindow(world_entity_id, math::ivec2(1920, 1080), "LEGION Engine", "Legion Icon", nullptr, nullptr, 1); // Create the request for the main window.
-        reportSystem<TestSystemConvexHull>();
+        //reportSystem<TestSystemConvexHull>();
         reportComponentType<sah>();
-        //reportSystem<TestSystem>();
-        //reportSystem<pointcloudtestsystem2>();
+        reportSystem<pointcloudtestsystem2>();
+        reportSystem < pointcloudanimationsystem>();
         reportSystem<SimpleCameraController>();
 
         /*reportComponentType<ext::animation>();
         reportSystem<ext::Animator>();
         reportSystem<ext::AnimationEditor>();
-        reportSystem<GuiTestSystem>();*/
+        */
+        reportSystem<GuiTestSystem>();
 
         //no physics for you
 #if !defined(SUPER_LOW_POWER)

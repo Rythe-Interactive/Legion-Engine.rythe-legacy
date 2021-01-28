@@ -5,7 +5,7 @@ namespace legion::rendering
 {
     struct lod
     {
-        lod(int maxLevel = 8, float maxDistance = 35.0f) : MaxLod(maxLevel), m_maxDistance(maxDistance)
+        lod(int maxLevel = 6, float maxDistance = 35.0f) : MaxLod(maxLevel), m_maxDistance(maxDistance)
         {
         }
         int MaxLod;

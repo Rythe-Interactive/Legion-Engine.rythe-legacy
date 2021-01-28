@@ -7,6 +7,8 @@
 #include <random>
 #include<rendering/components/point_emitter_data.hpp>
 #include <rendering/components/point_cloud_particle_container.hpp>
+#include <rendering/components/point_animation_data.hpp>
+
 using namespace legion;
 /**
  * @struct pointCloudParameters
@@ -157,7 +159,6 @@ public:
 
     {
         OPTICK_EVENT();
-
         if (container.livingParticles.size() == 0) return;
         //get the amount of particles to remove
         int targetParticleCount = data.ElementsPerLOD.at(maxLod - targetLod);
@@ -167,6 +168,7 @@ public:
         bufferPosition = dataToRemove.first;
         //remove particles from the end of the living particles
         //living particles should be stored in order of detail
+        log::debug("removing particles: " + std::to_string(dataToRemove.second));
         for (size_t i = 0; i < dataToRemove.second; i++)
         {
             //remove first object at position for the stored size
@@ -174,18 +176,15 @@ public:
             auto particle = container.livingParticles.at(dataToRemove.first);
             //remove renderer and push to dead particles
             particle.remove_component<rendering::mesh_renderer>();
+            particle.remove_component<point_animation_data>();
             container.deadParticles.emplace_back(particle);
             //erase particle
             container.livingParticles.erase(container.livingParticles.begin() + dataToRemove.first);
         }
-        data.emitterSize -= delta;
-        data.CurrentLOD = targetLod;
-        //pop back of point map
-        data.posRangeMap.pop_back();
 
         //update other emitterbuffer positions
         std::vector<math::vec4> colorData;
-        int index = 0;
+        int index;
         for (auto pointEntities : enities)
         {
             auto currentHandle = pointEntities.get_component_handle<rendering::point_emitter_data>();
@@ -193,13 +192,12 @@ public:
             if (dataHandle == currentHandle) continue;
             auto otherData = currentHandle.read();
             bool changes = false;
-            int index = 0;
+            index = 0;
             for (auto pair : otherData.posRangeMap)
             {
                 //if there is data at a higher position than the data that is beeing removed it needs to be moved back by the amount of points removed
                 if (pair.first > dataToRemove.first)
                 {
-                    log::debug("changed data!");
                     otherData.posRangeMap.at(index).first -= dataToRemove.second;
                     changes = true;
                 }
@@ -208,6 +206,13 @@ public:
             //write data if there were changes
             if (changes)currentHandle.write(otherData);
         }
+
+
+        data.emitterSize -= delta;
+        data.CurrentLOD += 1;
+        //pop back of point map
+        data.posRangeMap.pop_back();
+
     }
     /**
     * @brief Increases the particles up to the specified target LOD
@@ -276,18 +281,27 @@ public:
         data.write(emitterData);
         emitter_handle.write(emitter);
     }
-    void animate(rendering::particle_emitter& emitter, rendering::point_emitter_data& data)
-    {
 
-    }
     void SetColor(rendering::particle_emitter& emitter, rendering::point_emitter_data& data) const
     {
         //assign colors
         for (auto item : data.posRangeMap)
         {
-            std::fill(container.colorBufferData.begin() + item.first, container.colorBufferData.begin() + item.first + item.second, math::colors::red);
+            std::fill(container.colorBufferData.begin() + item.first, container.colorBufferData.begin() + item.first + item.second, math::colors::black);
         }
+    }
 
+    void startAnimation(rendering::particle_emitter& emitter, rendering::point_emitter_data& data) const
+    {
+        //assign colors
+        for (auto item : data.posRangeMap)
+        {
+            // std::vector<ecs::entity_handle> entities(container.livingParticles, container.livingParticles.begin() + item.first, container.livingParticles.begin());
+            for (auto it = container.livingParticles.begin() + item.first; it < container.livingParticles.begin() + item.first + item.second - 1; ++it)
+            {
+                it->add_component<point_animation_data>();
+            }
+        }
     }
     /**
      * @brief Checks if there has been LOD changes, decreases or increases LOD
@@ -299,21 +313,26 @@ public:
         rendering::particle_emitter emitter = emitterHandle.read();
         auto emitterDataHandle = emitterHandle.entity.get_component_handle<rendering::point_emitter_data>();
         auto emitterData = emitterDataHandle.read();
+        if (lodComponent.Level == 0 && !emitterData.instanceAnimation)
+        {
+            SetColor(emitter, emitterData);
+            startAnimation(emitter, emitterData);
+            emitterData.instanceAnimation = true;
+            emitterDataHandle.write(emitterData);
+
+        }
         if (emitterData.CurrentLOD != lodComponent.Level)
         {
-            if (lodComponent.Level == 0)
-            {
-                SetColor(emitter, emitterData);
-            }
+           
             if (emitterData.CurrentLOD > lodComponent.Level)
             {
-                increaseDetail(emitter, emitterData, lodComponent.Level, lodComponent.MaxLod, lodComponent, entities);
+                //increaseDetail(emitter, emitterData, lodComponent.Level, lodComponent.MaxLod, lodComponent, entities);
             }
             else
             {
-                decreaseDetail(emitter, emitterData, lodComponent.Level, lodComponent.MaxLod, emitterDataHandle, entities);
+              //  decreaseDetail(emitter, emitterData, lodComponent.Level, lodComponent.MaxLod, emitterDataHandle, entities);
             }
-            emitterData.CurrentLOD = lodComponent.Level;
+            //emitterData.CurrentLOD = lodComponent.Level;
             emitterHandle.write(emitter);
             emitterDataHandle.write(emitterData);
         }

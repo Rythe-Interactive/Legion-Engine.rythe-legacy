@@ -73,17 +73,34 @@ namespace legion::rendering
                 index++;
                 if (index == pointCloudQuery.size())
                 {
-                    auto window = ecs::EcsRegistry::world.read_component<app::window>();
-                    app::context_guard guard(window);
+                    auto windowHandle = world.get_component_handle<app::window>();
+                    if (!windowHandle)return;
+
+                    app::context_guard guard(windowHandle.read());
                     if (guard.contextIsValid())
                     {
                         ////create buffer
-                        rendering::buffer colorBuffer = rendering::buffer(GL_ARRAY_BUFFER, emitter.container->colorBufferData, GL_STREAM_DRAW);
+                     //   auto tempData =;
+                        ///*   for (int i = 356; i < 1192; i++)
+                    /*    {
+                            tempData.at(i) = math::colors::white;
+                        }*/
+                        rendering::buffer colorBuffer = rendering::buffer(GL_ARRAY_BUFFER, emitter.container->colorBufferData, GL_STREAM_READ);
                         particleSystem->m_particleModel.overwrite_buffer(colorBuffer, SV_COLOR, true);
-                        log::debug(std::to_string(emitter.container->colorBufferData.size()));
+                     //   log::debug(std::to_string(emitter.container->colorBufferData.size()));
 
                     }
                 }
+            }
+
+            static auto renderablesQuery = createQuery<mesh_renderer>();
+            renderablesQuery.queryEntities();
+            /*    log::debug(("renderables: "));
+                log::debug(renderablesQuery.size());*/
+            for (auto ent : renderablesQuery)
+            {
+                auto renderable = ent.get_component_handle<mesh_renderer>();
+
             }
         }
     };

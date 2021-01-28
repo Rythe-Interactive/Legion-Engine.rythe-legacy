@@ -8,6 +8,7 @@
 #include <rendering/systems/pointcloudgeneration.hpp>
 #include <rendering/systems/lod_manager.hpp>
 #include <rendering/components/point_emitter_data.hpp>
+#include <rendering/components/point_animation_data.hpp>
 namespace legion::rendering
 {
     class RenderingModule : public Module
@@ -26,7 +27,7 @@ namespace legion::rendering
             reportComponentType<particle>();
             reportComponentType<particle_emitter>();
             reportComponentType<point_emitter_data>();
-
+            reportComponentType<point_animation_data>();
             reportSystem<ParticleSystemManager>();
 
             reportComponentType<point_cloud>();

@@ -15,5 +15,6 @@ namespace legion::rendering
         std::vector<std::pair<int, int>> posRangeMap;
         uint bufferPosition = 0;
         uint emitterSize = 0;
+        bool instanceAnimation = false;
     };
 }
