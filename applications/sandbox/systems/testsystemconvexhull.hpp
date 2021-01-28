@@ -18,6 +18,7 @@ struct physics_step : public app::input_action<physics_step> {};
 struct collider_move : public app::input_axis<collider_move> {};
 struct collider_move_up : public app::input_axis<collider_move_up> {};
 struct uniform_grid_broad_phase : public app::input_action<uniform_grid_broad_phase> {};
+struct uniform_grid_broad_phase_large : public app::input_action<uniform_grid_broad_phase_large> {};
 
 struct followerData
 {
@@ -38,7 +39,7 @@ public:
 
     virtual void setup()
     {
-        physics::constants::gravity = math::vec3::zero;
+        //physics::constants::gravity = math::vec3::zero;
 
         app::InputSystem::createBinding<physics_step>(app::inputmap::method::ENTER);
         app::InputSystem::createBinding<collider_move>(app::inputmap::method::LEFT, -1);
@@ -46,11 +47,13 @@ public:
         app::InputSystem::createBinding<collider_move_up>(app::inputmap::method::UP, 1);
         app::InputSystem::createBinding<collider_move_up>(app::inputmap::method::DOWN, -1);
         app::InputSystem::createBinding<uniform_grid_broad_phase>(app::inputmap::method::K);
+        app::InputSystem::createBinding<uniform_grid_broad_phase_large>(app::inputmap::method::L);
 
         bindToEvent<physics_step, &TestSystemConvexHull::physicsStep>();
         bindToEvent<collider_move, &TestSystemConvexHull::colliderMove>();
         bindToEvent<collider_move_up, &TestSystemConvexHull::colliderMoveUp>();
         bindToEvent<uniform_grid_broad_phase, &TestSystemConvexHull::setUniformGrid>();
+        bindToEvent<uniform_grid_broad_phase_large, &TestSystemConvexHull::setUniformGridLarge>();
 
         createProcess<&TestSystemConvexHull::update>("Update");
 
@@ -92,7 +95,7 @@ public:
             {
                 colliderEnt = createEntity();
                 colliderEnt.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(solidLegion));
-                colliderEnt.add_components<transform>(position(0,1.0f, 0), rotation(), scale(1));
+                colliderEnt.add_components<transform>(position(0, 5.0f, 0), rotation(), scale(1));
                 auto physH = colliderEnt.add_component<physics::physicsComponent>();
                 auto p = physH.read();
                 mesh_handle handle = cube.get_mesh();
@@ -104,8 +107,21 @@ public:
 
             {
                 auto ent = createEntity();
+                ent.add_components<transform>(position(0.f, -0.4f, 0.f), rotation(), scale());
+                auto physH = ent.add_component<physics::physicsComponent>();
+                auto p = physH.read();
+                p.AddBox(physics::cube_collider_params(250.f, 250.f, 1.f));
+                physH.write(p);
+
+                //ent = createEntity();
+                //ent.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(solidLegion));
+                //ent.add_components<transform>(position(0.f, -0.4f, 0.f), rotation(), scale(250.f, 1.f, 250.f));
+            }
+
+            {
+                auto ent = createEntity();
                 ent.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(solidLegion));
-                ent.add_components<transform>(position(0, 3.0f, 0), rotation(), scale(1));
+                ent.add_components<transform>(position(0, 7.0f, 0), rotation(), scale(1));
                 auto physH = ent.add_component<physics::physicsComponent>();
                 auto p = physH.read();
                 p.AddBox(physics::cube_collider_params(1.0f, 1.0f, 1.0f));
@@ -116,7 +132,7 @@ public:
             {
                 auto ent = createEntity();
                 ent.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(solidLegion));
-                ent.add_components<transform>(position(0, 5.0f, 0), rotation(), scale(1));
+                ent.add_components<transform>(position(0, 9.0f, 0), rotation(), scale(1));
                 physics::physicsComponent p;
                 p.AddBox(physics::cube_collider_params(1.0f, 1.0f, 1.0f));
                 ent.add_component(p);
@@ -135,12 +151,6 @@ public:
                 ent.add_component(p);
 
                 auto rbH = ent.add_component<physics::rigidbody>();
-
-                /*auto ent = createEntity();
-                ent.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(solidLegion));
-                ent.add_components<transform>(position(math::linearRand(math::vec3(-10, 0, -10), math::vec3(10, 20, 10))), rotation(math::angleAxis(math::linearRand(-math::pi<float>(), math::pi<float>()), math::normalize(math::linearRand(-math::vec3::one, math::vec3::one)))), scale(1.f));
-                auto physH = ent.add_component<physics::physicsComponent>();
-                physH.read().AddBox(physics::cube_collider_params(1.0f, 1.0f, 1.0f));*/
             }
 #endif
         }
@@ -200,8 +210,17 @@ public:
     {
         if (action->value)
         {
-            log::debug("Did the first step for the thing");
-            physics::PhysicsSystem::setBroadPhaseCollisionDetection<physics::BroadphaseUniformGrid>(math::ivec3(1, 1, 1));
+            physics::PhysicsSystem::setBroadPhaseCollisionDetection<physics::BroadphaseUniformGrid>(math::ivec3(2, 2, 2), 500);
+            log::debug("Set broad phase 2x2x2");
+        }
+    }
+
+    void setUniformGridLarge(uniform_grid_broad_phase_large* action)
+    {
+        if (action->value)
+        {
+            physics::PhysicsSystem::setBroadPhaseCollisionDetection<physics::BroadphaseUniformGrid>(math::ivec3(3, 3, 3), 500);
+            log::debug("Set broad phase 3x3x3");
         }
     }
 
