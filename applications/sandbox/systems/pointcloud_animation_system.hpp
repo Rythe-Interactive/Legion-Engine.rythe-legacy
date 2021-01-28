@@ -15,23 +15,29 @@ namespace legion
 
         void update(time::span deltaTime)
         {
+            OPTICK_EVENT();
             UpdateCam();
 
             m_entityQuery.queryEntities();
-            //log::debug(std::to_string(m_entityQuery.size()));
-            for (auto entity : m_entityQuery)
-            {
-                auto dataHandle = entity.get_component_handle<point_animation_data>();
-                auto data = dataHandle.read();
-                Animate(entity, deltaTime, data, dataHandle);
-            }
+            //bulk read
+            auto& positions = m_entityQuery.get<position>();
+            auto& animData = m_entityQuery.get< point_animation_data>();
+            //animate
+            m_scheduler->queueJobs(m_entityQuery.size(), [&]()
+                {
+                    auto value = async::this_job::get_id();
+                    Animate(positions[value], animData[value], deltaTime);
+                }).wait();
+                //bulk write
+                m_entityQuery.submit<position>();
+                m_entityQuery.submit<point_animation_data>();
         }
 
     private:
-        void Animate(ecs::entity_handle entityHanlde, float deltaTime, point_animation_data& data, ecs::component_handle< point_animation_data>& dataHandle)
+        void Animate(position& pos, point_animation_data& data, float deltaTime)
         {
-            auto posHandle = entityHanlde.get_component_handle<position>();
-            math::vec3 pos = posHandle.read();
+            OPTICK_EVENT();
+
             //Check if animation has started, move if true
             if (data.isAnimating)
             {
@@ -46,11 +52,9 @@ namespace legion
                     //move and write that animation has started
                     pos += math::vec3::down * m_speed * deltaTime;
                     data.isAnimating = true;
-                    dataHandle.write(data);
                 }
             }
 
-            posHandle.write(pos);
 
         }
         void UpdateCam()
@@ -65,7 +69,7 @@ namespace legion
             }
         }
 
-        ecs::EntityQuery m_entityQuery = createQuery<point_animation_data>();
+        ecs::EntityQuery m_entityQuery = createQuery<point_animation_data, position>();
         ecs::EntityQuery m_CamQuery = createQuery<camera>();
         math::vec3 m_camPos;
 

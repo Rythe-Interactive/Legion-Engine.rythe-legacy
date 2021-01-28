@@ -287,7 +287,7 @@ public:
         //assign colors
         for (auto item : data.posRangeMap)
         {
-            std::fill(container.colorBufferData.begin() + item.first, container.colorBufferData.begin() + item.first + item.second, math::colors::black);
+            std::fill(container.colorBufferData.begin() + item.first, container.colorBufferData.begin() + item.first + item.second, math::colors::blue);
         }
     }
 

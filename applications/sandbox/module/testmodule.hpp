@@ -42,7 +42,7 @@ public:
         reportSystem<ext::Animator>();
         reportSystem<ext::AnimationEditor>();
         */
-        reportSystem<GuiTestSystem>();
+     //   reportSystem<GuiTestSystem>();
 
         //no physics for you
 #if !defined(SUPER_LOW_POWER)

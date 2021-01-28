@@ -83,6 +83,8 @@ namespace legion::rendering
             auto indices = m.second.indices;
             auto uvs = m.second.uvs;
             uint triangle_count = indices.size() / 3;
+            triangle_count /= 1;
+            log::debug("triangle count: " + std::to_string(triangle_count));
             //compute process size
             uint process_Size = triangle_count;
 
