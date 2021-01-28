@@ -29,6 +29,9 @@ namespace legion::physics
         */
 		std::shared_ptr<ConvexCollider> ConstructConvexHull(legion::core::mesh_handle& meshHandle,bool shouldDebug = false);
 
+
+		std::shared_ptr<ConvexCollider> ConstructExternConvexHull(legion::core::mesh_handle& meshHandle,bool shouldDebug = false);
+
         void ConstructConvexHull(legion::core::mesh_handle& meshHandle, ConvexCollider& col);
 
         /** @brief Instantiates a ConvexCollider and calls ConstructBoxWithMesh on it and passes the given mesh. This

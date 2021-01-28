@@ -318,6 +318,11 @@ namespace legion::physics
         do
         {
             HalfEdgeEdge* secondCurrent = second.startEdge;
+            if (secondCurrent == nullptr)
+            {
+                firstCurrent = firstCurrent->nextEdge;
+                continue;
+            }
             do
             {
                 if (firstCurrent->pairingEdge == secondCurrent)

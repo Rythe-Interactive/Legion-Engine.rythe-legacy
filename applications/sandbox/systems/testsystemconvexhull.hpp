@@ -93,42 +93,32 @@ public:
             }*/
 
             {
-                colliderEnt = createEntity();
-                colliderEnt.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(solidLegion));
-                colliderEnt.add_components<transform>(position(0, 5.0f, 0), rotation(), scale(1));
-                auto physH = colliderEnt.add_component<physics::physicsComponent>();
-                auto p = physH.read();
-                mesh_handle handle = cube.get_mesh();
-
-                p.ConstructConvexHull(handle);
-                physH.write(p);
-                colliderEnt.add_component<physics::rigidbody>();
-            }
-
-            {
+                mesh_handle handle = model.get_mesh();
                 auto ent = createEntity();
-                ent.add_components<transform>(position(0.f, -0.4f, 0.f), rotation(), scale());
+                ent.add_components<rendering::mesh_renderable>(mesh_filter(handle), rendering::mesh_renderer(solidLegion));
+                ent.add_components<transform>(position(0.0f, 2.0f, 10.0f), rotation(), scale(1));
                 auto physH = ent.add_component<physics::physicsComponent>();
                 auto p = physH.read();
-                p.AddBox(physics::cube_collider_params(250.f, 250.f, 1.f));
-                physH.write(p);
 
-                //ent = createEntity();
-                //ent.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(solidLegion));
-                //ent.add_components<transform>(position(0.f, -0.4f, 0.f), rotation(), scale(250.f, 1.f, 250.f));
-            }
-
-            {
-                auto ent = createEntity();
-                ent.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(solidLegion));
-                ent.add_components<transform>(position(0, 7.0f, 0), rotation(), scale(1));
-                auto physH = ent.add_component<physics::physicsComponent>();
-                auto p = physH.read();
-                p.AddBox(physics::cube_collider_params(1.0f, 1.0f, 1.0f));
+                p.ConstructExternConvexHull(handle);
                 physH.write(p);
                 ent.add_component<physics::rigidbody>();
             }
 
+            {
+                mesh_handle handle = cube.get_mesh();
+                auto ent = createEntity();
+                ent.add_components<rendering::mesh_renderable>(mesh_filter(handle), rendering::mesh_renderer(solidLegion));
+                ent.add_components<transform>(position(0.0f, 0.0f, 10.f), rotation(), scale(2, 1, 2));
+                auto physH = ent.add_component<physics::physicsComponent>();
+                auto p = physH.read();
+                //p.ConstructConvexHull(handle, false);
+                p.AddBox(physics::cube_collider_params());
+                physH.write(p);
+                //ent.add_component<physics::rigidbody>();
+            }
+
+#if 0
             {
                 auto ent = createEntity();
                 ent.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(solidLegion));
@@ -139,7 +129,6 @@ public:
                 ent.add_component<physics::rigidbody>();
             }
 
-#if 0
             for (int i = 0; i < 1000; ++i)
             {
                 auto ent = createEntity();
@@ -160,7 +149,7 @@ public:
 
     void update(time::span deltaTime)
     {
-        drawPhysicsColliders();
+        //drawPhysicsColliders();
         auto [posH, rotH, scaleH] = physicsEnt.get_component_handles<transform>();
 
         if (!isUpdating)
@@ -241,7 +230,7 @@ public:
 
             if (hasNecessaryComponentsForPhysicsManifold)
             {
-                auto rbColor = math::color(0.0, 0.5, 0, 1);
+                auto rbColor = math::colors::blue;
                 auto statibBlockColor = math::color(0, 1, 0, 1);
 
                 rotation rot = rotationHandle.read();
@@ -292,7 +281,7 @@ public:
                             math::vec3 worldStart = localTransform * math::vec4(edgeToExecuteOn->edgePosition, 1);
                             math::vec3 worldEnd = localTransform * math::vec4(edgeToExecuteOn->nextEdge->edgePosition, 1);
 
-                            debug::user_projectDrawLine(worldStart, worldEnd, usedColor, 2.0f, 0.0f, useDepth);
+                            debug::drawLine(worldStart, worldEnd, usedColor, 20.0f, 0.0f, useDepth);
 
                         } while (initialEdge != currentEdge && currentEdge != nullptr);
                     }

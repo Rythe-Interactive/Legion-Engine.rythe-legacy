@@ -233,7 +233,7 @@ namespace legion::physics
             math::vec3 faceStart = transform * math::vec4(face->centroid, 1);
             math::vec3 faceEnd = faceStart + math::vec3((transform * math::vec4(face->normal, 0))) * 0.5f;
 
-            debug::user_projectDrawLine(faceStart, faceEnd, math::colors::green, 2.0f);
+            debug::drawLine(faceStart, faceEnd, math::colors::green, 2.0f);
 
             if (!currentEdge) { return; }
 
@@ -245,7 +245,7 @@ namespace legion::physics
                 math::vec3 worldStart = transform * math::vec4(edgeToExecuteOn->edgePosition, 1);
                 math::vec3 worldEnd = transform * math::vec4(edgeToExecuteOn->nextEdge->edgePosition, 1);
 
-                debug::user_projectDrawLine(worldStart, worldEnd, usedColor, width, time, ignoreDepth);
+                debug::drawLine(worldStart, worldEnd, usedColor, width, time, ignoreDepth);
 
             } while (initialEdge != currentEdge && currentEdge != nullptr);
         }
@@ -300,6 +300,24 @@ namespace legion::physics
             halfEdgeFaces.emplace_back(face);
         }
         qh_free_mesh(mesh);
+
+        // Merge coplanar faces
+        for (int i = 0; i < halfEdgeFaces.size()-1; ++i)
+        {
+            auto face = halfEdgeFaces.at(i);
+            for (int j = i + 1; j < halfEdgeFaces.size(); ++j)
+            {
+                auto other = halfEdgeFaces.at(j);
+                auto relation = face->getAngleRelation(*other);
+                if (relation == HalfEdgeFace::face_angle_relation::coplanar)
+                {
+                    // Merge the faces
+                    HalfEdgeEdge* middleEdge = HalfEdgeFace::findMiddleEdge(*face, *other);
+                    if (middleEdge != nullptr) HalfEdgeFace::mergeFaces(*middleEdge);
+                    else log::debug("did not find middle edge");
+                }
+            }
+        }
     }
 
     void ConvexCollider::ConstructConvexHullWithMesh(mesh& mesh, math::vec3 spacingAmount, bool shouldDebug)
@@ -674,7 +692,8 @@ namespace legion::physics
                 // Remove face from faces map
                 halfEdgeFaces.erase(std::remove(halfEdgeFaces.begin(), halfEdgeFaces.end(), face), halfEdgeFaces.end());
                 // Remove face from our face to face index map
-                faceIndexMap.erase(faceIndexMap.find(face));
+                auto item = faceIndexMap.find(face);
+                if(item != faceIndexMap.end()) faceIndexMap.erase(item);
                 face->startEdge = nullptr;
                 //delete face;
             }
