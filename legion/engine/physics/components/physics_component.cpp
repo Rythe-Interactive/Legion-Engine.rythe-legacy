@@ -12,7 +12,7 @@ namespace legion::physics
     {
         auto collider = std::make_shared<ConvexCollider>();
 
-        collider->ConstructConvexHullWithMesh(meshHandle,shouldDebug);
+        collider->ExternConstructConvexHullWithMesh(meshHandle);
         //collider->doStep(meshHandle);
 
         colliders.push_back(collider);

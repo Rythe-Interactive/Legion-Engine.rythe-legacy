@@ -95,7 +95,9 @@ public:
                 colliderEnt.add_components<transform>(position(0,1.0f, 0), rotation(), scale(1));
                 auto physH = colliderEnt.add_component<physics::physicsComponent>();
                 auto p = physH.read();
-                p.AddBox(physics::cube_collider_params(1.0f, 1.0f, 1.0f));
+                mesh_handle handle = cube.get_mesh();
+
+                p.ConstructConvexHull(handle);
                 physH.write(p);
                 colliderEnt.add_component<physics::rigidbody>();
             }
@@ -121,6 +123,7 @@ public:
                 ent.add_component<physics::rigidbody>();
             }
 
+#if 0
             for (int i = 0; i < 1000; ++i)
             {
                 auto ent = createEntity();
@@ -139,6 +142,7 @@ public:
                 auto physH = ent.add_component<physics::physicsComponent>();
                 physH.read().AddBox(physics::cube_collider_params(1.0f, 1.0f, 1.0f));*/
             }
+#endif
         }
     }
 
@@ -146,10 +150,7 @@ public:
 
     void update(time::span deltaTime)
     {
-        //physics::PhysicsSystem::IsPaused = false;
-        //debug::user_projectdrawLine(math::vec3(1, 0, 0), math::vec3(1, 1, 0), math::colors::magenta, 10.0f, 20.0f);
-        //drawPhysicsColliders();
-
+        drawPhysicsColliders();
         auto [posH, rotH, scaleH] = physicsEnt.get_component_handles<transform>();
 
         if (!isUpdating)

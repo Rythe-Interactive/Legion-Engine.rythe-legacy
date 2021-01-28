@@ -1,0 +1,41 @@
+tests/build/
+tests/*.obj
+tests/dump*
+example/*.obj
+
+.DS_Store
+
+*.diff
+
+# vim
+*.swp
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+*.dSYM
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app

@@ -82,6 +82,7 @@ namespace legion::physics
 
         void ConstructConvexHullWithVertices( std::vector<math::vec3>& vertices,math::vec3 spacingAmount = math::vec3())
         {
+            
             //many of the functions for convex hull are coupled to mesh,
             //for now we create a mesh so that we can pass it into the function
             core::mesh mesh;
@@ -89,6 +90,7 @@ namespace legion::physics
             ConstructConvexHullWithMesh(mesh,spacingAmount);
         }
 
+        void ExternConstructConvexHullWithVertices ( std::vector<math::vec3>& vertices);
         
 
         //TODO(algorythmix,jelled1st) This desperately needs cleanup
@@ -107,6 +109,17 @@ namespace legion::physics
             auto mesh = meshLockPair.second;
 
             ConstructConvexHullWithMesh(mesh,math::vec3(),shouldDebug);
+        }
+
+        void ExternConstructConvexHullWithMesh(legion::core::mesh_handle& meshHandle,bool shouldDebug = true)
+        {
+            auto meshLockPair = meshHandle.get();
+
+            //mesh lock stuff
+            async::readonly_guard guard(meshLockPair.first);
+            auto mesh = meshLockPair.second;
+
+            ExternConstructConvexHullWithVertices(mesh.vertices);
         }
 
         void  ConstructConvexHullWithMesh(mesh& mesh, math::vec3 spacingAmount = math::vec3(), bool shouldDebug = false);
