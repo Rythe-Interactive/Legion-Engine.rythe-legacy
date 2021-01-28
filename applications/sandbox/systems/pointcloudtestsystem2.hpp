@@ -57,10 +57,11 @@ public:
             app::context_guard guard(window);
 
             //get mesh
+            ModelCache::create_model("2s1", "assets://models/2story_3.glb"_view, materials_vector);
             ModelCache::create_model("cube", "assets://models/Cube.obj"_view);
             ModelCache::create_model("plane", "assets://models/plane.obj"_view);
             ModelCache::create_model("billboard", "assets://models/billboard.obj"_view);
-            ModelCache::create_model("AirPlane", "assets://models/AirPlaneRotated.glb"_view, materials_vector);
+            ModelCache::create_model("AirPlane", "assets://models/AirPlaneRotated.glb"_view);
 
             ModelCache::create_model("uvsphere", "assets://models/uvsphere.obj"_view);
             ModelCache::create_model("sphere", "assets://models/sphere.obj"_view);
@@ -91,8 +92,6 @@ public:
             auto path = texture.get_texture().path;
             auto name = texture.get_texture().name;
             const auto& tex = texture.get_data();
-            color = tex.pixels;
-            planeAlbedo = ImageCache::create_image("bla", color, tex.size, image_components::rgba, channel_format::float_hdr);
 
         }
         material_handle mat = MaterialCache::get_material("uv");
@@ -102,6 +101,7 @@ public:
         mesh_handle suzanneeMesh = MeshCache::get_handle("suzanne");
         mesh_handle sponzaMesh = MeshCache::get_handle("sponza");
         mesh_handle airPlaine = MeshCache::get_handle("AirPlane");
+        mesh_handle s21 = MeshCache::get_handle("2s1");
         log::debug("material capacity " + std::to_string(materials_vector.capacity()));
 
         //  for(auto [key, value] : params){}
@@ -127,8 +127,9 @@ public:
              }*/
 
         auto ent2 = createEntity();
-        auto trans2 = ent2.add_components<transform>(position(3.0f, 2, 5), rotation(), scale());
-        ent2.add_component<point_cloud>(point_cloud(airPlaine, trans2, billboardMat, albedo, normal, 5000, 0.05f));
+        auto trans2 = ent2.add_components<transform>(position(3.0f, 2, 10), rotation(), scale());
+        //ent2.add_components<rendering::mesh_renderable>(mesh_filter(s21), rendering::mesh_renderer(materials_vector.at(0)));
+        ent2.add_component<point_cloud>(point_cloud(s21, trans2, billboardMat, albedo2, normal, 5000, 0.5f));
 
 
         /* auto ent4 = createEntity();
@@ -144,9 +145,7 @@ public:
     }
 
 
-private :
 
-    std::vector<math::color> color;
 };
 
 

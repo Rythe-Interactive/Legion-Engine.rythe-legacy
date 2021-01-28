@@ -83,7 +83,7 @@ namespace legion::rendering
             auto indices = m.second.indices;
             auto uvs = m.second.uvs;
             uint triangle_count = indices.size() / 3;
-            triangle_count /= 16;
+            //triangle_count /= 16;
             log::debug("triangle count: " + std::to_string(triangle_count));
             //compute process size
             uint process_Size = triangle_count;
@@ -94,7 +94,8 @@ namespace legion::rendering
             auto indexBuffer = compute::Context::createBuffer(indices, compute::buffer_type::READ_BUFFER, "indices");
             uint totalSampleCount = 0;
             uint samplesPerTriangle = realPointCloud.m_maxPoints / triangle_count;
-
+            //make sure samples per tri is at least 1
+            if (samplesPerTriangle == 0) samplesPerTriangle = 1;
 
 
 
@@ -164,6 +165,8 @@ namespace legion::rendering
             std::vector<math::vec3> particleInput(totalSampleCount);
             for (size_t i = 0; i < totalSampleCount; i++)
             {
+               // log::debug(result.at(i));
+
                 particleInput.at(i) = result.at(i).xyz + posiitonOffset;
             }
             //generate particle params
