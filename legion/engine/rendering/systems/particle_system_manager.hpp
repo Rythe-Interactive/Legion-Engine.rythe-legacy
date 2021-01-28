@@ -92,16 +92,6 @@ namespace legion::rendering
                     }
                 }
             }
-
-            static auto renderablesQuery = createQuery<mesh_renderer>();
-            renderablesQuery.queryEntities();
-            /*    log::debug(("renderables: "));
-                log::debug(renderablesQuery.size());*/
-            for (auto ent : renderablesQuery)
-            {
-                auto renderable = ent.get_component_handle<mesh_renderer>();
-
-            }
         }
     };
 }
