@@ -22,6 +22,7 @@
     <ClCompile Include="data\renderbuffer.cpp" />
     <ClCompile Include="data\shader.cpp" />
     <ClCompile Include="data\texture.cpp" />
+    <ClCompile Include="pipeline\default\postfx\depthoffield.cpp" />
     <ClCompile Include="imgui_impl\ImCurveEdit.cpp" />
     <ClCompile Include="imgui_impl\ImGradient.cpp" />
     <ClCompile Include="imgui_impl\imgui.cpp" />
@@ -54,6 +55,7 @@
     <ClCompile Include="data\particle_system_base.cpp" />
     <ClCompile Include="systems\renderer.cpp" />
     <ClCompile Include="util\ini.c" />
+    <ClCompile Include="util\matini.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="components\camera.hpp" />
@@ -70,6 +72,7 @@
     <ClInclude Include="data\Octree.hpp" />
     <ClInclude Include="data\postprocessingeffect.hpp" />
     <ClInclude Include="data\screen_quad.hpp" />
+    <ClInclude Include="pipeline\default\postfx\depthoffield.hpp" />
     <ClInclude Include="pipeline\base\pipeline.hpp" />
     <ClInclude Include="pipeline\default\postfx\fxaa.hpp" />
     <ClInclude Include="pipeline\default\postfx\bloom.hpp" />
@@ -177,6 +180,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -196,7 +200,9 @@ copy /Y "$(SolutionDir)deps\dll\" "$(OutDir)"</Command>
     </Lib>
     <PreBuildEvent>
       <Command>copy /Y "$(SolutionDir)xcopyexclude" ".\"
-xcopy "$(ProjectDir)..\$(ProjectName)" "$(SolutionDir)include\$(ProjectName)\" /i /s /r /exclude:xcopyexclude /y
+
+xcopy "$(ProjectDir)..\$(ProjectName)" "$(SolutionDir)include\$(ProjectName)\" /i /s /r /exclude:xcopyexclude /y &gt; nul
+
 del ".\xcopyexclude"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
@@ -211,6 +217,7 @@ del ".\xcopyexclude"</Command>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>-flto=thin %(AdditionalOptions)</AdditionalOptions>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -232,7 +239,9 @@ copy /Y "$(SolutionDir)deps\dll\" "$(OutDir)"</Command>
     </Lib>
     <PreBuildEvent>
       <Command>copy /Y "$(SolutionDir)xcopyexclude" ".\"
-xcopy "$(ProjectDir)..\$(ProjectName)" "$(SolutionDir)include\$(ProjectName)\" /i /s /r /exclude:xcopyexclude /y
+
+xcopy "$(ProjectDir)..\$(ProjectName)" "$(SolutionDir)include\$(ProjectName)\" /i /s /r /exclude:xcopyexclude /y &gt; nul
+
 del ".\xcopyexclude"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>

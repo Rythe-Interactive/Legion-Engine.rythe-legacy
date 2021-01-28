@@ -44,6 +44,8 @@
     <ClCompile Include="pipeline\default\postfx\fxaa.cpp" />
     <ClCompile Include="pipeline\default\stages\debugrenderstage.cpp" />
     <ClCompile Include="pipeline\default\postfx\bloom.cpp" />
+    <ClCompile Include="pipeline\default\postfx\depthoffield.cpp" />
+    <ClCompile Include="util\matini.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="components\camera.hpp" />
@@ -102,7 +104,7 @@
     <ClInclude Include="components\point_emitter_data.hpp" />
     <ClInclude Include="pipeline\default\postfx\bloom.hpp" />
     <ClInclude Include="components\point_cloud_particle_container.hpp" />
-    <ClInclude Include="components\point_animation_data.hpp" />
+    <ClInclude Include="pipeline\default\postfx\depthoffield.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\buffer.inl" />
