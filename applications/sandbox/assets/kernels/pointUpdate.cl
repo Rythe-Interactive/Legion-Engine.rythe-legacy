@@ -1,5 +1,5 @@
 
-const float _distThresh=12.0f;
+const float _distThresh=6.0f;
 
 const float _speed =1.0f;
 __kernel void Main
@@ -26,7 +26,6 @@ __kernel void Main
     //else check if we should start to animate
     else
     {
-
     float a = positions[positionIndex];
     float b = positions[positionIndex];
     float c = positions[positionIndex];
@@ -39,10 +38,6 @@ __kernel void Main
     {       
         isAnimating[n]=true;
         colors[n] = (float4)(inputColor.x,inputColor.y,inputColor.z, inputColor.w+deltaTime*_speed);
-    }
-    else
-    {
-        colors[n] = (float4)(1.0f,0.0f,0.0f, inputColor.w+deltaTime*_speed);
     }
     }
 }

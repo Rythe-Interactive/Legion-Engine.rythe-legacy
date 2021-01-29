@@ -67,7 +67,9 @@ public:
         auto emitter = emitter_handle.read();
         m_positions = emitter.pointInput;
         m_colors = emitter.colorInput;
-
+        //store ref to container
+        emitter.container = &container;
+        emitter_handle.write(emitter);
 
         //create the particles
         CreateParticles(&m_positions, &m_colors);
