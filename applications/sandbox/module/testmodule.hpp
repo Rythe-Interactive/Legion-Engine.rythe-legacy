@@ -6,11 +6,11 @@
 //#include "../systems/testsystemconvexhull.hpp"
 //#include "../systems/testsystem2.hpp"
 #include"../systems/pointcloudtestsystem2.hpp"
-#include "../systems/pointcloud_animation_system.hpp"
+//#include "../systems/pointcloud_animation_system.hpp"
 #include "../systems/simplecameracontroller.hpp"
 #include "../systems/gui_test.hpp"
 
-#include <rendering/systems/pointcloudgeneration.hpp>
+//#include <rendering/systems/pointcloudgeneration.hpp>
 
 //#include <physics/systems/physics_fracture_test_system.hpp>
 
@@ -42,11 +42,11 @@ public:
         reportSystem<ext::Animator>();
         reportSystem<ext::AnimationEditor>();
         */
-       // reportSystem<GuiTestSystem>();
+        reportSystem<GuiTestSystem>();
 
         //no physics for you
 #if !defined(SUPER_LOW_POWER)
-        reportSystem<physics::PhysicsFractureTestSystem>();
+        //reportSystem<physics::PhysicsFractureTestSystem>();
 #endif
     }
 

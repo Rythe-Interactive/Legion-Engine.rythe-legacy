@@ -7,6 +7,9 @@
 #include <rendering/pipeline/default/stages/debugrenderstage.hpp>
 #include <rendering/pipeline/default/stages/postprocessingstage.hpp>
 #include <rendering/pipeline/default/stages/submitstage.hpp>
+
+#include <rendering/pipeline/default/stages/pointcloudstage.hpp>
+
 #include <rendering/pipeline/default/postfx/tonemapping.hpp>
 #include <rendering/pipeline/default/postfx/fxaa.hpp>
 #include <rendering/pipeline/default/postfx/bloom.hpp>
@@ -27,6 +30,7 @@ namespace legion::rendering
         attachStage<DebugRenderStage>();
         attachStage<PostProcessingStage>();
         attachStage<SubmitStage>();
+        attachStage<PointCloudStage>();
 
         PostProcessingStage::addEffect<Tonemapping>();
         PostProcessingStage::addEffect<Bloom>(-64);

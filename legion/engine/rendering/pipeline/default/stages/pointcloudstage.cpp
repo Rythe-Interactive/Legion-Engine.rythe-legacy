@@ -28,8 +28,10 @@ namespace legion::rendering
 
     void PointCloudStage::render(app::window& context, camera& cam, const camera::camera_input& camInput, time::span deltaTime)
     {
-        static auto pointcloudQuery = createQuery<point_cloud_particle_container>();
         static id_type mainId = nameHash("main");
+
+        if (!m_container)
+            return;
 
         auto* fbo = getFramebuffer(mainId);
         if (!fbo)
@@ -57,20 +59,25 @@ namespace legion::rendering
 
         fbo->bind();
         m_pointShader.bind();
+        m_pointShader.get_uniform<float>("size").set_value(0.1f);
+        m_pointShader.get_uniform_with_location<math::mat4>(SV_VIEW).set_value(camInput.view);
+        m_pointShader.get_uniform_with_location<math::mat4>(SV_PROJECT).set_value(camInput.proj);
 
-        if(m_container)
+        auto& cloud = *m_container;
+        if (!cloud.buffered)
+            buffferCloud(cloud);
+        else
         {
-            auto& cloud = *m_container;
-            if (!cloud.buffered)
-                buffferCloud(cloud);
-            else
-            {
-                cloud.colorBuffer.bufferData(cloud.colorBufferData);
-            }
-
-
+            cloud.colorBuffer.bufferData(cloud.colorBufferData);
         }
 
+        cloud.vertexArray.bind();
+
+        glDrawArrays(GL_POINTS, 0, cloud.positionBufferData.size());
+
+        cloud.vertexArray.release();
+
+        m_pointShader.release();
         fbo->release();
     }
 

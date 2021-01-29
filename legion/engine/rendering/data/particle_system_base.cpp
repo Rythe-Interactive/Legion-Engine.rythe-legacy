@@ -12,7 +12,7 @@ namespace legion::rendering
         OPTICK_EVENT();
 
          //Handle model and material assigning.
-         ent.add_component<mesh_renderer>(rendering::mesh_renderer(m_particleMaterial, m_particleModel));
+         //ent.add_component<mesh_renderer>(rendering::mesh_renderer(m_particleMaterial, m_particleModel));
     }
 
     void ParticleSystemBase::cleanUpParticle(ecs::entity_handle particleHandle, particle_emitter& emitter) const
