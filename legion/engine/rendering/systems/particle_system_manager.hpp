@@ -70,18 +70,19 @@ namespace legion::rendering
                 index++;
                 if (index == pointCloudQuery.size())
                 {
+                /*    auto windowHandle = world.get_component_handle<app::window>();
+                    if (!windowHandle)return;*/
 
-
-
-                    auto windowHandle = world.get_component_handle<app::window>();
-                    if (!windowHandle)return;
+                    //get data
                     auto& colorData = emitter.container->colorBufferData;
                     auto& posData = emitter.container->colorBufferData;
                     auto& isAnimating = emitter.container->isAnimating;
+                    //Get cam pos
                     auto camQuery = createQuery<camera>();
                     camQuery.queryEntities();
-                    //get cam position
                     auto camPos = camQuery[0].get_component_handle<position>().read();
+
+                    //schedule job to update animation 
                     m_scheduler->queueJobs
                     (colorData.size(), [&]()
                         {
@@ -102,13 +103,13 @@ namespace legion::rendering
                     //    colorData.at(i).a = getDistance(posData.at(i), camPos);
                     //}
 
-                    app::context_guard guard(windowHandle.read());
-                    if (guard.contextIsValid())
-                    {
+                    //app::context_guard guard(windowHandle.read());
+                    //if (guard.contextIsValid())
+                    //{
 
-                        rendering::buffer colorBuffer = rendering::buffer(GL_ARRAY_BUFFER, emitter.container->colorBufferData, GL_STREAM_READ);
-                        particleSystem->m_particleModel.overwrite_buffer(colorBuffer, SV_COLOR, true);
-                    }
+                    //    rendering::buffer colorBuffer = rendering::buffer(GL_ARRAY_BUFFER, emitter.container->colorBufferData, GL_STREAM_READ);
+                    //    particleSystem->m_particleModel.overwrite_buffer(colorBuffer, SV_COLOR, true);
+                    //}
                 }
             }
         }
