@@ -131,6 +131,7 @@ public:
 
             //Sets the particle scale to the right scale.
         //    transRead.position
+            container.positionBufferData.push_back(newPos);
             pos.write(newPos);
             scale.write(math::vec3(m_startingSize));
 

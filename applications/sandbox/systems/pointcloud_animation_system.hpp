@@ -15,22 +15,21 @@ namespace legion
 
         void update(time::span deltaTime)
         {
-            OPTICK_EVENT();
-            UpdateCam();
+        //    OPTICK_EVENT();
+        //    UpdateCam();
 
-            m_entityQuery.queryEntities();
-            //bulk read
-            auto& positions = m_entityQuery.get<position>();
-            auto& animData = m_entityQuery.get< point_animation_data>();
-            //animate
-            m_scheduler->queueJobs(m_entityQuery.size(), [&]()
-                {
-                    auto value = async::this_job::get_id();
-                    Animate(positions[value], animData[value], deltaTime);
-                }).wait();
-                //bulk write
-                m_entityQuery.submit<position>();
-                m_entityQuery.submit<point_animation_data>();
+        //    m_entityQuery.queryEntities();
+        //    //bulk read
+        //    auto& animData = m_entityQuery.get< point_animation_data>();
+        //    //animate
+        //    m_scheduler->queueJobs(m_entityQuery.size(), [&]()
+        //        {
+        //            auto value = async::this_job::get_id();
+        //            Animate(positions[value], animData[value], deltaTime);
+        //        }).wait();
+        //        //bulk write
+        //       // m_entityQuery.submit<position>();
+        //        m_entityQuery.submit<point_animation_data>();
         }
 
     private:
@@ -50,7 +49,7 @@ namespace legion
                 if (distance < m_threshold)
                 {
                     //move and write that animation has started
-                    pos += math::vec3::down * m_speed * deltaTime;
+                    //pos += math::vec3::down * m_speed * deltaTime;
                     data.isAnimating = true;
                 }
             }
@@ -69,12 +68,12 @@ namespace legion
             }
         }
 
-        ecs::EntityQuery m_entityQuery = createQuery<point_animation_data, position>();
+        ecs::EntityQuery m_entityQuery = createQuery<point_animation_data>();
         ecs::EntityQuery m_CamQuery = createQuery<camera>();
         math::vec3 m_camPos;
 
         const float m_speed = 1.0f;
-        const float m_threshold = 3.5f;
+        const float m_threshold = 5.5f;
     };
 
 }

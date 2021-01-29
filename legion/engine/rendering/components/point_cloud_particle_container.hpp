@@ -10,6 +10,6 @@ namespace legion::rendering
         std::vector<ecs::entity_handle> livingParticles;
         std::vector<ecs::entity_handle> deadParticles;
         std::vector<math::color> colorBufferData;
+        std::vector <math::vec3 > positionBufferData;
     };
-
 }

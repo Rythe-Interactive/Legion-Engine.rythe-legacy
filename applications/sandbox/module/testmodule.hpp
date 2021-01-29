@@ -35,14 +35,14 @@ public:
         //reportSystem<TestSystemConvexHull>();
         reportComponentType<sah>();
         reportSystem<pointcloudtestsystem2>();
-        reportSystem < pointcloudanimationsystem>();
+        //reportSystem < pointcloudanimationsystem>();
         reportSystem<SimpleCameraController>();
 
         /*reportComponentType<ext::animation>();
         reportSystem<ext::Animator>();
         reportSystem<ext::AnimationEditor>();
         */
-        reportSystem<GuiTestSystem>();
+       // reportSystem<GuiTestSystem>();
 
         //no physics for you
 #if !defined(SUPER_LOW_POWER)

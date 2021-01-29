@@ -53,9 +53,6 @@ namespace legion::rendering
                     particleSystem->update(emit.livingParticles, emitterHandle, emitters, deltaTime);
                 }
             }
-
-
-
             //update point cloud buffer data
             static auto pointCloudQuery = createQuery<particle_emitter, rendering::point_emitter_data>();
             pointCloudQuery.queryEntities();
@@ -73,25 +70,48 @@ namespace legion::rendering
                 index++;
                 if (index == pointCloudQuery.size())
                 {
+
+
+
                     auto windowHandle = world.get_component_handle<app::window>();
                     if (!windowHandle)return;
+                    auto& colorData = emitter.container->colorBufferData;
+                    auto& posData = emitter.container->colorBufferData;
+
+                    auto camQuery = createQuery<camera>();
+                    camQuery.queryEntities();
+                    //get cam position
+                    auto camPos = camQuery[0].get_component_handle<position>().read();
+                    m_scheduler->queueJobs
+                    (colorData.size(), [&]()
+                        {
+                            auto value = async::this_job::get_id();
+                            float a = getDistance(camPos, posData[value]);
+                            colorData[value].a = a;
+                        }
+                    ).wait();
+                    ////update alpha based on position distance
+                    //for (size_t i = 0; i < colorData.size(); i++)
+                    //{
+                    //    colorData.at(i).a = getDistance(posData.at(i), camPos);
+                    //}
 
                     app::context_guard guard(windowHandle.read());
                     if (guard.contextIsValid())
                     {
-                        ////create buffer
-                     //   auto tempData =;
-                        ///*   for (int i = 356; i < 1192; i++)
-                    /*    {
-                            tempData.at(i) = math::colors::white;
-                        }*/
+
                         rendering::buffer colorBuffer = rendering::buffer(GL_ARRAY_BUFFER, emitter.container->colorBufferData, GL_STREAM_READ);
                         particleSystem->m_particleModel.overwrite_buffer(colorBuffer, SV_COLOR, true);
-                     //   log::debug(std::to_string(emitter.container->colorBufferData.size()));
-
                     }
                 }
             }
+        }
+
+
+
+        float getDistance(const math::vec3& camPos, const math::vec3& pointPos)
+        {
+            return math::distance2(camPos, pointPos);
         }
     };
 }
