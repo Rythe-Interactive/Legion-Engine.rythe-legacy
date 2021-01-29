@@ -31,53 +31,37 @@ namespace legion::rendering
             OPTICK_EVENT();
             static auto emitters = createQuery<particle_emitter>();
             emitters.queryEntities();
+
             for (auto entity : emitters)
             {
                 //Gets emitter handle and emitter.
                 auto emitterHandle = entity.get_component_handle<particle_emitter>();
-                auto emit = emitterHandle.read();
+                auto emitter = emitterHandle.read();
                 //Checks if emitter was already initialized.
-                if (!emit.setupCompleted)
+                if (!emitter.setupCompleted)
                 {
                     //If NOT then it goes through the particle system setup.
-                    emit.setupCompleted = true;
-                    emitterHandle.write(emit);
+                    emitter.setupCompleted = true;
+                    emitterHandle.write(emitter);
 
-                    const ParticleSystemBase* particleSystem = emit.particleSystemHandle.get();
+                    const ParticleSystemBase* particleSystem = emitter.particleSystemHandle.get();
                     particleSystem->setup(emitterHandle);
                 }
-                else
-                {
-                    //If it IS then it runs the emitter through the particle system update.
-                    const ParticleSystemBase* particleSystem = emit.particleSystemHandle.get();
-                    particleSystem->update(emit.livingParticles, emitterHandle, emitters, deltaTime);
-                }
-            }
-            //update point cloud buffer data
-            static auto pointCloudQuery = createQuery<particle_emitter, rendering::point_emitter_data>();
-            pointCloudQuery.queryEntities();
-            std::vector<math::vec4> colorData;
-            int index = 0;
-            for (auto pointEntities : pointCloudQuery)
-            {
-                auto emitterHandle = pointEntities.get_component_handle<particle_emitter>();
-                auto emitter = emitterHandle.read();
+                //else
+                //{
+                //    //If it IS then it runs the emitter through the particle system update.
+                //    const ParticleSystemBase* particleSystem = emit.particleSystemHandle.get();
+                //    particleSystem->update(emit.livingParticles, emitterHandle, emitters, deltaTime);
+                //}
+
                 const ParticleSystemBase* particleSystem = emitter.particleSystemHandle.get();
 
-                auto dataHandle = pointEntities.get_component_handle<rendering::point_emitter_data>();
-                auto data = dataHandle.read();
-
-                index++;
-                if (index == pointCloudQuery.size())
+                auto dataHandle = entity.get_component_handle<rendering::point_emitter_data>();
+                if (dataHandle && emitter.container)
                 {
-                /*    auto windowHandle = world.get_component_handle<app::window>();
-                    if (!windowHandle)return;*/
+                    auto data = dataHandle.read();
 
-                    //get data
-                 /*   auto& colorData = ;
-                    auto& posData = emitter.container->positionBufferData;
-                    auto& isAnimating = emitter.container->isAnimating;*/
-                    //Get cam pos
+
                     auto camQuery = createQuery<camera>();
                     camQuery.queryEntities();
                     auto camPos = camQuery[0].get_component_handle<position>().read();
@@ -87,32 +71,16 @@ namespace legion::rendering
                     (emitter.container->colorBufferData.size(), [&]()
                         {
                             auto value = async::this_job::get_id();
-                            if (!emitter.container->isAnimating[value] && getDistance(camPos, emitter.container->positionBufferData[value]) < 16.0f)
+                            if (!emitter.container->isAnimating[value] && math::distance2(camPos, emitter.container->positionBufferData[value]) < 16.0f)
                             {
                                 emitter.container->isAnimating[value] = true;
                             }
-                            if(emitter.container->isAnimating[value])
+                            if (emitter.container->isAnimating[value])
                             {
                                 emitter.container->colorBufferData[value].a += deltaTime;
                             }
                         }
                     ).wait();
-
-
-                   // log::debug(posData.size());
-                    ////update alpha based on position distance
-                    //for (size_t i = 0; i < colorData.size(); i++)
-                    //{
-                    //    colorData.at(i).a = getDistance(posData.at(i), camPos);
-                    //}
-
-                    //app::context_guard guard(windowHandle.read());
-                    //if (guard.contextIsValid())
-                    //{
-
-                    //    rendering::buffer colorBuffer = rendering::buffer(GL_ARRAY_BUFFER, emitter.container->colorBufferData, GL_STREAM_READ);
-                    //    particleSystem->m_particleModel.overwrite_buffer(colorBuffer, SV_COLOR, true);
-                    //}
                 }
             }
         }

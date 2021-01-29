@@ -123,26 +123,26 @@ public:
         int index = 0;
         for (auto [newPos, newColor] : *inputData)
         {
-            ecs::component_handle<transform> trans = checkContainerToRecycle();
+            //ecs::component_handle<transform> trans = checkContainerToRecycle();
 
             //auto ent = trans.entity;
 
             //Gets position, rotation and scale of entity.
-            auto newTrans = trans.entity.get_component_handles<transform>();
-            auto& [pos, _, scale] = newTrans;
+            //auto newTrans = trans.entity.get_component_handles<transform>();
+            //auto& [pos, _, scale] = newTrans;
 
             //Sets the particle scale to the right scale.
         //    transRead.position
             container.positionBufferData.push_back(newPos);
 
 
-            pos.write(newPos);
-            scale.write(math::vec3(m_startingSize));
+            //pos.write(newPos);
+            //scale.write(math::vec3(m_startingSize));
 
             //auto it = container.colorBufferData.begin() + data.bufferPosition + data.emitterSize + index;
             container.colorBufferData.push_back(newColor);
             //Populates the particle with the appropriate stuffs.
-            createParticle(trans.entity);
+            //createParticle(trans.entity);
             index++;
 
         }
