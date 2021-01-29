@@ -74,9 +74,9 @@ namespace legion::rendering
                     if (!windowHandle)return;*/
 
                     //get data
-                    auto& colorData = emitter.container->colorBufferData;
-                    auto& posData = emitter.container->colorBufferData;
-                    auto& isAnimating = emitter.container->isAnimating;
+                 /*   auto& colorData = ;
+                    auto& posData = emitter.container->positionBufferData;
+                    auto& isAnimating = emitter.container->isAnimating;*/
                     //Get cam pos
                     auto camQuery = createQuery<camera>();
                     camQuery.queryEntities();
@@ -84,19 +84,22 @@ namespace legion::rendering
 
                     //schedule job to update animation 
                     m_scheduler->queueJobs
-                    (colorData.size(), [&]()
+                    (emitter.container->colorBufferData.size(), [&]()
                         {
                             auto value = async::this_job::get_id();
-                            if (!isAnimating[value] && getDistance(camPos, posData[value]) < 16.0f)
+                            if (!emitter.container->isAnimating[value] && getDistance(camPos, emitter.container->positionBufferData[value]) < 16.0f)
                             {
-                                isAnimating[value] = true;
+                                emitter.container->isAnimating[value] = true;
                             }
-                            if(isAnimating[value])
+                            if(emitter.container->isAnimating[value])
                             {
-                                colorData[value].a += deltaTime;
+                                emitter.container->colorBufferData[value].a += deltaTime;
                             }
                         }
                     ).wait();
+
+
+                   // log::debug(posData.size());
                     ////update alpha based on position distance
                     //for (size_t i = 0; i < colorData.size(); i++)
                     //{
