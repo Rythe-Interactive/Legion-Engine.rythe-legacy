@@ -71,6 +71,11 @@ public:
         return Buffer(m_context,data,size,type,std::forward<std::string>(name));
     }
 
+    static Buffer createBuffer(cl_uint gl_buffer, buffer_type type, std::string name = "")
+    {
+        OPTICK_EVENT();
+        return Buffer(m_context, gl_buffer, type, std::forward<std::string>(name));
+    }
     static Buffer createImage(image& img,buffer_type type, std::string name ="")
     {
         OPTICK_EVENT();
@@ -122,6 +127,12 @@ public:
     {
         OPTICK_EVENT();
         return Buffer(m_context,bufferid,type,true, std::move(name));
+    }
+
+    static Buffer createBufferFromOpenGLBuffer(uint bufferid,buffer_type type, std::string name="")
+    {
+        OPTICK_EVENT();
+        return Buffer(m_context,bufferid,type,name);
     }
 
 

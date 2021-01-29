@@ -2,6 +2,9 @@
 #include <core/core.hpp>
 #include <rendering/data/particle_system_base.hpp>
 #include <rendering/components/point_emitter_data.hpp>
+#include <core/compute/context.hpp>
+#include <core/compute/kernel.hpp>
+
 namespace legion::rendering
 {
     /**
@@ -66,8 +69,22 @@ namespace legion::rendering
                     camQuery.queryEntities();
                     auto camPos = camQuery[0].get_component_handle<position>().read();
 
+                    math::vec4 camPos4 = math::vec4(camPos.xyz, 0);
+                    auto positionBuffer = compute::Context::createBuffer(emitter.container->positionBufferData, compute::buffer_type::READ_BUFFER, "positions");
+                    auto colors = compute::Context::createBuffer(emitter.container->colorBufferData, compute::buffer_type::RW_BUFFER, "colors");
+                    //auto outputColors = compute::Context::createBuffer(emitter.container->colorBufferData, compute::buffer_type::WRITE_BUFFER, "newColors");
+                    int processSize = emitter.container->colorBufferData.size();
+                    emitter.container->pointUpdateCL
+                    (
+                        processSize,
+                        positionBuffer,
+                        compute::karg(camPos4, "camPos"),
+                        compute::karg(deltaTime, "deltaTime"),
+                        colors
+                    );
+
                     //schedule job to update animation 
-                    m_scheduler->queueJobs
+                  /*  m_scheduler->queueJobs
                     (emitter.container->colorBufferData.size(), [&]()
                         {
                             auto value = async::this_job::get_id();
@@ -80,7 +97,7 @@ namespace legion::rendering
                                 emitter.container->colorBufferData[value].a += deltaTime;
                             }
                         }
-                    ).wait();
+                    ).wait();*/
                 }
             }
         }

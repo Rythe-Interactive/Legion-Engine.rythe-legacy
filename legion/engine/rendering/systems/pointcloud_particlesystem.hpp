@@ -54,6 +54,8 @@ public:
         container = rendering::point_cloud_particle_container();
         //send container address to the render stage
         rendering::PointCloudStage::SetContainer(&container);
+        container.pointUpdateCL = fs::view("assets://kernels/pointUpdate.cl").load_as<compute::function>("Main");
+
     }
 
     /**

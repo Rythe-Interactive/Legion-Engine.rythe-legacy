@@ -2,6 +2,7 @@
 #include <core/core.hpp>
 #include <rendering/data/vertexarray.hpp>
 #include <rendering/data/buffer.hpp>
+#include <core/compute/high_level/function.hpp>
 
 namespace legion::rendering
 {
@@ -19,5 +20,8 @@ namespace legion::rendering
         std::vector<math::color> colorBufferData;
         std::vector <math::vec3 > positionBufferData;
         std::vector<byte> isAnimating;
+
+        compute::function pointUpdateCL;
+
     };
 }

@@ -23,6 +23,7 @@ namespace legion::core::compute {
     {
         WRITE_BUFFER = 1,
         READ_BUFFER = 2,
+        RW_BUFFER = 3
     };
 
     /**
@@ -55,8 +56,10 @@ namespace legion::core::compute {
         Buffer(cl_context, void*, size_type, size_type, size_type, cl_mem_object_type, cl_image_format*, buffer_type, std::string);
         Buffer(cl_context, cl_uint, buffer_type, bool, std::string);
         Buffer(cl_context, cl_uint, cl_uint, cl_uint, buffer_type, std::string);
-    
+
         Buffer(cl_context, byte*, size_type, buffer_type, std::string);
+
+        Buffer(cl_context, cl_uint, buffer_type, std::string name);
 
         Buffer(Buffer&& b) noexcept;
         Buffer(const Buffer& b);

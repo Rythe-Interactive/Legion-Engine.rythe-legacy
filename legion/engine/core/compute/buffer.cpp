@@ -34,10 +34,10 @@ namespace legion::core::compute
         }
 
 
-        switch(format->image_channel_data_type)
+        switch (format->image_channel_data_type)
         {
         case CL_UNORM_INT8:
-            
+
             break;
         case CL_UNORM_INT16:
             channelSize *= 2;
@@ -148,6 +148,30 @@ namespace legion::core::compute
         if (ret != CL_SUCCESS)
         {
             log::error("clCreateBuffer failed for Buffer: {}", m_name);
+        }
+
+    }
+
+    Buffer::Buffer(cl_context ctx, cl_uint gl_buffer, buffer_type type, std::string name)
+        : m_name(std::move(name))
+        , m_data(nullptr)
+        , m_size(0)
+    {
+        OPTICK_EVENT();
+        m_ref_count = new size_type(1);
+        //convert buffer_type to cl_mem_flags
+        if (type == buffer_type::READ_BUFFER)
+            m_type = CL_MEM_READ_ONLY;
+        else if (type == buffer_type::WRITE_BUFFER)
+            m_type = CL_MEM_WRITE_ONLY;
+        else
+            m_type = CL_MEM_READ_WRITE;
+
+        cl_int ret;
+        m_memory_object = clCreateFromGLBuffer(ctx, m_type, gl_buffer, &ret);
+        if (ret != CL_SUCCESS)
+        {
+            log::error("clCreateFromGLBuffer failed for Buffer: {} with code: {}", m_name, ret);
         }
 
     }
