@@ -48,6 +48,7 @@
     <ClCompile Include="pipeline\default\stages\lightbufferstage.cpp" />
     <ClCompile Include="pipeline\default\stages\meshbatchingstage.cpp" />
     <ClCompile Include="pipeline\default\stages\meshrenderstage.cpp" />
+    <ClCompile Include="pipeline\default\stages\pointcloudstage.cpp" />
     <ClCompile Include="pipeline\default\stages\submitstage.cpp" />
     <ClCompile Include="pipeline\gui\stages\imguirenderstage.cpp" />
     <ClCompile Include="pipeline\default\stages\postprocessingstage.cpp" />
@@ -78,6 +79,7 @@
     <ClInclude Include="pipeline\default\postfx\bloom.hpp" />
     <ClInclude Include="pipeline\default\postfx\tonemapping.hpp" />
     <ClInclude Include="pipeline\default\stages\debugrenderstage.hpp" />
+    <ClInclude Include="pipeline\default\stages\pointcloudstage.hpp" />
     <ClInclude Include="pipeline\default\stages\postprocessingstage.hpp" />
     <ClInclude Include="pipeline\gui\stages\imguirenderstage.hpp" />
     <ClInclude Include="systems\lod_manager.hpp" />

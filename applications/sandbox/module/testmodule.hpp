@@ -1,9 +1,9 @@
 #pragma once
 #include <core/core.hpp>
-#include <core/math/math.hpp>
-#include "../systems/testsystem.hpp"
+//#include <core/math/math.hpp>
+//#include "../systems/testsystem.hpp"
 
-#include "../systems/testsystemconvexhull.hpp"
+//#include "../systems/testsystemconvexhull.hpp"
 //#include "../systems/testsystem2.hpp"
 #include"../systems/pointcloudtestsystem2.hpp"
 #include "../systems/pointcloud_animation_system.hpp"
@@ -12,12 +12,12 @@
 
 #include <rendering/systems/pointcloudgeneration.hpp>
 
-#include <physics/systems/physics_fracture_test_system.hpp>
+//#include <physics/systems/physics_fracture_test_system.hpp>
 
 
-#include "../data/animation.hpp"
-#include "../systems/animation_editor.hpp"
-#include "../systems/animator.hpp"
+//#include "../data/animation.hpp"
+//#include "../systems/animation_editor.hpp"
+//#include "../systems/animator.hpp"
 
 
 

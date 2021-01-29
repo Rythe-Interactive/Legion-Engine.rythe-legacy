@@ -109,8 +109,6 @@
   <ItemGroup>
     <ClCompile Include="data\animation.cpp" />
     <ClCompile Include="source.cpp" />
-    <ClCompile Include="systems\animation_editor.cpp" />
-    <ClCompile Include="systems\animator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data\animation.hpp" />
@@ -119,18 +117,12 @@
     <ClInclude Include="data\pp_edgedetect.hpp" />
     <ClInclude Include="module\testmodule.hpp" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="systems\animation_editor.hpp" />
-    <ClInclude Include="systems\animator.hpp" />
     <ClInclude Include="systems\gui_test.hpp" />
     <ClInclude Include="systems\pointcloudtestsystem2.hpp" />
-    <ClInclude Include="systems\explosion_particlesystem.hpp" />
     <ClInclude Include="systems\pointcloud_animation_system.hpp" />
     <ClInclude Include="systems\pointcloud_particlesystem.hpp" />
     <ClInclude Include="data\pp_blur.hpp" />
     <ClInclude Include="systems\simplecameracontroller.hpp" />
-    <ClInclude Include="systems\testsystem2.hpp" />
-    <ClInclude Include="systems\testsystemconvexhull.hpp" />
-    <ClInclude Include="systems\testsystem.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\kernels\vadd_kernel.cl" />
