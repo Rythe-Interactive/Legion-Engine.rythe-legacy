@@ -28,6 +28,7 @@ namespace legion::rendering
          */
         void update(time::span deltaTime)
         {
+            log::debug("dt {}ms", deltaTime.milliseconds());
             OPTICK_EVENT();
             static auto emitters = createQuery<particle_emitter>();
             emitters.queryEntities();
@@ -71,7 +72,7 @@ namespace legion::rendering
                     (emitter.container->colorBufferData.size(), [&]()
                         {
                             auto value = async::this_job::get_id();
-                            if (!emitter.container->isAnimating[value] && math::distance2(camPos, emitter.container->positionBufferData[value]) < 16.0f)
+                            if (!emitter.container->isAnimating[value] && math::distance2(camPos, emitter.container->positionBufferData[value]) < 36.f)
                             {
                                 emitter.container->isAnimating[value] = true;
                             }
