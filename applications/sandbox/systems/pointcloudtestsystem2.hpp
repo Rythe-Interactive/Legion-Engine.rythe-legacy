@@ -27,6 +27,7 @@ public:
 
     virtual void setup() override
     {
+        using namespace fs::literals;
         //get mesh
         ModelCache::create_model("cube", "assets://models/Cube.obj"_view);
         ModelCache::create_model("plane", "assets://models/plane.obj"_view);

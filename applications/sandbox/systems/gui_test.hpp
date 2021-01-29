@@ -27,6 +27,7 @@ class GuiTestSystem : public System<GuiTestSystem>
 
     void setup() override
     {
+        using namespace fs::literals;
 
         static_cast<DefaultPipeline*>(Renderer::getMainPipeline())->attachStage<ImGuiStage>();
 

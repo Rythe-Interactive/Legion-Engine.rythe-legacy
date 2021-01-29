@@ -8,7 +8,7 @@
 #include<rendering/components/point_emitter_data.hpp>
 #include <rendering/components/point_cloud_particle_container.hpp>
 #include <rendering/components/point_animation_data.hpp>
-
+#include <rendering/pipeline/default/stages/pointcloudstage.hpp>
 using namespace legion;
 /**
  * @struct pointCloudParameters
@@ -52,6 +52,8 @@ public:
         m_particleMaterial = params.particleMaterial;
         m_particleModel = params.particleModel;
         container = rendering::point_cloud_particle_container();
+        //send container address to the render stage
+        rendering::PointCloudStage::SetContainer(&container);
     }
 
     /**

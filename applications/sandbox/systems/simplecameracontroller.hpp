@@ -85,6 +85,8 @@ public:
 
     void setupCameraEntity()
     {
+        using namespace fs::literals;
+
         rendering::material_handle pbrH = rendering::MaterialCache::get_material("pbr");
         if (pbrH == rendering::invalid_material_handle)
         {
