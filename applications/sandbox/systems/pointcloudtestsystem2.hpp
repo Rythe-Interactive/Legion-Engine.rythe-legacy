@@ -130,7 +130,7 @@ public:
         auto ent2 = createEntity();
         auto trans2 = ent2.add_components<transform>(position(3.0f, 2, 10), rotation(), scale());
         //ent2.add_components<rendering::mesh_renderable>(mesh_filter(s21), rendering::mesh_renderer(materials_vector.at(0)));
-        ent2.add_component<point_cloud>(point_cloud(airPlaine, trans2, billboardMat, albedo2, normal, 50000, 0.1f));
+        ent2.add_component<point_cloud>(point_cloud(suzanneeMesh, trans2, billboardMat, albedo2, normal, 5000, 0.1f));
 
 
         /* auto ent4 = createEntity();

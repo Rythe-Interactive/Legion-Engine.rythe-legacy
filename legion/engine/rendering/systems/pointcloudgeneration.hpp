@@ -176,7 +176,12 @@ namespace legion::rendering
                realPointCloud.m_Material,
                ModelCache::get_handle("billboard")
             };
-            GenerateParticles(params, particleInput, resultColor, realPointCloud.m_trans);
+            std::vector<math::color> inputColor(resultColor.size());
+            for (size_t i = 0; i < resultColor.size(); i++)
+            {
+                inputColor[i] = math::color(resultColor[i]);
+            }
+            GenerateParticles(params, particleInput, inputColor, realPointCloud.m_trans);
 
 
             //write that pc has been generated
@@ -184,7 +189,7 @@ namespace legion::rendering
             pointCloud.write(realPointCloud);
         }
 
-        void GenerateParticles(pointCloudParameters params, std::vector<math::vec3> input, std::vector<math::vec4> inputColor, transform trans)
+        void GenerateParticles(pointCloudParameters params, std::vector<math::vec3> input, std::vector<math::color> inputColor, transform trans)
         {
             //generate particle system
             std::string name = nameOfType<PointCloudParticleSystem>();

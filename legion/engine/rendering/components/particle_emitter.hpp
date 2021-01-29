@@ -16,7 +16,7 @@ namespace legion::rendering
         bool setupCompleted;
 
         std::vector<math::vec3> pointInput;
-        std::vector<math::vec4> colorInput;
+        std::vector<math::color> colorInput;
         point_cloud_particle_container* container;
     };
 

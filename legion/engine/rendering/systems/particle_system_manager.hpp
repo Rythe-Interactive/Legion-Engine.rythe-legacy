@@ -60,12 +60,12 @@ namespace legion::rendering
 
                 const ParticleSystemBase* particleSystem = emitter.particleSystemHandle.get();
 
-                auto dataHandle = entity.get_component_handle<rendering::point_emitter_data>();
-                if (dataHandle && emitter.container)
+                // auto dataHandle = entity.get_component_handle<rendering::point_emitter_data>();
+               //  if (dataHandle && )
+               //  {
+               // auto data = dataHandle.read();
+                if (emitter.container)
                 {
-                    auto data = dataHandle.read();
-
-
                     auto camQuery = createQuery<camera>();
                     camQuery.queryEntities();
                     auto camPos = camQuery[0].get_component_handle<position>().read();
@@ -74,7 +74,6 @@ namespace legion::rendering
                     auto positionBuffer = compute::Context::createBuffer(emitter.container->positionBufferData, compute::buffer_type::READ_BUFFER, "positions");
                     auto colors = compute::Context::createBuffer(emitter.container->colorBufferData, compute::buffer_type::RW_BUFFER, "colors");
                     auto isAnimating = compute::Context::createBuffer(emitter.container->isAnimating, compute::buffer_type::RW_BUFFER, "isAnimating");
-                    //auto outputColors = compute::Context::createBuffer(emitter.container->colorBufferData, compute::buffer_type::WRITE_BUFFER, "newColors");
                     int processSize = emitter.container->colorBufferData.size();
                     emitter.container->pointUpdateCL
                     (
@@ -85,22 +84,23 @@ namespace legion::rendering
                         isAnimating,
                         colors
                     );
-
-                    //schedule job to update animation 
-                  /*  m_scheduler->queueJobs
-                    (emitter.container->colorBufferData.size(), [&]()
-                        {
-                            auto value = async::this_job::get_id();
-                            if (!emitter.container->isAnimating[value] && math::distance2(camPos, emitter.container->positionBufferData[value]) < 36.f)
-                            {
-                                emitter.container->isAnimating[value] = true;
-                            }
-                            if (emitter.container->isAnimating[value])
-                            {
-                                emitter.container->colorBufferData[value].a += deltaTime;
-                            }
-                        }
-                    ).wait();*/
+                    //     log::debug("finished kernel");
+     //
+                         //schedule job to update animation 
+                       /*  m_scheduler->queueJobs
+                         (emitter.container->colorBufferData.size(), [&]()
+                             {
+                                 auto value = async::this_job::get_id();
+                                 if (!emitter.container->isAnimating[value] && math::distance2(camPos, emitter.container->positionBufferData[value]) < 36.f)
+                                 {
+                                     emitter.container->isAnimating[value] = true;
+                                 }
+                                 if (emitter.container->isAnimating[value])
+                                 {
+                                     emitter.container->colorBufferData[value].a += deltaTime;
+                                 }
+                             }
+                         ).wait();*/
                 }
             }
         }
