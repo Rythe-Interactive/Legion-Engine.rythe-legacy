@@ -43,7 +43,7 @@ __kernel void Main
     float size = lengthA+lengthB+lengthC;
 
     int newSampleCount = ceil(size * samplesPerTri);
-    newSampleCount= min(newSampleCount,maxSize);
+    //newSampleCount= min(newSampleCount,maxSize);
     pointsCount[triangelIndex] = newSampleCount;
 }
 

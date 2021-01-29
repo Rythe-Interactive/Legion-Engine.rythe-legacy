@@ -62,7 +62,8 @@ public:
             ModelCache::create_model("cube", "assets://models/Cube.obj"_view);
             ModelCache::create_model("plane", "assets://models/plane.obj"_view);
             ModelCache::create_model("billboard", "assets://models/billboard.obj"_view);
-            ModelCache::create_model("AirPlane", "assets://models/AirPlaneRotated.glb"_view);
+            ModelCache::create_model("sponza", "assets://models/sponza_structure.obj"_view);
+            ModelCache::create_model("AirPlane", "assets://models/AirPlane.obj"_view);
 
             ModelCache::create_model("uvsphere", "assets://models/uvsphere.obj"_view);
             ModelCache::create_model("sphere", "assets://models/sphere.obj"_view);
@@ -130,7 +131,7 @@ public:
         auto ent2 = createEntity();
         auto trans2 = ent2.add_components<transform>(position(3.0f, 2, 10), rotation(), scale());
         //ent2.add_components<rendering::mesh_renderable>(mesh_filter(s21), rendering::mesh_renderer(materials_vector.at(0)));
-        ent2.add_component<point_cloud>(point_cloud(suzanneeMesh, trans2, billboardMat, albedo2, normal, 5000, 0.1f));
+        ent2.add_component<point_cloud>(point_cloud(sponzaMesh, trans2, billboardMat, albedo2, normal, 1, 0.1f));
 
 
         /* auto ent4 = createEntity();

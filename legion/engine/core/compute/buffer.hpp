@@ -2,7 +2,7 @@
 
 #include "detail/cl_include.hpp" // cl_context , cl_mem , cl_mem_flags
 #include <core/types/primitives.hpp> // byte, size_t
-
+#include <core/common/managed_resource.hpp>
 #include <string> // string
 
 /**
@@ -61,8 +61,8 @@ namespace legion::core::compute {
 
         Buffer(cl_context, cl_uint, buffer_type, std::string name);
 
-        Buffer(Buffer&& b) noexcept;
-        Buffer(const Buffer& b);
+        Buffer(Buffer&& b) noexcept = default;
+        Buffer(const Buffer& b) = default;
 
         //copy assign & move assign operator
         //are deleted since the Buffer
@@ -71,9 +71,6 @@ namespace legion::core::compute {
         Buffer& operator=(const Buffer&) = delete;
 
         void rename(const std::string& name);
-
-        ~Buffer();
-
 
         /**
          * @brief Checks if the buffer is named.
@@ -98,8 +95,7 @@ namespace legion::core::compute {
         friend class Kernel;
 
         std::string m_name;
-        cl_mem m_memory_object;
-        size_type* m_ref_count;
+        common::managed_resource<cl_mem> m_memory_object = common::managed_resource<cl_mem>(nullptr);
         cl_mem_flags m_type;
         byte* m_data;
         size_type m_size;

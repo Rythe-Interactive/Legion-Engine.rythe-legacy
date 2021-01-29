@@ -48,7 +48,8 @@ namespace legion::core::compute
         cl_uint i = 0;
         for (Buffer& buffer : buffers)
         {
-            if (!buffer.isValid()) continue;
+            if (!buffer.isValid())
+                continue;
             if (buffer.hasName())
             {
                 m_kernel->setBuffer(buffer);

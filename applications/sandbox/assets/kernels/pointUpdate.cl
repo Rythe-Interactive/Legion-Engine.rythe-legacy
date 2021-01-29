@@ -1,7 +1,6 @@
+const float _distThresh = 6.0f;
+const float _speed = 1.0f;
 
-const float _distThresh=6.0f;
-
-const float _speed =1.0f;
 __kernel void Main
 (
     __global const float* positions,
@@ -13,7 +12,7 @@ __kernel void Main
 {
     //get indices
     int n = get_global_id(0);
-    int positionIndex = n*3;
+    int positionIndex = n * 3;
 
     //get input color and check if already animating
     float4 inputColor = colors[n];
@@ -21,23 +20,22 @@ __kernel void Main
     //if animating keep animating
     if(animate)
     {
-        colors[n] = (float4)(inputColor.x,inputColor.y,inputColor.z, inputColor.w+deltaTime*_speed);
+        colors[n] = (float4)(inputColor.x, inputColor.y, inputColor.z, inputColor.w + deltaTime * _speed);
     }
-    //else check if we should start to animate
-    else
+    else //else check if we should start to animate
     {
-    float a = positions[positionIndex];
-    float b = positions[positionIndex];
-    float c = positions[positionIndex];
+        float x = positions[positionIndex + 0];
+        float y = positions[positionIndex + 1];
+        float z = positions[positionIndex + 2];
 
-    float4 pos = (float4)(a,b,c,0);
-    float dist = length(pos-camPos);
+        float4 pos = (float4)(x, y, z, 0);
+        float dist = length(pos - camPos);
 
-    //we are below the defined threshold, animate and set bool
-    if(dist<_distThresh)
-    {       
-        isAnimating[n]=true;
-        colors[n] = (float4)(inputColor.x,inputColor.y,inputColor.z, inputColor.w+deltaTime*_speed);
-    }
+        //we are below the defined threshold, animate and set bool
+        if(dist < _distThresh)
+        {
+            isAnimating[n] = true;
+            colors[n] = (float4)(inputColor.x, inputColor.y, inputColor.z, inputColor.w + deltaTime * _speed);
+        }
     }
 }

@@ -304,7 +304,8 @@ namespace legion::core::compute {
             OPTICK_EVENT();
             if constexpr (std::is_same_v<Buffer, T>)
                 return buffer_container;
-            else return Buffer(nullptr, nullptr, 0, buffer_type::WRITE_BUFFER, "broken buffer");
+            else
+                return Buffer(nullptr, nullptr, 0, buffer_type::WRITE_BUFFER, "broken buffer");
         }
 
 

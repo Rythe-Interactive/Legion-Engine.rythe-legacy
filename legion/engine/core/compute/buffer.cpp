@@ -48,7 +48,6 @@ namespace legion::core::compute
         }
 
         m_size = width * height * channelSize;
-        m_ref_count = new size_type(1);
         //convert buffer_type to cl_mem_flags
         if (type == buffer_type::READ_BUFFER)
             m_type = CL_MEM_READ_ONLY;
@@ -87,7 +86,7 @@ namespace legion::core::compute
 
         cl_int ret;
 
-        m_memory_object = clCreateImage(ctx, m_type, format, &description, data, &ret);
+        m_memory_object = common::managed_resource<cl_mem>([](cl_mem& value) {clReleaseMemObject(value); }, clCreateImage(ctx, m_type, format, &description, data, &ret));
 
         if (ret != CL_SUCCESS)
         {
@@ -101,7 +100,6 @@ namespace legion::core::compute
         , m_size(0)
     {
         OPTICK_EVENT();
-        m_ref_count = new size_type(1);
         //convert buffer_type to cl_mem_flags
         if (type == buffer_type::READ_BUFFER)
             m_type = CL_MEM_READ_ONLY;
@@ -113,24 +111,21 @@ namespace legion::core::compute
         cl_int ret;
         if (is_renderbuffer)
         {
-            m_memory_object = clCreateFromGLRenderbuffer(ctx, m_type, buffer, &ret);
+            m_memory_object = common::managed_resource<cl_mem>([](cl_mem& value) {clReleaseMemObject(value); }, clCreateFromGLRenderbuffer(ctx, m_type, buffer, &ret));
         }
         else
         {
-            m_memory_object = clCreateFromGLBuffer(ctx, m_type, buffer, &ret);
+            m_memory_object = common::managed_resource<cl_mem>([](cl_mem& value) {clReleaseMemObject(value); }, clCreateFromGLBuffer(ctx, m_type, buffer, &ret));
         }
         if (ret != CL_SUCCESS)
         {
             log::error("clCreateFromGL(X?+)Buffer failed for Buffer: {}", m_name);
         }
     }
-    Buffer::Buffer(cl_context ctx, byte* data, size_t len, buffer_type type, std::string name) :m_size(len), m_data(data), m_name(std::move(name))
+    Buffer::Buffer(cl_context ctx, byte* data, size_t len, buffer_type type, std::string name) : m_name(std::move(name)), m_data(data), m_size(len)
     {
         OPTICK_EVENT();
         if (!ctx) return;
-        //initialize new ref-counter
-        m_ref_count = new size_t(1);
-
 
         //convert buffer_type to cl_mem_flags
         if (type == buffer_type::READ_BUFFER)
@@ -144,7 +139,8 @@ namespace legion::core::compute
         cl_int ret;
 
         //create buffer
-        m_memory_object = clCreateBuffer(ctx, m_type, m_size, nullptr, &ret);
+        m_memory_object = common::managed_resource<cl_mem>([](cl_mem& value) {clReleaseMemObject(value);}, clCreateBuffer(ctx, m_type, m_size, nullptr, &ret));
+
         if (ret != CL_SUCCESS)
         {
             log::error("clCreateBuffer failed for Buffer: {}", m_name);
@@ -158,7 +154,6 @@ namespace legion::core::compute
         , m_size(0)
     {
         OPTICK_EVENT();
-        m_ref_count = new size_type(1);
         //convert buffer_type to cl_mem_flags
         if (type == buffer_type::READ_BUFFER)
             m_type = CL_MEM_READ_ONLY;
@@ -168,7 +163,7 @@ namespace legion::core::compute
             m_type = CL_MEM_READ_WRITE;
 
         cl_int ret;
-        m_memory_object = clCreateFromGLBuffer(ctx, m_type, gl_buffer, &ret);
+        m_memory_object = common::managed_resource<cl_mem>([](cl_mem& value) {clReleaseMemObject(value); }, clCreateFromGLBuffer(ctx, m_type, gl_buffer, &ret));
         if (ret != CL_SUCCESS)
         {
             log::error("clCreateFromGLBuffer failed for Buffer: {} with code: {}", m_name, ret);
@@ -182,7 +177,6 @@ namespace legion::core::compute
         , m_size(0)
     {
         OPTICK_EVENT();
-        m_ref_count = new size_type(1);
         //convert buffer_type to cl_mem_flags
         if (type == buffer_type::READ_BUFFER)
             m_type = CL_MEM_READ_ONLY;
@@ -192,7 +186,7 @@ namespace legion::core::compute
             m_type = CL_MEM_READ_WRITE;
 
         cl_int ret;
-        m_memory_object = clCreateFromGLTexture(ctx, m_type, gl_target, miplevel, gl_texture, &ret);
+        m_memory_object = common::managed_resource<cl_mem>([](cl_mem& value) {clReleaseMemObject(value); }, clCreateFromGLTexture(ctx, m_type, gl_target, miplevel, gl_texture, &ret));
 
         if (ret != CL_SUCCESS)
         {
@@ -203,49 +197,5 @@ namespace legion::core::compute
     void Buffer::rename(const std::string& name)
     {
         m_name = name;
-    }
-
-    Buffer::Buffer(Buffer&& b) noexcept :
-        m_name(std::move(b.m_name)),
-        m_memory_object(b.m_memory_object),
-        m_ref_count(b.m_ref_count),
-        m_type(b.m_type),
-        m_data(b.m_data),
-        m_size(b.m_size)
-    {
-
-        //Move Ctor needs to be explicitly defined
-        //to increase Reference Counter
-     //   ++* m_ref_count;
-    }
-
-    Buffer::Buffer(const Buffer& b) :
-        m_name(b.m_name),
-        m_memory_object(b.m_memory_object),
-        //    m_ref_count(b.m_ref_count),
-        m_type(b.m_type),
-        m_data(b.m_data),
-        m_size(b.m_size)
-    {
-        //Copy Ctor needs to be explicitly defined
-        //to increase Reference Counter
-       // if(m_ref_count)
-      //  ++* m_ref_count;
-    }
-
-
-
-
-    Buffer::~Buffer()
-    {
-
-        //check if this is the last element
-        //TODO(algo-ryth-mix): make this thread-safe
-        //if (m_ref_count && --*m_ref_count == 0)
-        //{
-        //    //free ref-counter & memory_object
-        //    /*delete m_ref_count;
-        //    clReleaseMemObject(m_memory_object);*/
-        //}
     }
 }

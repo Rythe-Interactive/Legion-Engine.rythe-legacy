@@ -102,21 +102,23 @@ namespace legion::rendering
             ///PreProcess pointcloud
             //preprocess, calculate individual sample count per triangle
             std::vector<uint> output(triangle_count);
-            auto outBuffer = compute::Context::createBuffer(output, compute::buffer_type::WRITE_BUFFER, "pointsCount");
-            auto computeResult = preProcessPointCloudCS
-            (
-                process_Size,
-                vertexBuffer,
-                indexBuffer,
-                karg(samplesPerTriangle, "samplesPerTri"),
-                outBuffer
-            );
-            //accumulate toutal triangle sample count
-            for (size_t i = 0; i < triangle_count; i++)
             {
-                totalSampleCount += output.at(i);
+                auto outBuffer = compute::Context::createBuffer(output, compute::buffer_type::WRITE_BUFFER, "pointsCount");
+                auto computeResult = preProcessPointCloudCS
+                (
+                    process_Size,
+                    vertexBuffer,
+                    indexBuffer,
+                    karg(samplesPerTriangle, "samplesPerTri"),
+                    outBuffer
+                );
+                //accumulate toutal triangle sample count
+                for (size_t i = 0; i < triangle_count; i++)
+                {
+                    totalSampleCount += output.at(i);
+                }
+                log::debug(totalSampleCount);
             }
-            log::debug(totalSampleCount);
 
 
 
