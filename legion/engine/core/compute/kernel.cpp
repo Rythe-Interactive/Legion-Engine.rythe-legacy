@@ -14,8 +14,12 @@ namespace legion::core::compute
         std::string container;
 
         //get the number of kernel arguments
-        clGetKernelInfo(m_func, CL_KERNEL_NUM_ARGS, sizeof(cl_uint), &num_args, nullptr);
-
+        auto r = clGetKernelInfo(m_func, CL_KERNEL_NUM_ARGS, sizeof(cl_uint), &num_args, nullptr);
+        if (r < 0)
+        {
+            log::error("building OpenCL Buffer Name failed with error {}", r);
+            return *this;
+        }
         for (cl_uint i = 0; i < num_args; ++i) {
 
             //get the length of the kernel argument

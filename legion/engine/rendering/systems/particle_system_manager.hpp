@@ -73,6 +73,7 @@ namespace legion::rendering
                     math::vec4 camPos4 = math::vec4(camPos.xyz, 0);
                     auto positionBuffer = compute::Context::createBuffer(emitter.container->positionBufferData, compute::buffer_type::READ_BUFFER, "positions");
                     auto colors = compute::Context::createBuffer(emitter.container->colorBufferData, compute::buffer_type::RW_BUFFER, "colors");
+                    auto isAnimating = compute::Context::createBuffer(emitter.container->isAnimating, compute::buffer_type::RW_BUFFER, "isAnimating");
                     //auto outputColors = compute::Context::createBuffer(emitter.container->colorBufferData, compute::buffer_type::WRITE_BUFFER, "newColors");
                     int processSize = emitter.container->colorBufferData.size();
                     emitter.container->pointUpdateCL
@@ -81,6 +82,7 @@ namespace legion::rendering
                         positionBuffer,
                         compute::karg(camPos4, "camPos"),
                         compute::karg(deltaTime, "deltaTime"),
+                        isAnimating,
                         colors
                     );
 
