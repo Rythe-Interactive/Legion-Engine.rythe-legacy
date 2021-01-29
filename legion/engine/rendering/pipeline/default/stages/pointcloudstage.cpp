@@ -59,7 +59,8 @@ namespace legion::rendering
 
         fbo->bind();
         m_pointShader.bind();
-        m_pointShader.get_uniform<float>("size").set_value(0.1f);
+        m_pointShader.get_uniform<float>("size").set_value(0.05f);
+        m_pointShader.get_uniform<math::vec4>("skycolor").set_value(math::vec4(0.005f, 0.0055f, 0.0065f, 1.0f));
         m_pointShader.get_uniform_with_location<math::mat4>(SV_VIEW).set_value(camInput.view);
         m_pointShader.get_uniform_with_location<math::mat4>(SV_PROJECT).set_value(camInput.proj);
 
