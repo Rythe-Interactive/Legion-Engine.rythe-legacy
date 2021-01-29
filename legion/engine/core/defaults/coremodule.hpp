@@ -38,7 +38,7 @@ namespace legion::core
             reportComponentType<velocity>();
             reportComponentType<mesh_filter>();
             reportComponentType<scenemanagement::scene>();
-            reportSystem<HierarchySystem>();
+            //reportSystem<HierarchySystem>();
             reportSystem<scenemanagement::SceneManager>();
         }
 

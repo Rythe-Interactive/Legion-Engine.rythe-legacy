@@ -105,12 +105,12 @@ public:
         skybox.add_components<rendering::mesh_renderable>(mesh_filter(rendering::ModelCache::create_model("uvsphere", "assets://models/uvsphere.obj"_view).get_mesh()), rendering::mesh_renderer(skyboxMat));
         skybox.add_components<transform>(position(), rotation(), scale(1000.f));
 
-        groundplane = createEntity();
+        /*groundplane = createEntity();
         auto groundmat = rendering::MaterialCache::create_material("floor", "assets://shaders/groundplane.shs"_view);
         groundmat.set_param("floorTile", rendering::TextureCache::create_texture("floorTile", "engine://resources/default/tile.png"_view));
         groundplane.add_component<rendering::mesh_renderer>({ groundmat, rendering::ModelCache::create_model("floor", "assets://models/plane.obj"_view) });
         groundplane.add_components<transform>();
-        groundplane.write_component(scale(250.f));
+        groundplane.write_component(scale(250.f));*/
         camera = createEntity();
         camera.add_components<transform>(position(0.f, 3.f, 0.f), rotation::lookat(math::vec3::zero, math::vec3::forward), scale());
         //camera.add_component<audio::audio_listener>();
