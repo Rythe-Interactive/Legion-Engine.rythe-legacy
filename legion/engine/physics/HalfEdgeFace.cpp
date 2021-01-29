@@ -320,6 +320,7 @@ namespace legion::physics
             HalfEdgeEdge* secondCurrent = second.startEdge;
             if (secondCurrent == nullptr)
             {
+                //log::debug("secondCurrent was nullptr");
                 firstCurrent = firstCurrent->nextEdge;
                 continue;
             }
@@ -337,6 +338,7 @@ namespace legion::physics
 
                 secondCurrent = secondCurrent->nextEdge;
             } while (secondCurrent != second.startEdge);
+
             firstCurrent = firstCurrent->nextEdge;
         } while (firstCurrent != first.startEdge);
 

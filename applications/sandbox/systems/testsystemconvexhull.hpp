@@ -93,7 +93,7 @@ public:
             }*/
 
             {
-                mesh_handle handle = model.get_mesh();
+                mesh_handle handle = cube.get_mesh();
                 auto ent = createEntity();
                 ent.add_components<rendering::mesh_renderable>(mesh_filter(handle), rendering::mesh_renderer(solidLegion));
                 ent.add_components<transform>(position(0.0f, 2.0f, 10.0f), rotation(), scale(1));
@@ -109,11 +109,11 @@ public:
                 mesh_handle handle = cube.get_mesh();
                 auto ent = createEntity();
                 ent.add_components<rendering::mesh_renderable>(mesh_filter(handle), rendering::mesh_renderer(solidLegion));
-                ent.add_components<transform>(position(0.0f, 0.0f, 10.f), rotation(), scale(2, 1, 2));
+                ent.add_components<transform>(position(0.0f, 5.0f, 10.f), rotation(), scale(1, 1, 1));
                 auto physH = ent.add_component<physics::physicsComponent>();
                 auto p = physH.read();
-                //p.ConstructConvexHull(handle, false);
-                p.AddBox(physics::cube_collider_params());
+                p.ConstructConvexHull(handle, false);
+                //p.AddBox(physics::cube_collider_params(1,1,1));
                 physH.write(p);
                 //ent.add_component<physics::rigidbody>();
             }
@@ -149,7 +149,7 @@ public:
 
     void update(time::span deltaTime)
     {
-        //drawPhysicsColliders();
+        drawPhysicsColliders();
         auto [posH, rotH, scaleH] = physicsEnt.get_component_handles<transform>();
 
         if (!isUpdating)

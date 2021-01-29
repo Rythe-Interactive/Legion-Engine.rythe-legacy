@@ -272,22 +272,50 @@ namespace legion::physics
         (convertedIndices, lotsOfThrees, &edges, &halfedges, &vertex_start_halfedge_indices);
 
         HalfEdgeEdge* newEdges = new HalfEdgeEdge[halfedges.size()];
+        constexpr int halfEdgeEdgeSize = sizeof(HalfEdgeEdge);
 
-
-        int i = 0;
+        int count = 0;
         for (const tinymeshutils::HalfEdge& halfedge : halfedges)
         {
-            HalfEdgeEdge* workingEdge = newEdges + i;
+            HalfEdgeEdge* workingEdge = newEdges + halfEdgeEdgeSize*count;
 
-            workingEdge->pairingEdge = newEdges + halfedge.opposite_halfedge;
-            workingEdge->nextEdge = newEdges + halfedge.next_halfedge;
+            //workingEdge->pairingEdge = newEdges + halfedge.opposite_halfedge;
+            //workingEdge->setPairingEdge(newEdges + halfedge.opposite_halfedge);
+            workingEdge->pairingEdge = nullptr;
+            HalfEdgeEdge* nextEdge = newEdges + halfEdgeEdgeSize*halfedge.next_halfedge;
+            HalfEdgeEdge* prevEdge = newEdges + halfEdgeEdgeSize*halfedges[halfedge.next_halfedge].next_halfedge;
+            // Link edges
+            workingEdge->setNextAndPrevEdge(prevEdge, nextEdge);
+            nextEdge->setNextAndPrevEdge(workingEdge, prevEdge);
+            prevEdge->setNextAndPrevEdge(nextEdge, workingEdge);
+
             tinymeshutils::Edge edge = edges[halfedge.edge_index];
 
             workingEdge->edgePosition = math::vec3(mesh.vertices[edge.v0].x,mesh.vertices[edge.v0].y,mesh.vertices[edge.v0].z);
-            i++;
+            ++count;
+        }
+        log::debug("edges size: {}", count);
+
+        // Set all pairing edges
+        if (count == 0) return;
+        for (int i = 0; i < count-1; ++i)
+        {
+            HalfEdgeEdge* edge = newEdges + halfEdgeEdgeSize*i;
+            if (edge->pairingEdge != nullptr) continue;
+            for (int j = i+1; j < count; ++j)
+            {
+                HalfEdgeEdge* other = newEdges + halfEdgeEdgeSize * j;
+                log::debug("position {} {} | {} {}", edge->edgePosition, edge->nextEdge->edgePosition, other->edgePosition, other->nextEdge->edgePosition);
+                if (edge->edgePosition == other->nextEdge->edgePosition &&
+                    edge->nextEdge->edgePosition == other->edgePosition)
+                {
+                    log::debug("paired edges");
+                    edge->setPairingEdge(other);
+                }
+            }
         }
 
-        for(const int64_t index : vertex_start_halfedge_indices)
+        /*for(const int64_t index : vertex_start_halfedge_indices)
         {
             HalfEdgeEdge* start = &newEdges[index];
             HalfEdgeEdge* next = start->nextEdge;
@@ -298,31 +326,87 @@ namespace legion::physics
 
             HalfEdgeFace* face = new HalfEdgeFace(start,normal);
             halfEdgeFaces.emplace_back(face);
-        }
+        }*/
+        std::unordered_set<HalfEdgeEdge*> visited;
+        HalfEdgeEdge* current = newEdges;
+        HalfEdgeEdge* start = current;
+
+        int iter = 0;
+        int skippedIter = 0;
+        do
+        {
+            log::debug("Evaluation edge");
+            log::debug("\tNew edge");
+            math::vec3 normal = normalize(cross(current->edgePosition - current->nextEdge->edgePosition, current->nextEdge->edgePosition - current->prevEdge->edgePosition));
+            log::debug("\tCreating face with normal {}", normal);
+            HalfEdgeFace* face = new HalfEdgeFace(current, normal);
+            halfEdgeFaces.push_back(face);
+
+            auto addEdgesToVisitedLamda = [&visited, face](HalfEdgeEdge* edge)
+            {
+                edge->face = face;
+                visited.insert(edge);
+            };
+
+            // Add all the edges of the face to the visited list
+            face->forEachEdge(addEdgesToVisitedLamda);
+            ++iter;
+
+            HalfEdgeEdge* backupCurrent = current;
+            HalfEdgeEdge* next = current->nextEdge;
+            bool done = true;
+            do
+            {
+                log::debug("Current has already been visited, going to next");
+                current = next->pairingEdge;
+                next = next->nextEdge;
+                if (next == backupCurrent)
+                {
+                    done = false;
+                    break;
+                }
+
+            } while(visited.count(current));
+            if (!done) continue;
+
+        } while (visited.size() != count);
         qh_free_mesh(mesh);
 
+        log::debug("Faces count: {}", halfEdgeFaces.size());
         // Merge coplanar faces
-        for (int i = 0; i < halfEdgeFaces.size()-1; ++i)
-        {
-            auto face = halfEdgeFaces.at(i);
-            for (int j = i + 1; j < halfEdgeFaces.size(); ++j)
-            {
-                auto other = halfEdgeFaces.at(j);
-                auto relation = face->getAngleRelation(*other);
-                if (relation == HalfEdgeFace::face_angle_relation::coplanar)
-                {
-                    // Merge the faces
-                    HalfEdgeEdge* middleEdge = HalfEdgeFace::findMiddleEdge(*face, *other);
-                    if (middleEdge != nullptr) HalfEdgeFace::mergeFaces(*middleEdge);
-                    else log::debug("did not find middle edge");
-                }
-            }
-        }
+        //for (int i = 0; i < halfEdgeFaces.size(); ++i)
+        //{
+        //    HalfEdgeFace* face = halfEdgeFaces.at(i);
+        //    for (int j = 0; j < halfEdgeFaces.size(); ++j)
+        //    {
+        //        HalfEdgeFace* other = halfEdgeFaces.at(j);
+        //        if (face == other) continue;
+        //        auto relation = face->getAngleRelation(*other);
+        //        if (relation == HalfEdgeFace::face_angle_relation::coplanar)
+        //        {
+        //            // Merge the faces
+        //            HalfEdgeEdge* middleEdge = HalfEdgeFace::findMiddleEdge(*face, *other);
+        //            if (middleEdge != nullptr)
+        //            {
+        //                HalfEdgeFace* removed = HalfEdgeFace::mergeFaces(*middleEdge);
+        //                if (removed == other)
+        //                {
+        //                    // face 'other' has been utterly destroyed
+        //                    halfEdgeFaces.erase(std::remove(halfEdgeFaces.begin(), halfEdgeFaces.end(), other), halfEdgeFaces.end());
+        //                    --j;
+        //                    continue;
+        //                }
+        //            }
+        //            //else log::debug("did not find middle edge");
+        //        }
+        //    }
+        //}
     }
 
     void ConvexCollider::ConstructConvexHullWithMesh(mesh& mesh, math::vec3 spacingAmount, bool shouldDebug)
     {
         OPTICK_EVENT();
+        std::vector<HalfEdgeEdge*> allEdges;
         //log::debug("-------------------------------- ConstructConvexHullWithMesh ----------------------------------");
         // Step 0 - Create inital hull
         /*if (step == 0)
@@ -367,6 +451,10 @@ namespace legion::physics
         HalfEdgeFace* face012 = new HalfEdgeFace(edge0, normal012);
         halfEdgeFaces.push_back(face012);
         faceIndexMap.emplace(halfEdgeFaces[0], 0);
+
+        allEdges.push_back(edge0);
+        allEdges.push_back(edge1);
+        allEdges.push_back(edge2);
 
         /* if (step == 1)
          {
@@ -438,6 +526,16 @@ namespace legion::physics
         edge3->setPairingEdge(edge7);
         edge5->setPairingEdge(edge9);
         edge8->setPairingEdge(edge11);
+
+        allEdges.push_back(edge3);
+        allEdges.push_back(edge4);
+        allEdges.push_back(edge5);
+        allEdges.push_back(edge6);
+        allEdges.push_back(edge7);
+        allEdges.push_back(edge8);
+        allEdges.push_back(edge9);
+        allEdges.push_back(edge10);
+        allEdges.push_back(edge11);
 
         // Make sure all the created faces are convex with each other
         // Also invert normals when they are concave
@@ -621,7 +719,6 @@ namespace legion::physics
                 HalfEdgeEdge* edge1 = new HalfEdgeEdge(edges.at(i)->nextEdge->edgePosition); // Tail of edge
                 HalfEdgeEdge* edge2 = new HalfEdgeEdge(faceVertMap.at(faceIndex).at(vertIndex)); // Vertex positon
 
-
                 // Setup next and previous edges of the edges we just created
                 edge0->setNextAndPrevEdge(edge2, edge1);
                 edge1->setNextAndPrevEdge(edge0, edge2);
@@ -630,6 +727,10 @@ namespace legion::physics
                 // We know the pairing edge of edge0, because edge0 is the same as the horizonEdge
                 // Therefore the pairing edge of the horizon edge will be the pairing edge of egde0
                 edge0->setPairingEdge(edges.at(i)->pairingEdge);
+
+                allEdges.push_back(edge0);
+                allEdges.push_back(edge1);
+                allEdges.push_back(edge2);
 
 
                 // If this is the first iteration, we need to remember this edge
@@ -739,6 +840,7 @@ namespace legion::physics
         //}
         ////convexHullMergeFaces(halfEdgeFaces,true);
         AssertEdgeValidity();
+        log::debug("Edge count my qh: {}", allEdges.size());
     }
 
 
