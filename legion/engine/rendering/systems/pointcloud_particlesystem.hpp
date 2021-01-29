@@ -134,6 +134,8 @@ public:
             //Sets the particle scale to the right scale.
         //    transRead.position
             container.positionBufferData.push_back(newPos);
+
+
             pos.write(newPos);
             scale.write(math::vec3(m_startingSize));
 
@@ -144,6 +146,7 @@ public:
             index++;
 
         }
+        container.isAnimating.resize(container.positionBufferData.size());
 
         data.emitterSize += inputData->size();
     }
@@ -302,7 +305,7 @@ public:
             // std::vector<ecs::entity_handle> entities(container.livingParticles, container.livingParticles.begin() + item.first, container.livingParticles.begin());
             for (auto it = container.livingParticles.begin() + item.first; it < container.livingParticles.begin() + item.first + item.second - 1; ++it)
             {
-                it->add_component<point_animation_data>();
+                //it->add_component<point_animation_data>();
             }
         }
     }
@@ -326,14 +329,14 @@ public:
         }
         if (emitterData.CurrentLOD != lodComponent.Level)
         {
-           
+
             if (emitterData.CurrentLOD > lodComponent.Level)
             {
                 //increaseDetail(emitter, emitterData, lodComponent.Level, lodComponent.MaxLod, lodComponent, entities);
             }
             else
             {
-              //  decreaseDetail(emitter, emitterData, lodComponent.Level, lodComponent.MaxLod, emitterDataHandle, entities);
+                //  decreaseDetail(emitter, emitterData, lodComponent.Level, lodComponent.MaxLod, emitterDataHandle, entities);
             }
             //emitterData.CurrentLOD = lodComponent.Level;
             emitterHandle.write(emitter);

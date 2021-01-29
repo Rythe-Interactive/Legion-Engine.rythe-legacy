@@ -77,7 +77,7 @@ namespace legion::rendering
                     if (!windowHandle)return;
                     auto& colorData = emitter.container->colorBufferData;
                     auto& posData = emitter.container->colorBufferData;
-
+                    auto& isAnimating = emitter.container->isAnimating;
                     auto camQuery = createQuery<camera>();
                     camQuery.queryEntities();
                     //get cam position
@@ -86,8 +86,14 @@ namespace legion::rendering
                     (colorData.size(), [&]()
                         {
                             auto value = async::this_job::get_id();
-                            float a = getDistance(camPos, posData[value]);
-                            colorData[value].a = a;
+                            if (!isAnimating[value] && getDistance(camPos, posData[value]) < 16.0f)
+                            {
+                                isAnimating[value] = true;
+                            }
+                            if(isAnimating[value])
+                            {
+                                colorData[value].a += deltaTime;
+                            }
                         }
                     ).wait();
                     ////update alpha based on position distance
