@@ -17,13 +17,13 @@ class GuiTestSystem : public System<GuiTestSystem>
     ecs::entity_handle cubeEntity;
 
 
-    char guiTextBuffer[512]{ 0 };
+    //char guiTextBuffer[512]{ 0 };
 
     math::mat4 view = math::mat4(1.0f);
     math::mat4 projection = math::mat4(1.0f);
     math::mat4 model = math::mat4(1.0f);
 
-    bool* showSave = nullptr;
+    //bool* showSave = nullptr;
 
     void setup() override
     {

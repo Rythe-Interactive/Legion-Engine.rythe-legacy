@@ -61,7 +61,7 @@ namespace legion::core::compute
 
             if (buffer.isReadBuffer())
             {
-                m_kernel->enqueueBuffer(buffer);
+                m_kernel->enqueueBuffer(buffer, m_mode);
             }
 
         }
@@ -83,7 +83,7 @@ namespace legion::core::compute
             if (!buffer.isValid()) continue;
             if (buffer.isWriteBuffer())
             {
-                m_kernel->enqueueBuffer(buffer);
+                m_kernel->enqueueBuffer(buffer, m_mode);
             }
 
         }

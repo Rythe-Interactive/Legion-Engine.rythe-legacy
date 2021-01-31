@@ -38,7 +38,7 @@ public:
      * @param params A struct with a bunch of default parameters and some parameters needed to be set.
      * @param positions A list of positions that the particle system uses to create its particles at.
      */
-    PointCloudParticleSystem(pointCloudParameters params)
+    PointCloudParticleSystem(pointCloudParameters params, const std::vector<math::vec3>& input, const std::vector<math::color>& inputColor, const std::vector<math::color>& inputEmission)
     {
         m_looping = params.looping;
         m_maxLifeTime = params.maxLifeTime;
@@ -55,7 +55,9 @@ public:
         //send container address to the render stage
         rendering::PointCloudStage::SetContainer(&container);
         container.pointUpdateCL = fs::view("assets://kernels/pointUpdate.cl").load_as<compute::function>("Main");
+        container.pointUpdateCL.setBlockMode(compute::block_mode::NON_BLOCKING);
 
+        CreateParticles(input, inputColor, inputEmission);
     }
 
     /**
@@ -65,14 +67,13 @@ public:
     void setup(ecs::component_handle<rendering::particle_emitter> emitter_handle) const override
     {
         auto emitter = emitter_handle.read();
-        m_positions = emitter.pointInput;
-        m_colors = emitter.colorInput;
+        //m_positions = emitter.pointInput;
+        //m_colors = emitter.colorInput;
         //store ref to container
         emitter.container = &container;
         emitter_handle.write(emitter);
 
         //create the particles
-        CreateParticles(&m_positions, &m_colors);
 
         //    populateEmitter(emitter_handle, emitterDataHandle);
     }
@@ -80,12 +81,13 @@ public:
     /**
      * @brief Creates particles based on position for the emitter, checks for recycling
      */
-    void CreateParticles(std::vector<math::vec3>* inputPos, std::vector<math::color>* inputColors) const
+    void CreateParticles(const std::vector<math::vec3>& inputPos, const std::vector<math::color>& inputColors, const std::vector<math::color>& inputEmission) const
     {
         OPTICK_EVENT();
 
-        container.positionBufferData.insert(container.positionBufferData.end(), inputPos->begin(), inputPos->end());
-        container.colorBufferData.insert(container.colorBufferData.end(), inputColors->begin(), inputColors->end());
+        container.positionBufferData.insert(container.positionBufferData.end(), inputPos.begin(), inputPos.end());
+        container.colorBufferData.insert(container.colorBufferData.end(), inputColors.begin(), inputColors.end());
+        container.emissionBufferData.insert(container.emissionBufferData.end(), inputEmission.begin(), inputEmission.end());
 
         container.isAnimating.resize(container.positionBufferData.size());
         log::debug("position size {}", container.positionBufferData.size());

@@ -17,6 +17,10 @@ namespace legion::rendering
         cloud.vertexArray.setAttribPointer(cloud.colorBuffer, SV_COLOR, 4, GL_FLOAT, false, 0, 0);
         cloud.vertexArray.setAttribDivisor(SV_COLOR, 1);
 
+        cloud.emissionBuffer = buffer(GL_ARRAY_BUFFER, cloud.emissionBufferData, GL_DYNAMIC_DRAW);
+        cloud.vertexArray.setAttribPointer(cloud.emissionBuffer, 7, 4, GL_FLOAT, false, 0, 0);
+        cloud.vertexArray.setAttribDivisor(7, 1);
+
         cloud.positionBuffer = buffer(GL_ARRAY_BUFFER, cloud.positionBufferData, GL_STATIC_DRAW);
         cloud.vertexArray.setAttribPointer(cloud.positionBuffer, SV_POSITION, 3, GL_FLOAT, false, 0, 0);
         cloud.vertexArray.setAttribDivisor(SV_POSITION, 1);
@@ -64,6 +68,7 @@ namespace legion::rendering
         fbo->bind();
         m_pointShader.bind();
         m_pointShader.get_uniform<float>("size").set_value(0.05f);
+        //m_pointShader.get_uniform<math::vec4>("skycolor").set_value(math::vec4(0.1f, 0.3f, 1.0f, 1.0f));
         m_pointShader.get_uniform<math::vec4>("skycolor").set_value(math::vec4(0.005f, 0.0055f, 0.0065f, 1.0f));
         m_pointShader.get_uniform_with_location<math::mat4>(SV_VIEW).set_value(camInput.view);
         m_pointShader.get_uniform_with_location<math::mat4>(SV_PROJECT).set_value(camInput.proj);

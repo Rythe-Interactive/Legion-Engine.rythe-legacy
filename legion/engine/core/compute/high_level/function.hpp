@@ -137,9 +137,11 @@ namespace legion::core::compute {
 
         std::shared_ptr<Kernel> m_kernel;
         std::shared_ptr<Program> m_program;
+        block_mode m_mode = block_mode::BLOCKING;
         size_t m_locals = 512;
     public:
 
+        void setBlockMode(block_mode mode) { m_mode = mode; }
 
         /**
          * @brief Sets how many work-elements should be processed concurrently.

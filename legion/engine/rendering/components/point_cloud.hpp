@@ -24,17 +24,18 @@ namespace legion::rendering
          * @param maxPoints is used to calculate the samples for each triangle of the mesh,
          * @param radius defines point scale.
          */
-        point_cloud(mesh_handle newMesh, transform newTrans, material_handle mat, image_handle albedoMap, image_handle heightMap, uint maxPoints = 100, float radius = 0.2f)
+        point_cloud(std::vector<mesh_handle> meshes, transform newTrans, material_handle mat, image_handle albedoMap, image_handle emissionMap, uint maxPoints = 100, float radius = 0.2f)
         {
-            m_mesh = newMesh;
+            m_meshes = meshes;
             m_trans = newTrans;
-            m_heightMap = heightMap;
+            m_emissionMap = emissionMap;
             m_AlbedoMap = albedoMap;
             //m_samplesPerTriangle = calculateSamplesPerTriangle(maxPoints);
             m_pointRadius = radius;
             m_Material = mat;
             m_maxPoints = maxPoints;
         }
+
         point_cloud() = default;
 
     private:
@@ -46,12 +47,12 @@ namespace legion::rendering
         float m_heightStrength = 0.2f;
         float m_pointRadius;
         transform m_trans;
-        mesh_handle m_mesh;
+        std::vector<mesh_handle> m_meshes;
         uint m_samplesPerTriangle;
         uint m_sampleDepth;
         uint m_maxPoints;
         material_handle m_Material;
-        image_handle m_heightMap;
+        image_handle m_emissionMap;
         image_handle  m_AlbedoMap;
     };
 }

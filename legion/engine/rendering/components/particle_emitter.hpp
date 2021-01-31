@@ -15,8 +15,6 @@ namespace legion::rendering
         ParticleSystemHandle particleSystemHandle;
         bool setupCompleted;
 
-        std::vector<math::vec3> pointInput;
-        std::vector<math::color> colorInput;
         point_cloud_particle_container* container;
     };
 

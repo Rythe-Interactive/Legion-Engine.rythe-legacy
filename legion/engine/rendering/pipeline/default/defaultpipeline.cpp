@@ -24,10 +24,10 @@ namespace legion::rendering
         OPTICK_EVENT();
         attachStage<ClearStage>();
         attachStage<FramebufferResizeStage>();
-        attachStage<LightBufferStage>();
-        attachStage<MeshBatchingStage>();
-        attachStage<MeshRenderStage>();
-        attachStage<DebugRenderStage>();
+        //attachStage<LightBufferStage>();
+        //attachStage<MeshBatchingStage>();
+        //attachStage<MeshRenderStage>();
+        //attachStage<DebugRenderStage>();
         attachStage<PostProcessingStage>();
         attachStage<SubmitStage>();
         attachStage<PointCloudStage>();
@@ -35,7 +35,7 @@ namespace legion::rendering
         PostProcessingStage::addEffect<Tonemapping>();
         PostProcessingStage::addEffect<Bloom>(-64);
         PostProcessingStage::addEffect<FXAA>(-100);
-        //PostProcessingStage::addEffect<DepthOfField>(-101);
+        PostProcessingStage::addEffect<DepthOfField>(-101);
 
         buffer modelMatrixBuffer;
 
