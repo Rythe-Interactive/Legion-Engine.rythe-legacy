@@ -38,14 +38,30 @@ public:
         //rendering::model_handle plane;
         //rendering::model_handle terminal;
         rendering::model_handle house;
-        rendering::model_handle cube;
+        rendering::model_handle _2cube1;
+        rendering::model_handle _2cube2;
+        rendering::model_handle _2cube3;
+        rendering::model_handle _3cube1;
+        rendering::model_handle _3cube2;
+        rendering::model_handle _3cube3;
+        rendering::model_handle _4cube1;
+        rendering::model_handle _4cube2;
+        rendering::model_handle _4cube3;
 
         std::vector<gfx::material_handle> materials;
         gfx::material_handle floor_material;
         //gfx::material_handle plane_material;
         //gfx::material_handle terminal_material;
         gfx::material_handle house_material;
-        gfx::material_handle cube_material;
+        gfx::material_handle _2cube1_material;
+        gfx::material_handle _2cube2_material;
+        gfx::material_handle _2cube3_material;
+        gfx::material_handle _3cube1_material;
+        gfx::material_handle _3cube2_material;
+        gfx::material_handle _3cube3_material;
+        gfx::material_handle _4cube1_material;
+        gfx::material_handle _4cube2_material;
+        gfx::material_handle _4cube3_material;
 
         //Light stuff
         ecs::entity_handle directional_light = createEntity();
@@ -57,18 +73,36 @@ public:
             app::context_guard guard(window);
 
             floor = rendering::ModelCache::create_model("floor_final", "assets://models/final_presentation/floor5.glb"_view, materials);
-            floor_material = materials[0];
+            floor_material = materials[1];
             floor_material.set_param("skycolor", math::color(0.1f, 0.3f, 1.f));
 
-            house = rendering::ModelCache::create_model("house_final", "assets://models/final_presentation/2story_1.glb"_view, materials);
-            house_material = materials[1];
-            house_material.set_param("skycolor", math::color(0.1f, 0.3f, 1.f));
+            //house = rendering::ModelCache::create_model("house_final", "assets://models/final_presentation/2story_1.glb"_view, materials);
+            //house_material = materials[2];
+            //house_material.set_param("skycolor", math::color(0.1f, 0.3f, 1.f));
 
-            cube = rendering::ModelCache::create_model("cube_final", "assets://models/final_presentation/house_1.glb"_view, materials);
+            _2cube1 = rendering::ModelCache::create_model("cube_final", "assets://models/final_presentation/2story_1.glb"_view, materials);
+            _2cube1_material = materials[2];
+            _2cube1_material.set_param("skycolor", math::color(0.1f, 0.3f, 1.f));
+
+            /*cube = rendering::ModelCache::create_model("cube_final", "assets://models/final_presentation/2story_1.glb"_view, materials);
             cube_material = materials[2];
             cube_material.set_param("skycolor", math::color(0.1f, 0.3f, 1.f));
 
+            cube = rendering::ModelCache::create_model("cube_final", "assets://models/final_presentation/2story_1.glb"_view, materials);
+            cube_material = materials[2];
+            cube_material.set_param("skycolor", math::color(0.1f, 0.3f, 1.f));
 
+            cube = rendering::ModelCache::create_model("cube_final", "assets://models/final_presentation/2story_1.glb"_view, materials);
+            cube_material = materials[2];
+            cube_material.set_param("skycolor", math::color(0.1f, 0.3f, 1.f));
+
+            cube = rendering::ModelCache::create_model("cube_final", "assets://models/final_presentation/2story_1.glb"_view, materials);
+            cube_material = materials[2];
+            cube_material.set_param("skycolor", math::color(0.1f, 0.3f, 1.f));
+
+            cube = rendering::ModelCache::create_model("cube_final", "assets://models/final_presentation/2story_1.glb"_view, materials);
+            cube_material = materials[2];
+            cube_material.set_param("skycolor", math::color(0.1f, 0.3f, 1.f));*/
 
             /*plane = rendering::ModelCache::create_model("plane_final", "assets://models/final_presentation/plane.glb"_view, materials);
             plane_material = materials[1];
@@ -95,49 +129,187 @@ public:
 
             //house
             {
-                auto ent = createEntity();
-                ent.add_component(gfx::mesh_renderer(house_material, house));
-                ent.add_components<transform>(position(0, 0.1f, 0), rotation(), scale());
-                auto physH = ent.add_component<physics::physicsComponent>();
-                auto p = physH.read();
-                //p.ConstructConvexHull(house.get_mesh());
-                p.AddBox(physics::cube_collider_params(10.f, 10.f, 20.f));
+                //auto ent = createEntity();
+                //ent.add_component(gfx::mesh_renderer(house_material, house));
+                //ent.add_components<transform>(position(0, 0.1f, 0), rotation(), scale());
+                //auto physH = ent.add_component<physics::physicsComponent>();
+                //auto p = physH.read();
+                ////p.ConstructConvexHull(house.get_mesh());
+                //p.AddBox(physics::cube_collider_params(10.f, 10.f, 20.f));
 
-                auto splitterH = ent.add_component<physics::MeshSplitter>();
-                auto splitter = splitterH.read();
-                splitter.InitializePolygons(ent);
-                splitterH.write(splitter);
+                //auto splitterH = ent.add_component<physics::MeshSplitter>();
+                //auto splitter = splitterH.read();
+                //splitter.InitializePolygons(ent);
+                //splitterH.write(splitter);
 
-                physH.write(p);
-                //ent.add_component<physics::rigidbody>();
-                ent.add_component<physics::Fracturer>();
+                //physH.write(p);
+                ////ent.add_component<physics::rigidbody>();
+                //ent.add_component<physics::Fracturer>();
             }
 
             //cube
             {
                 auto ent = createEntity();
-                ent.add_component(gfx::mesh_renderer(cube_material, cube));
-                ent.add_components<transform>(position(0, 1000.0f, 0), rotation(), scale());
+                ent.add_component(gfx::mesh_renderer(_2cube1_material, _2cube1));
+                ent.add_components<transform>(position(0.f, 0.1f, 10.f), rotation(), scale(0.25f));
                 auto physH = ent.add_component<physics::physicsComponent>();
                 auto p = physH.read();
-                p.AddBox(physics::cube_collider_params(1.f,1.f,1.f));
+                p.AddBox(physics::cube_collider_params(20.f, 20.0f, 80.0f));
                 //p.ConstructConvexHull(house.get_mesh());
-
-                
-
                 physH.write(p);
-                ent.add_component<physics::rigidbody>();
+                //ent.add_component<physics::rigidbody>();
                 //ent.add_component<physics::Fracturer>();
             }
+
+            //cube
+            {
+                auto ent = createEntity();
+                ent.add_component(gfx::mesh_renderer(_2cube1_material, _2cube1));
+                ent.add_components<transform>(position(0.f, 0.1f, 10.f), rotation(), scale(0.25f));
+                auto physH = ent.add_component<physics::physicsComponent>();
+                auto p = physH.read();
+                p.AddBox(physics::cube_collider_params(20.f, 20.0f, 80.0f));
+                //p.ConstructConvexHull(house.get_mesh());
+                physH.write(p);
+                //ent.add_component<physics::rigidbody>();
+                //ent.add_component<physics::Fracturer>();
+            }
+
+            //cube
+            {
+                auto ent = createEntity();
+                ent.add_component(gfx::mesh_renderer(_2cube1_material, _2cube1));
+                ent.add_components<transform>(position(0.f, 0.1f, -10.f), rotation(), scale(0.25f));
+                auto physH = ent.add_component<physics::physicsComponent>();
+                auto p = physH.read();
+                p.AddBox(physics::cube_collider_params(20.f, 20.0f, 80.0f));
+                //p.ConstructConvexHull(house.get_mesh());
+                physH.write(p);
+                //ent.add_component<physics::rigidbody>();
+                //ent.add_component<physics::Fracturer>();
+            }
+
+            //cube
+            {
+                auto ent = createEntity();
+                ent.add_component(gfx::mesh_renderer(_2cube1_material, _2cube1));
+                ent.add_components<transform>(position(10.f, 0.1f, 10.f), rotation(), scale(0.25f));
+                auto physH = ent.add_component<physics::physicsComponent>();
+                auto p = physH.read();
+                p.AddBox(physics::cube_collider_params(20.f, 20.0f, 80.0f));
+                //p.ConstructConvexHull(house.get_mesh());
+                physH.write(p);
+                //ent.add_component<physics::rigidbody>();
+                //ent.add_component<physics::Fracturer>();
+            }
+
+            //cube
+            {
+                auto ent = createEntity();
+                ent.add_component(gfx::mesh_renderer(_2cube1_material, _2cube1));
+                ent.add_components<transform>(position(-10.f, 0.1f, -10.f), rotation(), scale(0.25f));
+                auto physH = ent.add_component<physics::physicsComponent>();
+                auto p = physH.read();
+                p.AddBox(physics::cube_collider_params(20.f, 20.0f, 80.0f));
+                //p.ConstructConvexHull(house.get_mesh());
+                physH.write(p);
+                //ent.add_component<physics::rigidbody>();
+                //ent.add_component<physics::Fracturer>();
+            }
+
+            //cube
+            {
+                auto ent = createEntity();
+                ent.add_component(gfx::mesh_renderer(_2cube1_material, _2cube1));
+                ent.add_components<transform>(position(10.f, 0.1f, -10.f), rotation(), scale(0.25f));
+                auto physH = ent.add_component<physics::physicsComponent>();
+                auto p = physH.read();
+                p.AddBox(physics::cube_collider_params(20.f, 20.0f, 80.0f));
+                //p.ConstructConvexHull(house.get_mesh());
+                physH.write(p);
+                //ent.add_component<physics::rigidbody>();
+                //ent.add_component<physics::Fracturer>();
+            }
+
+            //cube
+            {
+                auto ent = createEntity();
+                ent.add_component(gfx::mesh_renderer(_2cube1_material, _2cube1));
+                ent.add_components<transform>(position(-10.f, 0.1f, 10.f), rotation(), scale(0.25f));
+                auto physH = ent.add_component<physics::physicsComponent>();
+                auto p = physH.read();
+                p.AddBox(physics::cube_collider_params(20.f, 20.0f, 80.0f));
+                //p.ConstructConvexHull(house.get_mesh());
+                physH.write(p);
+                //ent.add_component<physics::rigidbody>();
+                //ent.add_component<physics::Fracturer>();
+            }
+
+            //cube
+            {
+                auto ent = createEntity();
+                ent.add_component(gfx::mesh_renderer(_2cube1_material, _2cube1));
+                ent.add_components<transform>(position(-10.f, 0.1f, 0.f), rotation(), scale(0.25f));
+                auto physH = ent.add_component<physics::physicsComponent>();
+                auto p = physH.read();
+                p.AddBox(physics::cube_collider_params(20.f, 20.0f, 80.0f));
+                //p.ConstructConvexHull(house.get_mesh());
+                physH.write(p);
+                //ent.add_component<physics::rigidbody>();
+                //ent.add_component<physics::Fracturer>();
+            }
+
+            //cube
+            {
+                auto ent = createEntity();
+                ent.add_component(gfx::mesh_renderer(_2cube1_material, _2cube1));
+                ent.add_components<transform>(position(10.f, 0.1f, 0.f), rotation(), scale(0.25f));
+                auto physH = ent.add_component<physics::physicsComponent>();
+                auto p = physH.read();
+                p.AddBox(physics::cube_collider_params(20.f, 20.0f, 80.0f));
+                //p.ConstructConvexHull(house.get_mesh());
+                physH.write(p);
+                //ent.add_component<physics::rigidbody>();
+                //ent.add_component<physics::Fracturer>();
+            }
+
+            //cube
+            {
+                auto ent = createEntity();
+                ent.add_component(gfx::mesh_renderer(_2cube1_material, _2cube1));
+                ent.add_components<transform>(position(20.f, 0.1f, 10.f), rotation(), scale(0.25f));
+                auto physH = ent.add_component<physics::physicsComponent>();
+                auto p = physH.read();
+                p.AddBox(physics::cube_collider_params(20.f, 20.0f, 80.0f));
+                //p.ConstructConvexHull(house.get_mesh());
+                physH.write(p);
+                //ent.add_component<physics::rigidbody>();
+                //ent.add_component<physics::Fracturer>();
+            }
+
+            //cube
+            {
+                auto ent = createEntity();
+                ent.add_component(gfx::mesh_renderer(_2cube1_material, _2cube1));
+                ent.add_components<transform>(position(10.f, 0.1f, 20.f), rotation(), scale(0.25f));
+                auto physH = ent.add_component<physics::physicsComponent>();
+                auto p = physH.read();
+                p.AddBox(physics::cube_collider_params(20.f, 20.0f, 80.0f));
+                //p.ConstructConvexHull(house.get_mesh());
+                physH.write(p);
+                //ent.add_component<physics::rigidbody>();
+                //ent.add_component<physics::Fracturer>();
+            }
+
 
 
             //floor
             {
                 auto ent = createEntity();
                 ent.add_component(gfx::mesh_renderer(floor_material, floor));
-                ent.add_components<transform>(position(0, 0.1f, 0), rotation(), scale());
+                ent.add_components<transform>(position(0, 0.1f, 0), rotation(math::angleAxis(math::pi<float>() * 0.5f, math::vec3(1.0f, 0.0f, 0.0f))), scale());
                 physics::physicsComponent p;
-                p.AddBox(physics::cube_collider_params(640.0f, 640.0f, -1.f));
+                p.AddBox(physics::cube_collider_params(640.0f, -1.f, 640.0f));
                 ent.add_component(p);
             }
 
