@@ -39,6 +39,10 @@ float2 SampleUVs(float2 coordinates, float2 a, float2 b, float2 c)
 {
     return(float2)(a + coordinates.x* (b-a) + coordinates.y * (c-a));
 }
+float sampleLight(float2 coordinates, uint a, uint b, uint c)
+{
+    return(float)((float)a + coordinates.x* ((float)b-(float)a) + coordinates.y * ((float)c-(float)a));
+}
 //checks validity of point for poission sampling
 bool CheckPoint(float2 newPoint, float2* points, int* grid)
 {
@@ -164,6 +168,77 @@ float4 sampleColor(__read_only image2d_t texture, float2 uvs)
 }
 
 
+bool intersection_MT97(float3 rayOrigin, float3 rayDir,float3 vertA,float3 vertB,float3 vertC)
+{
+    float3 edge1 = vertB-vertA;
+    float3 edge2 = vertC-vertA;
+
+    float3 pVec = cross(rayDir,edge2);
+
+    float det = dot(edge1,pVec);
+    //no intersection is found
+    if(det<0.0001f ) return false;
+
+    float inv_det = 1.0f/det;
+    float3 tVec = rayOrigin-vertA;
+
+    float u = dot(tVec,pVec) * inv_det;
+    //no intersection
+    //
+    if(u<0.0f|| u >1.0f)
+    return false;
+
+    float3 qvec = cross(tVec,edge1);
+
+    float v = dot(rayDir, qvec)*inv_det;
+
+    if(v< 0.0f ||u + v >1.0f) 
+        return false;
+
+
+    float t = inv_det * dot(edge2, qvec);
+    if(t<0.0f) return false;
+    //no intersection found
+
+
+    //end reached intersection was found
+    return true;
+
+}
+bool IsOccludedFromDirLight(float4 rayPos,float4 normal, int n, const float* vertices, const uint* indices, float4 lightDir , int triangleIndex)
+{
+    //get the linverted light direction
+    float4 direction = - lightDir;
+    //add slight offset to avoid self intersection
+    float4 origin = rayPos ;
+    //+= normal*0.0001f;
+    //iterate all triangles
+    for(int i=0; i<n*3; i+=3)
+    {
+    if(i==triangleIndex) continue;
+    float v1a = vertices[indices[i]*3];
+    float v1b = vertices[indices[i]*3+1];
+    float v1c = vertices[indices[i]*3+2];
+    float4 vertA = (float4)(v1a,v1b,v1c,0.0f);
+
+    //vert2
+    float v2a = vertices[indices[i+1]*3];
+    float v2b = vertices[indices[i+1]*3+1];
+    float v2c = vertices[indices[i+1]*3+2];
+    float4 vertB = (float4)(v2a,v2b,v2c,0.0f);
+
+    //vert3
+    float v3a = vertices[indices[i+2]*3];
+    float v3b = vertices[indices[i+2]*3+1];
+    float v3c = vertices[indices[i+2]*3+2];
+    float4 vertC = (float4)(v3a,v3b,v3c,0.0f);
+    //if there is intersection, point is occluded, return true
+    if(intersection_MT97(origin.xyz,direction.xyz,vertA.xyz,vertB.xyz,vertC.xyz))return true;
+    }
+
+
+    return false;
+}
 
 __kernel void Main
 (
@@ -171,11 +246,11 @@ __kernel void Main
     __global const uint* indices,
     __global const float2* uvs,
     __global const uint* samples,
+    __global const float4* lightDir,
     __read_only image2d_t albedoMap,
     __read_only image2d_t emissionMap,
-    //const uint samplesPerTri,
-//    const uint sampleWidth,
     const uint seed,
+    const uint triangleCount,
     __global float4* points,
     __global float4* colors,
     __global float4* emission,
@@ -235,6 +310,8 @@ __kernel void Main
 
     //generate normal && scale by strength
     float4 normal = normalize(cross(vertB-vertA,vertC-vertA));
+
+    float4 centerPoint = SampleTriangle(0.5f,vertA,vertB,vertC);
     //normal*=normalStrength;
 
     //generate samples
@@ -242,7 +319,11 @@ __kernel void Main
     sampleUniformly(uniformOutput, newSampleCount, sampleWidth, dot(vertB-vertA, vertC-vertA));
     //__local float2 poissonOutput[maxPointsPerTri];
     //PoissionSampling(poissonOutput,samplePerTri);
-
+    //  uint a = IsOccludedFromDirLight(vertA, normal , triangleCount,vertices,indices,lightDir[0]);
+    //  uint b = IsOccludedFromDirLight(vertB, normal , triangleCount,vertices,indices,lightDir[0]);
+    //  uint c = IsOccludedFromDirLight(vertC, normal , triangleCount,vertices,indices,lightDir[0]);
+     uint center = IsOccludedFromDirLight(centerPoint, normal , triangleCount,vertices,indices,lightDir[0], n);
+    //bool trianlgeIsLit = IntersectTriangles_MT97()
 
     //store generated samples
     for(int i =0; i <newSampleCount; i++)
@@ -266,6 +347,16 @@ __kernel void Main
         //Color = (float4)(1,0,0,1);
         //scale normal by the height & add it to the point
         //newPoint+= normal*heightOffset;
+      //  float l = sampleLight(uniformOutput[i],a,b,c);
+       // Color= (float4)(l,l,l,0);
+        if(center==0) 
+        {
+            Color=(float4)(1,1,1,0);
+        }
+        else
+        {
+        Color=(float4)(0,0,0,32);
+        }
         colors[index] = Color;
         points[index] = newPoint;
         emission[index] = emissionColor;

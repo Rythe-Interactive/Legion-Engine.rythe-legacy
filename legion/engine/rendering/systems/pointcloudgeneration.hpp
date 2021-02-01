@@ -87,7 +87,7 @@ namespace legion::rendering
                 math::vec3(realPointCloud.m_pointRadius),
                 realPointCloud.m_Material,
                 ModelCache::get_handle("billboard")
-             };
+            };
 
             std::vector<math::vec3> particleInput;
             std::vector<math::color> inputColor;
@@ -143,6 +143,9 @@ namespace legion::rendering
                 std::vector<math::color> resultColor(totalSampleCount);
                 std::vector<math::color> resultEmission(totalSampleCount);
                 std::vector<math::color> resultNormal(totalSampleCount);
+                std::vector<byte> isLit(totalSampleCount);
+                std::vector<math::vec4>lightDir(1);
+                lightDir[0] = math::vec4(-1, -1, -1, 0);
                 //Get normal map
                 auto [lock, emission] = realPointCloud.m_emissionMap.get_raw_image();
                 auto [lock2, albedo] = realPointCloud.m_AlbedoMap.get_raw_image();
@@ -155,12 +158,12 @@ namespace legion::rendering
                     auto albedoMapBuffer = compute::Context::createImage(albedo, compute::buffer_type::READ_BUFFER, "albedoMap");
                     auto sampleBuffer = compute::Context::createBuffer(output, compute::buffer_type::READ_BUFFER, "samples");
                     auto uvBuffer = compute::Context::createBuffer(uvs, compute::buffer_type::READ_BUFFER, "uvs");
+                    auto lightDirBuffer = compute::Context::createBuffer(lightDir, compute::buffer_type::READ_BUFFER, "lightDir");
 
                     auto outBuffer = compute::Context::createBuffer(result, compute::buffer_type::WRITE_BUFFER, "points");
                     auto colorBuffer = compute::Context::createBuffer(resultColor, compute::buffer_type::WRITE_BUFFER, "colors");
                     auto emissionBuffer = compute::Context::createBuffer(resultEmission, compute::buffer_type::WRITE_BUFFER, "emission");
                     auto normalBuffer = compute::Context::createBuffer(resultNormal, compute::buffer_type::WRITE_BUFFER, "normals");
-
                     auto computeResult = pointCloudGeneratorCS
                     (
                         process_Size,
@@ -168,16 +171,18 @@ namespace legion::rendering
                         indexBuffer,
                         uvBuffer,
                         sampleBuffer,
+                        lightDirBuffer,
                         albedoMapBuffer,
                         emissionMapBuffer,
                         karg(seed, "seed"),
+                        karg(process_Size, "triangleCount"),
                         outBuffer,
                         colorBuffer,
                         emissionBuffer,
                         normalBuffer
                     );
                 }
-                
+
                 seed ^= math::linearRand<uint>(1, std::numeric_limits<uint>::max());
 
                 size_type startIndex = particleInput.size();
