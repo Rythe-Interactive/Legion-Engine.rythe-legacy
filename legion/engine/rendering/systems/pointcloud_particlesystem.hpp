@@ -38,7 +38,11 @@ public:
      * @param params A struct with a bunch of default parameters and some parameters needed to be set.
      * @param positions A list of positions that the particle system uses to create its particles at.
      */
-    PointCloudParticleSystem(pointCloudParameters params, const std::vector<math::vec3>& input, const std::vector<math::color>& inputColor, const std::vector<math::color>& inputEmission)
+    PointCloudParticleSystem(pointCloudParameters params,
+        const std::vector<math::vec3>& input,
+        const std::vector<math::color>& inputColor,
+        const std::vector<math::color>& inputEmission,
+        const std::vector<math::vec3>& inputNormals)
     {
         m_looping = params.looping;
         m_maxLifeTime = params.maxLifeTime;
@@ -57,7 +61,7 @@ public:
         container.pointUpdateCL = fs::view("assets://kernels/pointUpdate.cl").load_as<compute::function>("Main");
         container.pointUpdateCL.setBlockMode(compute::block_mode::NON_BLOCKING);
 
-        CreateParticles(input, inputColor, inputEmission);
+        CreateParticles(input, inputColor, inputEmission, inputNormals);
     }
 
     /**
@@ -81,13 +85,14 @@ public:
     /**
      * @brief Creates particles based on position for the emitter, checks for recycling
      */
-    void CreateParticles(const std::vector<math::vec3>& inputPos, const std::vector<math::color>& inputColors, const std::vector<math::color>& inputEmission) const
+    void CreateParticles(const std::vector<math::vec3>& inputPos, const std::vector<math::color>& inputColors, const std::vector<math::color>& inputEmission, const std::vector<math::vec3>& inputNormals) const
     {
         OPTICK_EVENT();
 
         container.positionBufferData.insert(container.positionBufferData.end(), inputPos.begin(), inputPos.end());
         container.colorBufferData.insert(container.colorBufferData.end(), inputColors.begin(), inputColors.end());
         container.emissionBufferData.insert(container.emissionBufferData.end(), inputEmission.begin(), inputEmission.end());
+        container.normalBufferData.insert(container.normalBufferData.end(), inputNormals.begin(), inputNormals.end());
 
         container.isAnimating.resize(container.positionBufferData.size());
         log::debug("position size {}", container.positionBufferData.size());

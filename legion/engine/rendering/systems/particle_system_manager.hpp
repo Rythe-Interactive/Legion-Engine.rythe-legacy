@@ -23,7 +23,7 @@ namespace legion::rendering
          */
         void setup()
         {
-            createProcess<&ParticleSystemManager::update>("Update");
+            createProcess<&ParticleSystemManager::update>("Rendering");
         }
         /**
          * @brief Every frame, goes through every emitter and updates their particles with their respective particle systems.

@@ -175,11 +175,11 @@ __kernel void Main
     __read_only image2d_t emissionMap,
     //const uint samplesPerTri,
 //    const uint sampleWidth,
-    const float normalStrength,
     const uint seed,
     __global float4* points,
     __global float4* colors,
-    __global float4* emission
+    __global float4* emission,
+    __global float4* normals
 )
 {
     //init indices and rand state
@@ -256,9 +256,7 @@ __kernel void Main
         //sample height based on uvs
         float4 emissionColor = sampleColor(emissionMap, uvCoordinates);
         float4 Color = sampleColor(albedoMap, uvCoordinates);
-        float alpha = Color.w;
-        Color *= clamp(dot(normal, normalize((float4)(1.f, 1.f, 1.f, 0.f))), 0.f, 1.f);
-        Color.w = alpha;
+
         if(Color.w <= 0.5f)
             Color.w = 60.f;
         else
@@ -268,9 +266,10 @@ __kernel void Main
         //Color = (float4)(1,0,0,1);
         //scale normal by the height & add it to the point
         //newPoint+= normal*heightOffset;
-        colors[index]=Color;
-        points[index]=newPoint;
+        colors[index] = Color;
+        points[index] = newPoint;
         emission[index] = emissionColor;
+        normals[index] = normal;
     }
 }
 

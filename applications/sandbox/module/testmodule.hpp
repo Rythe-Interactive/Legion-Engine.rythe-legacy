@@ -31,7 +31,7 @@ public:
         //  reportSystem<TestSystem>();
          // reportSystem<TestSystemConvexHull>();
 
-        app::WindowSystem::requestWindow(world_entity_id, math::ivec2(1920, 1080), "LEGION Engine", "Legion Icon", nullptr, nullptr, 1); // Create the request for the main window.
+        app::WindowSystem::requestWindow(world_entity_id, math::ivec2(1920, 1080), "LEGION Engine", "Legion Icon", nullptr, nullptr, 0); // Create the request for the main window.
         //reportSystem<TestSystemConvexHull>();
         //reportComponentType<sah>();
         reportSystem<pointcloudtestsystem2>();

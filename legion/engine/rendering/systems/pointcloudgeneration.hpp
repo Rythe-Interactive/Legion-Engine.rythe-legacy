@@ -92,6 +92,7 @@ namespace legion::rendering
             std::vector<math::vec3> particleInput;
             std::vector<math::color> inputColor;
             std::vector<math::color> inputEmission;
+            std::vector<math::vec3> inputNormals;
 
             uint seed = math::linearRand<uint>(1, std::numeric_limits<uint>::max());
             for (auto& meshHandle : realPointCloud.m_meshes)
@@ -141,6 +142,7 @@ namespace legion::rendering
                 std::vector<math::vec4> result(totalSampleCount);
                 std::vector<math::color> resultColor(totalSampleCount);
                 std::vector<math::color> resultEmission(totalSampleCount);
+                std::vector<math::color> resultNormal(totalSampleCount);
                 //Get normal map
                 auto [lock, emission] = realPointCloud.m_emissionMap.get_raw_image();
                 auto [lock2, albedo] = realPointCloud.m_AlbedoMap.get_raw_image();
@@ -157,6 +159,7 @@ namespace legion::rendering
                     auto outBuffer = compute::Context::createBuffer(result, compute::buffer_type::WRITE_BUFFER, "points");
                     auto colorBuffer = compute::Context::createBuffer(resultColor, compute::buffer_type::WRITE_BUFFER, "colors");
                     auto emissionBuffer = compute::Context::createBuffer(resultEmission, compute::buffer_type::WRITE_BUFFER, "emission");
+                    auto normalBuffer = compute::Context::createBuffer(resultNormal, compute::buffer_type::WRITE_BUFFER, "normals");
 
                     auto computeResult = pointCloudGeneratorCS
                     (
@@ -167,11 +170,11 @@ namespace legion::rendering
                         sampleBuffer,
                         albedoMapBuffer,
                         emissionMapBuffer,
-                        karg(realPointCloud.m_heightStrength, "normalStrength"),
                         karg(seed, "seed"),
                         outBuffer,
                         colorBuffer,
-                        emissionBuffer
+                        emissionBuffer,
+                        normalBuffer
                     );
                 }
                 
@@ -180,7 +183,12 @@ namespace legion::rendering
                 size_type startIndex = particleInput.size();
                 particleInput.resize(startIndex + result.size());
                 auto it = particleInput.begin() + startIndex;
-                std::transform(std::execution::par_unseq, result.begin(), result.end(), it, [&](math::vec4& item) { auto result = transformMat * math::vec4(item.x, item.y, item.z, 1.f); return math::vec3(result.x, result.y, result.z); });
+                std::transform(std::execution::par_unseq, result.begin(), result.end(), it, [&](math::vec4& item) { auto pos = transformMat * math::vec4(item.x, item.y, item.z, 1.f); return math::vec3(pos.x, pos.y, pos.z); });
+
+                startIndex = inputNormals.size();
+                inputNormals.resize(startIndex + resultNormal.size());
+                it = inputNormals.begin() + startIndex;
+                std::transform(std::execution::par_unseq, resultNormal.begin(), resultNormal.end(), it, [&](math::vec4& item) { auto normal = transformMat * math::vec4(item.x, item.y, item.z, 0.f); return math::vec3(normal.x, normal.y, normal.z); });
 
                 inputColor.insert(inputColor.end(), resultColor.begin(), resultColor.end());
                 inputEmission.insert(inputEmission.end(), resultEmission.begin(), resultEmission.end());
@@ -188,7 +196,7 @@ namespace legion::rendering
 
             log::debug("Generated {} particles!", particleInput.size());
 
-            GenerateParticles(params, particleInput, inputColor, inputEmission, realPointCloud.m_trans);
+            GenerateParticles(params, particleInput, inputColor, inputEmission, inputNormals, realPointCloud.m_trans);
 
 
             //write that pc has been generated
@@ -196,14 +204,18 @@ namespace legion::rendering
             pointCloud.write(realPointCloud);
         }
 
-        void GenerateParticles(pointCloudParameters params, const std::vector<math::vec3>& input, const std::vector<math::color>& inputColor, const std::vector<math::color>& inputEmission, transform trans)
+        void GenerateParticles(pointCloudParameters params,
+            const std::vector<math::vec3>& input,
+            const std::vector<math::color>& inputColor,
+            const std::vector<math::color>& inputEmission,
+            const std::vector<math::vec3>& inputNormals, transform trans)
         {
             //generate particle system
             std::string name = nameOfType<PointCloudParticleSystem>();
 
 
 
-            auto newPointCloud = ParticleSystemCache::createParticleSystem<PointCloudParticleSystem>(name, params, input, inputColor, inputEmission);
+            auto newPointCloud = ParticleSystemCache::createParticleSystem<PointCloudParticleSystem>(name, params, input, inputColor, inputEmission, inputNormals);
             //create entity to store particle system
             auto newEnt = createEntity();
 
