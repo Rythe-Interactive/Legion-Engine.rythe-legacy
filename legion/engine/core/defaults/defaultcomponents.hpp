@@ -99,6 +99,11 @@ namespace legion::core
         return math::conjugate(math::normalize(math::toQuat(math::lookAt(position, center, up))));
     }
 
+    struct hierarchy
+    {
+        ecs::entity_handle parent = world_entity_id;
+        ecs::entity_set children;
+    };
 
     struct scale : public math::vec3
     {
@@ -126,7 +131,6 @@ namespace legion::core
         }
 
     };
-
 
     struct transform : public ecs::archetype<position, rotation, scale>
     {
@@ -190,13 +194,14 @@ namespace legion::core
         template<class Archive>
         void save(Archive& oa)
         {
-            if(id != invalid_id)
+            bool debug = false;
+            if (id != invalid_id)
                 oa(id, cereal::make_nvp("Filepath", get().second.filePath));
             else
             {
                 log::error("Deserialized Mesh was missing!");
                 std::string missing = "engine://resources/invalid/missing_mesh.obj";
-                oa(id,cereal::make_nvp("Filepath",missing));
+                oa(id, cereal::make_nvp("Filepath", missing));
             }
         }
 
@@ -204,13 +209,11 @@ namespace legion::core
         void load(Archive& oa)
         {
             std::string filepath;
-            oa(id, cereal::make_nvp("Filepath", filepath));
-
+            oa(id,cereal::make_nvp("Filepath", filepath));
             auto copy = default_mesh_settings;
-            copy.contextFolder = fs::view(filepath).parent();
-            id = MeshCache::create_mesh(filepath, fs::view(filepath),copy).id;
+            copy.contextFolder = filesystem::view(filepath).parent();
+            id = MeshCache::create_mesh(filepath, filesystem::view(filepath), copy).id;
         }
-
     };
 }
 

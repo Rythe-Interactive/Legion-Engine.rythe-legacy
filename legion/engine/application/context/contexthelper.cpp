@@ -12,6 +12,7 @@ namespace legion::application
 
     bool ContextHelper::initialized()
     {
+        OPTICK_EVENT();
         return m_initialized.load(std::memory_order_acquire);
     }
 
@@ -134,6 +135,7 @@ namespace legion::application
 
     void ContextHelper::updateWindowFocus()
     {
+        OPTICK_EVENT();
         GLFWwindow* focus = newFocus.load(std::memory_order_acquire);
         if (!focus)
             return;
@@ -216,6 +218,7 @@ namespace legion::application
 
     void ContextHelper::pollEvents()
     {
+        OPTICK_EVENT();
         glfwPollEvents();
     }
 

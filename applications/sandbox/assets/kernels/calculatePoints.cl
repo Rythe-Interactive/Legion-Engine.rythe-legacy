@@ -1,4 +1,4 @@
-
+const int maxSize=100;
 
 
 __kernel void Main
@@ -44,6 +44,15 @@ __kernel void Main
 
     int newSampleCount = ceil(size * samplesPerTri);
 
-    pointsCount[triangelIndex] = newSampleCount;
+    uint currentIt=0;
+    uint sum = 0;
+    while(sum < newSampleCount)
+    {
+        currentIt++;
+        sum += currentIt;
+    }
+
+    //newSampleCount= min(newSampleCount,maxSize);
+    pointsCount[triangelIndex] = sum;
 }
 

@@ -41,8 +41,9 @@ namespace legion::core::compute {
     struct karg
     {
 
-        karg(invalid_karg_type){}
-        template <class T, std::enable_if_t<!std::is_same_v<std::remove_reference_t<T>, karg>, int > = 0>
+        karg(invalid_karg_type) : container(std::make_pair<void*, size_type>(nullptr, 0)) {}
+
+        template <class T CNDOXY(std::enable_if_t<!std::is_same_v<std::remove_reference_t<T>, karg>, int > = 0)>
         karg(T& v, const std::string& n = "") : container(&v, sizeof(T)), name(n){}
         karg(const karg&) = default;
         karg(karg&&) noexcept = default;
@@ -136,9 +137,11 @@ namespace legion::core::compute {
 
         std::shared_ptr<Kernel> m_kernel;
         std::shared_ptr<Program> m_program;
+        block_mode m_mode = block_mode::BLOCKING;
         size_t m_locals = 512;
     public:
 
+        void setBlockMode(block_mode mode) { m_mode = mode; }
 
         /**
          * @brief Sets how many work-elements should be processed concurrently.
@@ -303,7 +306,8 @@ namespace legion::core::compute {
             OPTICK_EVENT();
             if constexpr (std::is_same_v<Buffer, T>)
                 return buffer_container;
-            else return Buffer(nullptr, nullptr, 0, buffer_type::WRITE_BUFFER, "broken buffer");
+            else
+                return Buffer(nullptr, nullptr, 0, buffer_type::WRITE_BUFFER, "broken buffer");
         }
 
 

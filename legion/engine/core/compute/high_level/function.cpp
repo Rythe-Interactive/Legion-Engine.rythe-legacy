@@ -48,7 +48,8 @@ namespace legion::core::compute
         cl_uint i = 0;
         for (Buffer& buffer : buffers)
         {
-            if (!buffer.isValid()) continue;
+            if (!buffer.isValid())
+                continue;
             if (buffer.hasName())
             {
                 m_kernel->setBuffer(buffer);
@@ -60,7 +61,7 @@ namespace legion::core::compute
 
             if (buffer.isReadBuffer())
             {
-                m_kernel->enqueueBuffer(buffer);
+                m_kernel->enqueueBuffer(buffer, m_mode);
             }
 
         }
@@ -82,7 +83,7 @@ namespace legion::core::compute
             if (!buffer.isValid()) continue;
             if (buffer.isWriteBuffer())
             {
-                m_kernel->enqueueBuffer(buffer);
+                m_kernel->enqueueBuffer(buffer, m_mode);
             }
 
         }

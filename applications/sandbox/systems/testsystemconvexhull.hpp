@@ -8,17 +8,17 @@
 
 #include <rendering/components/renderable.hpp>
 #include <physics/components/physics_component.hpp>
-
+#include <physics/components/fracturer.hpp>
 
 #include <rendering/components/particle_emitter.hpp>
-
+#include <physics/halfedgeedge.hpp>
 using namespace legion;
 
-struct convex_hull_step : public app::input_action<convex_hull_step> {};
-struct convex_hull_draw : public app::input_action<convex_hull_draw> {};
-struct convex_hull_info : public app::input_action<convex_hull_info> {};
-
-struct convex_hull_iteration : public app::input_action<convex_hull_iteration> {};
+struct physics_step : public app::input_action<physics_step> {};
+struct collider_move : public app::input_axis<collider_move> {};
+struct collider_move_up : public app::input_axis<collider_move_up> {};
+struct uniform_grid_broad_phase : public app::input_action<uniform_grid_broad_phase> {};
+struct uniform_grid_broad_phase_large : public app::input_action<uniform_grid_broad_phase_large> {};
 
 struct followerData
 {
@@ -28,26 +28,32 @@ struct followerData
 class TestSystemConvexHull final : public System<TestSystemConvexHull>
 {
 public:
-    std::shared_ptr<physics::ConvexCollider> collider = nullptr;
+    std::shared_ptr<legion::physics::ConvexCollider> collider = nullptr;
 
-    ecs::entity_handle physicsEnt;
-    std::vector<ecs::entity_handle> followerObjects;
+    core::ecs::entity_handle physicsEnt;
+    core::ecs::entity_handle colliderEnt;
+    std::vector< core::ecs::entity_handle> followerObjects;
 
-    mesh_handle meshH;
+    core::mesh_handle meshH;
     int pStep = 0;
 
     virtual void setup()
     {
-        app::InputSystem::createBinding<convex_hull_step>(app::inputmap::method::ENTER);
-        app::InputSystem::createBinding<convex_hull_draw>(app::inputmap::method::M);
-        app::InputSystem::createBinding<convex_hull_info>(app::inputmap::method::I);
-        app::InputSystem::createBinding<convex_hull_iteration>(app::inputmap::method::NUM1);
-  
+        physics::constants::gravity = math::vec3::zero;
 
-        bindToEvent<convex_hull_step, &TestSystemConvexHull::convexHullStep>();
-        bindToEvent<convex_hull_draw, &TestSystemConvexHull::convexHullDraw>();
-        bindToEvent<convex_hull_info, &TestSystemConvexHull::convexHullInfo>();
-        bindToEvent<convex_hull_iteration, &TestSystemConvexHull::convexHullIteration>();
+        app::InputSystem::createBinding<physics_step>(app::inputmap::method::ENTER);
+        app::InputSystem::createBinding<collider_move>(app::inputmap::method::LEFT, -1);
+        app::InputSystem::createBinding<collider_move>(app::inputmap::method::RIGHT, 1);
+        app::InputSystem::createBinding<collider_move_up>(app::inputmap::method::UP, 1);
+        app::InputSystem::createBinding<collider_move_up>(app::inputmap::method::DOWN, -1);
+        app::InputSystem::createBinding<uniform_grid_broad_phase>(app::inputmap::method::K);
+        app::InputSystem::createBinding<uniform_grid_broad_phase_large>(app::inputmap::method::L);
+
+        bindToEvent<physics_step, &TestSystemConvexHull::physicsStep>();
+        bindToEvent<collider_move, &TestSystemConvexHull::colliderMove>();
+        bindToEvent<collider_move_up, &TestSystemConvexHull::colliderMoveUp>();
+        bindToEvent<uniform_grid_broad_phase, &TestSystemConvexHull::setUniformGrid>();
+        bindToEvent<uniform_grid_broad_phase_large, &TestSystemConvexHull::setUniformGridLarge>();
 
         createProcess<&TestSystemConvexHull::update>("Update");
 
@@ -73,7 +79,7 @@ public:
             solidLegion.set_param("_texture", rendering::TextureCache::create_texture("assets://textures/split-test.png"_view));
 
             // Create physics entity
-            {
+            /*{
                 physicsEnt = createEntity();
                 physicsEnt.add_components<rendering::mesh_renderable>(mesh_filter(model.get_mesh()), rendering::mesh_renderer(wireFrameH));
                 physicsEnt.add_components<transform>(position(0.0f, 4, 0), rotation(), scale(1));
@@ -84,84 +90,61 @@ public:
                 auto rb = rbH.read();
                 rb.setMass(1.0f);
                 rbH.write(rb);
-            }
-            // Create physics entity
-           {
-                auto ent = createEntity();
-                ent.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(solidLegion));
-                ent.add_components<transform>(position(0, 2.0f, 0), rotation(), scale(1));
-                auto pcH = ent.add_component<physics::physicsComponent>();
-                auto pc = pcH.read();
-
-                pc.AddBox(physics::cube_collider_params(1.0f, 1.0f, 1.0f));
-                pcH.write(pc);
-            }
-
-            /*{
-                auto ent = createEntity();
-                ent.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(solidLegion));
-                ent.add_components<transform>(position(7.0f, 2.0f, 0), rotation(), scale(1));
-                auto pcH = ent.add_component<physics::physicsComponent>();
-                auto pc = pcH.read();
-
-                pc.AddBox(physics::cube_collider_params(2.0f, 2.0f, 2.0f));
-                pcH.write(pc);
-            }
-
-            {
-                auto ent = createEntity();
-                ent.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(solidLegion));
-                ent.add_components<transform>(position(7.0f, 6.0f, -1.35f), rotation(), scale(1));
-                ent.add_component<physics::rigidbody>();
-
-                auto pcH = ent.add_component<physics::physicsComponent>();
-                auto pc = pcH.read();
-
-                auto rot = ent.get_component_handle<rotation>().read();
-
-                rot *= math::angleAxis(math::deg2rad(60.0f), math::vec3(1, 0, 0));
-                rot *= math::angleAxis(math::deg2rad(-45.0f), math::vec3(0, 1, 0));
-                
-
-                ent.write_component(rot);
-
-                pc.AddBox(physics::cube_collider_params(1.0f, 1.0f, 1.0f));
-                pcH.write(pc);
             }*/
 
-            // Create entity for reference
+            {
+                colliderEnt = createEntity();
+                colliderEnt.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(solidLegion));
+                colliderEnt.add_components<transform>(position(0,1.0f, 0), rotation(), scale(1));
+                auto physH = colliderEnt.add_component<physics::physicsComponent>();
+                auto p = physH.read();
+                p.AddBox(physics::cube_collider_params(1.0f, 1.0f, 1.0f));
+                physH.write(p);
+                colliderEnt.add_component<physics::rigidbody>();
+            }
+
             {
                 auto ent = createEntity();
-                ent.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(vertexColor));
-                ent.add_components<transform>(position(5.0f, 0, 0), rotation(), scale(1));
+                ent.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(solidLegion));
+                ent.add_components<transform>(position(0, 3.0f, 0), rotation(), scale(1));
+                auto physH = ent.add_component<physics::physicsComponent>();
+                auto p = physH.read();
+                p.AddBox(physics::cube_collider_params(1.0f, 1.0f, 1.0f));
+                physH.write(p);
+                ent.add_component<physics::rigidbody>();
             }
-            // Create entity for reference
+
             {
                 auto ent = createEntity();
-                ent.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(wireFrameH));
-                ent.add_components<transform>(position(0, 0, -5.0f), rotation(), scale(1));
+                ent.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(solidLegion));
+                ent.add_components<transform>(position(0, 5.0f, 0), rotation(), scale(1));
+                physics::physicsComponent p;
+                p.AddBox(physics::cube_collider_params(1.0f, 1.0f, 1.0f));
+                ent.add_component(p);
+                ent.add_component<physics::rigidbody>();
             }
+
+#if 1
+            for (int i = 0; i < 1000; ++i)
             {
-                math::vec3 p = math::vec3(11, 4, 5);
-                std::vector<math::vec3> points{ math::vec3(0,0,0), math::vec3(2, 5, 5), math::vec3(12, 5, 5), math::vec3(10, 0, 0) };
-                math::mat4 planeMat = math::planeMatrix(points.at(0), points.at(1), points.at(3), math::vec3(0, 0, 0));
-                std::vector<math::vec3> newPoints{
-                    math::vec3(math::inverse(planeMat) * math::vec4(points.at(0),1)),
-                    math::vec3(math::inverse(planeMat) * math::vec4(points.at(1),1)),
-                    math::vec3(math::inverse(planeMat) * math::vec4(points.at(2),1)),
-                    math::vec3(math::inverse(planeMat) * math::vec4(points.at(3),1))
-                };
-                log::debug("mapped: {} {} {} {}", newPoints.at(0), newPoints.at(1), newPoints.at(2), newPoints.at(3));
+                auto ent = createEntity();
+                ent.add_components<rendering::mesh_renderable>(mesh_filter(cube.get_mesh()), rendering::mesh_renderer(solidLegion));
+                ent.add_components<transform>(position(math::linearRand(math::vec3(-10, 0, -10), math::vec3(10, 20, 10))), rotation(math::angleAxis(math::linearRand(-math::pi<float>(), math::pi<float>()), math::normalize(math::linearRand(-math::vec3::one, math::vec3::one)))), scale(1.f));
+
+                physics::physicsComponent p;
+                p.AddBox(physics::cube_collider_params(1.0f, 1.0f, 1.0f));
+                ent.add_component(p);
+
+                auto rbH = ent.add_component<physics::rigidbody>();
             }
+#endif
         }
     }
+
     bool isUpdating = false;
+
     void update(time::span deltaTime)
     {
-        //physics::PhysicsSystem::IsPaused = false;
-        //debug::user_projectdrawLine(math::vec3(1, 0, 0), math::vec3(1, 1, 0), math::colors::magenta, 10.0f, 20.0f);
-        drawPhysicsColliders();
-
         auto [posH, rotH, scaleH] = physicsEnt.get_component_handles<transform>();
 
         if (!isUpdating)
@@ -172,6 +155,56 @@ public:
                 ent.write_component<rotation>(rotH.read());
                 ent.write_component<scale>(scaleH.read());
             }
+        }
+    }
+    
+    int stepToSee = 0;
+    math::vec3 spacing = math::vec3(2.5f, 0, 0);
+    int indexToSee = 3;
+
+    void physicsStep(physics_step* action)
+    {
+        if (action->value)
+        {
+            physics::PhysicsSystem::IsPaused = !physics::PhysicsSystem::IsPaused;
+        }
+        /*else
+        {
+            physics::PhysicsSystem::IsPaused = true;
+        }*/
+    }
+
+    void colliderMove(collider_move* action)
+    {
+        auto posH = colliderEnt.get_component_handle<position>();
+        math::vec3 move = math::vec3(1.f, 0, 0);
+        move = move * action->value * action->input_delta * 10.f;
+        posH.fetch_add(move);
+    }
+
+    void colliderMoveUp(collider_move_up* action)
+    {
+        auto posH = colliderEnt.get_component_handle<position>();
+        math::vec3 move = math::vec3(0, 1.f, 0);
+        move = move * action->value * action->input_delta * 10.f;
+        posH.fetch_add(move);
+    }
+
+    void setUniformGrid(uniform_grid_broad_phase* action)
+    {
+        if (action->value)
+        {
+            physics::PhysicsSystem::setBroadPhaseCollisionDetection<physics::BroadphaseUniformGrid>(math::ivec3(2, 2, 2));
+            log::debug("Set broad phase 2x2x2");
+        }
+    }
+
+    void setUniformGridLarge(uniform_grid_broad_phase_large* action)
+    {
+        if (action->value)
+        {
+            physics::PhysicsSystem::setBroadPhaseCollisionDetection<physics::BroadphaseUniformGrid>(math::ivec3(3, 3, 3));
+            log::debug("Set broad phase 3x3x3");
         }
     }
 
@@ -215,11 +248,13 @@ public:
 
                 auto physicsComponent = physicsComponentHandle.read();
 
-                for (auto physCollider : *physicsComponent.colliders)
+                for (auto physCollider : physicsComponent.colliders)
                 {
                     //--------------------------------- Draw Collider Outlines ---------------------------------------------//
                     if (!physCollider->shouldBeDrawn) { continue; }
-
+                    //math::vec3 colliderCentroid = pos + math::vec3(localTransform * math::vec4(physCollider->GetLocalCentroid(), 0));
+                    //debug::user_projectDrawLine(colliderCentroid, colliderCentroid + math::vec3(0.0f,0.2f,0.0f), math::colors::cyan, 6.0f,0.0f,true);
+                    
                     for (auto face : physCollider->GetHalfEdgeFaces())
                     {
                         //face->forEachEdge(drawFunc);
@@ -229,7 +264,7 @@ public:
                         math::vec3 faceStart = localTransform * math::vec4(face->centroid, 1);
                         math::vec3 faceEnd = faceStart + math::vec3((localTransform * math::vec4(face->normal, 0))) * 0.1f;
                         
-                        debug::user_projectDrawLine(faceStart, faceEnd, math::colors::green, 2.0f);
+                        //debug::user_projectDrawLine(faceStart, faceEnd, math::colors::green, 2.0f);
 
                         if (!currentEdge) { return; }
 
@@ -252,41 +287,43 @@ public:
         }
     }
 
-    void convexHullStep(convex_hull_step* action)
+    void meshDrawCollider(physics::physicsComponent& comp)
     {
-        isUpdating = true;
-
-        if (action->value)
+        for (auto ent : followerObjects)
         {
-            for (auto ent : followerObjects)
-            {
-                m_ecs->destroyEntity(ent);
-            }
-            followerObjects.clear();
-            
-            auto pc = physicsEnt.read_component<physics::physicsComponent>();
-            
-            if (collider == nullptr)
-            {
-                collider = pc.ConstructConvexHull(meshH);
-                PopulateFollowerList();
-            }
-            else
-            {
-                collider->shouldBeDrawn = false;
-                pc.ConstructConvexHull(meshH, *collider);
-                collider->shouldBeDrawn = true;
-                PopulateFollowerList();
-            }
-            physicsEnt.write_component(pc);
-
-            ++pStep;
+            m_ecs->destroyEntity(ent);
         }
+        followerObjects.clear();
 
-        isUpdating = false;
+        if (collider == nullptr)
+        {
+            collider = comp.ConstructConvexHull(meshH);
+            PopulateFollowerList();
+        }
+        else
+        {
+            collider->shouldBeDrawn = false;
+            comp.ConstructConvexHull(meshH, *collider);
+            collider->shouldBeDrawn = true;
+            PopulateFollowerList();
+        }
     }
 
-   
+    void vertexDrawCollider(std::vector<math::vec3> vertices,math::vec3 spacing = math::vec3())
+    {
+        for (auto ent : followerObjects)
+        {
+            m_ecs->destroyEntity(ent);
+        }
+        followerObjects.clear();
+
+        collider->shouldBeDrawn = false;
+        collider->ConstructConvexHullWithVertices(vertices, spacing);
+        collider->shouldBeDrawn = true;
+        PopulateFollowerList();
+        collider->step++;
+
+    }
 
     void PopulateFollowerList()
     {
@@ -304,13 +341,13 @@ public:
 
             auto populateVectorLambda = [&localVert](physics::HalfEdgeEdge* edge)
             {
-                log::debug("edge {}", to_string( edge->edgePosition));
+                log::debug("edge {}", math::to_string( edge->edgePosition));
                 localVert.push_back(edge->edgePosition);
             };
 
             face->forEachEdge(populateVectorLambda);
 
-            mesh newMesh;
+            legion::core::mesh newMesh;
             
             std::vector<math::vec3> vertices;
             std::vector<uint> indices;
@@ -349,7 +386,7 @@ public:
 
             //creaate modelH
             static int count = 0;
-            mesh_handle meshH = MeshCache::create_mesh("meshh" + std::to_string(count), newMesh);
+            mesh_handle meshH = core::MeshCache::create_mesh("meshh" + std::to_string(count), newMesh);
             auto modelH = rendering::ModelCache::create_model(meshH);
             count++;
 
@@ -372,67 +409,6 @@ public:
 
 
             followerObjects.push_back(newEnt);
-        }
-    }
-
-    void convexHullDraw(convex_hull_draw* action)
-    {
-        log::debug("convexHullDraw(convex_hull_draw* action) ");
-        debug::user_projectdebug_line(math::vec3(0, 0, 0), math::vec3(0, 1, 0), math::colors::magenta, 5.0f,20.0f);
-        if (action->value)
-        {
-            if (pStep > 0)
-            {
-                auto debugDrawEdges = [](physics::HalfEdgeEdge* edge)
-                {
-                    if (!edge || !edge->nextEdge) return;
-                    math::vec3 pos0 = edge->edgePosition;
-                    math::vec3 pos1 = edge->nextEdge->edgePosition;
-                    debug::drawLine(pos0, pos1, math::colors::red);
-                };
-
-                auto faces = collider->GetHalfEdgeFaces();
-                for (int i = 0; i < faces.size(); ++i)
-                {
-                    faces.at(i)->forEachEdge(debugDrawEdges);
-                    // Draw normals
-                   
-                    debug::drawLine(faces.at(i)->centroid, faces.at(i)->centroid + faces.at(i)->normal * 0.3f, math::colors::white);
-                }
-            }
-        }
-    }
-
-    void convexHullInfo(convex_hull_info* action)
-    {
-        if (action->value)
-        {
-            physics::PhysicsSystem::IsPaused = false;
-        }
-    }
-
-    int iterationStep = 0;
-
-    void convexHullIteration(convex_hull_iteration* action)
-    {
-        log::debug("convexHullIteration ");
-
-        if (!action->value)
-        {
-            auto [posH, rotH, scaleH] = physicsEnt.get_component_handles<transform>();
-            const math::mat4 transform = math::compose(scaleH.read(), rotH.read(), posH.read());
-
-            auto faces = collider->GetHalfEdgeFaces();
-            for (int i = 0; i < faces.size(); ++i)
-            {
-                if (i == iterationStep)
-                {
-                    faces.at(i)->DEBUG_DrawFace(transform, math::colors::red,1.0f);
-                }
-            }
-
-            iterationStep++;
-            
         }
     }
 

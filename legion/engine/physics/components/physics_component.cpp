@@ -8,17 +8,17 @@ namespace legion::physics
     {
     }
 
-    std::shared_ptr<ConvexCollider> physicsComponent::ConstructConvexHull(legion::core::mesh_handle& meshHandle)
+    std::shared_ptr<ConvexCollider> physicsComponent::ConstructConvexHull(legion::core::mesh_handle& meshHandle, bool shouldDebug )
     {
         auto collider = std::make_shared<ConvexCollider>();
 
-        //collider->ConstructConvexHullWithMesh(meshHandle);
-        collider->doStep(meshHandle);
+        collider->ConstructConvexHullWithMesh(meshHandle,shouldDebug);
+        //collider->doStep(meshHandle);
 
-        colliders->push_back(collider);
+        colliders.push_back(collider);
 
         calculateNewLocalCenterOfMass();
-
+        //log::debug("collider returned");
         return collider;
     }
 
@@ -40,7 +40,7 @@ namespace legion::physics
 
         cuboidCollider->CreateBox(cubeParams);
 
-        colliders->push_back(cuboidCollider);
+        colliders.push_back(cuboidCollider);
 
         calculateNewLocalCenterOfMass();
     }

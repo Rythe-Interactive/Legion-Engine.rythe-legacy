@@ -111,7 +111,7 @@ namespace legion::core::ecs
          * @throws legion_invalid_entity_error Thrown when handle's registry reference is invalid.
          * @throws legion_entity_not_found_error Thrown when handle's id is invalid.
          */
-        void set_parent(id_type newParent);
+        void set_parent(id_type newParent, bool addHierarchyIfAbsent = true);
 
         /**@brief serializes the entity depending on its archive
          * @param oarchive template<typename Archive>
@@ -251,14 +251,14 @@ namespace legion::core::ecs
         template<typename component_type>
         void write_component(component_type&& value)
         {
-            get_component_handle<std::remove_reference_t<component_type>>().write(std::forward<component_type>(value));
+            get_component_handle<std::remove_reference_t<component_type>>().write(std::forward<component_type&&>(value));
         }
         /**@brief Shortcut to component_handle::write
          */
         template<typename component_type>
         void write_component(const component_type& value)
         {
-            get_component_handle<std::remove_reference_t<component_type>>().write(std::forward<component_type>(value));
+            get_component_handle<std::remove_reference_t<component_type>>().write(std::forward<const component_type&>(value));
         }
 
         /**@brief Add component to the entity.
@@ -317,9 +317,10 @@ namespace legion::core::ecs
          * @returns component_handle<component_type> Valid component handle for the newly created component.
          */
         template<typename component_type>
-        component_handle<std::remove_reference_t<component_type>> add_component(component_type& value)
+        component_handle<std::remove_reference_t<component_type>> add_component(const component_type& value)
         {
-            return add_component(typeHash<std::remove_reference_t<component_type>>(), reinterpret_cast<void*>(&value)).template cast<std::remove_reference_t<component_type>>();
+            component_type temp = value;
+            return add_component(typeHash<std::remove_reference_t<component_type>>(), reinterpret_cast<void*>(&temp)).template cast<std::remove_reference_t<component_type>>();
         }
 
         /**@brief Add multiple components to the entity.
@@ -451,5 +452,6 @@ namespace std
 
 namespace legion::core::ecs
 {
+    using entity_container = std::vector<entity_handle>;
     using entity_set = hashed_sparse_set<entity_handle>;
 }

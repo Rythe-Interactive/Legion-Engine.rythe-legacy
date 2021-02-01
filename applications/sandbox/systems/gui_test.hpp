@@ -17,16 +17,17 @@ class GuiTestSystem : public System<GuiTestSystem>
     ecs::entity_handle cubeEntity;
 
 
-    char guiTextBuffer[512]{ 0 };
+    //char guiTextBuffer[512]{ 0 };
 
     math::mat4 view = math::mat4(1.0f);
     math::mat4 projection = math::mat4(1.0f);
     math::mat4 model = math::mat4(1.0f);
 
-    bool* showSave = false;
+    //bool* showSave = nullptr;
 
     void setup() override
     {
+        using namespace fs::literals;
 
         static_cast<DefaultPipeline*>(Renderer::getMainPipeline())->attachStage<ImGuiStage>();
 
@@ -76,9 +77,13 @@ class GuiTestSystem : public System<GuiTestSystem>
     void BuildTree(ecs::entity_handle handle)
     {
         if (ImGui::TreeNode(reinterpret_cast<void*>(handle.get_id()), "%llu", handle.get_id())) {
-            for (size_type i = 0; i < handle.child_count(); ++i)
+            if (handle.has_component<hierarchy>())
             {
-                BuildTree(handle.get_child(i));
+                auto hry = handle.read_component<hierarchy>();
+                for (auto child : hry.children)
+                {
+                    BuildTree(child);
+                }
             }
 
             if (ImGui::TreeNode("Components")) {
@@ -96,6 +101,9 @@ class GuiTestSystem : public System<GuiTestSystem>
 
     void onGUI(app::window& context, camera& cam, const camera::camera_input& camInput, time::span deltaTime)
     {
+
+        //scenemanagement::SceneManager::create_scene_entity();
+
         ImGuiIO& io = ImGui::GetIO();
 
         setProjectionAndView(io.DisplaySize.x / io.DisplaySize.y, cam, camInput);
@@ -117,10 +125,11 @@ class GuiTestSystem : public System<GuiTestSystem>
                     text += sceneName;
                     if (base::Button(text.c_str()))
                     {
-                        scenemanagement::SceneManager::createScene(sceneName);
+                        scenemanagement::SceneManager::create_scene(sceneName);
                     }
                     ImGui::EndMenu();
                 }
+
                 if (ImGui::BeginMenu("Load Scene"))
                 {
                     auto sceneNames = scenemanagement::SceneManager::sceneNames;
@@ -129,7 +138,7 @@ class GuiTestSystem : public System<GuiTestSystem>
                         auto name = entry.second;
                         if (ImGui::MenuItem(name.c_str()))
                         {
-                            scenemanagement::SceneManager::loadScene(name);
+                            scenemanagement::SceneManager::load_scene(name);
                         }
                     }
                     ImGui::EndMenu();

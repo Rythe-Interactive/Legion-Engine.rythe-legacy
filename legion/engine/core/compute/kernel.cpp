@@ -14,8 +14,12 @@ namespace legion::core::compute
         std::string container;
 
         //get the number of kernel arguments
-        clGetKernelInfo(m_func, CL_KERNEL_NUM_ARGS, sizeof(cl_uint), &num_args, nullptr);
-
+        auto r = clGetKernelInfo(m_func, CL_KERNEL_NUM_ARGS, sizeof(cl_uint), &num_args, nullptr);
+        if (r < 0)
+        {
+            log::error("building OpenCL Buffer Name failed with error {}", r);
+            return *this;
+        }
         for (cl_uint i = 0; i < num_args; ++i) {
 
             //get the length of the kernel argument
@@ -119,13 +123,19 @@ namespace legion::core::compute
             //buffer was read only
         case CL_MEM_READ_ONLY:
             //we "write" to a read only buffer because it is readonly for the kernel
-            ret = clEnqueueWriteBuffer(m_queue, buffer.m_memory_object, static_cast<cl_bool>(blocking), 0, buffer.m_size, buffer.m_data, 0, nullptr, nullptr);
+            if ((ret = clEnqueueWriteBuffer(m_queue, buffer.m_memory_object, static_cast<cl_bool>(blocking), 0, buffer.m_size, buffer.m_data, 0, nullptr, nullptr)) != CL_SUCCESS)
+                log::error("clEnqueueWriteBuffer {}[{}]: {}", buffer.m_name, buffer.m_size, ret);/*
+            else
+                log::info("clEnqueueWriteBuffer succeeded {}[{}]", buffer.m_name, buffer.m_size);*/
             break;
 
             //buffer was write only
         case CL_MEM_WRITE_ONLY:
             //similarly we read from a buffer that was write-only for the kernel 
-            ret = clEnqueueReadBuffer(m_queue, buffer.m_memory_object, static_cast<cl_bool>(blocking), 0, buffer.m_size, buffer.m_data, 0, nullptr, nullptr);
+            if ((ret = clEnqueueReadBuffer(m_queue, buffer.m_memory_object, static_cast<cl_bool>(blocking), 0, buffer.m_size, buffer.m_data, 0, nullptr, nullptr)) != CL_SUCCESS)
+                log::error("clEnqueueReadBuffer {}[{}]: {}", buffer.m_name, buffer.m_size, ret);
+           /* else
+                log::info("clEnqueueReadBuffer succeeded {}[{}]", buffer.m_name, buffer.m_size);*/
             break;
 
             //buffer is read and write the default read/write mode needs to decide
@@ -134,12 +144,18 @@ namespace legion::core::compute
             {
             case buffer_type::READ_BUFFER:
                 //the mode was read on the host so we write to the kernel
-                ret = clEnqueueWriteBuffer(m_queue, buffer.m_memory_object, static_cast<cl_bool>(blocking), 0, buffer.m_size, buffer.m_data, 0, nullptr, nullptr);
-                break;
+                if ((ret = clEnqueueWriteBuffer(m_queue, buffer.m_memory_object, static_cast<cl_bool>(blocking), 0, buffer.m_size, buffer.m_data, 0, nullptr, nullptr)) != CL_SUCCESS)
+                    log::error("clEnqueueWriteBuffer {}[{}]: {}", buffer.m_name, buffer.m_size, ret);
+                /*else
+                    log::info("clEnqueueWriteBuffer succeeded {}[{}]", buffer.m_name, buffer.m_size);*/
 
+                break;
             case buffer_type::WRITE_BUFFER:
                 //again the mode was write on the host so we read from it
-                ret = clEnqueueReadBuffer(m_queue, buffer.m_memory_object, static_cast<cl_bool>(blocking), 0, buffer.m_size, buffer.m_data, 0, nullptr, nullptr);
+                if ((ret = clEnqueueReadBuffer(m_queue, buffer.m_memory_object, static_cast<cl_bool>(blocking), 0, buffer.m_size, buffer.m_data, 0, nullptr, nullptr)) != CL_SUCCESS)
+                    log::error("clEnqueueReadBuffer {}[{}]: {}", buffer.m_name, buffer.m_size, ret);
+                //else
+                //    log::info("clEnqueueReadBuffer succeeded {}[{}]", buffer.m_name, buffer.m_size);
                 break;
 
             default:
@@ -148,9 +164,6 @@ namespace legion::core::compute
             break;
         default: throw std::logic_error("Buffer was neither read nor write nor readwrite");
         }
-
-        if (ret != CL_SUCCESS)
-            log::error("clEnqueueXXXXBuffer {}", ret);
 
         return *this;
     }
@@ -197,7 +210,7 @@ namespace legion::core::compute
             size,
             nullptr,
             globals.data(),
-            locals.data(),
+            nullptr,
             0,
             nullptr,
             nullptr

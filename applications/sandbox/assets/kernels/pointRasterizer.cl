@@ -2,7 +2,6 @@
 //constant values
 //exit condition for poission sampling
 const int K=30;
-const uint RAND_MAX= 255;
 //predefined values
 #define maxPointsPerTri 500
 #define radius 0.33f
@@ -11,8 +10,8 @@ const uint RAND_MAX= 255;
 #define gridDimension  depth *depth
 
 //seed state
-uint state = 777;
-float floatState=0.777f;
+uint state;
+
 //returns random uint (range 0-255?)
 uint Rand()
 {
@@ -22,10 +21,7 @@ uint Rand()
 //uses Rand to generate a random float (range 0-1)
 float RandomValue()
 {
-   uint randInt =Rand();
-
-   return randInt / (float) RAND_MAX;
-
+   return (Rand() / (float)(UINT_MAX)) * FLT_MAX;
 }
 
 //includes upper bound
@@ -35,9 +31,9 @@ uint RandomUpperRange(uint upper)
     return r %(upper+1);
 }
 //usese barycentric coordinates to sample a new point
-float4 SampleTriangle(float2 coordinates,float4 a, float4 b, float4 c )
+float4 SampleTriangle(float2 coordinates, float4 a, float4 b, float4 c)
 {
-    return(float4)(a + coordinates.x* (b-a) + coordinates.y * (c-a));
+    return(float4)(a + coordinates.x * (b-a) + coordinates.y * (c-a));
 }
 float2 SampleUVs(float2 coordinates, float2 a, float2 b, float2 c)
 {
@@ -53,7 +49,7 @@ bool CheckPoint(float2 newPoint, float2* points, int* grid)
         //get grid cell
         int currentX = (int) newPoint.x / cellSize;
         int currentY = (int) newPoint.y / cellSize;
-        //iterate neighbour cells in a radius of 2 
+        //iterate neighbour cells in a radius of 2
         int startX = max(0, currentX - 2);
         int endX = min(currentX + 2, maxPointsPerTri- 1);
         int startY = max(0, currentY - 2);
@@ -77,13 +73,13 @@ bool CheckPoint(float2 newPoint, float2* points, int* grid)
     return false;
 }
 //sampling technique checkout:
-//http://www.cemyuksel.com/cyCodeBase/soln/poisson_disk_sampling.html 
+//http://www.cemyuksel.com/cyCodeBase/soln/poisson_disk_sampling.html
 //to understand some more.
 void PoissionSampling(__local float2* outputPoints, int samplePerTri)
 {
     //init output
     int outPutIndex=0;
- 
+
     //create cell grid
     __local int grid[maxPointsPerTri];
 
@@ -93,71 +89,80 @@ void PoissionSampling(__local float2* outputPoints, int samplePerTri)
     int spawnPointAmount=1;
     while(spawnPointAmount>0)
     {
-       //get random point from spawn points && its position
+       // get random point from spawn points && its position
         int index = RandomUpperRange(spawnPointAmount);
-        float2 spawnCenter = spawnPoints[spawnPointAmount];
+        float2 spawnCenter = spawnPoints[index];
 
         bool isAccepteed=false;
-        //try generating a valid point until k is reached
+        // try generating a valid point until k is reached
         for(int i=0; i <K; i++)
         {
             //generate offset and new point
             float angle = RandomValue() * 2 * M_PI;
             float2 direction = (float2)(sin(angle), cos(angle));
             float2 newPoint = spawnCenter + normalize(direction) * radius;
-            //check point
+            // check point
             if(CheckPoint(newPoint,outputPoints, grid ))
             {
-            outputPoints[outPutIndex] = newPoint;
-            outPutIndex++;
-            spawnPoints[spawnPointAmount] = newPoint;
-            spawnPointAmount++;
-            isAccepteed=true;
+                outputPoints[outPutIndex] = newPoint;
+                outPutIndex++;
+                spawnPoints[spawnPointAmount] = newPoint;
+                spawnPointAmount++;
+                isAccepteed=true;
 
-            grid[(int)(newPoint.x / cellSize) *(int)(newPoint.y/cellSize)] = outPutIndex;
-            if(outPutIndex> samplePerTri) return;
+                grid[(int)(newPoint.x / cellSize) *(int)(newPoint.y/cellSize)] = outPutIndex;
+                if(outPutIndex> samplePerTri)
+                    return;
             }
         }
         if(!isAccepteed)
         {
-        spawnPoints[index]=0;
-        spawnPointAmount--;
-        }     
+            spawnPoints[index] = 0;
+            spawnPointAmount--;
+        }
     }
 
 }
 
 
-float2 sampleUniformly(__local float2* output, uint samplesPerTri, uint sampleWidth)
+float2 sampleUniformly(__local float2* output, uint samplesPerTri, uint sampleWidth, float costheta)
 {
-    float offset = 1.0f / (float)(sampleWidth+1);
-    float2 coordinates;
-    int index=0;
-    for(int x=0; x<sampleWidth; x++)
+    float offset = 1.0f / (float)(clamp(sampleWidth-1u, 1u, sampleWidth));
+    int index = 0;
+    for(int x = 0; x < sampleWidth; x++)
     {
-        for(int y=0; y<sampleWidth-x; y++)
+        for(int y = 0; y < sampleWidth - x; y++)
         {
            // if(x+y>sampleWidth) continue;
-            coordinates=(float2)(offset*(x), offset*(y));
-            output[index] = coordinates;
+            float angle = fmod(RandomValue(), (float)(M_PI) * 0.5f);
+            float magnitude = fmod(RandomValue(), offset) - offset * 0.5f;
+
+            float2 direction = (float2)(sin(angle), cos(angle)) * magnitude;
+
+            float2 scalars = clamp((float2)(offset * (x), offset * (y)) + direction, 0.f, 1.f);
+
+            // float maxSum = costheta;
+            // float sum = scalars.x + scalars.y;
+            // float scale = maxSum / sum;
+            // if(scale < 1.f)
+            //     scalars *= scale;
+
+            output[index] = scalars;
             index++;
         }
     }
 }
-constant sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_ADDRESS_CLAMP_TO_EDGE | CLK_FILTER_NEAREST;
+constant sampler_t sampler = CLK_NORMALIZED_COORDS_TRUE | CLK_ADDRESS_CLAMP_TO_EDGE | CLK_FILTER_LINEAR;// CLK_FILTER_NEAREST;
 
-float sampleHeight(__read_only image2d_t texture, float2 uvs, int texelSize)
+float sampleHeight(__read_only image2d_t texture, float2 uvs)
 {
-    float r=0.0f;
-    int2 newCoordinates = (int2)(uvs.x*texelSize,uvs.y*texelSize);
-    //  newCoordinates *=2;
-    //  newCoordinates-=1;
-
- //   newCoordinates = (int2)(uvs.x,uvs.y) * 2048;
-    float4 textureValue=read_imagef(texture, sampler, (int2)newCoordinates);
-    r =textureValue.x;
-    return r;
+    return read_imagef(texture, sampler, uvs).x;
 }
+float4 sampleColor(__read_only image2d_t texture, float2 uvs)
+{
+    return read_imagef(texture, sampler, uvs);
+}
+
 
 
 __kernel void Main
@@ -166,19 +171,22 @@ __kernel void Main
     __global const uint* indices,
     __global const float2* uvs,
     __global const uint* samples,
-    __read_only image2d_t normalMap,
+    __read_only image2d_t albedoMap,
+    __read_only image2d_t emissionMap,
     //const uint samplesPerTri,
 //    const uint sampleWidth,
-    const float normalStrength,
-    const uint textureSize,
-    __global float4* points
+    const uint seed,
+    __global float4* points,
+    __global float4* colors,
+    __global float4* emission,
+    __global float4* normals
 )
 {
     //init indices and rand state
     int n=get_global_id(0)*3;
-    state= get_global_id(0);
+    state = get_global_id(0) + seed;
 //    int resultIndex = get_global_id(0)*samplePerTri;
-  
+
     //get vertex indices
     uint vertex1Index = indices[n];
     uint vertex2Index = indices[n+1];
@@ -189,55 +197,49 @@ __kernel void Main
     float v1a = vertices[indices[n]*3];
     float v1b = vertices[indices[n]*3+1];
     float v1c = vertices[indices[n]*3+2];
-    float4 vertA = (float4)(v1a,v1b,v1c,1.0f);
+    float4 vertA = (float4)(v1a,v1b,v1c,0.0f);
     float2 uvA =uvs[indices[n]];
 
     //vert2
     float v2a = vertices[indices[n+1]*3];
     float v2b = vertices[indices[n+1]*3+1];
     float v2c = vertices[indices[n+1]*3+2];
-    float4 vertB = (float4)(v2a,v2b,v2c,1.0f);
+    float4 vertB = (float4)(v2a,v2b,v2c,0.0f);
     float2 uvB =uvs[indices[n+1]];
 
     //vert3
     float v3a = vertices[indices[n+2]*3];
     float v3b = vertices[indices[n+2]*3+1];
     float v3c = vertices[indices[n+2]*3+2];
-    float4 vertC = (float4)(v3a,v3b,v3c,1.0f);
+    float4 vertC = (float4)(v3a,v3b,v3c,0.0f);
     float2 uvC =uvs[indices[n+2]];
-
-    //calculate current sample count
-    float lengthA = length(vertC-vertA);
-    float lengthB = length(vertB-vertA);
-    float lengthC = length(vertC-vertB);
-    float size = lengthA+lengthB+lengthC;
 
     uint newSampleCount = samples[get_global_id(0)];
     uint resultIndex=0;
     //calculate new result ID, accumulate previous sample counts
     for(int i=0; i< get_global_id(0); i++)
     {
-        resultIndex+= samples[i];
+        resultIndex += samples[i];
     }
 
     //calculate the sample width for the newly generated sample count
     uint currentIt=0;
-    uint sum =0;
-    while(sum< newSampleCount)
+    uint sum = 0;
+    while(sum < newSampleCount)
     {
         currentIt++;
-        sum +=currentIt;
+        sum += currentIt;
     }
-    uint sampleWidth=currentIt;
+    uint sampleWidth = currentIt;//clamp(currentIt - 4u, 0u, currentIt);
 
 
     //generate normal && scale by strength
     float4 normal = normalize(cross(vertB-vertA,vertC-vertA));
-    normal*=normalStrength;
-    
+    //normal*=normalStrength;
+
     //generate samples
     __local float2 uniformOutput[maxPointsPerTri];
-    sampleUniformly(uniformOutput,newSampleCount,sampleWidth);
+    sampleUniformly(uniformOutput, newSampleCount, sampleWidth, dot(vertB-vertA, vertC-vertA));
     //__local float2 poissonOutput[maxPointsPerTri];
     //PoissionSampling(poissonOutput,samplePerTri);
 
@@ -247,17 +249,27 @@ __kernel void Main
     {
         int index= resultIndex + i;
         //sample point position
-        float4 newPoint =SampleTriangle(uniformOutput[i],vertA,vertB,vertC);
+        float4 newPoint = SampleTriangle(uniformOutput[i],vertA,vertB,vertC);
 
         //get uvs
         float2 uvCoordinates = SampleUVs(uniformOutput[i],uvA,uvB,uvC);
         //sample height based on uvs
-        float heightOffset = sampleHeight(normalMap,uvCoordinates + (float2)(0.0f,0.0f),textureSize);
+        float4 emissionColor = sampleColor(emissionMap, uvCoordinates);
+        float4 Color = sampleColor(albedoMap, uvCoordinates);
 
+        if(Color.w <= 0.5f)
+            Color.w = 60.f;
+        else
+            Color.w = 0.f;
+
+        //Color = (float4)(uvCoordinates.x, uvCoordinates.y, 0, 1);
+        //Color = (float4)(1,0,0,1);
         //scale normal by the height & add it to the point
-        newPoint+= normal*heightOffset;
-     
-        points[index]=newPoint;
+        //newPoint+= normal*heightOffset;
+        colors[index] = Color;
+        points[index] = newPoint;
+        emission[index] = emissionColor;
+        normals[index] = normal;
     }
 }
 

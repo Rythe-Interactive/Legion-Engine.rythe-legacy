@@ -21,7 +21,6 @@ namespace  legion::rendering
 
         static auto renderablesQuery = createQuery<position, rotation, scale, mesh_filter, mesh_renderer>();
         renderablesQuery.queryEntities();
-
         auto& positions = renderablesQuery.get<position>();
         auto& rotations = renderablesQuery.get<rotation>();
         auto& scales = renderablesQuery.get<scale>();
@@ -39,7 +38,8 @@ namespace  legion::rendering
             OPTICK_EVENT("Calculate instances");
             for (int i = 0; i < renderablesQuery.size(); i++)
             {
-                (*batches)[renderers[i].material][ModelCache::create_model(filters[i].id)].push_back(math::compose(scales[i], rotations[i], positions[i]));
+                OPTICK_EVENT("instance");
+                (*batches)[renderers[i].material][model_handle{ filters[i].id }].push_back(math::compose(scales[i], rotations[i], positions[i]));
             }
         }
     }

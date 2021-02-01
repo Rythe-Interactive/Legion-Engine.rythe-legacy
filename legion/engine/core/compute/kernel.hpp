@@ -10,9 +10,9 @@
 
 namespace legion::core::compute
 {
-    enum class block_mode : bool {
-        BLOCKING,
-        NON_BLOCKING
+    enum class block_mode : cl_bool {
+        BLOCKING = CL_TRUE,
+        NON_BLOCKING = CL_FALSE
     };
 
     class Program;
