@@ -34,7 +34,7 @@ namespace legion::rendering
         {
             InitComputeShader();
 
-            createProcess<&PointCloudGeneration::Update>("Update");
+            createProcess<&PointCloudGeneration::Update>("Rendering");
 
             Generate();
         }
@@ -143,9 +143,8 @@ namespace legion::rendering
                 std::vector<math::color> resultColor(totalSampleCount);
                 std::vector<math::color> resultEmission(totalSampleCount);
                 std::vector<math::color> resultNormal(totalSampleCount);
-                std::vector<byte> isLit(totalSampleCount);
-                std::vector<math::vec4>lightDir(1);
-                lightDir[0] = math::vec4(-1, -1, -1, 0);
+                std::vector<math::vec4> lightDir(1);
+                lightDir[0] = math::normalize(math::vec4(-1, -1, -1, 0));
                 //Get normal map
                 auto [lock, emission] = realPointCloud.m_emissionMap.get_raw_image();
                 auto [lock2, albedo] = realPointCloud.m_AlbedoMap.get_raw_image();

@@ -15,15 +15,15 @@ namespace legion::rendering
 
         cloud.colorBuffer = buffer(GL_ARRAY_BUFFER, cloud.colorBufferData, GL_DYNAMIC_DRAW);
         cloud.vertexArray.setAttribPointer(cloud.colorBuffer, SV_COLOR, 4, GL_FLOAT, false, 0, 0);
-        cloud.vertexArray.setAttribDivisor(SV_COLOR, 1);
+        //cloud.vertexArray.setAttribDivisor(SV_COLOR, 1);
 
         cloud.emissionBuffer = buffer(GL_ARRAY_BUFFER, cloud.emissionBufferData, GL_DYNAMIC_DRAW);
         cloud.vertexArray.setAttribPointer(cloud.emissionBuffer, 7, 4, GL_FLOAT, false, 0, 0);
-        cloud.vertexArray.setAttribDivisor(7, 1);
+        //cloud.vertexArray.setAttribDivisor(7, 1);
 
         cloud.positionBuffer = buffer(GL_ARRAY_BUFFER, cloud.positionBufferData, GL_STATIC_DRAW);
         cloud.vertexArray.setAttribPointer(cloud.positionBuffer, SV_POSITION, 3, GL_FLOAT, false, 0, 0);
-        cloud.vertexArray.setAttribDivisor(SV_POSITION, 1);
+        //cloud.vertexArray.setAttribDivisor(SV_POSITION, 1);
 
         cloud.buffered = true;
     }
@@ -39,6 +39,9 @@ namespace legion::rendering
         static id_type mainId = nameHash("main");
 
         if (!m_container)
+            return;
+
+        if (m_container->positionBufferData.empty())
             return;
 
         auto* fbo = getFramebuffer(mainId);
@@ -83,9 +86,9 @@ namespace legion::rendering
 
         cloud.vertexArray.bind();
 
-        glDrawArraysInstanced(GL_POINTS, 0, 1, cloud.positionBufferData.size());
+        //glDrawArraysInstanced(GL_POINTS, 0, 1, cloud.positionBufferData.size());
 
-        //glDrawArrays(GL_POINTS, 0, cloud.positionBufferData.size());
+        glDrawArrays(GL_POINTS, 0, cloud.positionBufferData.size());
 
         cloud.vertexArray.release();
 

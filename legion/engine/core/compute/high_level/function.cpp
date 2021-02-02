@@ -87,7 +87,7 @@ namespace legion::core::compute
             }
 
         }
-        m_kernel->finish();
+        m_kernel->finish(m_mode);
 
         return common::Ok();
     }

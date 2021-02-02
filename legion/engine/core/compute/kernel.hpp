@@ -256,7 +256,7 @@ namespace legion::core::compute
          * @brief Ensures that the command-queue is committed and finished executing
          * @pre dispatch
          */
-        void finish() const;
+        void finish(block_mode mode = block_mode::BLOCKING) const;
 
 
         /**

@@ -134,8 +134,8 @@ namespace legion::core::compute
             //similarly we read from a buffer that was write-only for the kernel 
             if ((ret = clEnqueueReadBuffer(m_queue, buffer.m_memory_object, static_cast<cl_bool>(blocking), 0, buffer.m_size, buffer.m_data, 0, nullptr, nullptr)) != CL_SUCCESS)
                 log::error("clEnqueueReadBuffer {}[{}]: {}", buffer.m_name, buffer.m_size, ret);
-           /* else
-                log::info("clEnqueueReadBuffer succeeded {}[{}]", buffer.m_name, buffer.m_size);*/
+            /* else
+                 log::info("clEnqueueReadBuffer succeeded {}[{}]", buffer.m_name, buffer.m_size);*/
             break;
 
             //buffer is read and write the default read/write mode needs to decide
@@ -224,14 +224,15 @@ namespace legion::core::compute
         return *this;
     }
 
-    void Kernel::finish() const
+    void Kernel::finish(block_mode mode) const
     {
         OPTICK_EVENT();
         //execute all commands in the queue
         clFlush(m_queue);
 
         //waits for all tasks
-        clFinish(m_queue);
+        if (mode == block_mode::BLOCKING)
+            clFinish(m_queue);
     }
 
     size_t Kernel::getMaxWorkSize() const
