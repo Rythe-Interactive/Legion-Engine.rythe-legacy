@@ -93,25 +93,27 @@ namespace legion::rendering
             std::vector<math::color> inputColor;
             std::vector<math::color> inputEmission;
             std::vector<math::vec3> inputNormals;
-
+            
             int seed = math::linearRand<int>(std::numeric_limits<int>::min()+1, std::numeric_limits<int>::max());
             for (auto& meshHandle : realPointCloud.m_meshes)
             {
                 //get mesh data
-                auto m = meshHandle.get();
-                auto vertices = m.second.vertices;
-                auto indices = m.second.indices;
-                auto uvs = m.second.uvs;
+                auto[_,m] = meshHandle.get();
+                auto vertices = m.vertices;
+                auto indices = m.indices;
+                auto uvs = m.uvs;
+                auto normals = m.normals;
                 uint triangle_count = indices.size() / 3;
                 //triangle_count /= 16;
                 log::debug("triangle count: " + std::to_string(triangle_count));
                 //compute process size
                 uint process_Size = triangle_count;
-
+                
                 //generate initial buffers from triangle info
                 std::vector<uint> samplesPerTri(triangle_count);
                 auto vertexBuffer = compute::Context::createBuffer(vertices, compute::buffer_type::READ_BUFFER, "vertices");
                 auto indexBuffer = compute::Context::createBuffer(indices, compute::buffer_type::READ_BUFFER, "indices");
+                auto normalBufferIn = compute::Context::createBuffer(normals, compute::buffer_type::READ_BUFFER, "normalsIn");
                 uint totalSampleCount = 0;
                 uint samplesPerTriangle = realPointCloud.m_maxPoints / triangle_count;
                 //make sure samples per tri is at least 1
@@ -168,6 +170,7 @@ namespace legion::rendering
                         process_Size,
                         vertexBuffer,
                         indexBuffer,
+                        normalBufferIn,
                         uvBuffer,
                         sampleBuffer,
                         lightDirBuffer,

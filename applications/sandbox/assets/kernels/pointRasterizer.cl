@@ -259,6 +259,7 @@ __kernel void Main
 (
     __global const float* vertices,
     __global const uint* indices,
+    __global const float* normalsIn,
     __global const float2* uvs,
     __global const uint* samples,
     __global const float4* lightDir,
@@ -284,6 +285,12 @@ __kernel void Main
     float v1c = vertices[indices[n]*3+2];
     float4 vertA = (float4)(v1a,v1b,v1c,0.0f);
     float2 uvA =uvs[indices[n]];
+    //normal2
+    float normal1x = normalsIn[indices[n]*3];
+    float normal1y = normalsIn[indices[n]*3+1];
+    float normal1z = normalsIn[indices[n]*3+2];
+    float4 normalA = (float4)(normal1x,normal1y,normal1z,0.0f);
+
 
     //vert2
     float v2a = vertices[indices[n+1]*3];
@@ -291,6 +298,12 @@ __kernel void Main
     float v2c = vertices[indices[n+1]*3+2];
     float4 vertB = (float4)(v2a,v2b,v2c,0.0f);
     float2 uvB =uvs[indices[n+1]];
+    //normal2
+    float normal2x = normalsIn[indices[n+1]*3];
+    float normal2y = normalsIn[indices[n+1]*3+1];
+    float normal2z = normalsIn[indices[n+1]*3+2];
+    float4 normalB = (float4)(normal2x,normal2y,normal2z,0.0f);
+
 
     //vert3
     float v3a = vertices[indices[n+2]*3];
@@ -298,6 +311,13 @@ __kernel void Main
     float v3c = vertices[indices[n+2]*3+2];
     float4 vertC = (float4)(v3a,v3b,v3c,0.0f);
     float2 uvC =uvs[indices[n+2]];
+    //normal3
+    float normal3x = normalsIn[indices[n+2]*3];
+    float normal3y = normalsIn[indices[n+2]*3+1];
+    float normal3z = normalsIn[indices[n+2]*3+2];
+    float4 normalC = (float4)(normal3x,normal3y,normal3z,0.0f);
+
+
 
     float alpha = fabs(dot(normalize(vertB-vertA), normalize(vertC-vertA))); // abs(cos(theta)) at vertex A
     float beta = fabs(dot(normalize(vertA-vertB), normalize(vertC-vertB))); // abs(cos(theta)) at vertex B
@@ -353,8 +373,9 @@ __kernel void Main
     uint sampleWidth = currentIt;//clamp(currentIt - 4u, 0u, currentIt);
 
     //generate normal && scale by strength
-    float4 normal = normalize(cross(vertB-vertA,vertC-vertA));
-
+    //float4 normal = normalize(cross(vertB-vertA,vertC-vertA));
+    //generate average of normals stored in vertices
+    float4 normal =(normalA+normalB +normalC)/3.0f;
     float4 centerPoint = (vertA + vertB + vertC) / 3.f;
 
     //intSeed = centerPoint.x * 234 * intRand() + centerPoint.y * 57 * intRand() + centerPoint.z * 113 * intRand() ;
@@ -394,10 +415,10 @@ __kernel void Main
 
         emissionColor.w = sampleLight(uniformOutput[i], centerInterpolators, islit);
 
-        if(Color.w <= 0.5f)
-            Color.w = 60.f;
-        else
-            Color.w = 0.f;
+        // if(Color.w <= 0.5f)
+        //     Color.w = 60.f;
+        // else
+        //     Color.w = 0.f;
 
         //Color = (float4)(uvCoordinates.x, uvCoordinates.y, 0, 1);
         //Color = (float4)(1,0,0,1);
@@ -405,7 +426,7 @@ __kernel void Main
         //newPoint+= normal*heightOffset;
       //  float l = sampleLight(uniformOutput[i],vertA,vertB,vertC);
        // Color= (float4)(l,l,l,0);
-
+        Color=normal;
         colors[index] = Color;
         points[index] = newPoint;
         emission[index] = emissionColor;
