@@ -65,7 +65,7 @@ bool CheckPoint(float2 newPoint, float2* points, int* grid)
             for(int y = startY; y<endY; y++)
             {
                 //get other cell, if valid, check distance is larger than radius
-                int otherCellIndex = grid[x*y]-1;
+                int otherCellIndex = grid[x*y+x]-1;
                 if(otherCellIndex>=0)
                 {
                     float2 delta = (newPoint - points[otherCellIndex]);
@@ -426,7 +426,7 @@ __kernel void Main
         //newPoint+= normal*heightOffset;
       //  float l = sampleLight(uniformOutput[i],vertA,vertB,vertC);
        // Color= (float4)(l,l,l,0);
-        Color=normal;
+       // Color=normal;
         colors[index] = Color;
         points[index] = newPoint;
         emission[index] = emissionColor;
