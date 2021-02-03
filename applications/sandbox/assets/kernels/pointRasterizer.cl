@@ -11,28 +11,17 @@ const int K=30;
 
 //seed state
 uint state;
-int intSeed;
-
-int intRand()
-{
-  intSeed = (intSeed << 13) ^ intSeed;
-  return (intSeed * (intSeed*intSeed*15731+789221) + 1376312589) & 0x7fffffff;
-}
 
 //returns random uint (range 0-255?)
 uint Rand()
 {
-    state = state * 1664525 + 1013904223;
-    return state >> 24;
+   state = state * 1664525 + 1013904223;
+   return state >> 24;
 }
 //uses Rand to generate a random float (range 0-1)
 float RandomValue()
 {
-    int r = intRand();
-    if(r >= 0)
-        return (r / (float)(INT_MAX)) * FLT_MAX;
-    else
-        return (r / (float)(INT_MIN)) * FLT_MIN;
+   return (Rand() / (float)(UINT_MAX)) * FLT_MAX;
 }
 
 //includes upper bound
@@ -275,7 +264,7 @@ __kernel void Main
     __global const float4* lightDir,
     __read_only image2d_t albedoMap,
     __read_only image2d_t emissionMap,
-    const int seed,
+    const uint seed,
     const uint triangleCount,
     __global float4* points,
     __global float4* colors,
@@ -287,7 +276,7 @@ __kernel void Main
     int n = get_global_id(0)*3;
     state = get_global_id(0) + seed;
 //    int resultIndex = get_global_id(0)*samplePerTri;
-    intSeed = get_global_id(0) + seed + get_local_id(0);
+
     //get vertex values and corrosponding uvs
     //vertA
     float v1a = vertices[indices[n]*3];
@@ -368,7 +357,7 @@ __kernel void Main
 
     float4 centerPoint = (vertA + vertB + vertC) / 3.f;
 
-    intSeed = centerPoint.x * 234 * intRand() + centerPoint.y * 57 * intRand() + centerPoint.z * 113 * intRand() ;
+    //intSeed = centerPoint.x * 234 * intRand() + centerPoint.y * 57 * intRand() + centerPoint.z * 113 * intRand() ;
 
     //normal*=normalStrength;
 
