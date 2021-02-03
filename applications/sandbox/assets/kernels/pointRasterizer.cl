@@ -415,10 +415,10 @@ __kernel void Main
 
         emissionColor.w = sampleLight(uniformOutput[i], centerInterpolators, islit);
 
-        // if(Color.w <= 0.5f)
-        //     Color.w = 60.f;
-        // else
-        //     Color.w = 0.f;
+        if(Color.w <= 0.5f)
+            Color.w = 60.f;
+        else
+            Color.w = 0.f;
 
         //Color = (float4)(uvCoordinates.x, uvCoordinates.y, 0, 1);
         //Color = (float4)(1,0,0,1);
