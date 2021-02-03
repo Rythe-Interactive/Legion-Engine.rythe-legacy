@@ -24,7 +24,7 @@ namespace legion::rendering
         OPTICK_EVENT();
         attachStage<ClearStage>();
         attachStage<FramebufferResizeStage>();
-        //attachStage<LightBufferStage>();
+        attachStage<LightBufferStage>();
         //attachStage<MeshBatchingStage>();
         //attachStage<MeshRenderStage>();
         //attachStage<DebugRenderStage>();

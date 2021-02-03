@@ -31,7 +31,6 @@ namespace legion::rendering
          */
         void update(time::span deltaTime)
         {
-            log::debug("dt {}ms", deltaTime.milliseconds());
             OPTICK_EVENT();
             static auto emitters = createQuery<particle_emitter>();
             emitters.queryEntities();

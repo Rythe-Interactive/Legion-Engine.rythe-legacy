@@ -43,7 +43,7 @@ float2 SampleUVs(float2 coordinates, float2 a, float2 b, float2 c)
 
 float sampleLight(float2 coordinates, float2 centerInterpolators, float4 items)
 {
-    return mix(items.w, mix(items.x, items.y, coordinates.x) + coordinates.y * (items.z - items.x), (centerInterpolators.x + centerInterpolators.y)*0.5f);
+    return mix(items.w, mix(items.x, items.y, coordinates.x) + coordinates.y * (items.z - items.x), (centerInterpolators.x + centerInterpolators.y));
 }
 //checks validity of point for poission sampling
 bool CheckPoint(float2 newPoint, float2* points, int* grid)
@@ -139,12 +139,12 @@ float2 sampleUniformly(__local float2* output, uint samplesPerTri, uint sampleWi
     {
         for(int y = 0; y < sampleWidth - x; y++)
         {
-            //float angle = fmod(RandomValue(), (float)(M_PI) * 0.5f);
-            //float magnitude = fmod(RandomValue(), offset) - offset * 0.5f;
+            float angle = fmod(RandomValue(), (float)(M_PI) * 0.5f);
+            float magnitude = fmod(RandomValue(), offset) - offset * 0.5f;
 
-            //float2 direction = (float2)(sin(angle), cos(angle)) * magnitude;
+            float2 direction = (float2)(sin(angle), cos(angle)) * magnitude * 1.5f;
 
-            output[index] = clamp((float2)(offset * (x), offset * (y)), 0.f, 1.f);
+            output[index] = clamp((float2)(offset * (x), offset * (y)) + direction, 0.f, 1.f);
             index++;
         }
     }
@@ -387,7 +387,7 @@ __kernel void Main
     //sampleUniformly(uniformOutput, newSampleCount, sampleWidth, dot(vertB-vertA, vertC-vertA));
     //__local float2 poissonOutput[maxPointsPerTri];
     PoissionSampling(uniformOutput, maxPointsPerTri);
-    float4 islit = IsOccludedFromDirLight(vertA + normal * 0.1f, vertB + normal * 0.1f, vertC + normal * 0.1f, centerPoint + normal * 0.1f, triangleCount, vertices, indices, lightDir[0], n);
+    float4 islit = IsOccludedFromDirLight(vertA + normal * 0.0001f, vertB + normal * 0.0001f, vertC + normal * 0.0001f, centerPoint + normal * 0.0001f, triangleCount, vertices, indices, lightDir[0], n);
 
     float angle = acos(dot(normalize(vertB - vertA), normalize(vertC - vertA)));
     float2 centercoords = (float2)(mix(0.5f, 0.f, smoothstep(0.f, (float)(M_PI), angle)));

@@ -73,8 +73,31 @@ public:
             //auto colorshader = rendering::ShaderCache::create_shader("color", "assets://shaders/color.shs"_view);
             //auto uvShader = rendering::ShaderCache::create_shader("uv", "assets://shaders/uv.shs"_view);
             //testMat = rendering::MaterialCache::create_material("uvMat", "assets://shaders/uv.shs"_view);
-            testMat = rendering::MaterialCache::create_material("test mat", "assets://shaders/color.shs"_view);
-            testMat.set_param("color", math::colors::white);
+
+            normal = ImageCache::create_image("normal image", "assets://textures/mcTexEmission.png"_view);
+            albedo2 = ImageCache::create_image("albedo2 image", "assets://textures/mcTex.png"_view);
+
+            /*testMat = rendering::MaterialCache::create_material("test mat", "assets://shaders/test.shs"_view);
+            testMat.set_param("useAlbedoTex", true);
+            testMat.set_param("alphaCutoff", 0.5f);
+            testMat.set_param("albedoTex", TextureCache::create_texture_from_image(albedo2, {
+        texture_type::two_dimensional, channel_format::eight_bit, texture_format::rgba,
+        texture_components::rgba, true, true, texture_mipmap::nearest, texture_mipmap::nearest,
+        texture_wrap::repeat, texture_wrap::repeat, texture_wrap::repeat }));
+            testMat.set_param("useMetallicRoughness", false);
+            testMat.set_param("useMetallicTex", false);
+            testMat.set_param("metallicValue", 0.999f);
+            testMat.set_param("useRoughnessTex", false);
+            testMat.set_param("roughnessValue", 0.1f);
+            testMat.set_param("useEmissiveTex", true);
+            testMat.set_param("emissiveTex", TextureCache::create_texture_from_image(normal, {
+        texture_type::two_dimensional, channel_format::eight_bit, texture_format::rgba,
+        texture_components::rgba, true, true, texture_mipmap::nearest, texture_mipmap::nearest,
+        texture_wrap::repeat, texture_wrap::repeat, texture_wrap::repeat }));
+            testMat.set_param("useNormal", false);
+            testMat.set_param("useAmbientOcclusion", false);
+            testMat.set_param("useHeight", false);
+            testMat.set_param("skycolor", math::color(0.1f, 0.3f, 1.f));*/
 
             auto billBoardsh = rendering::ShaderCache::create_shader("billboard", "assets://shaders/point.shs"_view);
             billboardMat = rendering::MaterialCache::create_material("billboardMat", billBoardsh);
@@ -82,9 +105,7 @@ public:
             //particleMaterial = rendering::MaterialCache::create_material("directional light", colorshader);
             //particleMaterial.set_param("color", math::colors::blue);
 
-            normal = ImageCache::create_image("normal image", "assets://textures/mcTexEmission.png"_view);
             //albedo = ImageCache::create_image("albedo image", "assets://textures/blue.png"_view);
-            albedo2 = ImageCache::create_image("albedo2 image", "assets://textures/mcTex.png"_view);
             //albedo2 = ImageCache::create_image("albedo2 image", "assets://textures/red.png"_view);
 
             //auto a = materials_vector.front();
@@ -130,9 +151,15 @@ public:
             ent2.add_component<point_cloud>(point_cloud(sphereMesh, trans2, billboardMat, albedo2, normal, 1500, 0.05f));
         }*/
 
+
+        auto sun = createEntity();
+        //sun.add_components<rendering::mesh_renderable>(mesh_filter(directionalLightH.get_mesh()), rendering::mesh_renderer(directionalLightMH));
+        sun.add_component<rendering::light>(rendering::light::directional(math::color(1, 1, 0.8f), 10.f));
+        sun.add_components<transform>(position(10, 10, 10), rotation::lookat(math::vec3(1, 1, 1), math::vec3::zero), scale());
+
         auto ent2 = createEntity();
         auto trans2 = ent2.add_components<transform>(position(0.f, -20.f, 0.f), rotation(), scale());
-        //ent2.add_components<rendering::mesh_renderable>(mesh_filter(plane), rendering::mesh_renderer(testMat));
+       // ent2.add_components<rendering::mesh_renderable>(mesh_filter(village), rendering::mesh_renderer(testMat));
 
        /* auto ent = createEntity();
         ent.add_components<transform>(position(0.f, -10.1f, 0.f), rotation(), scale(50.f));
