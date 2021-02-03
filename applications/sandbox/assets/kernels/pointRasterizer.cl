@@ -43,7 +43,9 @@ float2 SampleUVs(float2 coordinates, float2 a, float2 b, float2 c)
 
 float sampleLight(float2 coordinates, float2 centerInterpolators, float4 items)
 {
-    return mix(items.w, mix(items.x, items.y, coordinates.x) + coordinates.y * (items.z - items.x), (centerInterpolators.x + centerInterpolators.y));
+    float a = mix(items.y, items.w, pow(1.f - centerInterpolators.x, 2.f)) * coordinates.x;
+    float b = mix(items.z, items.w, pow(1.f - centerInterpolators.y, 2.f)) * coordinates.y;
+    return (a + b) + items.x;
 }
 //checks validity of point for poission sampling
 bool CheckPoint(float2 newPoint, float2* points, int* grid)
@@ -142,7 +144,7 @@ float2 sampleUniformly(__local float2* output, uint samplesPerTri, uint sampleWi
             float angle = fmod(RandomValue(), (float)(M_PI) * 0.5f);
             float magnitude = fmod(RandomValue(), offset) - offset * 0.5f;
 
-            float2 direction = (float2)(sin(angle), cos(angle)) * magnitude * 1.5f;
+            float2 direction = (float2)(sin(angle), cos(angle)) * magnitude;
 
             output[index] = clamp((float2)(offset * (x), offset * (y)) + direction, 0.f, 1.f);
             index++;
@@ -198,6 +200,41 @@ bool intersection_MT97(float4 rayOrigin, float4 rayDir,float4 vertA,float4 vertB
     //end reached intersection was found
     return true;
 
+}
+
+float TraceLight(float4 point, int n, const float* vertices, const uint* indices, float4 lightDir, int triangleIndex)
+{
+    float4 direction = -lightDir;
+    direction.w = 0.f;
+
+    for(int i = 0; i < n*3; i += 3)
+    {
+        if(i==triangleIndex)
+            continue;
+
+        float x = vertices[indices[i]*3];
+        float y = vertices[indices[i]*3+1];
+        float z = vertices[indices[i]*3+2];
+        float4 vertA = (float4)(x, y, z,0.0f);
+
+        //vert2
+        x = vertices[indices[i+1]*3];
+        y = vertices[indices[i+1]*3+1];
+        z = vertices[indices[i+1]*3+2];
+        float4 vertB = (float4)(x, y, z,0.0f);
+
+        //vert3
+        x = vertices[indices[i+2]*3];
+        y = vertices[indices[i+2]*3+1];
+        z = vertices[indices[i+2]*3+2];
+        float4 vertC = (float4)(x, y, z,0.0f);
+
+        //if there is intersection, point is occluded, return true
+        if(intersection_MT97(point, direction, vertA, vertB, vertC))
+            return 0.f;
+    }
+
+    return 1.f;
 }
 
 float4 IsOccludedFromDirLight(float4 pointA, float4 pointB, float4 pointC, float4 center, int n, const float* vertices, const uint* indices, float4 lightDir , int triangleIndex)
@@ -384,9 +421,9 @@ __kernel void Main
 
     //generate samples
     __local float2 uniformOutput[maxPointsPerTri];
-    //sampleUniformly(uniformOutput, newSampleCount, sampleWidth, dot(vertB-vertA, vertC-vertA));
+    sampleUniformly(uniformOutput, newSampleCount, sampleWidth, dot(vertB-vertA, vertC-vertA));
     //__local float2 poissonOutput[maxPointsPerTri];
-    PoissionSampling(uniformOutput, maxPointsPerTri);
+    //PoissionSampling(uniformOutput, maxPointsPerTri);
     float4 islit = IsOccludedFromDirLight(vertA + normal * 0.0001f, vertB + normal * 0.0001f, vertC + normal * 0.0001f, centerPoint + normal * 0.0001f, triangleCount, vertices, indices, lightDir[0], n);
 
     float angle = acos(dot(normalize(vertB - vertA), normalize(vertC - vertA)));
@@ -401,6 +438,7 @@ __kernel void Main
         int index= resultIndex + i;
         //sample point position
         float4 newPoint = SampleTriangle(uniformOutput[i], vertA, vertB, vertC);
+        float occlusion = TraceLight(newPoint + normal * 0.0001f, triangleCount, vertices, indices, lightDir[0], n);
 
         //get uvs
         float2 uvCoordinates = SampleUVs(uniformOutput[i], uvA, uvB, uvC);
@@ -413,7 +451,7 @@ __kernel void Main
         centerInterpolators.x /= (centercoords.x > uniformOutput[i].x ? 1.f -  uniformOutput[i].x :  uniformOutput[i].x);
         centerInterpolators.y /= (centercoords.y > uniformOutput[i].y ? 1.f -  uniformOutput[i].y :  uniformOutput[i].y);
 
-        emissionColor.w = sampleLight(uniformOutput[i], centerInterpolators, islit);
+        emissionColor.w = mix(occlusion, sampleLight(uniformOutput[i], centerInterpolators, islit), 0.3333f);
 
         if(Color.w <= 0.5f)
             Color.w = 60.f;

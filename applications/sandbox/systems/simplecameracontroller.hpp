@@ -116,6 +116,7 @@ public:
         groundplane.write_component(scale(250.f));*/
         camera = createEntity();
         camera.add_components<transform>(position(0.f, 3.f, 0.f), rotation::lookat(math::vec3::zero, math::vec3::forward), scale());
+        camera.add_component<rendering::light>(rendering::light::spot(math::colors::white, math::deg2rad(45.f), 10.f, 15.f));
         //camera.add_component<audio::audio_listener>();
 
         rendering::camera cam;

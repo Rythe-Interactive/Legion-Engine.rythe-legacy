@@ -77,7 +77,7 @@ public:
             normal = ImageCache::create_image("normal image", "assets://textures/mcTexEmission.png"_view);
             albedo2 = ImageCache::create_image("albedo2 image", "assets://textures/mcTex.png"_view);
 
-            /*testMat = rendering::MaterialCache::create_material("test mat", "assets://shaders/test.shs"_view);
+            testMat = rendering::MaterialCache::create_material("test mat", "assets://shaders/test.shs"_view);
             testMat.set_param("useAlbedoTex", true);
             testMat.set_param("alphaCutoff", 0.5f);
             testMat.set_param("albedoTex", TextureCache::create_texture_from_image(albedo2, {
@@ -97,7 +97,7 @@ public:
             testMat.set_param("useNormal", false);
             testMat.set_param("useAmbientOcclusion", false);
             testMat.set_param("useHeight", false);
-            testMat.set_param("skycolor", math::color(0.1f, 0.3f, 1.f));*/
+            testMat.set_param("skycolor", math::color(0.1f, 0.3f, 1.f));
 
             auto billBoardsh = rendering::ShaderCache::create_shader("billboard", "assets://shaders/point.shs"_view);
             billboardMat = rendering::MaterialCache::create_material("billboardMat", billBoardsh);
@@ -159,7 +159,7 @@ public:
 
         auto ent2 = createEntity();
         auto trans2 = ent2.add_components<transform>(position(0.f, -20.f, 0.f), rotation(), scale());
-       // ent2.add_components<rendering::mesh_renderable>(mesh_filter(village), rendering::mesh_renderer(testMat));
+        //ent2.add_components<rendering::mesh_renderable>(mesh_filter(village), rendering::mesh_renderer(testMat));
 
        /* auto ent = createEntity();
         ent.add_components<transform>(position(0.f, -10.1f, 0.f), rotation(), scale(50.f));
