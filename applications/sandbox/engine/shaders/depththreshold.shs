@@ -49,7 +49,7 @@ shader(fragment)
         //    WorldToViewSpacePostion(ScenePosition(offsetTexels[2])).z +
         //     WorldToViewSpacePostion(ScenePosition(offsetTexels[3])).z)*0.2;
 
-        const float averageDepth = 20.f;
+        const float averageDepth = 25.f;
 
         //Calculates the actual depth.
         //float actualOffset = mix(focalOffset, FarZ*0.5, clamp01(averageDepth/FarZ));

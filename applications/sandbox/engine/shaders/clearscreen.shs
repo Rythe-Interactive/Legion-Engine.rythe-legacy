@@ -1,0 +1,37 @@
+#version 450
+#state CULL OFF
+#state DEPTH OFF
+#state BLEND OFF
+
+generate(vertex, fragment)
+
+#include <stdio.shinc>
+#include <rays.shinc>
+
+shader(vertex)
+{
+    void main(void)
+    {
+        gl_Position = vec4(stdin(position), 1.0);
+        PropagateStdIO();
+    }
+}
+
+shader(fragment)
+{
+    uniform bool gradient;
+    uniform vec4 _color;
+
+    void main(void)
+    {
+        if(gradient)
+        {
+            vec3 unitDir = GetScreenRay(ProjectionMatrix, ViewMatrix, stdin(uv)).direction;
+            fragment_color = vec4(mix(vec3(max(_color.r, max(_color.g, _color.b))*2.0), _color.rgb, clamp01(dot(unitDir, vec3(0.f, 1.f, 0.f)) + 1.1f)), 0.f);
+        }
+        else
+        {
+            fragment_color = vec4(_color.rgb, 0.f);
+        }
+    }
+}

@@ -119,7 +119,7 @@ public:
         //camera.add_component<audio::audio_listener>();
 
         rendering::camera cam;
-        cam.clearColor = math::colors::black;
+        cam.clearColor = math::color(0.1f, 0.3f, 1.0f);
         cam.set_projection(22.5f, 0.001f, 1000.f);
         camera.add_component<rendering::camera>(cam);
     }

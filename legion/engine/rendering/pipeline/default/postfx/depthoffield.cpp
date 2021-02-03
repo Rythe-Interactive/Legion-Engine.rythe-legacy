@@ -112,7 +112,7 @@ namespace legion::rendering
         m_depthThresholdShader.get_uniform_with_location<math::mat4>(SV_VIEW).set_value(camInput.view);
         m_depthThresholdShader.get_uniform_with_location<texture_handle>(SV_SCENEPOSITION).set_value(position_texture);
         //m_depthThresholdShader.get_uniform<float>("sampleOffset").set_value(0.5f);
-        m_depthThresholdShader.get_uniform<float>("focalRange").set_value(15.f);
+        m_depthThresholdShader.get_uniform<float>("focalRange").set_value(25.f);
         m_depthThresholdShader.get_uniform<float>("focalOffset").set_value(15.f);
         m_depthThresholdShader.get_uniform<float>("bokehRadius").set_value(m_bokehSize);
 

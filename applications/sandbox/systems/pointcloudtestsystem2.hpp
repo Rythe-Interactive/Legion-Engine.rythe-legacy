@@ -64,7 +64,7 @@ public:
             //ModelCache::create_model("billboard", "assets://models/billboard.obj"_view);
             //ModelCache::create_model("sponza", "assets://models/sponza_structure.obj"_view);
             ModelCache::create_model("AirPlane", "assets://models/AirPlane.obj"_view);
-            ModelCache::create_model("village", "assets://models/village_w_floor.obj"_view);
+            ModelCache::create_model("village", "assets://models/village_w_floor_v2.obj"_view);
 
             //ModelCache::create_model("uvsphere", "assets://models/uvsphere.obj"_view);
             //ModelCache::create_model("sphere", "assets://models/sphere.obj"_view);

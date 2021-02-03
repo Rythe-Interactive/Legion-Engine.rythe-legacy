@@ -1,0 +1,16 @@
+#include <math_ext.shinc>
+
+struct Ray
+{
+    vec3 origin;
+    vec3 direction;
+};
+
+Ray GetScreenRay(mat4 projection, mat4 view, vec2 uv)
+{
+    vec4 clipSpacePos = vec4((uv * vec2(2.f)) - vec2(1.f), 0.f, 1.f);
+    vec4 viewSpacePos = inverse(projection) * clipSpacePos;
+    viewSpacePos = viewSpacePos / viewSpacePos.w;
+    vec4 worldSpacePos = inverse(view) * vec4(viewSpacePos.xyz, 1.f);
+    return Ray(vec3(0.f), normalize(worldSpacePos.xyz));
+}

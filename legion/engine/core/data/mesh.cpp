@@ -77,6 +77,18 @@ namespace legion::core
         for (auto& submesh : data->submeshes)
             for (unsigned i = submesh.indexOffset; i < submesh.indexOffset + submesh.indexCount; i += 3)
             {
+                if (data->indices[i] > data->vertices.size() ||
+                    data->indices[i + 1] > data->vertices.size() ||
+                    data->indices[i + 2] > data->vertices.size())
+                {
+                    log::error("This triangle is wack! {}: {} {} {}",
+                        data->vertices.size(),
+                        data->indices[i],
+                        data->indices[i + 1],
+                        data->indices[i + 2]);
+                    continue;
+                }
+                
                 // Get vertices of the triangle.
                 math::vec3 vtx0 = data->vertices[data->indices[i]];
                 math::vec3 vtx1 = data->vertices[data->indices[i + 1]];

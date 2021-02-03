@@ -42,7 +42,7 @@ namespace legion::rendering
                 GLsizei nameLength = 0;
                 glGetActiveUniform(variant.programId, uniformId, (GLsizei)maxUniformNameLength, &nameLength, &arraySize, &type, uniformNameBuffer);
 
-                std::string_view name(uniformNameBuffer, nameLength + 1); // Get string_view of the actual name within the buffer.
+                std::string_view name(uniformNameBuffer, nameLength); // Get string_view of the actual name within the buffer.
 
                 if (name.find('[') != std::string_view::npos) // We don't support uniform arrays yet.
                     continue;

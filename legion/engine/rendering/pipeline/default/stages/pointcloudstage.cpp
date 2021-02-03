@@ -13,17 +13,21 @@ namespace legion::rendering
     {
         cloud.vertexArray = vertexarray::generate();
 
-        cloud.colorBuffer = buffer(GL_ARRAY_BUFFER, cloud.colorBufferData, GL_DYNAMIC_DRAW);
+        cloud.colorBuffer = buffer(GL_ARRAY_BUFFER, cloud.colorBufferData, GL_STATIC_DRAW);
         cloud.vertexArray.setAttribPointer(cloud.colorBuffer, SV_COLOR, 4, GL_FLOAT, false, 0, 0);
         //cloud.vertexArray.setAttribDivisor(SV_COLOR, 1);
 
-        cloud.emissionBuffer = buffer(GL_ARRAY_BUFFER, cloud.emissionBufferData, GL_DYNAMIC_DRAW);
+        cloud.emissionBuffer = buffer(GL_ARRAY_BUFFER, cloud.emissionBufferData, GL_STATIC_DRAW);
         cloud.vertexArray.setAttribPointer(cloud.emissionBuffer, 7, 4, GL_FLOAT, false, 0, 0);
         //cloud.vertexArray.setAttribDivisor(7, 1);
 
         cloud.positionBuffer = buffer(GL_ARRAY_BUFFER, cloud.positionBufferData, GL_STATIC_DRAW);
         cloud.vertexArray.setAttribPointer(cloud.positionBuffer, SV_POSITION, 3, GL_FLOAT, false, 0, 0);
-        //cloud.vertexArray.setAttribDivisor(SV_POSITION, 1);
+        //cloud.vertexArray.setAttribDivisor(SV_POSITION, 1);        
+
+        cloud.normalBuffer = buffer(GL_ARRAY_BUFFER, cloud.normalBufferData, GL_STATIC_DRAW);
+        cloud.vertexArray.setAttribPointer(cloud.normalBuffer, SV_NORMAL, 3, GL_FLOAT, false, 0, 0);
+        //cloud.vertexArray.setAttribDivisor(SV_NORMAL, 1);
 
         cloud.buffered = true;
     }
@@ -69,20 +73,19 @@ namespace legion::rendering
 
 
         fbo->bind();
+
         m_pointShader.bind();
         m_pointShader.get_uniform<float>("size").set_value(0.05f);
-        //m_pointShader.get_uniform<math::vec4>("skycolor").set_value(math::vec4(0.1f, 0.3f, 1.0f, 1.0f));
-        m_pointShader.get_uniform<math::vec4>("skycolor").set_value(math::vec4(0.005f, 0.0055f, 0.0065f, 1.0f));
         m_pointShader.get_uniform_with_location<math::mat4>(SV_VIEW).set_value(camInput.view);
         m_pointShader.get_uniform_with_location<math::mat4>(SV_PROJECT).set_value(camInput.proj);
 
         auto& cloud = *m_container;
         if (!cloud.buffered)
             buffferCloud(cloud);
-        else
+      /*  else
         {
             cloud.colorBuffer.bufferData(cloud.colorBufferData);
-        }
+        }*/
 
         cloud.vertexArray.bind();
 
@@ -93,6 +96,10 @@ namespace legion::rendering
         cloud.vertexArray.release();
 
         m_pointShader.release();
+
+
+
+
         fbo->release();
     }
 

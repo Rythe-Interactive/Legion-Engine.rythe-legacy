@@ -94,7 +94,7 @@ namespace legion::rendering
             std::vector<math::color> inputEmission;
             std::vector<math::vec3> inputNormals;
 
-            uint seed = math::linearRand<uint>(1, std::numeric_limits<uint>::max());
+            int seed = math::linearRand<int>(std::numeric_limits<int>::min()+1, std::numeric_limits<int>::max());
             for (auto& meshHandle : realPointCloud.m_meshes)
             {
                 //get mesh data

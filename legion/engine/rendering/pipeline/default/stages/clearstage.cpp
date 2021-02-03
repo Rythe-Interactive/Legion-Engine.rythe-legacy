@@ -6,6 +6,8 @@ namespace legion::rendering
     {
         OPTICK_EVENT();
         app::context_guard guard(context);
+        m_screenQuad = screen_quad::generate();
+        m_clearShader = ShaderCache::create_shader("clear", fs::view("engine://shaders/clearscreen.shs"));
         glClearDepth(0.0f);
     }
 
@@ -40,15 +42,20 @@ namespace legion::rendering
         uint attachment = FRAGMENT_ATTACHMENT;
         glDrawBuffers(1, &attachment);
 
-        glClearColor(cam.clearColor.r, cam.clearColor.g, cam.clearColor.b, cam.clearColor.a);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        m_clearShader.bind();
+        m_clearShader.get_uniform<bool>("gradient").set_value(true);
+        m_clearShader.get_uniform<math::vec4>("_color").set_value(cam.clearColor);
+        m_clearShader.get_uniform_with_location<math::mat4>(SV_VIEW).set_value(camInput.view);
+        m_clearShader.get_uniform_with_location<math::mat4>(SV_PROJECT).set_value(camInput.proj);
+        m_screenQuad.render();
 
+        m_clearShader.release();
 
         uint metaAttachments[3] = { NORMAL_ATTACHMENT, POSITION_ATTACHMENT, OVERDRAW_ATTACHMENT };
         glDrawBuffers(3, metaAttachments);
 
         glClearColor(0.f, 0.f, 0.f, 0.f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         uint attachments[4] = { FRAGMENT_ATTACHMENT, NORMAL_ATTACHMENT, POSITION_ATTACHMENT, OVERDRAW_ATTACHMENT };
         glDrawBuffers(4, attachments);
