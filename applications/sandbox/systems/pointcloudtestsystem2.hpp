@@ -140,7 +140,7 @@ public:
 
         std::vector<mesh_handle> meshes{ village };
 
-        ent2.add_component<point_cloud>(point_cloud(meshes, trans2, billboardMat, albedo2, normal, 400000, 0.1f));
+        ent2.add_component<point_cloud>(point_cloud(meshes, trans2, billboardMat, albedo2, normal, 3000000, 0.1f));
 
 
         /*auto ent4 = createEntity();
