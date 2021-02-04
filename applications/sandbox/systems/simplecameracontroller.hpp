@@ -26,6 +26,9 @@ public:
     ecs::entity_handle skybox;
     ecs::entity_handle groundplane;
 
+    rotation targetRot;
+    position targetPos;
+
     bool escaped = true;
     float movementspeed = 5.f;
 
@@ -71,6 +74,24 @@ public:
         }
 
         createProcess<&SimpleCameraController::onGetCamera>("Update", 0.5f);
+        createProcess<&SimpleCameraController::update>("Update");
+    }
+
+    void update(time::span deltaTime)
+    {
+        auto rotH = camera.get_component_handle<rotation>();
+        rotH.read_modify_write([&](rotation& src)
+            {
+                src = math::mix(src, targetRot, deltaTime);
+            });
+
+        auto posH = camera.get_component_handle<position>();
+        posH.read_modify_write([&](position& src)
+            {
+                src = math::mix(src, targetPos, deltaTime);
+            });
+
+
     }
 
     void onGetCamera(time::span)
@@ -116,7 +137,7 @@ public:
         groundplane.write_component(scale(250.f));*/
         camera = createEntity();
         camera.add_components<transform>(position(0.f, 3.f, 0.f), rotation::lookat(math::vec3::zero, math::vec3::forward), scale());
-        camera.add_component<rendering::light>(rendering::light::spot(math::colors::white, math::deg2rad(7.f), 10.f, 25.f, math::pi<float>()*0.5f));
+        camera.add_component<rendering::light>(rendering::light::spot(math::colors::white, math::deg2rad(7.f), 10.f, 25.f, math::pi<float>() * 0.5f));
         //camera.add_component<audio::audio_listener>();
 
         rendering::camera cam;
@@ -179,11 +200,8 @@ public:
         if (escaped)
             return;
 
-        auto posH = camera.get_component_handle<position>();
-        auto rot = camera.get_component_handle<rotation>().read();
-        math::vec3 move = math::toMat3(rot) * math::vec3::forward;
-        move = math::normalize(move * math::vec3(1, 0, 1)) * action->value * action->input_delta * movementspeed;
-        posH.fetch_add(move);
+        math::vec3 move = math::toMat3(targetRot) * math::vec3::forward;
+        targetPos += math::normalize(move * math::vec3(1, 0, 1)) * action->value * action->input_delta * movementspeed;
     }
 
     void onPlayerStrive(player_strive* action)
@@ -191,11 +209,8 @@ public:
         if (escaped)
             return;
 
-        auto posH = camera.get_component_handle<position>();
-        auto rot = camera.get_component_handle<rotation>().read();
-        math::vec3 move = math::toMat3(rot) * math::vec3::right;
-        move = math::normalize(move * math::vec3(1, 0, 1)) * action->value * action->input_delta * movementspeed;
-        posH.fetch_add(move);
+        math::vec3 move = math::toMat3(targetRot) * math::vec3::right;
+        targetPos += math::normalize(move * math::vec3(1, 0, 1)) * action->value * action->input_delta * movementspeed;
     }
 
     void onPlayerFly(player_fly* action)
@@ -203,8 +218,7 @@ public:
         if (escaped)
             return;
 
-        auto posH = camera.get_component_handle<position>();
-        posH.fetch_add(math::vec3(0.f, action->value * action->input_delta * movementspeed, 0.f));
+        targetPos += math::vec3(0.f, action->value * action->input_delta * movementspeed, 0.f);
     }
 
     void onPlayerLookX(player_look_x* action)
@@ -212,11 +226,7 @@ public:
         if (escaped)
             return;
 
-        auto rotH = camera.get_component_handle<rotation>();
-        rotH.read_modify_write([&](rotation& src)
-            {
-                src = math::angleAxis(action->value * action->input_delta * 500.f, math::vec3::up) * src;
-            });
+        targetRot = math::angleAxis(action->value * action->input_delta * 500.f, math::vec3::up) * targetRot;
     }
 
     void onPlayerLookY(player_look_y* action)
@@ -224,26 +234,22 @@ public:
         if (escaped)
             return;
 
-        auto rotH = camera.get_component_handle<rotation>();
-        rotH.read_modify_write([&](rotation& src)
-            {
-                math::mat3 rot = math::toMat3(src);
-                math::vec3 right = rot * math::vec3::right;
-                math::vec3 fwd = math::normalize(math::cross(right, math::vec3::up));
-                math::vec3 up = rot * math::vec3::up;
-                float angle = math::orientedAngle(fwd, up, right);
+        math::mat3 rot = math::toMat3(targetRot);
+        math::vec3 right = rot * math::vec3::right;
+        math::vec3 fwd = math::normalize(math::cross(right, math::vec3::up));
+        math::vec3 up = rot * math::vec3::up;
+        float angle = math::orientedAngle(fwd, up, right);
 
-                angle += action->value * action->input_delta * 500.f;
+        angle += action->value * action->input_delta * 500.f;
 
-                if (angle > -0.001f)
-                    angle = -0.001f;
-                if (angle < -(math::pi<float>() - 0.001f))
-                    angle = -(math::pi<float>() - 0.001f);
+        if (angle > -0.001f)
+            angle = -0.001f;
+        if (angle < -(math::pi<float>() - 0.001f))
+            angle = -(math::pi<float>() - 0.001f);
 
-                up = math::mat3(math::axisAngleMatrix(right, angle)) * fwd;
-                fwd = math::cross(right, up);
-                src = (rotation)math::conjugate(math::toQuat(math::lookAt(math::vec3::zero, fwd, up)));
-            });
+        up = math::mat3(math::axisAngleMatrix(right, angle)) * fwd;
+        fwd = math::cross(right, up);
+        targetRot = (rotation)math::conjugate(math::toQuat(math::lookAt(math::vec3::zero, fwd, up)));
     }
 #pragma endregion
 
