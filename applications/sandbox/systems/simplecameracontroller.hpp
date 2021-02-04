@@ -87,7 +87,7 @@ public:
     {
         using namespace fs::literals;
 
-        rendering::material_handle pbrH = rendering::MaterialCache::get_material("pbr");
+        /*rendering::material_handle pbrH = rendering::MaterialCache::get_material("pbr");
         if (pbrH == rendering::invalid_material_handle)
         {
             const auto pbrShader = rendering::ShaderCache::create_shader("pbr", "assets://shaders/pbr.shs"_view);
@@ -99,7 +99,7 @@ public:
             pbrH.set_param(SV_HEIGHTSCALE, 1.f);
             pbrH.set_param("discardExcess", false);
             pbrH.set_param("skycolor", math::color(0.1f, 0.3f, 1.0f));
-        }
+        }*/
 
         //skybox = createEntity();
         //auto skyboxMat = rendering::MaterialCache::create_material("skybox", "assets://shaders/skybox.shs"_view);
@@ -116,11 +116,12 @@ public:
         groundplane.write_component(scale(250.f));*/
         camera = createEntity();
         camera.add_components<transform>(position(0.f, 3.f, 0.f), rotation::lookat(math::vec3::zero, math::vec3::forward), scale());
-        camera.add_component<rendering::light>(rendering::light::spot(math::colors::white, math::deg2rad(45.f), 10.f, 15.f));
+        camera.add_component<rendering::light>(rendering::light::spot(math::colors::white, math::deg2rad(7.f), 10.f, 25.f, math::pi<float>()*0.5f));
         //camera.add_component<audio::audio_listener>();
 
         rendering::camera cam;
-        cam.clearColor = math::color(0.1f, 0.3f, 1.0f);
+        //cam.clearColor = math::color(0.1f, 0.3f, 1.0f);
+        cam.clearColor = math::color(0.005f, 0.0055f, 0.0065f);
         cam.set_projection(22.5f, 0.001f, 1000.f);
         camera.add_component<rendering::camera>(cam);
     }

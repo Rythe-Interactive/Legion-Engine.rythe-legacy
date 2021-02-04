@@ -65,7 +65,7 @@ namespace legion::core::compute {
             ret = clBuildProgram(m_program, 1, &device, "-cl-std=CL2.0 -cl-kernel-arg-info -DLEGION_LIBRARY -DDEBUG", nullptr, nullptr);
         } else {
             //NDEBUG
-            ret = clBuildProgram(m_program, 1, &device, "-cl-std=CL2.0 -cl-kernel-arg-info -DLEGION_LIBRARY -DNDEBUG -cl-fast-relaxed-math -cl-mad-enable", nullptr, nullptr);
+            ret = clBuildProgram(m_program, 1, &device, "-cl-std=CL2.0 -cl-kernel-arg-info -DLEGION_LIBRARY -DNDEBUG -cl-mad-enable", nullptr, nullptr);
         }
 
         //check if building was successful

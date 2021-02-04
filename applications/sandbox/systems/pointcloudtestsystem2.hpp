@@ -60,15 +60,15 @@ public:
             //get mesh
             //ModelCache::create_model("2s1", "assets://models/2story_3.glb"_view, materials_vector);
             //ModelCache::create_model("cube", "assets://models/Cube.obj"_view);
-            ModelCache::create_model("plane", "assets://models/plane.obj"_view);
+            //ModelCache::create_model("plane", "assets://models/plane.obj"_view);
             //ModelCache::create_model("billboard", "assets://models/billboard.obj"_view);
             //ModelCache::create_model("sponza", "assets://models/sponza_structure.obj"_view);
-            ModelCache::create_model("AirPlane", "assets://models/AirPlane.obj"_view);
+            //ModelCache::create_model("AirPlane", "assets://models/AirPlane.obj"_view);
             ModelCache::create_model("village", "assets://models/village_w_floor_v2.obj"_view);
 
             //ModelCache::create_model("uvsphere", "assets://models/uvsphere.obj"_view);
             //ModelCache::create_model("sphere", "assets://models/sphere.obj"_view);
-            ModelCache::create_model("suzanne", "assets://models/suzanne.obj"_view);
+            //ModelCache::create_model("suzanne", "assets://models/suzanne.obj"_view);
 
             //auto colorshader = rendering::ShaderCache::create_shader("color", "assets://shaders/color.shs"_view);
             //auto uvShader = rendering::ShaderCache::create_shader("uv", "assets://shaders/uv.shs"_view);
@@ -77,7 +77,7 @@ public:
             normal = ImageCache::create_image("normal image", "assets://textures/mcTexEmission.png"_view);
             albedo2 = ImageCache::create_image("albedo2 image", "assets://textures/mcTex.png"_view);
 
-            testMat = rendering::MaterialCache::create_material("test mat", "assets://shaders/test.shs"_view);
+            /*testMat = rendering::MaterialCache::create_material("test mat", "assets://shaders/test.shs"_view);
             testMat.set_param("useAlbedoTex", true);
             testMat.set_param("alphaCutoff", 0.5f);
             testMat.set_param("albedoTex", TextureCache::create_texture_from_image(albedo2, {
@@ -97,7 +97,7 @@ public:
             testMat.set_param("useNormal", false);
             testMat.set_param("useAmbientOcclusion", false);
             testMat.set_param("useHeight", false);
-            testMat.set_param("skycolor", math::color(0.1f, 0.3f, 1.f));
+            testMat.set_param("skycolor", math::color(0.1f, 0.3f, 1.f));*/
 
             auto billBoardsh = rendering::ShaderCache::create_shader("billboard", "assets://shaders/point.shs"_view);
             billboardMat = rendering::MaterialCache::create_material("billboardMat", billBoardsh);
@@ -154,8 +154,56 @@ public:
 
         auto sun = createEntity();
         //sun.add_components<rendering::mesh_renderable>(mesh_filter(directionalLightH.get_mesh()), rendering::mesh_renderer(directionalLightMH));
-        sun.add_component<rendering::light>(rendering::light::directional(math::color(1, 1, 0.8f), 10.f));
+        sun.add_component<rendering::light>(rendering::light::directional(math::color(0.5, 0.6, 0.8f), 1.f));
         sun.add_components<transform>(position(10, 10, 10), rotation::lookat(math::vec3(1, 1, 1), math::vec3::zero), scale());
+
+        auto torch = createEntity();
+        torch.add_components<transform>(position(-12.f, -15.2f, -12.f), rotation(), scale());
+        torch.add_component<gfx::light>(gfx::light::point(math::color(1.f, 0.416f, 0.f), 8.f));
+
+        torch = createEntity();
+        torch.add_components<transform>(position(-12.f, -15.2f, -15.95f), rotation(), scale());
+        torch.add_component<gfx::light>(gfx::light::point(math::color(1.f, 0.416f, 0.f), 8.f));
+
+        torch = createEntity();
+        torch.add_components<transform>(position(-18.95f, -15.2f, -15.95f), rotation(), scale());
+        torch.add_component<gfx::light>(gfx::light::point(math::color(1.f, 0.416f, 0.f), 8.f));
+
+        torch = createEntity();
+        torch.add_components<transform>(position(-24.95f, -15.2f, -12.f), rotation(), scale());
+        torch.add_component<gfx::light>(gfx::light::point(math::color(1.f, 0.416f, 0.f), 8.f));
+
+        torch = createEntity();
+        torch.add_components<transform>(position(-33.92f, -15.2f, -12.f), rotation(), scale());
+        torch.add_component<gfx::light>(gfx::light::point(math::color(1.f, 0.416f, 0.f), 8.f));
+
+        torch = createEntity();
+        torch.add_components<transform>(position(-7.75f, -15.2f, -23.95f), rotation(), scale());
+        torch.add_component<gfx::light>(gfx::light::point(math::color(1.f, 0.416f, 0.f), 2.f));
+
+        torch = createEntity();
+        torch.add_components<transform>(position(-7.75f, -15.2f, -33.91f), rotation(), scale());
+        torch.add_component<gfx::light>(gfx::light::point(math::color(1.f, 0.416f, 0.f), 2.f));
+
+        torch = createEntity();
+        torch.add_components<transform>(position(-2.25f, -15.2f, -27.93f), rotation(), scale());
+        torch.add_component<gfx::light>(gfx::light::point(math::color(1.f, 0.416f, 0.f), 2.f));
+
+        torch = createEntity();
+        torch.add_components<transform>(position(-2.25f, -15.2f, -5.f), rotation(), scale());
+        torch.add_component<gfx::light>(gfx::light::point(math::color(1.f, 0.416f, 0.f), 2.f));
+
+        torch = createEntity();
+        torch.add_components<transform>(position(1.25f, -15.2f, -1.f), rotation(), scale());
+        torch.add_component<gfx::light>(gfx::light::point(math::color(1.f, 0.416f, 0.f), 2.f));
+
+        torch = createEntity();
+        torch.add_components<transform>(position(18.95f, -155.2f, 20.2f), rotation(), scale());
+        torch.add_component<gfx::light>(gfx::light::point(math::color(1.f, 0.416f, 0.f), 2.f));
+
+        torch = createEntity();
+        torch.add_components<transform>(position(-12.f, -17.1f, 13.5f), rotation(), scale());
+        torch.add_component<gfx::light>(gfx::light::point(math::color(1.f, 0.561f, 0.f), 12.f));
 
         auto ent2 = createEntity();
         auto trans2 = ent2.add_components<transform>(position(0.f, -20.f, 0.f), rotation(), scale());

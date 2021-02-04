@@ -56,6 +56,7 @@ class GuiTestSystem : public System<GuiTestSystem>
 
         cubeEntity.add_components<transform>(pos, rot, scal);
         cubeEntity.add_components<mesh_renderable>(mesh_filter(cubeModel.get_mesh()), mesh_renderer(vertexColorMaterial));
+        cubeEntity.add_component<gfx::light>(gfx::light::point(math::color(1.f, 0.416f, 0.f)));
 
         entityQuery.queryEntities();
         //gui code goes here
