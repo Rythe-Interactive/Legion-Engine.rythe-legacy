@@ -37,5 +37,9 @@ __kernel void Main
             isAnimating[n] = true;
             colors[n] = (float4)(inputColor.x, inputColor.y, inputColor.z, inputColor.w + deltaTime * _speed);
         }
+        else if(dist < _distThresh + 0.5f)
+        {
+            colors[n] = (float4)(inputColor.x, inputColor.y, inputColor.z, 0.1f);
+        }
     }
 }

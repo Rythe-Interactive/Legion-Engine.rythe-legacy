@@ -142,7 +142,7 @@ float2 sampleUniformly(__local float2* output, uint samplesPerTri, uint sampleWi
         for(int y = 0; y < sampleWidth - x; y++)
         {
             float angle = fmod(RandomValue(), (float)(M_PI) * 0.5f);
-            float magnitude = fmod(RandomValue(), offset) - offset * 0.5f;
+            float magnitude = (fmod(RandomValue(), offset) - offset) * 0.5f;
 
             float2 direction = (float2)(sin(angle), cos(angle)) * magnitude;
 
