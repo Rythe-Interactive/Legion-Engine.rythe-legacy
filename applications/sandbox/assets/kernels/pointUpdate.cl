@@ -39,7 +39,7 @@ __kernel void Main
         }
         else if(dist < _distThresh + 0.5f)
         {
-            colors[n] = (float4)(inputColor.x, inputColor.y, inputColor.z, 0.1f);
+            colors[n] = (float4)(inputColor.x, inputColor.y, inputColor.z, clamp(inputColor.w + deltaTime * _speed, 0.f, 0.1f));
         }
     }
 }
