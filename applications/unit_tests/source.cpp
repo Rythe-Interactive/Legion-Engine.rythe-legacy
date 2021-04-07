@@ -9,6 +9,9 @@
 #include "tests/core/filesystem.hpp"
 #include "tests/core/ecs.hpp"
 #include "tests/core/containers/delegate.hpp"
+#include <core/serialization/serializationregistry.hpp>
+#include <core/serialization/prototype.hpp>
+#include <core/ecs/prototypes/component_prototype.hpp>
 
 using namespace legion;
 
@@ -17,6 +20,10 @@ public:
     void setup() override
     {
         reportSystem<ExitHelper>();
+        serialization::SerializationRegistry t;
+        t.register_component<MyRecord>();
+        auto output = t.deserialize<MyRecord>("{EY}");
+        std::cout << "Compiled" << std::endl;
     }
 
     priority_type priority() override { return PRIORITY_MAX; };
