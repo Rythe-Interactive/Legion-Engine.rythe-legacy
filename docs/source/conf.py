@@ -19,7 +19,7 @@
 
 project = 'LegionEngine'
 copyright = '2019, Raphael Baier, Legion-Engine Team'
-author = 'Raphael Baier'
+author = 'Raphael Baier, Glyn Leine'
 
 # The full version, including alpha/beta/rc tags
 release = 'v 0.2 alpha'
@@ -59,7 +59,7 @@ primary_domain = 'cpp'
 
 highlight_language = 'cpp'
 
-cpp_id_attributes = ["L_NODISCARD"]
+cpp_id_attributes = ["L_NODISCARD", "LEGION_ENTRY", "LEGION_CCONV"]
 
 breathe_default_project = "LegionEngine"
 
