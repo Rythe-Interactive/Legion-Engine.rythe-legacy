@@ -19,6 +19,7 @@ namespace legion::core::serialization
     struct prototype<ecs::component_base> : public prototype_base
     {
         L_NODISCARD virtual std::unique_ptr<prototype<ecs::component_base>> copy() LEGION_PURE;
+        virtual ~prototype() = default;
     };
 
     /**@struct prototype<ecs::component<component_type>>
