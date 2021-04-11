@@ -3,6 +3,8 @@
 #include <tiny_obj_loader.h>
 #define TINYGLTF_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
+#define TINYGLTF_NO_INCLUDE_JSON
+#include <nlohmann/json.hpp>
 #include <tinygltf/tiny_gltf.h> 
 #endif
 

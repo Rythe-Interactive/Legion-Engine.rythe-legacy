@@ -4,7 +4,7 @@
 #include <core/serialization/prototype.hpp>
 #include <core/types/reflector.hpp>
 
-#include <core/ecs/handles/component.hpp>
+#include <core/ecs/handles/component.hpp> 
 
 /**
  * @file component_prototype.hpp
@@ -18,6 +18,8 @@ namespace legion::core::serialization
     template<>
     struct prototype<ecs::component_base> : public prototype_base
     {
+        type_reference type;
+        prototype(const type_hash_base& src) : type(src) {}
         L_NODISCARD virtual std::unique_ptr<prototype<ecs::component_base>> copy() LEGION_PURE;
         virtual ~prototype() = default;
     };
@@ -31,9 +33,9 @@ namespace legion::core::serialization
     {
         using Reflector = decltype(make_reflector(std::declval<component_type>()));
 
-        prototype() = default;
-        prototype(const component_type& src) : Reflector(make_reflector(src)) {}
-        prototype(component_type&& src) : Reflector(make_reflector(src)) {}
+        prototype() : prototype<ecs::component_base>(make_hash<component_type>()) {}
+        prototype(const component_type& src) : prototype<ecs::component_base>(make_hash<component_type>()), Reflector(make_reflector(src)) {}
+        prototype(component_type&& src) : prototype<ecs::component_base>(make_hash<component_type>()), Reflector(make_reflector(src)) {}
 
         L_NODISCARD virtual std::unique_ptr<prototype<ecs::component_base>> copy()
         {

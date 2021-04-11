@@ -41,6 +41,7 @@
     <ClCompile Include="scheduling\processchain.cpp" />
     <ClCompile Include="scheduling\scheduler.cpp" />
     <ClCompile Include="events\eventbus.cpp" />
+    <ClCompile Include="serialization\serializationregistry.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="async\async.hpp" />
