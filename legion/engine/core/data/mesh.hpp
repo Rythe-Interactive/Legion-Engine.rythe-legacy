@@ -18,6 +18,31 @@
 
 namespace legion::core
 {
+    struct material_data
+    {
+        std::string name;
+
+        bool opaque;
+        float alphaCutoff;
+        bool doubleSided;
+
+        math::color albedoValue;
+        image_handle albedoMap;
+        float metallicValue;
+        image_handle metallicMap;
+        float roughnessValue;
+        image_handle roughnessMap;
+        image_handle metallicRoughnessMap;
+        math::color emissiveValue;
+        image_handle emissiveMap;
+
+        image_handle normalMap;
+        image_handle aoMap;
+        image_handle heightMap;
+    };
+
+    using material_list = std::vector<material_data>;
+
     /**@class sub_mesh
      * @brief Encapsulation of a sub-mesh with the offsets and sizes of the sub-mesh within the main mesh data.
      */
@@ -26,6 +51,7 @@ namespace legion::core
         std::string name;
         size_type indexCount;
         size_type indexOffset;
+        int32 materialIndex;
     };
 
     /**@class mesh
@@ -40,6 +66,7 @@ namespace legion::core
         std::vector<math::vec2> uvs;
         std::vector<math::vec3> tangents;
         std::vector<uint> indices;
+        material_list materials;
 
         std::vector<sub_mesh> submeshes;
 
@@ -61,7 +88,7 @@ namespace legion::core
      */
     struct mesh_handle
     {
-        id_type id;
+        id_type id = invalid_id;
 
         /**@brief Get the mesh and the attached lock.
          */
@@ -75,45 +102,18 @@ namespace legion::core
      */
     constexpr mesh_handle invalid_mesh_handle{ invalid_id };
 
-    struct material_data
-    {
-        std::string name;
-
-        bool opaque;            
-        float alphaCutoff;                
-        bool doubleSided;                 
-
-        math::color albedoValue;
-        image_handle albedoMap;
-        float metallicValue;
-        image_handle metallicMap;
-        float roughnessValue;
-        image_handle roughnessMap;
-        image_handle metallicRoughnessMap;
-        math::color emissiveValue;
-        image_handle emissiveMap;
-
-        image_handle normalMap;
-        image_handle aoMap;
-        image_handle heightMap;
-    };
-
-    using material_list = std::vector<material_data>;
-
     /**@class mesh_import_settings
      * @brief Data structure to parameterize the mesh import process.
      */
     struct mesh_import_settings
     {
-        material_list* materials = nullptr;
         bool triangulate = true;
-        bool vertex_color = false;
         filesystem::view contextFolder = filesystem::view(std::string_view(""));
     };
 
     /**@brief Default mesh import settings.
      */
-    const mesh_import_settings default_mesh_settings{ nullptr, true, false, filesystem::view(std::string_view("")) };
+    const mesh_import_settings default_mesh_settings{ true, filesystem::view(std::string_view("")) };
 
     /**@class MeshCache
      * @brief Data cache for loading, storing and managing raw meshes.
@@ -123,9 +123,8 @@ namespace legion::core
         friend struct mesh_handle;
     private:
         static std::unordered_map<id_type, std::unique_ptr<std::pair<async::rw_spinlock, mesh>>> m_meshes;
+        static std::unordered_map<id_type, filesystem::view> m_materialsToDigest;
         static async::rw_spinlock m_meshesLock;
-
-
     public:
         static id_type debugId;
 
@@ -161,5 +160,7 @@ namespace legion::core
          * @param id Name hash
          */
         static mesh_handle get_handle(id_type id);
+
+        static void destroy_mesh(id_type id);
     };
 }

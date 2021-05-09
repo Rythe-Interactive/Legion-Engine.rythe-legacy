@@ -2,9 +2,12 @@
 
 namespace legion::core::scheduling
 {
-    constexpr size_type reserved_threads = 2; // this, OS
+    constexpr size_type reserved_threads = 1; // this, OS
 
     sparse_map<id_type, ProcessChain> Scheduler::m_processChains;
+
+    multicast_delegate<Scheduler::frame_callback_type> Scheduler::m_onFrameStart;
+    multicast_delegate<Scheduler::frame_callback_type> Scheduler::m_onFrameEnd;
 
     const size_type Scheduler::m_maxThreadCount = reserved_threads >= std::thread::hardware_concurrency() ? 0 : std::thread::hardware_concurrency() - reserved_threads;
     size_type Scheduler::m_availableThreads = m_maxThreadCount;
@@ -13,6 +16,7 @@ namespace legion::core::scheduling
 
     Scheduler::per_thread_map<async::rw_lock_pair<async::runnables_queue>> Scheduler::m_commands;
     async::rw_lock_pair<async::job_queue> Scheduler::m_jobs;
+    size_type Scheduler::m_jobPoolSize = 0;
 
     std::atomic<bool> Scheduler::m_exit = { false };
     std::atomic<bool> Scheduler::m_start = { false };
@@ -64,8 +68,17 @@ namespace legion::core::scheduling
                 }
             }
 
-            if (lowPower || noWork)
+            if (noWork)
+            {
+#if defined(LEGION_DEBUG)
                 std::this_thread::sleep_for(std::chrono::microseconds(1));
+#else
+                if (lowPower)
+                    std::this_thread::sleep_for(std::chrono::microseconds(1));
+                else
+                    std::this_thread::sleep_for(std::chrono::nanoseconds(1));
+#endif
+            }
         }
     }
 
@@ -87,8 +100,12 @@ namespace legion::core::scheduling
         OPTICK_FRAME("Main thread");
 
         time::span dt{ deltaTime };
+        m_onFrameStart(dt, time::span(Clock::elapsedSinceTickStart()));
+
         for (auto [_, chain] : m_processChains)
             chain.runInCurrentThread(dt);
+
+        m_onFrameEnd(dt, time::span(Clock::elapsedSinceTickStart()));
     }
 
     pointer<std::thread> Scheduler::getThread(std::thread::id id)
@@ -110,10 +127,9 @@ namespace legion::core::scheduling
 
         pointer<std::thread> ptr;
         std::string name = "Worker ";
-        int i = 0;
-        while ((ptr = createThread(Scheduler::threadMain, m_lowPower, name + std::to_string(i))) != nullptr)
+        while ((ptr = createThread(Scheduler::threadMain, m_lowPower, name + std::to_string(m_jobPoolSize))) != nullptr)
         {
-            log::impl::thread_names[ptr->get_id()] = name + std::to_string(i++);
+            log::impl::thread_names[ptr->get_id()] = name + std::to_string(m_jobPoolSize++);
             m_commands.try_emplace(ptr->get_id());
         }
 
@@ -143,6 +159,11 @@ namespace legion::core::scheduling
     {
         m_exitCode = exitCode;
         m_exit.store(true, std::memory_order_release);
+    }
+
+    size_type Scheduler::jobPoolSize() noexcept
+    {
+        return m_jobPoolSize;
     }
 
     pointer<ProcessChain> Scheduler::createProcessChain(cstring name)
@@ -197,6 +218,26 @@ namespace legion::core::scheduling
     {
         id_type chainId = nameHash(chainName);
         m_processChains.at(chainId).subscribeToChainEnd(callback);
+    }
+
+    void Scheduler::subscribeToFrameStart(const frame_callback_delegate& callback)
+    {
+        m_onFrameStart.push_back(callback);
+    }
+
+    void Scheduler::unsubscribeFromFrameStart(const frame_callback_delegate& callback)
+    {
+        m_onFrameStart.erase(callback);
+    }
+
+    void Scheduler::subscribeToFrameEnd(const frame_callback_delegate& callback)
+    {
+        m_onFrameEnd.push_back(callback);
+    }
+
+    void Scheduler::unsubscribeFromFrameEnd(const frame_callback_delegate& callback)
+    {
+        m_onFrameEnd.erase(callback);
     }
 
     void Scheduler::unsubscribeFromChainEnd(id_type chainId, const chain_callback_delegate& callback)

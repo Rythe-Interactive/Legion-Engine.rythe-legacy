@@ -4,9 +4,9 @@
 #include <array>
 #include <functional>
 
+#include <core/platform/platform.hpp>
 #include <core/types/meta.hpp>
 #include <core/types/primitives.hpp>
-#include <core/platform/platform.hpp>
 
 namespace legion::core
 {
@@ -39,6 +39,33 @@ namespace legion::core
             : values(std::forward<Members>(members)...), names(memberNames) {}
     };
 
+#define Reflectable                                                                                                                         \
+template<typename, typename...>                                                                                                             \
+friend struct legion::core::reflector;                                                                                                      \
+template<class T, typename... Args>                                                                                                         \
+friend decltype(void(T{ std::declval<Args>()... }), std::true_type()) brace_construct_test_reflector(int);                                  \
+template <typename SRC, typename Reflector, size_type... I>                                                                                 \
+friend SRC make_from_reflector_impl(Reflector&& r, std::index_sequence<I...>)
+
+
+#define ManualReflector_IMPL(type, ...)                                                                                                                      \
+namespace legion::core{                                                                                                                                      \
+    template<>                                                                                                                                               \
+    struct reflector<type>                                                                                                                                   \
+    {                                                                                                                                                        \
+        using source_type = type;                                                                                                                            \
+                                                                                                                                                             \
+        inline static constexpr std::size_t size = EXPAND(NARGS(__VA_ARGS__));                                                                               \
+        std::tuple<EXPAND(decltypes_count(NARGS(__VA_ARGS__), colon_access(type, __VA_ARGS__)))> values;                                                     \
+        std::array<std::string, size> names;                                                                                                                 \
+                                                                                                                                                             \
+        reflector(const type& src) : values(std::make_tuple(EXPAND(dot_access(src, __VA_ARGS__)))), names({ EXPAND(STRINGIFY_SEPERATE(__VA_ARGS__)) }) {}    \
+    };                                                                                                                                                       \
+}
+
+
+#define ManualReflector(type, ...) EXPAND(ManualReflector_IMPL(type, __VA_ARGS__))
+
 #if !defined(DOXY_EXCLUDE)
     template<typename T, typename... MemberTypes>
     reflector(T&&, std::array<std::string, sizeof...(MemberTypes)>&&, MemberTypes&&...)
@@ -57,25 +84,10 @@ namespace legion::core
         std::array<std::string, 0> names;
     };
 
-    namespace detail
-    {
-        template<template<typename...>typename T, typename U, size_type I, typename... Args>
-        struct make_sequence : make_sequence<T, U, I - 1, Args..., U> {};
-
-        template<template<typename...>typename T, typename U, typename... Args>
-        struct make_sequence<T, U, 0, Args...>
-        {
-            using type = T<Args...>;
-        };
-
-        template<template<typename...>typename T, typename U, size_type I, typename... Args>
-        using make_sequence_t = typename make_sequence<T, U, I, Args...>::type;
-    }
-
     // Reflector return code
 #define RETURN_REFLECTOR(...)                                                       \
     auto&& [__VA_ARGS__] = std::forward<T>(object);                                 \
-    return reflector(std::forward<T>(object), { STRINGIFY_SEPERATE(__VA_ARGS__) }, __VA_ARGS__);
+    return reflector(std::forward<T>(object), { EXPAND(STRINGIFY_SEPERATE(__VA_ARGS__)) }, __VA_ARGS__);
 
     /**@brief Create reflector of a certain value.
      * @param object Object to reflect.
@@ -93,59 +105,59 @@ namespace legion::core
             return reflector<type>{ object };
         }
         // Check for construction with 16 items.
-        else if constexpr (detail::make_sequence_t<is_brace_constructible, detail::any_type, 16, type>::value) {
+        else if constexpr (make_sequence_t<is_brace_constructible, detail::any_type, 16, type>::value) {
             RETURN_REFLECTOR(value0, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13, value14, value16);
         }
         // Check for construction with 15 items.
-        else if constexpr (detail::make_sequence_t<is_brace_constructible, detail::any_type, 15, type>::value) {
+        else if constexpr (make_sequence_t<is_brace_constructible, detail::any_type, 15, type>::value) {
             RETURN_REFLECTOR(value0, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13, value14);
         }
         // Check for construction with 14 items.
-        else if constexpr (detail::make_sequence_t<is_brace_constructible, detail::any_type, 14, type>::value) {
+        else if constexpr (make_sequence_t<is_brace_constructible, detail::any_type, 14, type>::value) {
             RETURN_REFLECTOR(value0, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12, value13);
         }
         // Check for construction with 13 items.
-        else if constexpr (detail::make_sequence_t<is_brace_constructible, detail::any_type, 13, type>::value) {
+        else if constexpr (make_sequence_t<is_brace_constructible, detail::any_type, 13, type>::value) {
             RETURN_REFLECTOR(value0, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11, value12);
         }
         // Check for construction with 12 items.
-        else if constexpr (detail::make_sequence_t<is_brace_constructible, detail::any_type, 12, type>::value) {
+        else if constexpr (make_sequence_t<is_brace_constructible, detail::any_type, 12, type>::value) {
             RETURN_REFLECTOR(value0, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10, value11);
         }
         // Check for construction with 11 items.
-        else if constexpr (detail::make_sequence_t<is_brace_constructible, detail::any_type, 11, type>::value) {
+        else if constexpr (make_sequence_t<is_brace_constructible, detail::any_type, 11, type>::value) {
             RETURN_REFLECTOR(value0, value1, value2, value3, value4, value5, value6, value7, value8, value9, value10);
         }
         // Check for construction with 10 items.
-        else if constexpr (detail::make_sequence_t<is_brace_constructible, detail::any_type, 10, type>::value) {
+        else if constexpr (make_sequence_t<is_brace_constructible, detail::any_type, 10, type>::value) {
             RETURN_REFLECTOR(value0, value1, value2, value3, value4, value5, value6, value7, value8, value9);
         }
         // Check for construction with 9 items.
-        else if constexpr (detail::make_sequence_t<is_brace_constructible, detail::any_type, 9, type>::value) {
+        else if constexpr (make_sequence_t<is_brace_constructible, detail::any_type, 9, type>::value) {
             RETURN_REFLECTOR(value0, value1, value2, value3, value4, value5, value6, value7, value8);
         }
         // Check for construction with 8 items.
-        else if constexpr (detail::make_sequence_t<is_brace_constructible, detail::any_type, 8, type>::value) {
+        else if constexpr (make_sequence_t<is_brace_constructible, detail::any_type, 8, type>::value) {
             RETURN_REFLECTOR(value0, value1, value2, value3, value4, value5, value6, value7);
         }
         // Check for construction with 7 items.
-        else if constexpr (detail::make_sequence_t<is_brace_constructible, detail::any_type, 7, type>::value) {
+        else if constexpr (make_sequence_t<is_brace_constructible, detail::any_type, 7, type>::value) {
             RETURN_REFLECTOR(value0, value1, value2, value3, value4, value5, value6);
         }
         // Check for construction with 6 items.
-        else if constexpr (detail::make_sequence_t<is_brace_constructible, detail::any_type, 6, type>::value) {
+        else if constexpr (make_sequence_t<is_brace_constructible, detail::any_type, 6, type>::value) {
             RETURN_REFLECTOR(value0, value1, value2, value3, value4, value5);
         }
         // Check for construction with 5 items.
-        else if constexpr (detail::make_sequence_t<is_brace_constructible, detail::any_type, 5, type>::value) {
+        else if constexpr (make_sequence_t<is_brace_constructible, detail::any_type, 5, type>::value) {
             RETURN_REFLECTOR(value0, value1, value2, value3, value4);
         }
         // Check for construction with 4 items.
-        else if constexpr (detail::make_sequence_t<is_brace_constructible, detail::any_type, 4, type>::value) {
+        else if constexpr (make_sequence_t<is_brace_constructible, detail::any_type, 4, type>::value) {
             RETURN_REFLECTOR(value0, value1, value2, value3);
         }
         // Check for construction with 3 items.
-        else if constexpr (detail::make_sequence_t<is_brace_constructible, detail::any_type, 3, type>::value) {
+        else if constexpr (make_sequence_t<is_brace_constructible, detail::any_type, 3, type>::value) {
             RETURN_REFLECTOR(value0, value1, value2);
         }
         // Check for construction with 2 items.
@@ -168,10 +180,40 @@ namespace legion::core
 
     namespace detail
     {
+        template<class T, typename... Args>
+        decltype(void(T{ std::declval<Args>()... }), std::true_type())
+            brace_construct_test_reflector(int);
+
+        template<class T, typename... Args>
+        std::false_type
+            brace_construct_test_reflector(...);
+
+        template<class T, typename... Args>
+        struct is_brace_constructible_reflector : decltype(brace_construct_test_reflector<T, Args...>(0))
+        {
+        };
+
         template <typename SRC, typename Reflector, size_type... I>
         constexpr SRC make_from_reflector_impl(Reflector&& r, std::index_sequence<I...>)
         {
-            return SRC{ std::get<I>(r.values)... };
+            if constexpr (is_brace_constructible_reflector<SRC, decltype(std::get<I>(r.values))...>::value)
+            {
+                return SRC{ std::get<I>(r.values)... };
+            }
+            else if constexpr (is_brace_constructible_reflector<SRC, Reflector>::value)
+            {
+                return SRC{ r };
+            }
+            else if constexpr (is_brace_constructible_reflector<SRC>::value)
+            {
+                L_WARNING("from_reflector has no viable way of turning a reflector back into the object");
+                return SRC{};
+            }
+            else
+            {
+                L_WARNING("from_reflector has no way of turning a reflector back into the object");
+                return SRC{ std::get<I>(r.values)... };
+            }
         }
     }
 
@@ -225,16 +267,6 @@ namespace legion::core
 
     namespace detail
     {
-        template<template<typename>typename Compare, typename T, T A, T B>
-        struct compare
-        {
-            static constexpr inline Compare<T> comp{};
-            static constexpr inline bool value = comp(A, B);
-        };
-
-        template<template<typename>typename Compare, typename T, T A, T B>
-        inline constexpr bool compare_v = compare<Compare, T, A, B>::value;
-
         template<std::size_t I, typename Reflector, typename Func>
         typename std::enable_if_t<I == std::remove_reference_t<Reflector>::size, void>
             for_each_impl(Reflector&& r, Func&& f) {};
@@ -249,12 +281,12 @@ namespace legion::core
 
 #if !defined(DOXY_EXCLUDE)
         template<int I, template<typename> typename Compare, int End, int Increment, typename Reflector, typename Func>
-        typename std::enable_if_t<!compare_v<Compare, int, I, End>, void>
+        typename std::enable_if_t<!do_compare_v<Compare, int, I, End>, void>
             for_i_impl(Reflector&& r, Func&& f) {};
 #endif
 
         template<int I, template<typename> typename Compare, int End, int Increment, typename Reflector, typename Func>
-        typename std::enable_if_t<compare_v<Compare, int, I, End>, void>
+        typename std::enable_if_t<do_compare_v<Compare, int, I, End>, void>
             for_i_impl(Reflector&& r, Func&& f)
         {
             std::invoke(std::forward<Func>(f), r.names[I], std::get<I>(r.values));

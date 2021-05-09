@@ -28,10 +28,17 @@ namespace legion::core::ecs
 
         entity owner;
 
+        component& operator=(const component_type& src);
+        component& operator=(component_type&& src);
+
         L_NODISCARD operator component_type& ();
         L_NODISCARD operator const component_type& () const;
 
+        L_NODISCARD bool valid() const noexcept;
         L_NODISCARD operator bool() const noexcept;
+
+        L_NODISCARD component_type& operator*();
+        L_NODISCARD const component_type& operator*() const;
 
         L_NODISCARD component_type* operator->();
         L_NODISCARD const component_type* operator->() const;
@@ -60,7 +67,7 @@ namespace std
             std::size_t hash = 0;
 
             legion::core::math::detail::hash_combine(hash,
-                std::hash<legion::core::id_type>{}(handle.entity));
+                std::hash<legion::core::id_type>{}(handle.owner->id));
             legion::core::math::detail::hash_combine(hash,
                 legion::core::typeHash<component_type>());
 

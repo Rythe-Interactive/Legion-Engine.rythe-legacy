@@ -22,12 +22,17 @@ namespace legion::core::scheduling
     public:
         using chain_callback_type = typename ProcessChain::chain_callback_type;
         using chain_callback_delegate = typename ProcessChain::chain_callback_delegate;
+        using frame_callback_type = chain_callback_type;
+        using frame_callback_delegate = chain_callback_delegate;
 
     private:
         template<typename resource>
         using per_thread_map = std::unordered_map<std::thread::id, resource>;
 
         static sparse_map<id_type, ProcessChain> m_processChains;
+
+        static multicast_delegate<frame_callback_type> m_onFrameStart;
+        static multicast_delegate<frame_callback_type> m_onFrameEnd;
 
         static const size_type m_maxThreadCount;
         static size_type m_availableThreads;
@@ -36,6 +41,7 @@ namespace legion::core::scheduling
 
         static per_thread_map<async::rw_lock_pair<async::runnables_queue>> m_commands;
         static async::rw_lock_pair<async::job_queue> m_jobs;
+        static size_type m_jobPoolSize;
 
         static std::atomic<bool> m_exit;
         static std::atomic<bool> m_start;
@@ -58,6 +64,8 @@ namespace legion::core::scheduling
 
         template<typename functor>
         static auto sendCommand(std::thread::id id, functor&& function, float taskSize = 1.f);
+
+        static size_type jobPoolSize() noexcept;
 
         template<typename Func>
         static auto queueJobs(size_type count, Func&& func);
@@ -87,6 +95,12 @@ namespace legion::core::scheduling
         /**@brief Get pointer to a certain process-chain.
          */
         L_NODISCARD static pointer<ProcessChain> getChain(cstring name);
+
+        static void subscribeToFrameStart(const frame_callback_delegate& callback);
+        static void unsubscribeFromFrameStart(const frame_callback_delegate& callback);
+
+        static void subscribeToFrameEnd(const frame_callback_delegate& callback);
+        static void unsubscribeFromFrameEnd(const frame_callback_delegate& callback);
 
         static void subscribeToChainStart(id_type chainId, const chain_callback_delegate& callback);
         static void subscribeToChainStart(cstring chainName, const chain_callback_delegate& callback);

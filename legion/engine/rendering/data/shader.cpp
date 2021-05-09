@@ -14,7 +14,6 @@ namespace legion::rendering
         return &m_shaders[id];
     }
 
-
     void ShaderCache::process_io(shader& shader, id_type id)
     {
         for (auto& [_, variant] : shader.m_variants)
@@ -109,7 +108,7 @@ namespace legion::rendering
                 }
 
                 // Insert uniform into the uniform list.
-                auto hashid = nameHash(std::string(name));
+                auto hashid = nameHash(name);
                 variant.uniforms[hashid] = std::unique_ptr<shader_parameter_base>(uniform);
                 variant.idOfLocation[location] = hashid;
             }
@@ -140,7 +139,7 @@ namespace legion::rendering
 
                 // Get location and create attribute object
                 GLint location = glGetAttribLocation(variant.programId, attribNameBuffer);
-                variant.attributes[nameHash(std::string(name).c_str())] = std::unique_ptr<attribute>(new attribute(id, name, type, location));
+                variant.attributes[nameHash(name)] = std::unique_ptr<attribute>(new attribute(id, name, type, location));
             }
 
             delete[] attribNameBuffer;
@@ -361,7 +360,7 @@ namespace legion::rendering
         }
         else
         {
-            switch (settings.usePrecompiledIfAvailable)
+            switch (settings.usePrecompiledIfAvailable) // Clean up this monster function...
             {
             case true:
             {
@@ -702,6 +701,7 @@ namespace legion::rendering
         for (auto& [shaderVariant, variantSource] : shaders)
         {
             shader_variant& variant = shader.m_variants[nameHash(shaderVariant)];
+            variant.name = shaderVariant;
 
             GLenum blendSrc = GL_SRC_ALPHA, blendDst = GL_ONE_MINUS_SRC_ALPHA;
 
