@@ -8,9 +8,9 @@
 #include <core/ecs/handles/entity.hpp>
 
 
-struct example_component
+struct example_comp
 {
-
+    int value;
 };
 
 class ExampleSystem final : public legion::System<ExampleSystem>
@@ -59,14 +59,17 @@ public:
         }
 
         for (int i = 0; i < 20000; i++)
-            createEntity().add_component<example_component>();
+            createEntity().add_component<example_comp>();
 
-        serialization::SerializationRegistry::register_component<example_component>();
-        example_component test;
+        serialization::Registry::register_type<example_comp>();
+        example_comp test;
         test.value = 10;
-        auto j = serialization::json_serializer::serialize<example_component>(test);
-        auto output = serialization::SerializationRegistry::getPrototype(j);
-        log::debug(output.get()->type.local_name());
+        auto serializer = serialization::Registry::get_serializer<example_comp>();
+        serializer->store(test);
+        serializer->write(fs::view("assets://scenes/test.json"));
+        serializer->read(fs::view("assets://scenes/test.json"));
+        auto output = serializer->load();
+        log::debug(output->type.local());
     }
 
     void update(legion::time::span deltaTime)
