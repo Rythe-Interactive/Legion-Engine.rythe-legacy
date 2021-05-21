@@ -42,6 +42,7 @@
     <ClCompile Include="scheduling\scheduler.cpp" />
     <ClCompile Include="events\eventbus.cpp" />
     <ClCompile Include="serialization\serializationregistry.cpp" />
+    <ClCompile Include="serialization\serializationutil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="async\async.hpp" />
@@ -598,5 +599,7 @@
     <None Include="engine\system.inl" />
     <None Include="events\eventbus.inl" />
     <None Include="ecs\archetype\archetype.inl" />
+    <None Include="serialization\serializationutil.inl" />
+    <None Include="serialization\serializationregistry.inl" />
   </ItemGroup>
 </Project>
