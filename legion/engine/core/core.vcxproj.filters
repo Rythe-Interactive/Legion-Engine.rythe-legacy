@@ -42,7 +42,8 @@
     <ClCompile Include="scheduling\scheduler.cpp" />
     <ClCompile Include="events\eventbus.cpp" />
     <ClCompile Include="serialization\serializationregistry.cpp" />
-    <ClCompile Include="serialization\serializationutil.cpp" />
+    <ClCompile Include="serialization\serializer.cpp" />
+    <ClCompile Include="serialization\view_type.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="async\async.hpp" />
@@ -428,7 +429,7 @@
     <ClInclude Include="common\string_literal.hpp" />
     <ClInclude Include="ecs\handles\filter.hpp" />
     <ClInclude Include="ecs\filters\filter_info.hpp" />
-    <ClInclude Include="serialization\serializationutil.hpp" />
+    <ClInclude Include="serialization\serializer.hpp" />
     <ClInclude Include="scheduling\scheduling.hpp" />
     <ClInclude Include="scheduling\clock.hpp" />
     <ClInclude Include="containers\delegate.hpp" />
@@ -442,6 +443,7 @@
     <ClInclude Include="defaults\defaultcomponents.hpp" />
     <ClInclude Include="ecs\archetype\archetype.hpp" />
     <ClInclude Include="ecs\meta\meta.hpp" />
+    <ClInclude Include="serialization\view_type.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="platform\cpp.hint" />
@@ -599,7 +601,7 @@
     <None Include="engine\system.inl" />
     <None Include="events\eventbus.inl" />
     <None Include="ecs\archetype\archetype.inl" />
-    <None Include="serialization\serializationutil.inl" />
+    <None Include="serialization\serializer.inl" />
     <None Include="serialization\serializationregistry.inl" />
   </ItemGroup>
 </Project>
