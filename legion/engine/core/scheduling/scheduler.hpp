@@ -47,6 +47,7 @@ namespace legion::core::scheduling
         static std::atomic<bool> m_start;
         static int m_exitCode;
 
+
         static void threadMain(bool lowPower, std::string name);
 
         template<typename Function, typename... Args >
@@ -57,6 +58,8 @@ namespace legion::core::scheduling
         static void doTick(Clock::span_type deltaTime);
 
     public:
+        static std::atomic<float> m_pollTime;
+
         template<typename functor, typename... argument_types>
         L_NODISCARD static pointer<std::thread> reserveThread(functor&& function, argument_types&&... args);
 
@@ -73,6 +76,8 @@ namespace legion::core::scheduling
         static int run(bool lowPower = false, size_type minThreads = 0);
 
         static void exit(int exitCode);
+
+        static bool isExiting();
 
         /**@brief Create a new process-chain.
          */

@@ -444,6 +444,7 @@
     <ClInclude Include="defaults\defaultcomponents.hpp" />
     <ClInclude Include="ecs\archetype\archetype.hpp" />
     <ClInclude Include="ecs\meta\meta.hpp" />
+    <ClInclude Include="time\utils.hpp" />
     <ClInclude Include="serialization\view_type.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -602,6 +603,7 @@
     <None Include="engine\system.inl" />
     <None Include="events\eventbus.inl" />
     <None Include="ecs\archetype\archetype.inl" />
+    <None Include="time\utils.inl" />
     <None Include="serialization\serializer.inl" />
     <None Include="serialization\serializationregistry.inl" />
   </ItemGroup>
