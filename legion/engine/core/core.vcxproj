@@ -569,9 +569,6 @@ del ".\xcopyexclude"</Command>
     <ClCompile Include="serialization\serializationregistry.cpp" />
     <ClCompile Include="serialization\serializer.cpp" />
     <ClCompile Include="serialization\view_type.cpp" />
-    <ClCompile Include="serialization\view_type.inl">
-      <FileType>CppHeader</FileType>
-    </ClCompile>
     <ClCompile Include="time\defaults.cpp" />
     <ClCompile Include="types\type_util.cpp" />
   </ItemGroup>
@@ -731,12 +728,9 @@ del ".\xcopyexclude"</Command>
     <None Include="scheduling\process.inl" />
     <None Include="scheduling\processchain.inl" />
     <None Include="scheduling\scheduler.inl" />
-    <None Include="serialization\serializationregistry.inl">
-      <FileType>CppHeader</FileType>
-    </None>
-    <None Include="serialization\serializer.inl">
-      <FileType>CppHeader</FileType>
-    </None>
+    <None Include="serialization\serializationregistry.inl" />
+    <None Include="serialization\serializer.inl" />
+    <None Include="serialization\view_type.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
