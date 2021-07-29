@@ -33,7 +33,7 @@ namespace legion::core::serialization
     {
         using Reflector = decltype(make_reflector(std::declval<component_type>()));
 
-        prototype() : prototype<ecs::component_base>(make_hash<component_type>()) {}
+        prototype() : prototype<ecs::component_base>(make_hash<component_type>()), Reflector(make_reflector(component_type())){}
         prototype(const component_type& src) : prototype<ecs::component_base>(make_hash<component_type>()), Reflector(make_reflector(src)) {}
         prototype(component_type&& src) : prototype<ecs::component_base>(make_hash<component_type>()), Reflector(make_reflector(src)) {}
 
