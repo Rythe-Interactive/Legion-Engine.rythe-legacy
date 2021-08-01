@@ -105,6 +105,34 @@ namespace legion::core
     template <typename C, typename F>
     constexpr bool has_resize_v = has_resize<C, F>::value;
 
+    template<typename, typename T>
+    struct has_size
+    {
+        //static_assert(
+        //    std::integral_constant<T, false>::value,
+        //    "Second template param needs to be of function type.");
+    };
+
+    template <typename C,typename Ret>
+    struct has_size<C,Ret()>
+    {
+    private:
+        template<typename T>
+        static constexpr auto check(T*)
+            -> typename std::is_same<decltype(std::declval<T>().size()),Ret>::type;
+
+        template <typename>
+        static constexpr auto check(...)
+            ->std::false_type;
+
+        typedef decltype(check<C>(nullptr)) type;
+    public:
+        static constexpr bool value = type::value;
+    };
+
+    template <typename C, typename F>
+    constexpr bool has_size_v = has_size<C, F>::value;
+
 
     template <class T>
     struct is_vector
