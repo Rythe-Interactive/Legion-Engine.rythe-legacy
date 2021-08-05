@@ -17,8 +17,10 @@ namespace legion::core::serialization
      * @brief Prototype specialization for entities.
      */
     template<>
-    struct prototype<ecs::entity> : public prototype_base
+    struct prototype<ecs::entity> : public prototype_base, public decltype(make_reflector(std::declval<ecs::entity>()))
     {
+        using Reflector = decltype(make_reflector(std::declval<ecs::entity>()));
+
         std::string name;
         bool active;
         std::vector<prototype<ecs::entity>> children;

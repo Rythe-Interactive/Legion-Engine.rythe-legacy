@@ -4,7 +4,7 @@
 
 namespace legion::core::serialization
 {
-    inline prototype<ecs::entity>::prototype(ecs::entity src) : active(src->active)
+    inline prototype<ecs::entity>::prototype(ecs::entity src) : active(src->active), Reflector(make_reflector(src))
     {
         children.reserve(src->children.size());
         for (size_type i = 0; i < src->children.size(); i++)
