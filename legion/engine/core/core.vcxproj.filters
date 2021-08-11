@@ -43,7 +43,6 @@
     <ClCompile Include="events\eventbus.cpp" />
     <ClCompile Include="serialization\serializationregistry.cpp" />
     <ClCompile Include="serialization\serializer.cpp" />
-    <ClCompile Include="serialization\view_type.inl" />
     <ClCompile Include="serialization\view_type.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -446,6 +445,7 @@
     <ClInclude Include="ecs\meta\meta.hpp" />
     <ClInclude Include="time\utils.hpp" />
     <ClInclude Include="serialization\view_type.hpp" />
+    <ClInclude Include="ecs\prototypes\entity_data_prototype.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="platform\cpp.hint" />
@@ -606,5 +606,7 @@
     <None Include="time\utils.inl" />
     <None Include="serialization\serializer.inl" />
     <None Include="serialization\serializationregistry.inl" />
+    <None Include="serialization\view_type.inl" />
+    <None Include="ecs\prototypes\entity_data_prototype.inl" />
   </ItemGroup>
 </Project>

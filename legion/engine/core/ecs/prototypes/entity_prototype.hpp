@@ -36,9 +36,11 @@ namespace legion::core::serialization
         prototype& operator=(prototype&&) = default;
     };
 
-
     /**@struct entity_prototype
      * @brief Type alias for `prototype<ecs::entity>`. Can be used to serialize and deserialize entities.
      */
     using entity_prototype = prototype<ecs::entity>;
+
 }
+
+

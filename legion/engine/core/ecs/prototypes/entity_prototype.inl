@@ -16,7 +16,7 @@ namespace legion::core::serialization
             composition.emplace(typeId, ecs::Registry::getFamily(typeId)->create_prototype(src));
     }
 
-    inline prototype<ecs::entity>::prototype(const prototype& src) : active(src.active), children(src.children)
+    inline prototype<ecs::entity>::prototype(const prototype& src) : active(src.active), children(src.children), Reflector(src)
     {
         for (auto& [typeId, compPrototype] : src.composition)
             composition.emplace(typeId, compPrototype->copy());
