@@ -19,13 +19,13 @@ namespace legion::core
     {
         id_type id = -1;
         std::vector<ecs::entity> entities;
-        position pos = {1,1,1};
     };
 }
 
 
 ManualReflector(example_comp, value);
 ManualReflector(scene_comp, id, entities);
+
 
 class ExampleSystem final : public legion::System<ExampleSystem>
 {
@@ -67,20 +67,18 @@ public:
         //Serialization Test
         std::string filePath = "assets://scenes/scene.json";
 
-        auto serializer = serialization::Registry::register_serializer<scene_comp>();
+        auto serializer = serialization::Serialization_Registry::register_serializer<scene_comp>();
         auto scene = scene_comp();
         scene.id = 1;
         for (int i = 0; i < 2; i++)
         {
             auto ent = createEntity();
+            auto child = createEntity();
+            ent.add_child(child);
             ent.add_component<example_comp>();
             scene.entities.push_back(ent);
         }
-        serializer->write(fs::view(filePath), scene);
-        for (ecs::entity ent : scene.entities)
-        {
-            ecs::Registry::destroyEntity(ent);
-        }
+        serializer->write(fs::view(filePath), scene,serialization::JSON);
         //scene = serializer->read(fs::view(filePath));
         //log::debug(scene.id);
     }

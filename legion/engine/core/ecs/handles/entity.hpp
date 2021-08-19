@@ -25,10 +25,13 @@ namespace legion::core
 
     namespace serialization
     {
+
         template<typename T>
         struct prototype;
     }
 }
+
+
 
 #if !defined(DOXY_EXCLUDE)
 namespace std
@@ -339,3 +342,5 @@ namespace legion::core::ecs
         void remove_component();
     };
 }
+ManualReflector(ecs::entity, data);
+

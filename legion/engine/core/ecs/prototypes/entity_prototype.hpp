@@ -36,17 +36,11 @@ namespace legion::core::serialization
         prototype& operator=(prototype&&) = default;
     };
 
-    template<>
-    struct prototype<ecs::entity_data> : public prototype_base, public decltype(make_reflector(std::declval<ecs::entity_data>()))
-    {
-        using Reflector = decltype(make_reflector(std::declval<ecs::entity_data>()));
-
-        prototype(const ecs::entity src) : Reflector(make_reflector(src.data)) {};
-    };
-
-
     /**@struct entity_prototype
      * @brief Type alias for `prototype<ecs::entity>`. Can be used to serialize and deserialize entities.
      */
-    using entity_prototype = prototype<ecs::entity_data>;
+    using entity_prototype = prototype<ecs::entity>;
+
 }
+
+
