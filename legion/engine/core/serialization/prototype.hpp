@@ -7,7 +7,7 @@ namespace legion::core::serialization
     };
 
     template<typename SrcType>
-    struct prototype : public prototype_base, public decltype(make_reflector(std::declval<SrcType>()))
+    struct prototype : public virtual prototype_base, public decltype(make_reflector(std::declval<SrcType>()))
     {
         using Reflector = decltype(make_reflector(std::declval<SrcType>()));
 

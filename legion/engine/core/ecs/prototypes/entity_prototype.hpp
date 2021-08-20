@@ -23,11 +23,11 @@ namespace legion::core::serialization
 
         std::string name;
         bool active;
-        std::vector<prototype<ecs::entity_data>> children;
+        std::vector<prototype<ecs::entity>> children;
         std::unordered_map<id_type, std::unique_ptr<component_prototype_base>> composition;
 
         prototype(ecs::entity src);
-        prototype() = default;
+        prototype();
         prototype(const prototype&);
         prototype(prototype&&) = default;
 
