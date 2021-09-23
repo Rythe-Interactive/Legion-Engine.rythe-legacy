@@ -25,7 +25,7 @@
 
 #include <core/defaults/defaultcomponents.hpp>
 
-#include <core/serialization/serialization.hpp>
+
 
 namespace legion
 {
