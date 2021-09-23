@@ -25,9 +25,12 @@
 
 #include <core/defaults/defaultcomponents.hpp>
 
+#include <core/serialization/serialization.hpp>
+
 namespace legion
 {
     using namespace core;
+    namespace srl = ::legion::serialization;
 }
 
 namespace lgn = legion;
