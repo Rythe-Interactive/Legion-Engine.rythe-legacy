@@ -451,9 +451,9 @@
     <ClInclude Include="data\loaders\gltfmeshloader.hpp" />
     <ClInclude Include="serialization\serializer_views\serializer_view.hpp" />
     <ClInclude Include="ecs\prototypes\entity_data_prototype.hpp" />
-    <ClInclude Include="serialization\serializer_views\json_view.hpp" />
-    <ClInclude Include="serialization\serializer_views\bson_view.hpp" />
-    <ClInclude Include="serialization\serializer_views\yaml_view.hpp" />
+    <ClInclude Include="serialization\serializer_views\json.hpp" />
+    <ClInclude Include="serialization\serializer_views\bson.hpp" />
+    <ClInclude Include="serialization\serializer_views\yaml.hpp" />
     <ClInclude Include="serialization\serialization.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -622,8 +622,9 @@
     <None Include="serialization\serializationregistry.inl" />
     <None Include="serialization\serializer_views\serializer_view.inl" />
     <None Include="ecs\prototypes\entity_data_prototype.inl" />
-    <None Include="serialization\serializer_views\json_view.inl" />
-    <None Include="serialization\serializer_views\yaml_view.inl" />
-    <None Include="serialization\serializer_views\bson_view.inl" />
+    <None Include="serialization\serializer_views\json.inl" />
+    <None Include="serialization\serializer_views\yaml.inl" />
+    <None Include="serialization\serializer_views\bson.inl" />
+    <None Include="serialization\serialization.inl" />
   </ItemGroup>
 </Project>
