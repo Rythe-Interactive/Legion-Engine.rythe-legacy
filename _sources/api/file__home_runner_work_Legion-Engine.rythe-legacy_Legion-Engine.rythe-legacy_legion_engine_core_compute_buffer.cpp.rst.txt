@@ -1,0 +1,59 @@
+
+.. _file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_buffer.cpp:
+
+File buffer.cpp
+===============
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/compute``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/compute/buffer.cpp``)
+------------------------------------------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_buffer.cpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``CL/cl_gl.h``
+
+- ``core/compute/buffer.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_buffer.hpp`)
+
+- ``core/logging/logging.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_logging_logging.hpp`)
+
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_legion`
+
+- :ref:`namespace_legion__core`
+
+- :ref:`namespace_legion__core__compute`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_core_2compute_2buffer_8cpp_1a02bbf24f7bfd35d6f51f4ed847a512f6`
+

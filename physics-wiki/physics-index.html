@@ -4,16 +4,16 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Physics Getting Started &#8212; LegionEngine v 0.2 alpha documentation</title>
-    <link rel="stylesheet" href="../_static/nameko.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nameko.css" />
     <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
     <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -51,85 +51,60 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="physics-getting-started">
+  <section id="physics-getting-started">
 <h1>Physics Getting Started<a class="headerlink" href="#physics-getting-started" title="Permalink to this headline">¶</a></h1>
 <p>The physics subordinate engine (also known as <strong>Diviner</strong>) of Legion-Engine is a powerful way to handle physics events,
 collisions and other interesting physics related problems for your game.</p>
 <p>To use Diviner make sure to link against <code class="docutils literal notranslate"><span class="pre">legion-physics.lib</span></code>
 If you are on Windows you can do this by right-clicking your project -&gt; Properties -&gt; Linker -&gt; Input
 <a class="reference external" href="https://stackoverflow.com/a/4446085/5487005">More Details</a></p>
-<div class="section" id="adding-physics-components">
+<section id="adding-physics-components">
 <h2>Adding Physics Components<a class="headerlink" href="#adding-physics-components" title="Permalink to this headline">¶</a></h2>
 <p>To achieve anything with the physics-engine we need to attach physics components to our entities.
 While it is not particularly complicated it is a bit more involved than adding regular components.
 Take a look:</p>
-<div class="highlight-cpp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">//create an entity</span>
-<span class="k">auto</span> <span class="n">ent</span> <span class="o">=</span> <span class="n">m_ecs</span><span class="o">-&gt;</span><span class="n">createEntity</span><span class="p">();</span>
-
-<span class="c1">//attach a physics component to the entity</span>
-<span class="k">auto</span> <span class="n">entPhyHande</span> <span class="o">=</span> <span class="n">ent</span><span class="p">.</span><span class="n">add_component</span><span class="o">&lt;</span><span class="n">physics</span><span class="o">::</span><span class="n">physicsComponent</span><span class="o">&gt;</span><span class="p">();</span>
-
-<span class="c1">//init the physics Component</span>
-<span class="n">physics</span><span class="o">::</span><span class="n">physicsComponent</span> <span class="n">physicsComponent</span><span class="p">;</span>
-<span class="n">physics</span><span class="o">::</span><span class="n">physicsComponent</span><span class="o">::</span><span class="n">init</span><span class="p">(</span><span class="n">physicsComponent</span><span class="p">);</span>
-
-<span class="c1">// Add a Box and write back to the Entity</span>
-<span class="n">physicsComponent</span><span class="p">.</span><span class="n">AddBox</span><span class="p">(</span><span class="n">cubeParams</span><span class="p">);</span>
-<span class="n">entPhyHande</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">physicsComponent</span><span class="p">);</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="c1">//create an entity</span>
+<span class="linenos"> 2</span><span class="k">auto</span> <span class="n">ent</span> <span class="o">=</span> <span class="n">m_ecs</span><span class="o">-&gt;</span><span class="n">createEntity</span><span class="p">();</span>
+<span class="linenos"> 3</span>
+<span class="linenos"> 4</span><span class="c1">//attach a physics component to the entity</span>
+<span class="linenos"> 5</span><span class="k">auto</span> <span class="n">entPhyHande</span> <span class="o">=</span> <span class="n">ent</span><span class="p">.</span><span class="n">add_component</span><span class="o">&lt;</span><span class="n">physics</span><span class="o">::</span><span class="n">physicsComponent</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="c1">//init the physics Component</span>
+<span class="linenos"> 8</span><span class="n">physics</span><span class="o">::</span><span class="n">physicsComponent</span> <span class="n">physicsComponent</span><span class="p">;</span>
+<span class="linenos"> 9</span><span class="n">physics</span><span class="o">::</span><span class="n">physicsComponent</span><span class="o">::</span><span class="n">init</span><span class="p">(</span><span class="n">physicsComponent</span><span class="p">);</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="c1">// Add a Box and write back to the Entity</span>
+<span class="linenos">12</span><span class="n">physicsComponent</span><span class="p">.</span><span class="n">AddBox</span><span class="p">(</span><span class="n">cubeParams</span><span class="p">);</span>
+<span class="linenos">13</span><span class="n">entPhyHande</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">physicsComponent</span><span class="p">);</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>As you can see we need to call <code class="docutils literal notranslate"><span class="pre">physics::physicsComponent::init</span></code> on the component, which assures that the physics component is properly setup.
 After that you can work with it as you would with any other component. here we just simply add a box to the physicsComponent and then write it
 to the handle.</p>
-</div>
-<div class="section" id="checking-for-collisions">
+</section>
+<section id="checking-for-collisions">
 <h2>Checking For Collisions<a class="headerlink" href="#checking-for-collisions" title="Permalink to this headline">¶</a></h2>
 <p>To check for collisions you need to subscribe to one of the physics events using the <a class="reference external" href="../architecture-wiki/eventbus.rst">eventbus</a>
 For Example:</p>
-<div class="highlight-cpp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MySystem</span> <span class="o">:</span> <span class="k">public</span> <span class="n">legion</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">System</span><span class="o">&lt;</span><span class="n">MySystem</span><span class="o">&gt;</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">void</span> <span class="n">setup</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="n">bindToEvent</span><span class="o">&lt;</span><span class="n">legion</span><span class="o">::</span><span class="n">physics</span><span class="o">::</span><span class="n">trigger_event</span><span class="p">,</span><span class="o">&amp;</span><span class="n">MySystem</span><span class="o">::</span><span class="n">onTriggerEvent</span><span class="o">&gt;</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="kt">void</span> <span class="n">onTriggerEvent</span><span class="p">(</span><span class="n">legion</span><span class="o">::</span><span class="n">physics</span><span class="o">::</span><span class="n">trigger_event</span><span class="o">*</span> <span class="n">event</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// ... do things with the event here</span>
-    <span class="p">}</span>
-
-<span class="p">};</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="k">class</span> <span class="nc">MySystem</span> <span class="o">:</span> <span class="k">public</span> <span class="n">legion</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">System</span><span class="o">&lt;</span><span class="n">MySystem</span><span class="o">&gt;</span>
+<span class="linenos"> 2</span><span class="p">{</span>
+<span class="linenos"> 3</span><span class="k">public</span><span class="o">:</span>
+<span class="linenos"> 4</span>    <span class="kt">void</span> <span class="n">setup</span><span class="p">()</span>
+<span class="linenos"> 5</span>    <span class="p">{</span>
+<span class="linenos"> 6</span>        <span class="n">bindToEvent</span><span class="o">&lt;</span><span class="n">legion</span><span class="o">::</span><span class="n">physics</span><span class="o">::</span><span class="n">trigger_event</span><span class="p">,</span><span class="o">&amp;</span><span class="n">MySystem</span><span class="o">::</span><span class="n">onTriggerEvent</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="linenos"> 7</span>    <span class="p">}</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span>    <span class="kt">void</span> <span class="n">onTriggerEvent</span><span class="p">(</span><span class="n">legion</span><span class="o">::</span><span class="n">physics</span><span class="o">::</span><span class="n">trigger_event</span><span class="o">*</span> <span class="n">event</span><span class="p">)</span>
+<span class="linenos">10</span>    <span class="p">{</span>
+<span class="linenos">11</span>        <span class="c1">// ... do things with the event here</span>
+<span class="linenos">12</span>    <span class="p">}</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="p">};</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>You will find the required imports in <code class="docutils literal notranslate"><span class="pre">&lt;physics/physics.hpp&gt;</span></code> or explicitly in <code class="docutils literal notranslate"><span class="pre">&lt;physics/events/events.hpp&gt;</span></code></p>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -164,7 +139,7 @@ For Example:</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>

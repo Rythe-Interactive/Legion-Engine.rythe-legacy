@@ -1,0 +1,49 @@
+.. _dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data:
+
+
+Directory data
+==============
+
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/rendering``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+*Directory path:* ``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/rendering/data``
+
+Subdirectories
+--------------
+
+- :ref:`dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_importers`
+
+
+Files
+-----
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_buffer.cpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_buffer.hpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_buffer.inl`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_framebuffer.cpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_framebuffer.hpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_material.cpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_material.hpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_model.cpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_model.hpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_Octree.hpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_particle_system_base.cpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_particle_system_base.hpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_particle_system_cache.cpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_particle_system_cache.hpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_postprocessingeffect.cpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_postprocessingeffect.hpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_renderbuffer.cpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_renderbuffer.hpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_screen_quad.hpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_shader.cpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_shader.hpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_texture.cpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_texture.hpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_vertexarray.cpp`
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_vertexarray.hpp`
+
+

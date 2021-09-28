@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Program Listing for File physics_fracture_test_system.hpp &#8212; LegionEngine v 0.2 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nameko.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+    <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Lora:400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">LegionEngine v 0.2 alpha documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Program Listing for File physics_fracture_test_system.hpp</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="program-listing-for-file-physics-fracture-test-system-hpp">
+<span id="program-listing-file-home-runner-work-legion-engine-rythe-legacy-legion-engine-rythe-legacy-legion-engine-physics-systems-physics-fracture-test-system-hpp"></span><h1>Program Listing for File physics_fracture_test_system.hpp<a class="headerlink" href="#program-listing-for-file-physics-fracture-test-system-hpp" title="Permalink to this headline">¶</a></h1>
+<p>↰ <a class="reference internal" href="file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_systems_physics_fracture_test_system.hpp.html#file-home-runner-work-legion-engine-rythe-legacy-legion-engine-rythe-legacy-legion-engine-physics-systems-physics-fracture-test-system-hpp"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/physics/systems/physics_fracture_test_system.hpp</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma once</span>
+<span class="cp">#include</span> <span class="cpf">&lt;core/core.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;rendering/components/renderable.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;physics/cube_collider_params.hpp&gt;</span><span class="cp"></span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="nn">legion</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="nc">extendedPhysicsContinue</span> <span class="o">:</span> <span class="k">public</span> <span class="n">app</span><span class="o">::</span><span class="n">input_action</span><span class="o">&lt;</span><span class="n">extendedPhysicsContinue</span><span class="o">&gt;</span> <span class="p">{};</span>
+<span class="k">struct</span> <span class="nc">nextPhysicsTimeStepContinue</span> <span class="o">:</span> <span class="k">public</span> <span class="n">app</span><span class="o">::</span><span class="n">input_action</span><span class="o">&lt;</span><span class="n">nextPhysicsTimeStepContinue</span><span class="o">&gt;</span> <span class="p">{};</span>
+<span class="k">struct</span> <span class="nc">physics_split_test</span> <span class="o">:</span> <span class="k">public</span> <span class="n">app</span><span class="o">::</span><span class="n">input_action</span><span class="o">&lt;</span><span class="n">physics_split_test</span><span class="o">&gt;</span> <span class="p">{};</span>
+<span class="k">struct</span> <span class="nc">spawnEntity</span> <span class="o">:</span> <span class="k">public</span> <span class="n">app</span><span class="o">::</span><span class="n">input_action</span><span class="o">&lt;</span><span class="n">spawnEntity</span><span class="o">&gt;</span> <span class="p">{};</span>
+
+<span class="k">struct</span> <span class="nc">smallExplosion</span> <span class="o">:</span> <span class="k">public</span> <span class="n">app</span><span class="o">::</span><span class="n">input_action</span><span class="o">&lt;</span><span class="n">smallExplosion</span><span class="o">&gt;</span> <span class="p">{};</span>
+<span class="k">struct</span> <span class="nc">mediumExplosion</span> <span class="o">:</span> <span class="k">public</span> <span class="n">app</span><span class="o">::</span><span class="n">input_action</span><span class="o">&lt;</span><span class="n">mediumExplosion</span><span class="o">&gt;</span> <span class="p">{};</span>
+<span class="k">struct</span> <span class="nc">largeExplosion</span> <span class="o">:</span> <span class="k">public</span> <span class="n">app</span><span class="o">::</span><span class="n">input_action</span><span class="o">&lt;</span><span class="n">largeExplosion</span><span class="o">&gt;</span> <span class="p">{};</span>
+
+<span class="k">struct</span> <span class="nc">explosion</span> <span class="o">:</span> <span class="k">public</span> <span class="n">app</span><span class="o">::</span><span class="n">input_action</span><span class="o">&lt;</span><span class="n">explosion</span><span class="o">&gt;</span> <span class="p">{};</span>
+
+
+<span class="k">namespace</span> <span class="nn">legion</span><span class="o">::</span><span class="nn">physics</span>
+<span class="p">{</span>
+    <span class="k">class</span> <span class="nc">PhysicsFractureTestSystem</span> <span class="k">final</span> <span class="o">:</span> <span class="k">public</span> <span class="n">System</span><span class="o">&lt;</span><span class="n">PhysicsFractureTestSystem</span><span class="o">&gt;</span>
+    <span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+
+        <span class="k">virtual</span> <span class="kt">void</span> <span class="n">setup</span><span class="p">();</span>
+
+        <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">colliderDraw</span><span class="p">(</span><span class="n">time</span><span class="o">::</span><span class="n">span</span> <span class="n">dt</span><span class="p">);</span>
+
+    <span class="k">private</span><span class="o">:</span>
+
+        <span class="kt">void</span> <span class="n">CreateElongatedFloor</span><span class="p">(</span><span class="n">math</span><span class="o">::</span><span class="n">vec3</span> <span class="n">position</span><span class="p">,</span><span class="n">math</span><span class="o">::</span><span class="n">quat</span> <span class="n">rot</span><span class="p">,</span> <span class="n">math</span><span class="o">::</span><span class="n">vec3</span> <span class="n">scale</span><span class="p">,</span> <span class="n">rendering</span><span class="o">::</span><span class="n">material_handle</span> <span class="n">mat</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">hasCollider</span> <span class="o">=</span><span class="nb">true</span><span class="p">);</span>
+
+        <span class="n">ecs</span><span class="o">::</span><span class="n">entity_handle</span> <span class="nf">CreateSplitTestBox</span><span class="p">(</span><span class="n">physics</span><span class="o">::</span><span class="n">cube_collider_params</span> <span class="n">cubeParams</span><span class="p">,</span> <span class="n">math</span><span class="o">::</span><span class="n">vec3</span> <span class="n">position</span><span class="p">,</span>
+            <span class="n">math</span><span class="o">::</span><span class="n">quat</span> <span class="n">rotation</span><span class="p">,</span> <span class="n">rendering</span><span class="o">::</span><span class="n">material_handle</span> <span class="n">mat</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">isFracturable</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">hasRigidbody</span> <span class="o">=</span> <span class="nb">false</span>
+            <span class="p">,</span> <span class="n">math</span><span class="o">::</span><span class="n">vec3</span> <span class="n">velocity</span> <span class="o">=</span> <span class="n">math</span><span class="o">::</span><span class="n">vec3</span><span class="p">(),</span> <span class="kt">float</span> <span class="n">explosionStrength</span> <span class="o">=</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="kt">float</span> <span class="n">explosionTime</span> <span class="o">=</span> <span class="n">FLT_MAX</span><span class="p">,</span>
+            <span class="n">math</span><span class="o">::</span><span class="n">vec3</span> <span class="n">impactPoint</span> <span class="o">=</span> <span class="n">math</span><span class="o">::</span><span class="n">vec3</span><span class="p">(</span><span class="mf">-69.0f</span><span class="p">,</span><span class="mf">0.0f</span><span class="p">,</span><span class="mf">0.0f</span><span class="p">),</span> <span class="kt">bool</span> <span class="n">hasCollider</span> <span class="o">=</span> <span class="nb">true</span><span class="p">);</span>
+
+        <span class="kt">void</span> <span class="nf">OnSplit</span><span class="p">(</span><span class="n">physics_split_test</span><span class="o">*</span> <span class="n">action</span><span class="p">);</span>
+
+        <span class="kt">void</span> <span class="nf">meshSplittingTest</span><span class="p">(</span><span class="n">rendering</span><span class="o">::</span><span class="n">model_handle</span> <span class="n">planeH</span><span class="p">,</span> <span class="n">rendering</span><span class="o">::</span><span class="n">model_handle</span> <span class="n">cubeH</span>
+            <span class="p">,</span> <span class="n">rendering</span><span class="o">::</span><span class="n">model_handle</span> <span class="n">cylinderH</span><span class="p">,</span> <span class="n">rendering</span><span class="o">::</span><span class="n">model_handle</span> <span class="n">complexH</span><span class="p">,</span> <span class="n">rendering</span><span class="o">::</span><span class="n">material_handle</span> <span class="n">TextureH</span><span class="p">);</span>
+
+        <span class="kt">void</span> <span class="nf">collisionResolutionTest</span><span class="p">(</span><span class="n">rendering</span><span class="o">::</span><span class="n">model_handle</span> <span class="n">cubeH</span><span class="p">,</span>
+            <span class="n">rendering</span><span class="o">::</span><span class="n">material_handle</span> <span class="n">wireframeH</span><span class="p">);</span>
+
+        <span class="kt">void</span> <span class="nf">fractureVideoScene</span><span class="p">();</span>
+
+        <span class="kt">void</span> <span class="nf">prematureExplosion</span><span class="p">(</span><span class="n">explosion</span><span class="o">*</span> <span class="n">action</span><span class="p">);</span>
+
+        <span class="kt">void</span> <span class="nf">numericalRobustnessTest</span><span class="p">();</span>
+
+        <span class="kt">void</span> <span class="nf">extendedContinuePhysics</span><span class="p">(</span><span class="n">extendedPhysicsContinue</span> <span class="o">*</span> <span class="n">action</span><span class="p">);</span>
+
+        <span class="kt">void</span> <span class="nf">OneTimeContinuePhysics</span><span class="p">(</span><span class="n">nextPhysicsTimeStepContinue</span> <span class="o">*</span> <span class="n">action</span><span class="p">);</span>
+
+        <span class="kt">void</span> <span class="nf">spawnCubeStack</span><span class="p">(</span><span class="n">math</span><span class="o">::</span><span class="n">vec3</span> <span class="n">start</span><span class="p">);</span>
+
+        <span class="kt">void</span> <span class="nf">compositeColliderTest</span><span class="p">();</span>
+
+        <span class="kt">void</span> <span class="nf">explosionTest</span><span class="p">();</span>
+
+        <span class="kt">void</span> <span class="nf">spawnEntityOnCameraForward</span><span class="p">(</span><span class="n">spawnEntity</span> <span class="o">*</span> <span class="n">action</span><span class="p">);</span>
+
+        <span class="kt">void</span> <span class="nf">simpleMinecraftHouse</span><span class="p">(</span><span class="n">math</span><span class="o">::</span><span class="n">vec3</span> <span class="n">start</span><span class="p">);</span>
+
+        <span class="kt">void</span> <span class="nf">createFloor</span><span class="p">(</span><span class="kt">int</span> <span class="n">xCount</span><span class="p">,</span> <span class="kt">int</span> <span class="n">yCount</span><span class="p">,</span> <span class="n">math</span><span class="o">::</span><span class="n">vec3</span> <span class="n">start</span><span class="p">,</span>
+            <span class="n">math</span><span class="o">::</span><span class="n">vec3</span> <span class="n">offset</span><span class="p">,</span> <span class="n">rendering</span><span class="o">::</span><span class="n">model_handle</span> <span class="n">cubeH</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span> <span class="n">rendering</span><span class="o">::</span><span class="n">material_handle</span><span class="o">&gt;</span> <span class="n">materials</span>
+            <span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">ignoreJ</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">shouldFracture</span> <span class="p">,</span> <span class="kt">float</span> <span class="n">fractureTime</span> <span class="o">=</span> <span class="n">FLT_MAX</span><span class="p">,</span>
+            <span class="n">math</span><span class="o">::</span><span class="n">vec3</span> <span class="n">impactPoint</span> <span class="o">=</span> <span class="n">math</span><span class="o">::</span><span class="n">vec3</span><span class="p">(),</span> <span class="kt">bool</span> <span class="n">hasRigidbodies</span> <span class="o">=</span> <span class="nb">false</span><span class="p">,</span><span class="kt">float</span> <span class="n">strength</span> <span class="o">=</span><span class="mf">0.0f</span><span class="p">,</span><span class="kt">bool</span> <span class="n">hasCollider</span> <span class="o">=</span> <span class="nb">true</span><span class="p">);</span>
+
+        <span class="kt">void</span> <span class="nf">smallExplosionTest</span><span class="p">(</span><span class="n">smallExplosion</span><span class="o">*</span><span class="n">action</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="nf">mediumExplosionTest</span><span class="p">(</span><span class="n">mediumExplosion</span><span class="o">*</span><span class="n">action</span><span class="p">);</span>
+        <span class="kt">void</span> <span class="nf">largeExplosionTest</span><span class="p">(</span><span class="n">largeExplosion</span><span class="o">*</span><span class="n">action</span><span class="p">);</span>
+
+        <span class="kt">void</span> <span class="nf">explodeAThing</span><span class="p">(</span><span class="n">time</span><span class="o">::</span><span class="n">span</span><span class="p">);</span>
+
+        <span class="k">enum</span> <span class="nc">explosionType</span> <span class="o">:</span> <span class="kt">int</span>
+        <span class="p">{</span>
+            <span class="n">NO_BOOM</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="n">SMALL_BOOM</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="n">MEDIUM_BOOM</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="n">BIG_BOOM</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="p">};</span>
+
+        <span class="n">explosionType</span> <span class="n">m_boom</span> <span class="o">=</span> <span class="n">explosionType</span><span class="o">::</span><span class="n">NO_BOOM</span><span class="p">;</span>
+
+        <span class="kt">void</span> <span class="nf">fractureTest</span><span class="p">();</span>
+        <span class="n">rendering</span><span class="o">::</span><span class="n">material_handle</span> <span class="n">textureH</span><span class="p">;</span>
+        <span class="n">rendering</span><span class="o">::</span><span class="n">material_handle</span> <span class="n">woodTextureH</span><span class="p">;</span>
+        <span class="n">rendering</span><span class="o">::</span><span class="n">material_handle</span> <span class="n">rockTextureH</span><span class="p">;</span>
+        <span class="n">rendering</span><span class="o">::</span><span class="n">material_handle</span> <span class="n">concreteH</span><span class="p">;</span>
+        <span class="n">rendering</span><span class="o">::</span><span class="n">material_handle</span> <span class="n">tileH</span><span class="p">;</span>
+        <span class="n">rendering</span><span class="o">::</span><span class="n">material_handle</span> <span class="n">directionalLightMH</span><span class="p">;</span>
+        <span class="n">rendering</span><span class="o">::</span><span class="n">material_handle</span> <span class="n">brickH</span><span class="p">;</span>
+
+        <span class="n">rendering</span><span class="o">::</span><span class="n">model_handle</span> <span class="n">cubeH</span><span class="p">;</span>
+        <span class="n">rendering</span><span class="o">::</span><span class="n">model_handle</span> <span class="n">concaveTestObject</span><span class="p">;</span>
+        <span class="n">rendering</span><span class="o">::</span><span class="n">model_handle</span> <span class="n">planeH</span><span class="p">;</span>
+        <span class="n">rendering</span><span class="o">::</span><span class="n">model_handle</span> <span class="n">cylinderH</span><span class="p">;</span>
+        <span class="n">rendering</span><span class="o">::</span><span class="n">model_handle</span> <span class="n">complexH</span><span class="p">;</span>
+        <span class="n">rendering</span><span class="o">::</span><span class="n">model_handle</span> <span class="n">directionalLightH</span><span class="p">;</span>
+
+        <span class="n">ecs</span><span class="o">::</span><span class="n">entity_handle</span> <span class="n">smallExplosionEnt</span><span class="p">;</span>
+        <span class="n">ecs</span><span class="o">::</span><span class="n">entity_handle</span> <span class="n">mediumExplosionEnt</span><span class="p">;</span>
+        <span class="n">ecs</span><span class="o">::</span><span class="n">entity_handle</span> <span class="n">largeExplosionEnt</span><span class="p">;</span>
+
+        <span class="n">ecs</span><span class="o">::</span><span class="n">entity_handle</span> <span class="n">staticToAABBEntLinear</span><span class="p">,</span> <span class="n">staticToAABBEntRotation</span><span class="p">,</span> <span class="n">staticToOBBEnt</span><span class="p">,</span> <span class="n">staticToEdgeEnt</span><span class="p">;</span>
+
+    <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation index</a><ul>
+  </ul></li>
+</ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_systems_physics_fracture_test_system.hpp.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+  </body>
+</html>

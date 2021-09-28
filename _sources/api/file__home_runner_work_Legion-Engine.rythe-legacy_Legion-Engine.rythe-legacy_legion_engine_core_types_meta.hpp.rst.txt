@@ -1,0 +1,106 @@
+
+.. _file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_types_meta.hpp:
+
+File meta.hpp
+=============
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_types>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/types``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/types/meta.hpp``)
+--------------------------------------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_types_meta.hpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``array`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_vertexarray.cpp`)
+
+- ``deque``
+
+- ``list`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio_components_audio_listener.hpp`)
+
+- ``queue``
+
+- ``string`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_common_string_extra.hpp`)
+
+- ``type_traits``
+
+- ``vector`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_containers_vector_view.hpp`)
+
+
+
+Included By
+-----------
+
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_high_level_function.hpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_engine_engine.hpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_types_type_util.hpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_types_types.hpp`
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_legion`
+
+- :ref:`namespace_legion__core`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structlegion_1_1core_1_1has__resize`
+
+- :ref:`exhale_struct_structlegion_1_1core_1_1has__resize_3_01_c_00_01_ret_07_args_8_8_8_08_4`
+
+- :ref:`exhale_struct_structlegion_1_1core_1_1is__container`
+
+- :ref:`exhale_struct_structlegion_1_1core_1_1is__container_3_01std_1_1array_3_01_t_00_01_n_01_4_01_4`
+
+- :ref:`exhale_struct_structlegion_1_1core_1_1is__container_3_01std_1_1basic__string_3_01_t_01_4_01_4`
+
+- :ref:`exhale_struct_structlegion_1_1core_1_1is__container_3_01std_1_1deque_3_01_t_01_4_01_4`
+
+- :ref:`exhale_struct_structlegion_1_1core_1_1is__container_3_01std_1_1list_3_01_t_01_4_01_4`
+
+- :ref:`exhale_struct_structlegion_1_1core_1_1is__container_3_01std_1_1queue_3_01_t_01_4_01_4`
+
+- :ref:`exhale_struct_structlegion_1_1core_1_1is__container_3_01std_1_1vector_3_01_t_01_4_01_4`
+
+- :ref:`exhale_struct_structlegion_1_1core_1_1is__vector`
+
+- :ref:`exhale_struct_structlegion_1_1core_1_1is__vector_3_01std_1_1vector_3_01_t_01_4_01_4`
+
+
+Typedefs
+--------
+
+
+- :ref:`exhale_typedef_types_2meta_8hpp_1ad0e7bc6cd5d3b9607b4b7ecd55305bde`
+
+- :ref:`exhale_typedef_types_2meta_8hpp_1adcd474bc5e8b1b7207b8465976de1422`
+

@@ -1,0 +1,61 @@
+
+.. _program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_program.hpp:
+
+Program Listing for File program.hpp
+====================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_program.hpp>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/compute/program.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   #include "detail/cl_include.hpp"
+   
+   #include <core/filesystem/resource.hpp>
+   #include <core/compute/kernel.hpp>
+   
+   #include <functional>
+   #include <string>
+   
+   #include <Optick/optick.h>
+   
+   namespace legion::core::compute {
+   
+       class Program
+       {
+       public:
+   
+   
+           Program(cl_context, cl_device_id, filesystem::basic_resource /*, bool source_is_il = false*/);
+           Program(const Program& other) = default;
+           Program(Program&& other) noexcept = default;
+           Program& operator=(const Program& other) = default;
+           Program& operator=(Program&& other) noexcept = default;
+   
+           Kernel kernelContext(const std::string& name);
+   
+           cl_kernel prewarm(const std::string& name);
+   
+   
+           cl_command_queue make_cq() const
+           {
+               OPTICK_EVENT();
+               return make_command_queue();
+           }
+   
+           static void from_resource(Program* value, const filesystem::basic_resource& resource);
+   
+       private:
+           friend filesystem::basic_resource;
+           template <class T, class C1,class C2,class C3>
+           friend T filesystem::from_resource(const filesystem::basic_resource& resource);
+   
+           Program() = default;
+   
+           std::function<cl_command_queue()> make_command_queue;
+           cl_program m_program;
+           std::unordered_map<std::string, cl_kernel> m_kernelCache;
+       };
+   }

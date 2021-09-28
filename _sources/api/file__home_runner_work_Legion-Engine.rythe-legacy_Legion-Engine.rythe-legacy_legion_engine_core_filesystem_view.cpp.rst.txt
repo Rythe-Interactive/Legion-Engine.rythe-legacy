@@ -1,0 +1,60 @@
+
+.. _file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_view.cpp:
+
+File view.cpp
+=============
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/filesystem``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/filesystem/view.cpp``)
+-------------------------------------------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_view.cpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``algorithm`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_broadphasecollisionalgorithms_broadphasebruteforce.hpp`)
+
+- ``core/filesystem/view.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_view.hpp`)
+
+- ``core/logging/logging.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_logging_logging.hpp`)
+
+- ``detail/strpath_manip.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_detail_strpath_manip.hpp`)
+
+- ``filesystem`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_artifact_cache.cpp`)
+
+- ``navigator.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_navigator.hpp`)
+
+- ``provider_registry.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_provider_registry.hpp`)
+
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_legion`
+
+- :ref:`namespace_legion__core`
+
+- :ref:`namespace_legion__core__filesystem`
+

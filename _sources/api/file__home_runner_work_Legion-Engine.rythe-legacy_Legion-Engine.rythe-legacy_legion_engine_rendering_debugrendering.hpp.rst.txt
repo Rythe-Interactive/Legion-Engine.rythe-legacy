@@ -1,0 +1,102 @@
+
+.. _file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_debugrendering.hpp:
+
+File debugrendering.hpp
+=======================
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/rendering``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/rendering/debugrendering.hpp``)
+-----------------------------------------------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_debugrendering.hpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``core/core.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-core_core.hpp`)
+
+
+
+Included By
+-----------
+
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_window_windowsystem.cpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_colliders_convexcollider.cpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_colliders_convexcollider.hpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_edgepenetrationquery.cpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_halfedgeedge.hpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_HalfEdgeFace.cpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_mesh_splitter_utils_mesh_half_edge.hpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_physics_statics.cpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_physics_statics.hpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_systems_physics_fracture_test_system.cpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_systems_physicssystem.hpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_Octree.hpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_debugrenderstage.hpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_rendering.hpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_systems_pointcloud_particlesystem.hpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_systems_renderer.cpp`
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_legion`
+
+- :ref:`namespace_legion__debug`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_debugrendering_8hpp_1ac68069c24d039e529280c33fd8722602`
+
+- :ref:`exhale_function_debugrendering_8hpp_1ab935709c7b0cd5654e4418cf02d48d22`
+
+
+Defines
+-------
+
+
+- :ref:`exhale_define_debugrendering_8hpp_1abfbb899fe2e7483e9032a5399bb02f68`
+
+- :ref:`exhale_define_debugrendering_8hpp_1afa71624c00becb86bdce453304202bdd`
+
+- :ref:`exhale_define_debugrendering_8hpp_1a257986632e1b7acf12274ac8080777e1`
+

@@ -1,0 +1,33 @@
+
+.. _program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_components_particle_emitter.hpp:
+
+Program Listing for File particle_emitter.hpp
+=============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_components_particle_emitter.hpp>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/rendering/components/particle_emitter.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   #include <core/core.hpp>
+   #include <rendering/data/particle_system_cache.hpp>
+   #include<rendering/components/point_cloud_particle_container.hpp>
+   namespace legion::rendering
+   {
+       struct particle_emitter
+       {
+           std::vector<ecs::entity_handle> livingParticles;
+           std::vector<ecs::entity_handle> deadParticles;
+           bool playAnimation = false;
+           ParticleSystemHandle particleSystemHandle;
+           bool setupCompleted;
+   
+           std::vector<math::vec3> pointInput;
+           std::vector<math::vec4> colorInput;
+           point_cloud_particle_container* container;
+       };
+   
+   
+   }

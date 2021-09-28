@@ -1,0 +1,48 @@
+
+.. _file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_assetimporter.cpp:
+
+File assetimporter.cpp
+======================
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/filesystem``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/filesystem/assetimporter.cpp``)
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_assetimporter.cpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``core/filesystem/assetimporter.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_assetimporter.hpp`)
+
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_legion`
+
+- :ref:`namespace_legion__core`
+
+- :ref:`namespace_legion__core__filesystem`
+

@@ -3,7 +3,7 @@
 Template Function legion::core::math::sqrt3
 ===========================================
 
-- Defined in :ref:`file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_math_constants.hpp`
+- Defined in :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_math_constants.hpp`
 
 
 Function Documentation

@@ -1,0 +1,24 @@
+
+.. _program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_pointer_encapsulator.hpp:
+
+Program Listing for File pointer_encapsulator.hpp
+=================================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_pointer_encapsulator.hpp>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/physics/data/pointer_encapsulator.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   
+   namespace legion::physics
+   {
+       template<class T>
+       class PointerEncapsulator
+       {
+       public:
+   
+           T* ptr = nullptr;
+       };
+   }

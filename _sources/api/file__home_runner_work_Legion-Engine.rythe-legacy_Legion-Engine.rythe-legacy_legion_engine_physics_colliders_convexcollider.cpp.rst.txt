@@ -1,0 +1,60 @@
+
+.. _file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_colliders_convexcollider.cpp:
+
+File convexcollider.cpp
+=======================
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_colliders>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/physics/colliders``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/physics/colliders/convexcollider.cpp``)
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_colliders_convexcollider.cpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``physics/colliders/convexcollider.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_colliders_convexcollider.hpp`)
+
+- ``physics/data/convexconvexpenetrationquery.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_convexconvexpenetrationquery.hpp`)
+
+- ``physics/data/edgepenetrationquery.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_edgepenetrationquery.hpp`)
+
+- ``physics/data/identifier.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_identifier.hpp`)
+
+- ``physics/data/pointer_encapsulator.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_pointer_encapsulator.hpp`)
+
+- ``physics/physics_statics.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_physics_statics.hpp`)
+
+- ``physics/systems/physicssystem.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_systems_physicssystem.hpp`)
+
+- ``rendering/debugrendering.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_debugrendering.hpp`)
+
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_legion`
+
+- :ref:`namespace_legion__physics`
+

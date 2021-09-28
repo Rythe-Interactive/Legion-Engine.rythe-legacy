@@ -1,0 +1,76 @@
+
+.. _file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_rendering.hpp:
+
+File rendering.hpp
+==================
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/rendering``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/rendering/rendering.hpp``)
+------------------------------------------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_rendering.hpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``rendering/data/buffer.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_buffer.hpp`)
+
+- ``rendering/data/framebuffer.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_framebuffer.hpp`)
+
+- ``rendering/data/material.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_material.hpp`)
+
+- ``rendering/data/model.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_model.hpp`)
+
+- ``rendering/data/particle_system_base.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_particle_system_base.hpp`)
+
+- ``rendering/data/particle_system_cache.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_particle_system_cache.hpp`)
+
+- ``rendering/data/postprocessingeffect.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_postprocessingeffect.hpp`)
+
+- ``rendering/data/renderbuffer.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_renderbuffer.hpp`)
+
+- ``rendering/data/vertexarray.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_vertexarray.hpp`)
+
+- ``rendering/debugrendering.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_debugrendering.hpp`)
+
+- ``rendering/module/renderingmodule.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_module_renderingmodule.hpp`)
+
+- ``rendering/pipeline/default/postfx/tonemapping.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_postfx_tonemapping.hpp`)
+
+- ``rendering/pipeline/default/stages/postprocessingstage.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_postprocessingstage.hpp`)
+
+- ``rendering/systems/renderer.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_systems_renderer.hpp`)
+
+
+
+Included By
+-----------
+
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_systems_physics_fracture_test_system.cpp`
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_legion`
+

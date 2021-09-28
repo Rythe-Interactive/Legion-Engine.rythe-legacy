@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Program Listing for File physicssystem.hpp &#8212; LegionEngine v 0.2 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nameko.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+    <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Lora:400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">LegionEngine v 0.2 alpha documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Program Listing for File physicssystem.hpp</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="program-listing-for-file-physicssystem-hpp">
+<span id="program-listing-file-home-runner-work-legion-engine-rythe-legacy-legion-engine-rythe-legacy-legion-engine-physics-systems-physicssystem-hpp"></span><h1>Program Listing for File physicssystem.hpp<a class="headerlink" href="#program-listing-for-file-physicssystem-hpp" title="Permalink to this headline">¶</a></h1>
+<p>↰ <a class="reference internal" href="file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_systems_physicssystem.hpp.html#file-home-runner-work-legion-engine-rythe-legacy-legion-engine-rythe-legacy-legion-engine-physics-systems-physicssystem-hpp"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/physics/systems/physicssystem.hpp</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#pragma once</span>
+<span class="cp">#include</span> <span class="cpf">&lt;core/core.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;physics/broadphasecollisionalgorithms/broadphasecollisionalgorithm.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;physics/broadphasecollisionalgorithms/broadphaseuniformgrid.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;physics/broadphasecollisionalgorithms/broadphasebruteforce.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;physics/components/rigidbody.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;physics/data/physics_manifold_precursor.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;physics/data/physics_manifold.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;physics/physics_contact.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;physics/components/physics_component.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;physics/data/identifier.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;physics/events/events.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;memory&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;rendering/debugrendering.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;physics/components/fracturer.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;physics/components/fracturecountdown.hpp&gt;</span><span class="cp"></span>
+
+<span class="k">namespace</span> <span class="nn">legion</span><span class="o">::</span><span class="nn">physics</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="nc">MeshLine</span>
+    <span class="p">{</span>
+        <span class="n">math</span><span class="o">::</span><span class="n">vec3</span> <span class="n">start</span><span class="p">;</span>
+        <span class="n">math</span><span class="o">::</span><span class="n">vec3</span> <span class="n">end</span><span class="p">;</span>
+        <span class="n">math</span><span class="o">::</span><span class="n">color</span> <span class="n">Color</span><span class="p">;</span>
+    <span class="p">};</span>
+
+    <span class="k">class</span> <span class="nc">PhysicsSystem</span> <span class="k">final</span> <span class="o">:</span> <span class="k">public</span> <span class="n">System</span><span class="o">&lt;</span><span class="n">PhysicsSystem</span><span class="o">&gt;</span>
+    <span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="k">static</span> <span class="kt">bool</span> <span class="n">IsPaused</span><span class="p">;</span>
+        <span class="k">static</span> <span class="kt">bool</span> <span class="n">oneTimeRunActive</span><span class="p">;</span>
+
+        <span class="n">ecs</span><span class="o">::</span><span class="n">EntityQuery</span> <span class="n">manifoldPrecursorQuery</span><span class="p">;</span>
+
+        <span class="c1">//TODO move implementation to a seperate cpp file</span>
+
+        <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">setup</span><span class="p">();</span>
+
+
+        <span class="kt">void</span> <span class="nf">fixedUpdate</span><span class="p">(</span><span class="n">time</span><span class="o">::</span><span class="n">time_span</span><span class="o">&lt;</span><span class="n">fast_time</span><span class="o">&gt;</span> <span class="n">deltaTime</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">static</span> <span class="n">time</span><span class="o">::</span><span class="n">timer</span> <span class="n">physicsTimer</span><span class="p">;</span>
+            <span class="c1">//log::debug(&quot;{}ms&quot;, physicsTimer.restart().milliseconds());</span>
+            <span class="n">OPTICK_EVENT</span><span class="p">();</span>
+
+            <span class="c1">//static time::timer pt;</span>
+            <span class="c1">//log::debug(&quot;frametime: {}ms&quot;, pt.restart().milliseconds());</span>
+
+            <span class="n">ecs</span><span class="o">::</span><span class="n">component_container</span><span class="o">&lt;</span><span class="n">rigidbody</span><span class="o">&gt;</span> <span class="n">rigidbodies</span><span class="p">;</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">byte</span><span class="o">&gt;</span> <span class="n">hasRigidBodies</span><span class="p">;</span>
+
+            <span class="p">{</span>
+                <span class="n">OPTICK_EVENT</span><span class="p">(</span><span class="s">&quot;Fetching data&quot;</span><span class="p">);</span>
+                <span class="n">manifoldPrecursorQuery</span><span class="p">.</span><span class="n">queryEntities</span><span class="p">();</span>
+
+                <span class="n">rigidbodies</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">manifoldPrecursorQuery</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+                <span class="n">hasRigidBodies</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">manifoldPrecursorQuery</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+                <span class="n">m_scheduler</span><span class="o">-&gt;</span><span class="n">queueJobs</span><span class="p">(</span><span class="n">manifoldPrecursorQuery</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">]()</span> <span class="p">{</span>
+                    <span class="n">id_type</span> <span class="n">index</span> <span class="o">=</span> <span class="n">async</span><span class="o">::</span><span class="n">this_job</span><span class="o">::</span><span class="n">get_id</span><span class="p">();</span>
+                    <span class="k">auto</span> <span class="n">entity</span> <span class="o">=</span> <span class="n">manifoldPrecursorQuery</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">entity</span><span class="p">.</span><span class="n">has_component</span><span class="o">&lt;</span><span class="n">rigidbody</span><span class="o">&gt;</span><span class="p">())</span>
+                    <span class="p">{</span>
+                        <span class="n">hasRigidBodies</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+                        <span class="n">rigidbodies</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">entity</span><span class="p">.</span><span class="n">read_component</span><span class="o">&lt;</span><span class="n">rigidbody</span><span class="o">&gt;</span><span class="p">();</span>
+                    <span class="p">}</span>
+                    <span class="k">else</span>
+                        <span class="n">hasRigidBodies</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+                    <span class="p">}).</span><span class="n">wait</span><span class="p">();</span>
+            <span class="p">}</span>
+
+            <span class="k">auto</span><span class="o">&amp;</span> <span class="n">physComps</span> <span class="o">=</span> <span class="n">manifoldPrecursorQuery</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="n">physicsComponent</span><span class="o">&gt;</span><span class="p">();</span>
+            <span class="k">auto</span><span class="o">&amp;</span> <span class="n">positions</span> <span class="o">=</span> <span class="n">manifoldPrecursorQuery</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="n">position</span><span class="o">&gt;</span><span class="p">();</span>
+            <span class="k">auto</span><span class="o">&amp;</span> <span class="n">rotations</span> <span class="o">=</span> <span class="n">manifoldPrecursorQuery</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="n">rotation</span><span class="o">&gt;</span><span class="p">();</span>
+            <span class="k">auto</span><span class="o">&amp;</span> <span class="n">scales</span> <span class="o">=</span> <span class="n">manifoldPrecursorQuery</span><span class="p">.</span><span class="n">get</span><span class="o">&lt;</span><span class="n">scale</span><span class="o">&gt;</span><span class="p">();</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">IsPaused</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">integrateRigidbodies</span><span class="p">(</span><span class="n">hasRigidBodies</span><span class="p">,</span> <span class="n">rigidbodies</span><span class="p">,</span> <span class="n">deltaTime</span><span class="p">);</span>
+                <span class="n">runPhysicsPipeline</span><span class="p">(</span><span class="n">hasRigidBodies</span><span class="p">,</span> <span class="n">rigidbodies</span><span class="p">,</span> <span class="n">physComps</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">rotations</span><span class="p">,</span> <span class="n">scales</span><span class="p">,</span> <span class="n">deltaTime</span><span class="p">);</span>
+                <span class="n">integrateRigidbodyQueryPositionAndRotation</span><span class="p">(</span><span class="n">hasRigidBodies</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">rotations</span><span class="p">,</span> <span class="n">rigidbodies</span><span class="p">,</span> <span class="n">deltaTime</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">oneTimeRunActive</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">oneTimeRunActive</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+
+                <span class="n">integrateRigidbodies</span><span class="p">(</span><span class="n">hasRigidBodies</span><span class="p">,</span> <span class="n">rigidbodies</span><span class="p">,</span> <span class="n">deltaTime</span><span class="p">);</span>
+                <span class="n">runPhysicsPipeline</span><span class="p">(</span><span class="n">hasRigidBodies</span><span class="p">,</span> <span class="n">rigidbodies</span><span class="p">,</span> <span class="n">physComps</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">rotations</span><span class="p">,</span> <span class="n">scales</span><span class="p">,</span> <span class="n">deltaTime</span><span class="p">);</span>
+                <span class="n">integrateRigidbodyQueryPositionAndRotation</span><span class="p">(</span><span class="n">hasRigidBodies</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">rotations</span><span class="p">,</span> <span class="n">rigidbodies</span><span class="p">,</span> <span class="n">deltaTime</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="p">{</span>
+                <span class="n">OPTICK_EVENT</span><span class="p">(</span><span class="s">&quot;Writing data&quot;</span><span class="p">);</span>
+                <span class="n">m_scheduler</span><span class="o">-&gt;</span><span class="n">queueJobs</span><span class="p">(</span><span class="n">manifoldPrecursorQuery</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">]()</span> <span class="p">{</span>
+                    <span class="n">id_type</span> <span class="n">index</span> <span class="o">=</span> <span class="n">async</span><span class="o">::</span><span class="n">this_job</span><span class="o">::</span><span class="n">get_id</span><span class="p">();</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">hasRigidBodies</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+                    <span class="p">{</span>
+                        <span class="k">auto</span> <span class="n">entity</span> <span class="o">=</span> <span class="n">manifoldPrecursorQuery</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+                        <span class="n">entity</span><span class="p">.</span><span class="n">write_component</span><span class="p">(</span><span class="n">rigidbodies</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+                    <span class="p">}</span>
+                    <span class="p">}).</span><span class="n">wait</span><span class="p">();</span>
+
+                    <span class="n">manifoldPrecursorQuery</span><span class="p">.</span><span class="n">submit</span><span class="o">&lt;</span><span class="n">physicsComponent</span><span class="o">&gt;</span><span class="p">();</span>
+                    <span class="n">manifoldPrecursorQuery</span><span class="p">.</span><span class="n">submit</span><span class="o">&lt;</span><span class="n">position</span><span class="o">&gt;</span><span class="p">();</span>
+                    <span class="n">manifoldPrecursorQuery</span><span class="p">.</span><span class="n">submit</span><span class="o">&lt;</span><span class="n">rotation</span><span class="o">&gt;</span><span class="p">();</span>
+            <span class="p">}</span>
+
+           <span class="cm">/* auto splitterDrawQuery = createQuery&lt;MeshSplitter&gt;();</span>
+<span class="cm">            splitterDrawQuery.queryEntities();</span>
+
+<span class="cm">            for (auto ent : splitterDrawQuery)</span>
+<span class="cm">            {</span>
+<span class="cm">                auto splitterHandle = ent.get_component_handle&lt;MeshSplitter&gt;();</span>
+
+<span class="cm">                if (splitterHandle )</span>
+<span class="cm">                {</span>
+<span class="cm">                    auto [posH,rotH,scaleH] = ent.get_component_handles&lt;transform&gt;();</span>
+<span class="cm">                    debug::drawLine</span>
+<span class="cm">                    (posH.read(), posH.read() + math::vec3(0, 5, 0), math::colors::red, 20.0f, 0.0f, true);</span>
+
+<span class="cm">                    auto splitter = splitterHandle.read();</span>
+<span class="cm">                    math::mat4 transform = math::compose(scaleH.read(), rotH.read(), posH.read());</span>
+
+<span class="cm">                    splitter.DEBUG_DrawPolygonData(transform);</span>
+<span class="cm">                }</span>
+<span class="cm">            }*/</span>
+
+
+        <span class="p">}</span>
+
+        <span class="kt">void</span> <span class="nf">bulkRetrievePreManifoldData</span><span class="p">(</span>
+            <span class="n">ecs</span><span class="o">::</span><span class="n">component_container</span><span class="o">&lt;</span><span class="n">physicsComponent</span><span class="o">&gt;&amp;</span> <span class="n">physComps</span><span class="p">,</span>
+            <span class="n">ecs</span><span class="o">::</span><span class="n">component_container</span><span class="o">&lt;</span><span class="n">position</span><span class="o">&gt;&amp;</span> <span class="n">positions</span><span class="p">,</span>
+            <span class="n">ecs</span><span class="o">::</span><span class="n">component_container</span><span class="o">&lt;</span><span class="n">rotation</span><span class="o">&gt;&amp;</span> <span class="n">rotations</span><span class="p">,</span>
+            <span class="n">ecs</span><span class="o">::</span><span class="n">component_container</span><span class="o">&lt;</span><span class="n">scale</span><span class="o">&gt;&amp;</span> <span class="n">scales</span><span class="p">,</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">physics_manifold_precursor</span><span class="o">&gt;&amp;</span> <span class="n">manifoldPrecursors</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">OPTICK_EVENT</span><span class="p">();</span>
+            <span class="n">manifoldPrecursors</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">physComps</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+
+            <span class="n">m_scheduler</span><span class="o">-&gt;</span><span class="n">queueJobs</span><span class="p">(</span><span class="n">physComps</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">]()</span> <span class="p">{</span>
+                <span class="n">id_type</span> <span class="n">index</span> <span class="o">=</span> <span class="n">async</span><span class="o">::</span><span class="n">this_job</span><span class="o">::</span><span class="n">get_id</span><span class="p">();</span>
+                <span class="n">math</span><span class="o">::</span><span class="n">mat4</span> <span class="n">transf</span><span class="p">;</span>
+                <span class="n">math</span><span class="o">::</span><span class="n">compose</span><span class="p">(</span><span class="n">transf</span><span class="p">,</span> <span class="n">scales</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">rotations</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">positions</span><span class="p">[</span><span class="n">index</span><span class="p">]);</span>
+
+                <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">collider</span> <span class="p">:</span> <span class="n">physComps</span><span class="p">[</span><span class="n">index</span><span class="p">].</span><span class="n">colliders</span><span class="p">)</span>
+                    <span class="n">collider</span><span class="o">-&gt;</span><span class="n">UpdateTransformedTightBoundingVolume</span><span class="p">(</span><span class="n">transf</span><span class="p">);</span>
+
+                <span class="n">manifoldPrecursors</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="n">transf</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">physComps</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">index</span><span class="p">,</span> <span class="n">manifoldPrecursorQuery</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="p">};</span>
+                <span class="p">}).</span><span class="n">wait</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="nc">BroadPhaseType</span><span class="p">,</span> <span class="k">typename</span> <span class="p">...</span><span class="n">Args</span><span class="o">&gt;</span>
+        <span class="k">static</span> <span class="kt">void</span> <span class="n">setBroadPhaseCollisionDetection</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span> <span class="p">...</span><span class="n">args</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_base_of_v</span><span class="o">&lt;</span><span class="n">BroadPhaseCollisionAlgorithm</span><span class="p">,</span> <span class="n">BroadPhaseType</span><span class="o">&gt;</span><span class="p">,</span> <span class="s">&quot;Broadphase type did not inherit from BroadPhaseCollisionAlgorithm&quot;</span><span class="p">);</span>
+            <span class="n">m_broadPhase</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">BroadPhaseType</span><span class="o">&gt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...);</span>
+        <span class="p">}</span>
+
+        <span class="k">static</span> <span class="kt">void</span> <span class="n">drawBroadPhase</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="n">m_broadPhase</span><span class="o">-&gt;</span><span class="n">debugDraw</span><span class="p">();</span>
+        <span class="p">}</span>
+
+    <span class="k">private</span><span class="o">:</span>
+
+        <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">BroadPhaseCollisionAlgorithm</span><span class="o">&gt;</span> <span class="n">m_broadPhase</span><span class="p">;</span>
+        <span class="k">const</span> <span class="kt">float</span> <span class="n">m_timeStep</span> <span class="o">=</span> <span class="mf">0.02f</span><span class="p">;</span>
+
+
+        <span class="n">math</span><span class="o">::</span><span class="n">ivec3</span> <span class="n">uniformGridCellSize</span> <span class="o">=</span> <span class="n">math</span><span class="o">::</span><span class="n">ivec3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+        <span class="kt">void</span> <span class="nf">runPhysicsPipeline</span><span class="p">(</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">byte</span><span class="o">&gt;&amp;</span> <span class="n">hasRigidBodies</span><span class="p">,</span>
+            <span class="n">ecs</span><span class="o">::</span><span class="n">component_container</span><span class="o">&lt;</span><span class="n">rigidbody</span><span class="o">&gt;&amp;</span> <span class="n">rigidbodies</span><span class="p">,</span>
+            <span class="n">ecs</span><span class="o">::</span><span class="n">component_container</span><span class="o">&lt;</span><span class="n">physicsComponent</span><span class="o">&gt;&amp;</span> <span class="n">physComps</span><span class="p">,</span>
+            <span class="n">ecs</span><span class="o">::</span><span class="n">component_container</span><span class="o">&lt;</span><span class="n">position</span><span class="o">&gt;&amp;</span> <span class="n">positions</span><span class="p">,</span>
+            <span class="n">ecs</span><span class="o">::</span><span class="n">component_container</span><span class="o">&lt;</span><span class="n">rotation</span><span class="o">&gt;&amp;</span> <span class="n">rotations</span><span class="p">,</span>
+            <span class="n">ecs</span><span class="o">::</span><span class="n">component_container</span><span class="o">&lt;</span><span class="n">scale</span><span class="o">&gt;&amp;</span> <span class="n">scales</span><span class="p">,</span>
+            <span class="kt">float</span> <span class="n">deltaTime</span><span class="p">);</span>
+
+        <span class="kt">void</span> <span class="nf">constructManifoldsWithPrecursors</span><span class="p">(</span><span class="n">ecs</span><span class="o">::</span><span class="n">component_container</span><span class="o">&lt;</span><span class="n">rigidbody</span><span class="o">&gt;&amp;</span> <span class="n">rigidbodies</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">byte</span><span class="o">&gt;&amp;</span> <span class="n">hasRigidBodies</span><span class="p">,</span> <span class="n">physics_manifold_precursor</span><span class="o">&amp;</span> <span class="n">precursorA</span><span class="p">,</span> <span class="n">physics_manifold_precursor</span><span class="o">&amp;</span> <span class="n">precursorB</span><span class="p">,</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">physics_manifold</span><span class="o">&gt;&amp;</span> <span class="n">manifoldsToSolve</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">isRigidbodyInvolved</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">isTriggerInvolved</span><span class="p">);</span>
+
+
+        <span class="kt">void</span> <span class="nf">constructManifoldWithCollider</span><span class="p">(</span>
+            <span class="n">ecs</span><span class="o">::</span><span class="n">component_container</span><span class="o">&lt;</span><span class="n">rigidbody</span><span class="o">&gt;&amp;</span> <span class="n">rigidbodies</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">byte</span><span class="o">&gt;&amp;</span> <span class="n">hasRigidBodies</span><span class="p">,</span>
+            <span class="n">PhysicsCollider</span><span class="o">*</span> <span class="n">colliderA</span><span class="p">,</span> <span class="n">PhysicsCollider</span><span class="o">*</span> <span class="n">colliderB</span>
+            <span class="p">,</span> <span class="n">physics_manifold_precursor</span><span class="o">&amp;</span> <span class="n">precursorA</span><span class="p">,</span> <span class="n">physics_manifold_precursor</span><span class="o">&amp;</span> <span class="n">precursorB</span><span class="p">,</span> <span class="n">physics_manifold</span><span class="o">&amp;</span> <span class="n">manifold</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">OPTICK_EVENT</span><span class="p">();</span>
+            <span class="n">manifold</span><span class="p">.</span><span class="n">colliderA</span> <span class="o">=</span> <span class="n">colliderA</span><span class="p">;</span>
+            <span class="n">manifold</span><span class="p">.</span><span class="n">colliderB</span> <span class="o">=</span> <span class="n">colliderB</span><span class="p">;</span>
+
+            <span class="n">manifold</span><span class="p">.</span><span class="n">entityA</span> <span class="o">=</span> <span class="n">precursorA</span><span class="p">.</span><span class="n">entity</span><span class="p">;</span>
+            <span class="n">manifold</span><span class="p">.</span><span class="n">entityB</span> <span class="o">=</span> <span class="n">precursorB</span><span class="p">.</span><span class="n">entity</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">hasRigidBodies</span><span class="p">[</span><span class="n">precursorA</span><span class="p">.</span><span class="n">id</span><span class="p">])</span>
+                <span class="n">manifold</span><span class="p">.</span><span class="n">rigidbodyA</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rigidbodies</span><span class="p">[</span><span class="n">precursorA</span><span class="p">.</span><span class="n">id</span><span class="p">];</span>
+            <span class="k">else</span>
+                <span class="n">manifold</span><span class="p">.</span><span class="n">rigidbodyA</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">hasRigidBodies</span><span class="p">[</span><span class="n">precursorB</span><span class="p">.</span><span class="n">id</span><span class="p">])</span>
+                <span class="n">manifold</span><span class="p">.</span><span class="n">rigidbodyB</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">rigidbodies</span><span class="p">[</span><span class="n">precursorB</span><span class="p">.</span><span class="n">id</span><span class="p">];</span>
+            <span class="k">else</span>
+                <span class="n">manifold</span><span class="p">.</span><span class="n">rigidbodyB</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+
+            <span class="n">manifold</span><span class="p">.</span><span class="n">physicsCompA</span> <span class="o">=</span> <span class="n">precursorA</span><span class="p">.</span><span class="n">physicsComp</span><span class="p">;</span>
+            <span class="n">manifold</span><span class="p">.</span><span class="n">physicsCompB</span> <span class="o">=</span> <span class="n">precursorB</span><span class="p">.</span><span class="n">physicsComp</span><span class="p">;</span>
+
+            <span class="n">manifold</span><span class="p">.</span><span class="n">transformA</span> <span class="o">=</span> <span class="n">precursorA</span><span class="p">.</span><span class="n">worldTransform</span><span class="p">;</span>
+            <span class="n">manifold</span><span class="p">.</span><span class="n">transformB</span> <span class="o">=</span> <span class="n">precursorB</span><span class="p">.</span><span class="n">worldTransform</span><span class="p">;</span>
+
+            <span class="c1">//manifold.DEBUG_checkID(&quot;floor&quot;, &quot;problem&quot;);</span>
+
+            <span class="c1">// log::debug(&quot;colliderA-&gt;CheckCollision(colliderB, manifold)&quot;);</span>
+            <span class="n">colliderA</span><span class="o">-&gt;</span><span class="n">CheckCollision</span><span class="p">(</span><span class="n">colliderB</span><span class="p">,</span> <span class="n">manifold</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="kt">void</span> <span class="nf">integrateRigidbodies</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">byte</span><span class="o">&gt;&amp;</span> <span class="n">hasRigidBodies</span><span class="p">,</span> <span class="n">ecs</span><span class="o">::</span><span class="n">component_container</span><span class="o">&lt;</span><span class="n">rigidbody</span><span class="o">&gt;&amp;</span> <span class="n">rigidbodies</span><span class="p">,</span> <span class="kt">float</span> <span class="n">deltaTime</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">OPTICK_EVENT</span><span class="p">();</span>
+            <span class="n">m_scheduler</span><span class="o">-&gt;</span><span class="n">queueJobs</span><span class="p">(</span><span class="n">manifoldPrecursorQuery</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">]()</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">hasRigidBodies</span><span class="p">[</span><span class="n">async</span><span class="o">::</span><span class="n">this_job</span><span class="o">::</span><span class="n">get_id</span><span class="p">()])</span>
+                    <span class="k">return</span><span class="p">;</span>
+
+                <span class="k">auto</span><span class="o">&amp;</span> <span class="n">rb</span> <span class="o">=</span> <span class="n">rigidbodies</span><span class="p">[</span><span class="n">async</span><span class="o">::</span><span class="n">this_job</span><span class="o">::</span><span class="n">get_id</span><span class="p">()];</span>
+
+                <span class="n">math</span><span class="o">::</span><span class="n">vec3</span> <span class="n">acc</span> <span class="o">=</span> <span class="n">rb</span><span class="p">.</span><span class="n">forceAccumulator</span> <span class="o">*</span> <span class="n">rb</span><span class="p">.</span><span class="n">inverseMass</span><span class="p">;</span>
+                <span class="n">rb</span><span class="p">.</span><span class="n">velocity</span> <span class="o">+=</span> <span class="p">(</span><span class="n">acc</span> <span class="o">+</span> <span class="n">constants</span><span class="o">::</span><span class="n">gravity</span><span class="p">)</span> <span class="o">*</span> <span class="n">deltaTime</span><span class="p">;</span>
+
+                <span class="n">math</span><span class="o">::</span><span class="n">vec3</span> <span class="n">angularAcc</span> <span class="o">=</span> <span class="n">rb</span><span class="p">.</span><span class="n">torqueAccumulator</span> <span class="o">*</span> <span class="n">rb</span><span class="p">.</span><span class="n">globalInverseInertiaTensor</span><span class="p">;</span>
+                <span class="n">rb</span><span class="p">.</span><span class="n">angularVelocity</span> <span class="o">+=</span> <span class="p">(</span><span class="n">angularAcc</span><span class="p">)</span><span class="o">*</span><span class="n">deltaTime</span><span class="p">;</span>
+
+                <span class="n">rb</span><span class="p">.</span><span class="n">resetAccumulators</span><span class="p">();</span>
+                <span class="p">}).</span><span class="n">wait</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="kt">void</span> <span class="nf">integrateRigidbodyQueryPositionAndRotation</span><span class="p">(</span>
+            <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">byte</span><span class="o">&gt;&amp;</span> <span class="n">hasRigidBodies</span><span class="p">,</span>
+            <span class="n">ecs</span><span class="o">::</span><span class="n">component_container</span><span class="o">&lt;</span><span class="n">position</span><span class="o">&gt;&amp;</span> <span class="n">positions</span><span class="p">,</span>
+            <span class="n">ecs</span><span class="o">::</span><span class="n">component_container</span><span class="o">&lt;</span><span class="n">rotation</span><span class="o">&gt;&amp;</span> <span class="n">rotations</span><span class="p">,</span>
+            <span class="n">ecs</span><span class="o">::</span><span class="n">component_container</span><span class="o">&lt;</span><span class="n">rigidbody</span><span class="o">&gt;&amp;</span> <span class="n">rigidbodies</span><span class="p">,</span>
+            <span class="kt">float</span> <span class="n">deltaTime</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">OPTICK_EVENT</span><span class="p">();</span>
+            <span class="n">m_scheduler</span><span class="o">-&gt;</span><span class="n">queueJobs</span><span class="p">(</span><span class="n">manifoldPrecursorQuery</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">]()</span> <span class="p">{</span>
+                <span class="n">id_type</span> <span class="n">index</span> <span class="o">=</span> <span class="n">async</span><span class="o">::</span><span class="n">this_job</span><span class="o">::</span><span class="n">get_id</span><span class="p">();</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">hasRigidBodies</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+                    <span class="k">return</span><span class="p">;</span>
+
+                <span class="k">auto</span><span class="o">&amp;</span> <span class="n">rb</span> <span class="o">=</span> <span class="n">rigidbodies</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+                <span class="k">auto</span><span class="o">&amp;</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">positions</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+                <span class="k">auto</span><span class="o">&amp;</span> <span class="n">rot</span> <span class="o">=</span> <span class="n">rotations</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+
+                <span class="n">pos</span> <span class="o">+=</span> <span class="n">rb</span><span class="p">.</span><span class="n">velocity</span> <span class="o">*</span> <span class="n">deltaTime</span><span class="p">;</span>
+
+                <span class="kt">float</span> <span class="n">angle</span> <span class="o">=</span> <span class="n">math</span><span class="o">::</span><span class="n">clamp</span><span class="p">(</span><span class="n">math</span><span class="o">::</span><span class="n">length</span><span class="p">(</span><span class="n">rb</span><span class="p">.</span><span class="n">angularVelocity</span><span class="p">),</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">32.0f</span><span class="p">);</span>
+                <span class="kt">float</span> <span class="n">dtAngle</span> <span class="o">=</span> <span class="n">angle</span> <span class="o">*</span> <span class="n">deltaTime</span><span class="p">;</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">math</span><span class="o">::</span><span class="n">epsilonEqual</span><span class="p">(</span><span class="n">dtAngle</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="n">math</span><span class="o">::</span><span class="n">epsilon</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">()))</span>
+                <span class="p">{</span>
+                    <span class="n">math</span><span class="o">::</span><span class="n">vec3</span> <span class="n">axis</span> <span class="o">=</span> <span class="n">math</span><span class="o">::</span><span class="n">normalize</span><span class="p">(</span><span class="n">rb</span><span class="p">.</span><span class="n">angularVelocity</span><span class="p">);</span>
+
+                    <span class="n">math</span><span class="o">::</span><span class="n">quat</span> <span class="n">glmQuat</span> <span class="o">=</span> <span class="n">math</span><span class="o">::</span><span class="n">angleAxis</span><span class="p">(</span><span class="n">dtAngle</span><span class="p">,</span> <span class="n">axis</span><span class="p">);</span>
+                    <span class="n">rot</span> <span class="o">=</span> <span class="n">glmQuat</span> <span class="o">*</span> <span class="n">rot</span><span class="p">;</span>
+                    <span class="n">rot</span> <span class="o">=</span> <span class="n">math</span><span class="o">::</span><span class="n">normalize</span><span class="p">(</span><span class="n">rot</span><span class="p">);</span>
+                <span class="p">}</span>
+
+                <span class="c1">//for now assume that there is no offset from bodyP</span>
+                <span class="n">rb</span><span class="p">.</span><span class="n">globalCentreOfMass</span> <span class="o">=</span> <span class="n">pos</span><span class="p">;</span>
+
+                <span class="n">rb</span><span class="p">.</span><span class="n">UpdateInertiaTensor</span><span class="p">(</span><span class="n">rot</span><span class="p">);</span>
+                <span class="p">}).</span><span class="n">wait</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="kt">void</span> <span class="nf">initializeManifolds</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">physics_manifold</span><span class="o">&gt;&amp;</span> <span class="n">manifoldsToSolve</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">byte</span><span class="o">&gt;&amp;</span> <span class="n">manifoldValidity</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">OPTICK_EVENT</span><span class="p">();</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">manifoldsToSolve</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">manifoldValidity</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                <span class="p">{</span>
+                    <span class="k">auto</span><span class="o">&amp;</span> <span class="n">manifold</span> <span class="o">=</span> <span class="n">manifoldsToSolve</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+
+                    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">contact</span> <span class="p">:</span> <span class="n">manifold</span><span class="p">.</span><span class="n">contacts</span><span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="n">contact</span><span class="p">.</span><span class="n">preCalculateEffectiveMass</span><span class="p">();</span>
+                        <span class="n">contact</span><span class="p">.</span><span class="n">ApplyWarmStarting</span><span class="p">();</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="kt">void</span> <span class="nf">resolveContactConstraint</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">physics_manifold</span><span class="o">&gt;&amp;</span> <span class="n">manifoldsToSolve</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">byte</span><span class="o">&gt;&amp;</span> <span class="n">manifoldValidity</span><span class="p">,</span> <span class="kt">float</span> <span class="n">dt</span><span class="p">,</span> <span class="kt">int</span> <span class="n">contactIter</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">OPTICK_EVENT</span><span class="p">();</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">manifoldIter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="n">manifoldIter</span> <span class="o">&lt;</span> <span class="n">manifoldsToSolve</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">manifoldIter</span><span class="o">++</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">manifoldValidity</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">manifoldIter</span><span class="p">))</span>
+                <span class="p">{</span>
+                    <span class="k">auto</span><span class="o">&amp;</span> <span class="n">manifold</span> <span class="o">=</span> <span class="n">manifoldsToSolve</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">manifoldIter</span><span class="p">);</span>
+
+                    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">contact</span> <span class="p">:</span> <span class="n">manifold</span><span class="p">.</span><span class="n">contacts</span><span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="n">contact</span><span class="p">.</span><span class="n">resolveContactConstraint</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span> <span class="n">contactIter</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="kt">void</span> <span class="nf">resolveFrictionConstraint</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">physics_manifold</span><span class="o">&gt;&amp;</span> <span class="n">manifoldsToSolve</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">byte</span><span class="o">&gt;&amp;</span> <span class="n">manifoldValidity</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">OPTICK_EVENT</span><span class="p">();</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">manifoldIter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                <span class="n">manifoldIter</span> <span class="o">&lt;</span> <span class="n">manifoldsToSolve</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">manifoldIter</span><span class="o">++</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">manifoldValidity</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">manifoldIter</span><span class="p">))</span>
+                <span class="p">{</span>
+                    <span class="k">auto</span><span class="o">&amp;</span> <span class="n">manifold</span> <span class="o">=</span> <span class="n">manifoldsToSolve</span><span class="p">.</span><span class="n">at</span><span class="p">(</span><span class="n">manifoldIter</span><span class="p">);</span>
+
+                    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">contact</span> <span class="p">:</span> <span class="n">manifold</span><span class="p">.</span><span class="n">contacts</span><span class="p">)</span>
+                    <span class="p">{</span>
+                        <span class="n">contact</span><span class="p">.</span><span class="n">resolveFrictionConstraint</span><span class="p">();</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+    <span class="p">};</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation index</a><ul>
+  </ul></li>
+</ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_systems_physicssystem.hpp.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+  </body>
+</html>

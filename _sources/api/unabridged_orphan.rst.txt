@@ -11,377 +11,377 @@ Directories
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_editor.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-application.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-application.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-audio.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-audio.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-core.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-core.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-core_editor.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-core_editor.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-networking.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-networking.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-physics.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-physics.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-rendering.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-rendering.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-scripting.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-scripting.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_context.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_context.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_events.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_events.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_input.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_input.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_module.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_module.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_window.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_window.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_audio.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_audio_components.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio_components.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_audio_data.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio_data.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_audio_data_importers.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio_data_importers.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_audio_module.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio_module.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_audio_systems.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio_systems.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_common.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_common.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_compute.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_compute_detail.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_detail.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_compute_high_level.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_high_level.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_containers.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_containers.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_data.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_data.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_data_importers.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_data_importers.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_defaults.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_defaults.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_detail.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_detail.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_engine.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_engine.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_entry.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_entry.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_events.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_events.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_detail.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_detail.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_logging.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_logging.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_math.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_math.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_platform.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_platform.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_scenemanagement.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scenemanagement.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_scenemanagement_components.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scenemanagement_components.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_scheduling.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scheduling.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_serialization.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_serialization.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_time.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_time.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_types.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_types.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_networking.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_networking.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_broadphasecollisionalgorithms.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_broadphasecollisionalgorithms.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_colliders.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_colliders.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_components.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_components.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_events.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_events.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_mesh_splitter_utils.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_mesh_splitter_utils.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_systems.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_systems.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_components.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_components.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_importers.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_importers.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_imgui_impl.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_imgui_impl.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_module.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_module.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_base.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_base.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_postfx.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_postfx.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_stages.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_gui.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_gui.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_gui_stages.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_gui_stages.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_shadercompiler.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_shadercompiler.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_systems.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_systems.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_util.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_util.rst
 
 .. toctree::
    :maxdepth: 5
 
-   dir__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_scripting.rst
+   dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_scripting.rst
 
 Files
 *****
@@ -390,1719 +390,1719 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_util_additional_material_loader.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_util_additional_material_loader.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_application.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_application.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_module_applicationmodule.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_module_applicationmodule.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs_archetype.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_archetype.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs_archetype.inl.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_archetype.inl.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_artifact_cache.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_artifact_cache.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_artifact_cache.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_artifact_cache.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_assetimporter.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_assetimporter.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_assetimporter.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_assetimporter.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_async.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_async.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_async_operation.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_async_operation.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_async_operation.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_async_operation.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_async_runnable.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_async_runnable.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_containers_atomic_sparse_map.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_containers_atomic_sparse_map.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_audio_audio.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio_audio.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_audio_data_importers_audio_importers.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio_data_importers_audio_importers.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_audio_data_importers_audio_importers.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio_data_importers_audio_importers.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_audio_components_audio_listener.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio_components_audio_listener.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_audio_data_audio_segment.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio_data_audio_segment.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_audio_data_audio_segment.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio_data_audio_segment.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_audio_components_audio_source.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio_components_audio_source.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_audio_module_audiomodule.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio_module_audiomodule.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_audio_systems_audiosystem.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio_systems_audiosystem.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_audio_systems_audiosystem.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio_systems_audiosystem.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_audio_systems_audiosystem.inl.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_audio_systems_audiosystem.inl.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_basic_resolver.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_basic_resolver.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_util_bindings.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_util_bindings.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_postfx_bloom.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_postfx_bloom.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_postfx_bloom.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_postfx_bloom.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_broadphasecollisionalgorithms_broadphasebruteforce.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_broadphasecollisionalgorithms_broadphasebruteforce.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_broadphasecollisionalgorithms_broadphasecollisionalgorithm.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_broadphasecollisionalgorithms_broadphasecollisionalgorithm.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_broadphasecollisionalgorithms_broadphaseuniformgrid.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_broadphasecollisionalgorithms_broadphaseuniformgrid.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_broadphasecollisionalgorithms_broadphaseuniformgrid.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_broadphasecollisionalgorithms_broadphaseuniformgrid.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_broadphasecollisionalgorithms_broadphaseuniformgridnocaching.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_broadphasecollisionalgorithms_broadphaseuniformgridnocaching.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_broadphasecollisionalgorithms_broadphaseuniformgridnocaching.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_broadphasecollisionalgorithms_broadphaseuniformgridnocaching.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_compute_buffer.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_buffer.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_buffer.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_buffer.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_compute_buffer.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_buffer.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_buffer.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_buffer.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_buffer.inl.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_buffer.inl.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_components_camera.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_components_camera.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_compute_detail_cl_include.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_detail_cl_include.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_stages_clearstage.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_clearstage.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_stages_clearstage.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_clearstage.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_time_clock.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_time_clock.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_math_close_enough.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_math_close_enough.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_math_color.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_math_color.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_common_common.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_common_common.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs_component_container.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_component_container.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs_component_handle.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_component_handle.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs_component_handle.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_component_handle.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs_component_meta.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_component_meta.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs_component_pool.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_component_pool.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_math_constants.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_math_constants.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data_contact_vertex.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_contact_vertex.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_containers_containers.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_containers_containers.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_compute_context.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_context.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_compute_context.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_context.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_context_contexthelper.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_context_contexthelper.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_context_contexthelper.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_context_contexthelper.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data_convergance_identifier.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_convergance_identifier.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data_convex_convergance_identifier.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_convex_convergance_identifier.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data_convex_convex_collision_info.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_convex_convex_collision_info.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_colliders_convexcollider.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_colliders_convexcollider.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_colliders_convexcollider.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_colliders_convexcollider.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data_convexconvexpenetrationquery.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_convexconvexpenetrationquery.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data_convexconvexpenetrationquery.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_convexconvexpenetrationquery.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-core_core.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-core_core.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_core.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_core.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_defaults_coremodule.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_defaults_coremodule.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_cube_collider_params.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_cube_collider_params.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_data_data.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_data_data.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_containers_data_view.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_containers_data_view.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_debugrendering.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_debugrendering.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_stages_debugrenderstage.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_debugrenderstage.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_stages_debugrenderstage.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_debugrenderstage.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_defaults_defaultcomponents.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_defaults_defaultcomponents.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_defaults_defaultcomponents.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_defaults_defaultcomponents.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_events_defaultevents.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_events_defaultevents.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_events_defaultevents.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_events_defaultevents.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_defaultpipeline.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_defaultpipeline.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_defaultpipeline.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_defaultpipeline.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_time_defaults.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_time_defaults.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_containers_delegate.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_containers_delegate.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-application_delete_this.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-application_delete_this.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-audio_delete_this.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-audio_delete_this.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-networking_delete_this.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-networking_delete_this.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-physics_delete_this.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-physics_delete_this.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-rendering_delete_this.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-rendering_delete_this.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-scripting_delete_this.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-scripting_delete_this.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_networking_delete_this.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_networking_delete_this.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_scripting_delete_this.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_scripting_delete_this.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_postfx_depthoffield.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_postfx_depthoffield.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_postfx_depthoffield.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_postfx_depthoffield.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs_ecs.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_ecs.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs_ecsregistry.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_ecsregistry.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs_ecsregistry.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_ecsregistry.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data_edge_label.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_edge_label.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data_edgepenetrationquery.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_edgepenetrationquery.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data_edgepenetrationquery.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_edgepenetrationquery.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-core_editor_editor.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-core_editor_editor.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-core_editor_editor.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-core_editor_editor.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-core_editor_editormodule.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-core_editor_editormodule.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_editor_editor-core_editor_editormodule.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_editor_editor-core_editor_editormodule.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_engine_engine.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_engine_engine.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs_entity_handle.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_entity_handle.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs_entity_handle.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_entity_handle.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs_entity_handle.inl.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_entity_handle.inl.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs_entityquery.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_entityquery.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs_entityquery.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_entityquery.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_entry_entry_point.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_entry_entry_point.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_events_event.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_events_event.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_events_eventbus.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_events_eventbus.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_events_events.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_events_events.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_events_events.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_events_events.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_common_exception.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_common_exception.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_filemanip.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_filemanip.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_filemanip.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_filemanip.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_filesystem.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_filesystem.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_filesystem_resolver.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_filesystem_resolver.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_filesystem_resolver.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_filesystem_resolver.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_components_fracturecountdown.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_components_fracturecountdown.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data_fractureparams.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_fractureparams.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_components_fracturer.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_components_fracturer.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_components_fracturer.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_components_fracturer.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_framebuffer.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_framebuffer.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_framebuffer.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_framebuffer.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_stages_framebufferresizestage.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_framebufferresizestage.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_stages_framebufferresizestage.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_framebufferresizestage.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_compute_high_level_function.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_high_level_function.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_compute_high_level_function.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_high_level_function.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_postfx_fxaa.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_postfx_fxaa.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_postfx_fxaa.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_postfx_fxaa.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_math_geometry.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_math_geometry.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_util_gui.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_util_gui.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_mesh_splitter_utils_half_edge_finder.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_mesh_splitter_utils_half_edge_finder.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_halfedgeedge.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_halfedgeedge.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_HalfEdgeFace.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_HalfEdgeFace.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_halfedgeface.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_halfedgeface.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_containers_hashed_sparse_set.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_containers_hashed_sparse_set.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_defaults_hierarchysystem.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_defaults_hierarchysystem.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_defaults_hierarchysystem.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_defaults_hierarchysystem.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data_identifier.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_identifier.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_data_image.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_data_image.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_data_image.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_data_image.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_data_importers_image_importers.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_data_importers_image_importers.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_data_importers_image_importers.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_data_importers_image_importers.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_imgui_impl_ImCurveEdit.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_imgui_impl_ImCurveEdit.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_imgui_impl_ImGradient.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_imgui_impl_ImGradient.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_imgui_impl_imgui.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_imgui_impl_imgui.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_imgui_impl_imgui_demo.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_imgui_impl_imgui_demo.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_imgui_impl_imgui_draw.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_imgui_impl_imgui_draw.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_imgui_impl_imgui_impl_glfw.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_imgui_impl_imgui_impl_glfw.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_imgui_impl_imgui_impl_opengl3.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_imgui_impl_imgui_impl_opengl3.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_imgui_impl_imgui_widgets.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_imgui_impl_imgui_widgets.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_imgui_impl_ImGuiFileBrowser.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_imgui_impl_ImGuiFileBrowser.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_gui_stages_imguirenderstage.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_gui_stages_imguirenderstage.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_gui_stages_imguirenderstage.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_gui_stages_imguirenderstage.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_imgui_impl_ImGuizmo.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_imgui_impl_ImGuizmo.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_imgui_impl_imnodes.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_imgui_impl_imnodes.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_imgui_impl_ImSequencer.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_imgui_impl_ImSequencer.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_util_ini.c.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_util_ini.c.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_events_inputevents.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_events_inputevents.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_input_inputmap.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_input_inputmap.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_input_inputsystem.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_input_inputsystem.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_input_inputsystem.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_input_inputsystem.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_common_inteface_traits.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_common_inteface_traits.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_detail_internals.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_detail_internals.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_mesh_splitter_utils_intersecting_polygon_organizer.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_mesh_splitter_utils_intersecting_polygon_organizer.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_mesh_splitter_utils_intersection_edge_info.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_mesh_splitter_utils_intersection_edge_info.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_containers_iterator_tricks.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_containers_iterator_tricks.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_job_pool.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_job_pool.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_job_pool.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_job_pool.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_compute_kernel.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_kernel.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_compute_kernel.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_kernel.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_components_light.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_components_light.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_components_light.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_components_light.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_stages_lightbufferstage.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_lightbufferstage.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_stages_lightbufferstage.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_lightbufferstage.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_components_lod.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_components_lod.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_systems_lod_manager.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_systems_lod_manager.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_logging_logging.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_logging_logging.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_logging_logging.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_logging_logging.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_common_managed_resource.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_common_managed_resource.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_material.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_material.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_material.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_material.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_math_math.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_math_math.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_util_matini.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_util_matini.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_util_matini.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_util_matini.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_mem_filesystem_resolver.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_mem_filesystem_resolver.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_mem_filesystem_resolver.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_mem_filesystem_resolver.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_data_mesh.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_data_mesh.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_data_mesh.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_data_mesh.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_mesh_splitter_utils_mesh_half_edge.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_mesh_splitter_utils_mesh_half_edge.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_data_importers_mesh_importers.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_data_importers_mesh_importers.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_data_importers_mesh_importers.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_data_importers_mesh_importers.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_mesh_splitter_utils_mesh_split_params.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_mesh_splitter_utils_mesh_split_params.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_mesh_splitter_utils_mesh_splitter.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_mesh_splitter_utils_mesh_splitter.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_mesh_splitter_utils_mesh_splitter.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_mesh_splitter_utils_mesh_splitter.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_mesh_splitter_utils_mesh_splitter_debug_helpers.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_mesh_splitter_utils_mesh_splitter_debug_helpers.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_mesh_splitter_utils_mesh_splitter_typedefs.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_mesh_splitter_utils_mesh_splitter_typedefs.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_stages_meshbatchingstage.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_meshbatchingstage.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_stages_meshbatchingstage.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_meshbatchingstage.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_stages_meshrenderstage.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_meshrenderstage.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_stages_meshrenderstage.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_meshrenderstage.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_detail_meta.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_detail_meta.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_types_meta.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_types_meta.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_model.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_model.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_model.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_model.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_engine_module.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_engine_module.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_engine_module.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_engine_module.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_navigator.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_navigator.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_navigator.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_navigator.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_Octree.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_Octree.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_components_particle.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_components_particle.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_components_particle_emitter.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_components_particle_emitter.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_particle_system_base.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_particle_system_base.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_particle_system_base.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_particle_system_base.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_particle_system_cache.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_particle_system_cache.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_particle_system_cache.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_particle_system_cache.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_systems_particle_system_manager.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_systems_particle_system_manager.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data_penetrationquery.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_penetrationquery.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_physics.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_physics.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_components_physics_component.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_components_physics_component.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_components_physics_component.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_components_physics_component.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_physics_contact.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_physics_contact.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_systems_physics_fracture_test_system.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_systems_physics_fracture_test_system.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_systems_physics_fracture_test_system.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_systems_physics_fracture_test_system.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data_physics_manifold.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_physics_manifold.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data_physics_manifold_precursor.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_physics_manifold_precursor.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_physics_statics.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_physics_statics.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_physics_statics.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_physics_statics.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_colliders_physicscollider.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_colliders_physicscollider.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_physicsconstants.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_physicsconstants.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_physicsmodule.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_physicsmodule.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_systems_physicssystem.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_systems_physicssystem.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_systems_physicssystem.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_systems_physicssystem.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_base_pipeline.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_base_pipeline.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_base_pipeline.inl.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_base_pipeline.inl.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_base_pipelinebase.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_base_pipelinebase.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_base_pipelinebase.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_base_pipelinebase.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_platform_platform.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_platform_platform.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_components_point_cloud.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_components_point_cloud.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_components_point_cloud_particle_container.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_components_point_cloud_particle_container.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_components_point_emitter_data.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_components_point_emitter_data.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_systems_pointcloud_particlesystem.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_systems_pointcloud_particlesystem.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_systems_pointcloudgeneration.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_systems_pointcloudgeneration.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data_pointer_encapsulator.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_pointer_encapsulator.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_postprocessingeffect.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_postprocessingeffect.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_postprocessingeffect.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_postprocessingeffect.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_stages_postprocessingstage.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_postprocessingstage.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_stages_postprocessingstage.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_postprocessingstage.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_math_precision.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_math_precision.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_mesh_splitter_utils_primitive_mesh.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_mesh_splitter_utils_primitive_mesh.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_mesh_splitter_utils_primitive_mesh.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_mesh_splitter_utils_primitive_mesh.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_types_primitives.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_types_primitives.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_scheduling_process.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scheduling_process.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_scheduling_processchain.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scheduling_processchain.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_scheduling_processchain.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scheduling_processchain.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_compute_program.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_program.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_compute_program.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_program.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_provider_registry.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_provider_registry.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_provider_registry.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_provider_registry.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs_queryregistry.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_queryregistry.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_ecs_queryregistry.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_queryregistry.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_compute_README.MD.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_README.MD.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_components_renderable.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_components_renderable.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_renderbuffer.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_renderbuffer.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_renderbuffer.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_renderbuffer.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_systems_renderer.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_systems_renderer.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_systems_renderer.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_systems_renderer.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_systems_renderer.inl.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_systems_renderer.inl.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_rendering.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_rendering.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_module_renderingmodule.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_module_renderingmodule.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_base_renderstage.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_base_renderstage.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_base_renderstage.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_base_renderstage.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_base_renderstage.inl.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_base_renderstage.inl.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_resource.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_resource.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_detail_resource_meta.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_detail_resource_meta.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_common_result.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_common_result.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_components_rigidbody.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_components_rigidbody.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_ring_sync_lock.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_ring_sync_lock.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_containers_runnable.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_containers_runnable.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_rw_spinlock.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_rw_spinlock.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_rw_spinlock.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_rw_spinlock.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_scenemanagement_components_scene.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scenemanagement_components_scene.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_scenemanagement_scenemanager.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scenemanagement_scenemanager.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_scenemanagement_scenemanager.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scenemanagement_scenemanager.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_scheduling_scheduler.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scheduling_scheduler.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_scheduling_scheduler.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scheduling_scheduler.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_scheduling_scheduling.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scheduling_scheduling.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_screen_quad.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_screen_quad.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_serialization_serializationmeta.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_serialization_serializationmeta.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_serialization_serializationUtil.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_serialization_serializationUtil.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_systems_serilization_rendering_extra.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_systems_serilization_rendering_extra.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_util_settings.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_util_settings.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_shader.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_shader.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_shader.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_shader.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_shadercompiler_shadercompiler.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_shadercompiler_shadercompiler.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_shadercompiler_shadercompiler.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_shadercompiler_shadercompiler.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_platform_shellinvoke.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_platform_shellinvoke.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_containers_sparse_map.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_containers_sparse_map.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_containers_sparse_set.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_containers_sparse_set.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_spinlock.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_spinlock.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_spinlock.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_spinlock.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_mesh_splitter_utils_splittable_polygon.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_mesh_splitter_utils_splittable_polygon.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_mesh_splitter_utils_splittable_polygon.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_mesh_splitter_utils_splittable_polygon.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_common_string_extra.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_common_string_extra.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_detail_strpath_manip.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_detail_strpath_manip.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_detail_strpath_manip.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_detail_strpath_manip.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_stages_submitstage.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_submitstage.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_stages_submitstage.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_stages_submitstage.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_engine_system.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_engine_system.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_engine_system.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_engine_system.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_texture.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_texture.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_texture.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_texture.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_importers_texture_importers.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_importers_texture_importers.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_importers_texture_importers.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_importers_texture_importers.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_thread_util.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_thread_util.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_time_time.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_time_time.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_time_time_span.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_time_time_span.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_postfx_tonemapping.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_postfx_tonemapping.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_pipeline_default_postfx_tonemapping.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_pipeline_default_postfx_tonemapping.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_detail_traits.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_detail_traits.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_transferable_atomic.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_transferable_atomic.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_math_trigonometry.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_math_trigonometry.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_types_type_util.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_types_type_util.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_types_type_util.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_types_type_util.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_types_types.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_types_types.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_common_unit_conversion.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_common_unit_conversion.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_serialization_use_embedded_material.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_serialization_use_embedded_material.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_containers_vector_view.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_containers_vector_view.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_vertexarray.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_vertexarray.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_vertexarray.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_vertexarray.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_view.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_view.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_filesystem_view.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_view.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data_VoronoiAABB.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_VoronoiAABB.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_wait_priority.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_wait_priority.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_window_window.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_window_window.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_window_window.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_window_window.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_events_windowevents.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_events_windowevents.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_events_windowinputevents.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_events_windowinputevents.hpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_window_windowsystem.cpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_window_windowsystem.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_application_window_windowsystem.hpp.rst
+   file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_application_window_windowsystem.hpp.rst

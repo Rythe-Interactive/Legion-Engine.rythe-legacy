@@ -1,0 +1,108 @@
+
+.. _program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_components_camera.hpp:
+
+Program Listing for File camera.hpp
+===================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_components_camera.hpp>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/rendering/components/camera.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   #include <application/application.hpp>
+   #include <rendering/data/material.hpp>
+   #include <rendering/data/framebuffer.hpp>
+   
+   namespace legion::rendering
+   {
+       class OldRenderer;
+   
+       struct camera
+       {
+           friend class OldRenderer;
+           friend class Renderer;
+   
+           ecs::component_handle<app::window> targetWindow = ecs::component_handle<app::window>(world_entity_id);
+           framebuffer renderTarget = framebuffer();
+           math::color clearColor = math::colors::cornflower;
+           struct camera_input
+           {
+               camera_input(math::mat4 view, math::mat4 proj, math::vec3 pos, math::vec3 vdir, float nearz, float farz, math::ivec2 viewportSize) :
+                   view(view), proj(proj), pos(pos), nearz(nearz), vdir(vdir), farz(farz), viewportSize(viewportSize)
+               {
+               }
+   
+               void bind(material_handle& materialHandle) const
+               {
+                   if (materialHandle.has_param<math::mat4>(SV_VIEW))
+                       materialHandle.set_param(SV_VIEW, view);
+                   if (materialHandle.has_param<math::mat4>(SV_PROJECT))
+                       materialHandle.set_param(SV_PROJECT, proj);
+                   if (materialHandle.has_param<math::vec4>(SV_CAMPOS))
+                       materialHandle.set_param(SV_CAMPOS, posnearz);
+                   if (materialHandle.has_param<math::vec4>(SV_VIEWDIR))
+                       materialHandle.set_param(SV_VIEWDIR, vdirfarz);
+                   if (materialHandle.has_param<math::ivec2>(SV_VIEWPORT))
+                       materialHandle.set_param(SV_VIEWPORT, viewportSize);
+               }
+   
+               union
+               {
+                   math::vec4 data[10];
+                   struct
+                   {
+                       math::mat4 view;
+                       math::mat4 proj;
+                       union
+                       {
+                           struct
+                           {
+                               math::vec3 pos;
+                               float nearz;
+                           };
+                           math::vec4 posnearz;
+                       };
+                       union
+                       {
+                           struct
+                           {
+                               math::vec3 vdir;
+                               float farz;
+                           };
+                           math::vec4 vdirfarz;
+                       };
+                       math::ivec2 viewportSize;
+                   };
+               };
+           };
+   
+           float fov, nearz, farz;
+   
+           void set_projection(float fov, float nearz, float farz)
+           {
+               this->fov = fov;
+               this->nearz = nearz;
+               this->farz = farz;
+           }
+   
+           math::mat4 get_projection(float ratio)
+           {
+               return math::perspective(math::deg2rad(fov * ratio), ratio, farz, nearz);
+           }
+   
+           template <class Archive>
+           void serialize(Archive& oa)
+           {
+               using cereal::make_nvp;
+   
+               oa(
+                   make_nvp("Fov",fov),
+                   make_nvp("NearZ", nearz),
+                   make_nvp("FarZ",farz)
+               );
+           }
+   
+       };
+   }

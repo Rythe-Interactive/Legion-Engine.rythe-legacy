@@ -3,7 +3,7 @@
 Variable legion::core::async::wait_priority_real_time
 =====================================================
 
-- Defined in :ref:`file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_wait_priority.hpp`
+- Defined in :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_wait_priority.hpp`
 
 
 Variable Documentation

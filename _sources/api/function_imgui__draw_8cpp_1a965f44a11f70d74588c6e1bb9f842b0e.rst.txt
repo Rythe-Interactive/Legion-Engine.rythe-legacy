@@ -3,7 +3,7 @@
 Function PathBezierToCasteljau
 ==============================
 
-- Defined in :ref:`file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_imgui_impl_imgui_draw.cpp`
+- Defined in :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_imgui_impl_imgui_draw.cpp`
 
 
 Function Documentation

@@ -1,0 +1,75 @@
+
+.. _file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_math_precision.hpp:
+
+File precision.hpp
+==================
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_math>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/math``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/math/precision.hpp``)
+------------------------------------------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_math_precision.hpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``core/types/primitives.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_types_primitives.hpp`)
+
+
+
+Included By
+-----------
+
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_math_trigonometry.hpp`
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_legion`
+
+- :ref:`namespace_legion__core`
+
+- :ref:`namespace_legion__core__math`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structlegion_1_1core_1_1math_1_1precision__chooser`
+
+
+Enums
+-----
+
+
+- :ref:`exhale_enum_namespacelegion_1_1core_1_1math_1acc13e397d8c7884e8c3b622c1a1f3532`
+
+
+Typedefs
+--------
+
+
+- :ref:`exhale_typedef_namespacelegion_1_1core_1_1math_1a67d623335cd243607d056d780ab6bd4f`
+

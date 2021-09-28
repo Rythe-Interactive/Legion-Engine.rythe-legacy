@@ -3,7 +3,7 @@
 Function legion::core::compute::operator&
 =========================================
 
-- Defined in :ref:`file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_compute_buffer.cpp`
+- Defined in :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_buffer.cpp`
 
 
 Function Documentation

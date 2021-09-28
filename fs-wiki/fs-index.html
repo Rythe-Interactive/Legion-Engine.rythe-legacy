@@ -4,16 +4,16 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Legion-FS &#8212; LegionEngine v 0.2 alpha documentation</title>
-    <link rel="stylesheet" href="../_static/nameko.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nameko.css" />
     <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
     <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -51,20 +51,18 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="legion-fs">
+  <section id="legion-fs">
 <h1>Legion-FS<a class="headerlink" href="#legion-fs" title="Permalink to this headline">¶</a></h1>
 <p>Legion-FS (also known as pixl-fs) is the subordinate core module for all things file access. It provides a flexible, extensible and easy way to work
 with files.</p>
-<div class="section" id="the-basics">
+<section id="the-basics">
 <h2>The Basics<a class="headerlink" href="#the-basics" title="Permalink to this headline">¶</a></h2>
 <p>To read or write a file you need to create a view for that file</p>
-<div class="highlight-cpp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2
-3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">//...</span>
-<span class="k">namespace</span> <span class="n">fs</span> <span class="o">=</span> <span class="n">legion</span><span class="o">::</span><span class="n">core</span><span class="o">::</span><span class="n">filesystem</span><span class="p">;</span>
-<span class="n">test</span> <span class="o">=</span> <span class="n">fs</span><span class="o">::</span><span class="n">view</span><span class="p">(</span><span class="s">&quot;assets://examples/test.txt&quot;</span><span class="p">);</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="c1">//...</span>
+<span class="linenos">2</span><span class="k">namespace</span> <span class="nn">fs</span> <span class="o">=</span> <span class="nn">legion</span><span class="o">::</span><span class="nn">core</span><span class="o">::</span><span class="nn">filesystem</span><span class="p">;</span>
+<span class="linenos">3</span><span class="n">test</span> <span class="o">=</span> <span class="n">fs</span><span class="o">::</span><span class="n">view</span><span class="p">(</span><span class="s">&quot;assets://examples/test.txt&quot;</span><span class="p">);</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>There is a few interesting things going on here:</p>
 <ul class="simple">
 <li><p>First notice how we renamed the namespace from <code class="docutils literal notranslate"><span class="pre">legion::core::filesystem</span></code> to <code class="docutils literal notranslate"><span class="pre">fs</span></code> this is mostly for brevity and I would recommend to use the filesystem
@@ -74,11 +72,10 @@ Assets is what is called a <a class="reference external" href="virtual_filesyste
 <code class="docutils literal notranslate"><span class="pre">&lt;your-project-directory&gt;\assets\</span></code></p></li>
 </ul>
 <p>Next let’s attempt to write to this file</p>
-<div class="highlight-cpp notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
-2</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">fs</span><span class="o">::</span><span class="n">basic_resource</span> <span class="n">resource</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">);</span>
-<span class="n">test</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">resource</span><span class="p">);</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">fs</span><span class="o">::</span><span class="n">basic_resource</span> <span class="nf">resource</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">);</span>
+<span class="linenos">2</span><span class="n">test</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">resource</span><span class="p">);</span>
 </pre></div>
-</td></tr></table></div>
+</div>
 <p>Here we can see the introduction of a <code class="docutils literal notranslate"><span class="pre">basic_resource</span></code> we are going to discuss what these are used for in <a class="reference external" href="automatic_conversion.rst">Serialization</a> later.
 For now we just need one of its basic constructors that creates a resource from a string. Using <code class="docutils literal notranslate"><span class="pre">set()</span></code> we can write this resource to disk at the provided location.
 You can also do this in one line:</p>
@@ -87,7 +84,7 @@ You can also do this in one line:</p>
 </div>
 <p>Since this is still a lot to write there is also an alternative syntax available:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//this is required once only</span>
-<span class="k">using</span> <span class="k">namespace</span> <span class="n">fs</span><span class="o">::</span><span class="n">literals</span><span class="p">;</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="nn">fs</span><span class="o">::</span><span class="nn">literals</span><span class="p">;</span>
 
 <span class="s">&quot;assets://examples/test.txt&quot;</span><span class="n">_view</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="n">_res</span><span class="p">);</span>
 </pre></div>
@@ -97,7 +94,7 @@ For more information on user defined literals visit <a class="reference external
 <p>Now let us read back that file:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">contents</span> <span class="o">=</span> <span class="n">test</span><span class="p">.</span><span class="n">get</span><span class="p">().</span><span class="n">except</span><span class="p">([](</span><span class="k">auto</span> <span class="n">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">log</span><span class="o">::</span><span class="n">warn</span><span class="p">(</span><span class="s">&quot;Could not read file </span><span class="se">\&quot;</span><span class="s">test.txt</span><span class="se">\&quot;</span><span class="s">: {}&quot;</span><span class="p">,</span><span class="n">err</span><span class="p">.</span><span class="n">what</span><span class="p">());</span>
-    <span class="k">return</span> <span class="nf">basic_resource</span><span class="p">(</span><span class="s">&quot;error&quot;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">basic_resource</span><span class="p">(</span><span class="s">&quot;error&quot;</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="n">log</span><span class="o">::</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Contents of file: {}&quot;</span><span class="p">,</span> <span class="n">contents</span><span class="p">.</span><span class="n">to_string</span><span class="p">())</span>
@@ -122,8 +119,8 @@ an error.</p></li>
 <li class="toctree-l1"><a class="reference internal" href="custom_providers.html">Custom Providers</a></li>
 </ul>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -157,7 +154,7 @@ an error.</p></li>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>

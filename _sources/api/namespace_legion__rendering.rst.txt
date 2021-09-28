@@ -198,17 +198,17 @@ Functions
 
 - :ref:`exhale_function_matini_8hpp_1aafef2e4096b35678638c99957654756d`
 
-- :ref:`exhale_function_material_8hpp_1ab73367179f1bd0ccade11f388b50b4b3`
-
 - :ref:`exhale_function_material_8hpp_1a87eb40c46518e29e5a61fc5fefb5306d`
 
-- :ref:`exhale_function_material_8hpp_1aea9e75f89ecec1bdb46889b84500e5ab`
+- :ref:`exhale_function_material_8hpp_1ab73367179f1bd0ccade11f388b50b4b3`
 
 - :ref:`exhale_function_material_8hpp_1a96682413fd71a5a0e74fbab2dfdcda7f`
 
-- :ref:`exhale_function_material_8hpp_1a34036816c545900cb53f585a7fb40428`
+- :ref:`exhale_function_material_8hpp_1aea9e75f89ecec1bdb46889b84500e5ab`
 
 - :ref:`exhale_function_material_8hpp_1a9d1263c4d78bd2b77792e79a76948c8a`
+
+- :ref:`exhale_function_material_8hpp_1a34036816c545900cb53f585a7fb40428`
 
 
 Typedefs

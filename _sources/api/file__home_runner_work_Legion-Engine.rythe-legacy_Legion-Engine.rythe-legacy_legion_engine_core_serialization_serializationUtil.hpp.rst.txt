@@ -1,0 +1,91 @@
+
+.. _file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_serialization_serializationUtil.hpp:
+
+File serializationUtil.hpp
+==========================
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_serialization>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/serialization``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/serialization/serializationUtil.hpp``)
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_serialization_serializationUtil.hpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``any``
+
+- ``cereal/archives/json.hpp``
+
+- ``cereal/archives/portable_binary.hpp``
+
+- ``cereal/types/memory.hpp``
+
+- ``cereal/types/unordered_map.hpp``
+
+- ``cereal/types/vector.hpp``
+
+- ``core/filesystem/filesystem.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_filesystem.hpp`)
+
+- ``core/platform/platform.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_platform_platform.hpp`)
+
+- ``fstream``
+
+- ``memory``
+
+- ``sstream``
+
+- ``string`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_common_string_extra.hpp`)
+
+
+
+Included By
+-----------
+
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_core.hpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_defaults_coremodule.hpp`
+
+- :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scenemanagement_scenemanager.cpp`
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_legion`
+
+- :ref:`namespace_legion__core`
+
+- :ref:`namespace_legion__core__serialization`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_struct_my_record`
+
+- :ref:`exhale_struct_struct_records`
+
+- :ref:`exhale_class_classlegion_1_1core_1_1serialization_1_1_serialization_util`
+

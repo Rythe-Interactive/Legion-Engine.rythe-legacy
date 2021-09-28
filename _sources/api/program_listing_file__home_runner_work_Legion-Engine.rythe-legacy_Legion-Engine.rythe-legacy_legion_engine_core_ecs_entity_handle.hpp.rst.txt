@@ -1,0 +1,227 @@
+
+.. _program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_entity_handle.hpp:
+
+Program Listing for File entity_handle.hpp
+==========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_ecs_entity_handle.hpp>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/ecs/entity_handle.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   #include <core/types/types.hpp>
+   #include <core/containers/sparse_map.hpp>
+   #include <core/containers/hashed_sparse_set.hpp>
+   #include <core/platform/platform.hpp>
+   #include <core/ecs/archetype.hpp>
+   #include <memory>
+   #include <cereal/types/vector.hpp>
+   #include <cereal/archives/binary.hpp>
+   #include <cereal/archives/json.hpp>
+   #include <core/events/eventbus.hpp>
+   
+   namespace legion::core::ecs
+   {
+       class EcsRegistry;
+   
+       class component_handle_base;
+   
+       template<typename component_type>
+       class component_handle;
+   
+       class entity_handle;
+   
+       class entity_handle
+       {
+           friend class EcsRegistry;
+       private:
+           id_type m_id;
+           static EcsRegistry* m_registry;
+           static events::EventBus* m_eventBus;
+           using entity_set = hashed_sparse_set<entity_handle>;
+   
+       public:
+           entity_handle(id_type id) noexcept : m_id(id) {  }
+   
+           entity_handle() noexcept : m_id(invalid_id) {  }
+   
+           entity_handle(const entity_handle& other) noexcept : m_id(other.m_id) {  }
+   
+           entity_handle& operator=(const entity_handle& other) noexcept;
+   
+           L_NODISCARD std::string get_name() const noexcept;
+           void set_name(const std::string& name);
+   
+           L_NODISCARD entity_handle clone(bool keep_parent = true, bool clone_children = true, bool clone_components = true) const;
+   
+           L_NODISCARD hashed_sparse_set<id_type> component_composition() const;
+   
+           operator id_type() const { return m_id; }
+   
+           bool operator==(const entity_handle& other) const
+           {
+               return m_id == other.m_id;
+           }
+   
+           bool operator!=(const entity_handle& other) const
+           {
+               return m_id != other.m_id;
+           }
+   
+           operator bool() const
+           {
+               return valid();
+           }
+   
+           L_NODISCARD id_type get_id() const;
+   
+           L_NODISCARD entity_set children() const;
+   
+           L_NODISCARD entity_handle get_parent() const;
+   
+           void set_parent(id_type newParent, bool addHierarchyIfAbsent = true);
+   
+           void serialize(cereal::JSONOutputArchive& oarchive);
+           void serialize(cereal::BinaryOutputArchive& oarchive);
+           void serialize(cereal::JSONInputArchive& oarchive);
+           void serialize(cereal::BinaryInputArchive& oarchive);
+   
+           L_NODISCARD entity_handle operator[] (index_type index) const;
+   
+           L_NODISCARD entity_handle get_child(index_type index) const;
+   
+           L_NODISCARD size_type child_count() const;
+   
+           void add_child(id_type childId);
+   
+           void remove_child(id_type childId);
+   
+           template<typename component_type>
+           L_NODISCARD bool has_component() const { return has_component(typeHash<component_type>()); }
+   
+           template<typename component_type, typename... component_types, typename = doesnt_inherit_from<component_type, archetype_base>>
+           L_NODISCARD bool has_components() const;
+   
+           template<typename archetype_type, typename = inherits_from<archetype_type, archetype_base>>
+           L_NODISCARD bool has_components() const;
+   
+           L_NODISCARD bool has_component(id_type componentTypeId) const;
+   
+           L_NODISCARD component_handle_base get_component_handle(id_type componentTypeId);
+           L_NODISCARD const component_handle_base get_component_handle(id_type componentTypeId) const;
+   
+           template<typename component_type>
+           L_NODISCARD component_handle<component_type> get_component_handle()
+           {
+               return get_component_handle(typeHash<component_type>()).template cast<component_type>();
+           }
+           
+           template<typename component_type>
+           L_NODISCARD const component_handle<component_type> get_component_handle() const
+           {
+               return get_component_handle(typeHash<component_type>()).template cast<component_type>();
+           }
+   
+           template<typename component_type, typename... component_types, typename = doesnt_inherit_from<component_type, archetype_base>>
+           L_NODISCARD auto get_component_handles() const;
+   
+           template<typename archetype_type, typename = inherits_from<archetype_type, archetype_base>>
+           L_NODISCARD auto get_component_handles() const;
+   
+           template<typename component_type>
+           L_NODISCARD component_type read_component() const
+           {
+               return get_component_handle<component_type>().read();
+           }
+   
+           template<typename component_type>
+           void write_component(component_type&& value)
+           {
+               get_component_handle<std::remove_reference_t<component_type>>().write(std::forward<component_type&&>(value));
+           }
+           template<typename component_type>
+           void write_component(const component_type& value)
+           {
+               get_component_handle<std::remove_reference_t<component_type>>().write(std::forward<const component_type&>(value));
+           }
+   
+           component_handle_base add_component(id_type componentTypeId);
+   
+           component_handle_base add_component(id_type componentTypeId, void* value);
+   
+           template<typename component_type>
+           component_handle<component_type> add_component()
+           {
+               return force_value_cast<component_handle<component_type>>(add_component(typeHash<component_type>()));
+           }
+           template<typename component_type>
+           component_handle<std::remove_reference_t<component_type>> add_component(component_type&& value)
+           {
+               return force_value_cast<component_handle<std::remove_reference_t<component_type>>>(add_component(typeHash<std::remove_reference_t<component_type>>(), reinterpret_cast<void*>(&value)));
+           }
+   
+           template<typename component_type>
+           component_handle<std::remove_reference_t<component_type>> add_component(const component_type& value)
+           {
+               component_type temp = value;
+               return add_component(typeHash<std::remove_reference_t<component_type>>(), reinterpret_cast<void*>(&temp)).template cast<std::remove_reference_t<component_type>>();
+           }
+   
+           template<typename component_type, typename... component_types, typename = doesnt_inherit_from<component_type, archetype_base>>
+           auto add_components();
+   
+           template<typename archetype_type, typename = inherits_from<archetype_type, archetype_base>>
+           auto add_components();
+   
+           template<typename component_type, typename... component_types, typename = doesnt_inherit_from<component_type, archetype_base>>
+           auto add_components(component_type&& value, component_types&&... values);
+   
+           template<typename component_type, typename... component_types, typename = doesnt_inherit_from<component_type, archetype_base>>
+           auto add_components(component_type& value, component_types&... values);
+   
+           template<typename archetype_type, typename... component_types, typename = inherits_from<archetype_type, archetype_base>>
+           auto add_components(component_types&&... values);
+   
+           void remove_component(id_type componentTypeId);
+   
+           template<typename component_type>
+           void remove_component()
+           {
+               remove_component(typeHash<component_type>());
+           }
+   
+           template<typename component_type, typename... component_types, typename = doesnt_inherit_from<component_type, archetype_base>>
+           void remove_components();
+   
+           template<typename archetype_type, typename = inherits_from<archetype_type, archetype_base>>
+           void remove_components();
+   
+           template <class component_type, class Func,typename = doesnt_inherit_from<component_type,archetype_base>>
+           void modify_component(Func&& f);
+   
+           void destroy(bool recurse = true);
+   
+           bool valid() const;
+       };
+   }
+   
+   #if !defined(DOXY_EXCLUDE)
+   namespace std
+   {
+       template<> struct hash<legion::core::ecs::entity_handle>
+       {
+           std::size_t operator()(legion::core::ecs::entity_handle const& handle) const noexcept
+           {
+               return std::hash<legion::core::id_type>{}(handle.get_id());
+           }
+       };
+   }
+   #endif
+   
+   namespace legion::core::ecs
+   {
+       using entity_container = std::vector<entity_handle>;
+       using entity_set = hashed_sparse_set<entity_handle>;
+   }

@@ -3,7 +3,7 @@
 Template Struct job_pool
 ========================
 
-- Defined in :ref:`file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_job_pool.hpp`
+- Defined in :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_job_pool.hpp`
 
 
 Struct Documentation

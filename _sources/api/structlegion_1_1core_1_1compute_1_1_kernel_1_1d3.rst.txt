@@ -3,7 +3,7 @@
 Struct Kernel::d3
 =================
 
-- Defined in :ref:`file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_compute_kernel.hpp`
+- Defined in :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_compute_kernel.hpp`
 
 
 Nested Relationships

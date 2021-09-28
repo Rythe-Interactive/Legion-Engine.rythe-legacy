@@ -1,0 +1,479 @@
+
+.. _program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_physics_statics.hpp:
+
+Program Listing for File physics_statics.hpp
+============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_physics_statics.hpp>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/physics/physics_statics.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   #include <core/core.hpp>
+   #include <physics/colliders/convexcollider.hpp>
+   #include <physics/data/pointer_encapsulator.hpp>
+   #include <physics/data/contact_vertex.hpp>
+   #include <Voro++/voro++.hh>
+   #include <rendering/debugrendering.hpp>
+   #include <physics/data/convex_convex_collision_info.hpp>
+   
+   namespace legion::physics
+   {
+       typedef std::shared_ptr<PhysicsCollider> PhysicsColliderPtr;
+   
+       struct HalfEdgeFace;
+   
+       class PhysicsStatics
+       {
+       public:
+           //TODO move implementation to seperate cpp file
+   
+           //---------------------------------------------------------------- Collision Detection ----------------------------------------------------------------------------//
+   
+           static void DetectConvexConvexCollision(ConvexCollider* convexA, ConvexCollider* convexB
+               , const math::mat4& transformA, const math::mat4& transformB,
+               ConvexConvexCollisionInfo& outCollisionInfo,  physics_manifold& manifold);
+   
+           static void GetSupportPoint(const math::vec3& planePosition, const math::vec3& direction, ConvexCollider* collider, const math::mat4& colliderTransform
+               , math::vec3& worldSupportPoint)
+           {
+               float largestDistanceInDirection = std::numeric_limits<float>::lowest();
+   
+               for (const auto& vert : collider->GetVertices())
+               {
+                   math::vec3 transformedVert = colliderTransform * math::vec4(vert, 1);
+   
+                   float dotResult = math::dot(transformedVert - planePosition, direction);
+   
+                   if (dotResult > largestDistanceInDirection)
+                   {
+                       largestDistanceInDirection = dotResult;
+                       worldSupportPoint = transformedVert;
+                   }
+               }
+           }
+   
+           static void GetSupportPointNoTransform( math::vec3 planePosition,  math::vec3 direction, ConvexCollider* collider, const math::mat4& colliderTransform
+               , math::vec3& worldSupportPoint)
+           {
+               float largestDistanceInDirection = std::numeric_limits<float>::lowest();
+               planePosition = math::inverse(colliderTransform) * math::vec4(planePosition, 1);
+               direction = math::inverse(colliderTransform) * math::vec4(direction, 0);
+   
+               for (const auto& vert : collider->GetVertices())
+               {
+                   math::vec3 transformedVert = math::vec4(vert, 1);
+   
+                   float dotResult = math::dot(transformedVert - planePosition, direction);
+   
+                   if (dotResult > largestDistanceInDirection)
+                   {
+                       largestDistanceInDirection = dotResult;
+                       worldSupportPoint = transformedVert;
+                   }
+               }
+   
+               worldSupportPoint = colliderTransform * math::vec4(worldSupportPoint, 1);
+           }
+   
+   
+           static float GetSupportPoint(const std::vector<math::vec3>& vertices, const math::vec3& direction, math::vec3& outVec);
+           
+           static bool FindSeperatingAxisByExtremePointProjection(ConvexCollider* convexA
+               , ConvexCollider* convexB, const math::mat4& transformA, const math::mat4& transformB, PointerEncapsulator<HalfEdgeFace>&refFace, float& maximumSeperation,bool shouldDebug = false)
+           {
+               //shouldDebug = false;
+   
+               float currentMaximumSeperation = std::numeric_limits<float>::lowest();
+   
+               for (auto face : convexB->GetHalfEdgeFaces())
+               {
+   
+                   //log::debug("face->normal {} ", math::to_string( face->normal));
+                   //get inverse normal
+                   math::vec3 seperatingAxis = math::normalize(transformB * math::vec4((face->normal), 0));
+   
+                   math::vec3 transformedPositionB = transformB * math::vec4(face->centroid, 1);
+   
+                   //get extreme point of other face in normal direction
+                   math::vec3 worldSupportPoint;
+                   GetSupportPoint(transformedPositionB, -seperatingAxis,
+                       convexA, transformA, worldSupportPoint);
+   
+                   float seperation = math::dot(worldSupportPoint - transformedPositionB, seperatingAxis);
+   
+                   if (seperation > currentMaximumSeperation)
+                   {
+                       currentMaximumSeperation = seperation;
+                       refFace.ptr = face;
+                   }
+   
+                   if (seperation > 0)
+                   {
+                       //we have found a seperating axis, we can exit early
+                       maximumSeperation = currentMaximumSeperation;
+                       return true;
+                   }
+               }
+               //no seperating axis was found
+               maximumSeperation = currentMaximumSeperation;
+   
+               return false;
+           }
+   
+           static bool FindSeperatingAxisByGaussMapEdgeCheck(ConvexCollider* convexA, ConvexCollider* convexB,
+               const math::mat4& transformA, const math::mat4& transformB, PointerEncapsulator<HalfEdgeEdge>& refEdge, PointerEncapsulator<HalfEdgeEdge>& incEdge,
+               math::vec3& seperatingAxisFound, float& maximumSeperation, bool shouldDebug = false);
+         
+           static bool DetectConvexSphereCollision(ConvexCollider* convexA, const math::mat4& transformA, math::vec3 sphereWorldPosition, float sphereRadius,
+                float& maximumSeperation);
+   
+   
+           static std::pair< math::vec3,math::vec3> ConstructAABBFromPhysicsComponentWithTransform
+           (ecs::component_handle<physicsComponent> physicsComponentToUse, const math::mat4& transform);
+   
+           static float GetPhysicsComponentSupportPointAtDirection(math::vec3 direction,physicsComponent& physicsComponentToUse);
+   
+           static std::pair< math::vec3, math::vec3> ConstructAABBFromVertices(const std::vector<math::vec3>& vertices);
+   
+           static std::pair< math::vec3, math::vec3> ConstructAABBFromTransformedVertices(const std::vector<math::vec3>& vertices,const math::mat4& transform);
+   
+           static std::pair<math::vec3, math::vec3> CombineAABB(const std::pair<math::vec3, math::vec3>& first, const std::pair<math::vec3, math::vec3>& second);
+   
+           //---------------------------------------------------------- Polyhedron Clipping ----------------------------------------------------------------------------//
+   
+           static void SutherlandHodgmanFaceClip( math::vec3& planeNormal, math::vec3& planePosition,
+               std::vector<ContactVertex>& inputList, std::vector<ContactVertex>& outputList, HalfEdgeEdge* clippingEdge)
+           {
+               for (size_t i = 0; i < inputList.size(); i++)
+               {
+                   ContactVertex& currentVertex = inputList.at(i);
+                   ContactVertex& nextVertex = i + 1 >= inputList.size() ? inputList.at(0) : inputList.at(i + 1);
+   
+   
+                   float currentVertDistFromPlane = PointDistanceToPlane(planeNormal, planePosition, currentVertex.position);
+                   float nextVertDistFromPlane = PointDistanceToPlane(planeNormal, planePosition, nextVertex.position);
+   
+                   //at a certain threshold, the vertices can be considered to be on the plane for numerical robustness reasons
+                   if (math::abs(currentVertDistFromPlane) < constants::sutherlandHodgmanClippingThreshold
+                       || math::abs(nextVertDistFromPlane) < constants::sutherlandHodgmanClippingThreshold)
+                   {
+                       outputList.push_back(nextVertex);
+                       continue;
+                   }
+   
+                   bool isCurrentVertexUnderPlane = currentVertDistFromPlane < 0.0f;
+                   bool isNextVertexUnderPlane = nextVertDistFromPlane < 0.0f;
+   
+                   //we always check clipping with a line that goes from the point below the plane to the point outside the plane.
+                   //We do this mostly for numerical robustness reasons.
+                   const math::vec3& pointAbovePlane = isCurrentVertexUnderPlane ? nextVertex.position : currentVertex.position;
+                   const math::vec3& pointBelowPlane = isCurrentVertexUnderPlane ? currentVertex.position : nextVertex.position;
+   
+                   if (isCurrentVertexUnderPlane && isNextVertexUnderPlane)
+                   {
+                       //send next vertex to outputlist
+                       outputList.push_back(nextVertex);
+                   }
+                   else if (!isCurrentVertexUnderPlane && isNextVertexUnderPlane)
+                   {
+                       //send next vertex to outputlist and the intersection between the line and the plane
+   
+                       math::vec3 intersectionPoint;
+   
+                       if (FindLineToPlaneIntersectionPoint(planeNormal, planePosition,
+                           pointBelowPlane, pointAbovePlane, intersectionPoint))
+                       {
+                           auto currentVertexLabel = currentVertex.label;
+                           auto nextVertexLabel = clippingEdge->label;
+   
+                           EdgeLabel label(currentVertexLabel.firstEdge, nextVertexLabel.nextEdge);
+                           outputList.push_back(ContactVertex(intersectionPoint, label));
+                       }
+   
+                       outputList.push_back(nextVertex);
+   
+                   }
+                   else if (isCurrentVertexUnderPlane && !isNextVertexUnderPlane)
+                   {
+                       //send intersection between the line and the plane
+   
+                       math::vec3 intersectionPoint;
+   
+                       if (FindLineToPlaneIntersectionPoint(planeNormal, planePosition,
+                           pointBelowPlane, pointAbovePlane, intersectionPoint))
+                       {
+                           auto currentVertexLabel = currentVertex.label;
+                           auto nextVertexLabel = clippingEdge->label;
+   
+                           EdgeLabel label(currentVertexLabel.firstEdge, nextVertexLabel.nextEdge);
+                           outputList.push_back(ContactVertex(intersectionPoint, label));
+                       }
+                   }
+               }
+           }
+   
+           //------------------------------------------------------------ helper functions -----------------------------------------------------------------------//
+   
+   
+           static void FindClosestPointsToLineSegment(math::vec3 p1, math::vec3 p2,
+               math::vec3 p3, math::vec3 p4,math::vec3& outp1p2, math::vec3& outp3p4)
+           {
+               //------------------find the interpolants of both lines that represent the closest points of the line segments-----------//
+   
+               //Given the 2 closest points of the given 2 line segments, L1(x) and L2(y), where L1 is the line created from the points
+               //p1 and p2, and L2 is the line created from the points p3 and p4. and x and y are the interpolants, We know that these
+               //2 points create a line that is perpendicular to both the lines of L1 and L2. Therefore:
+   
+               // (L1(x) - L2(y)) . (p2 - p1) = 0
+               // (L1(x) - L2(y)) . (p4 - p3) = 0
+   
+               //these 2 function can be simplified into a linear system of 2 variables.
+   
+               // ax + cy = e
+               // bx + dy = f
+   
+               //where a,b,c,d,e,f are equal to the following:
+   
+               float a, b, c, d, e, f;
+   
+               // ( [p2] ^ 2 - [p1] ^ 2) 
+               a = math::pow2(p2.x - p1.x) +
+                   math::pow2(p2.y - p1.y) +
+                   math::pow2(p2.z - p1.z);
+   
+               // ([p4] - [p3])([p2] - [p1])
+               b = (p4.x - p3.x) * (p2.x - p1.x) +
+                   (p4.y - p3.y) * (p2.y - p1.y) +
+                   (p4.z - p3.z) * (p2.z - p1.z);
+   
+               // ([p4] - [p3])([p2] - [p1])
+               c = b;
+   
+               // ( [p4] ^ 2 - [p3] ^ 2) 
+               d = (math::pow2(p4.x - p3.x) +
+                   math::pow2(p4.y - p3.y) +
+                   math::pow2(p4.z - p3.z));
+   
+               //([p3] - [p1])([p2] - [p1])
+               e = (p3.x - p1.x) * (p2.x - p1.x) +
+                   (p3.y - p1.y) * (p2.y - p1.y) +
+                   (p3.z - p1.z) * (p2.z - p1.z);
+   
+               //([p4] - [p3])([p3] - [p1])
+               f = (p4.x - p3.x) * (p3.x - p1.x) +
+                   (p4.y - p3.y) * (p3.y - p1.y) +
+                   (p4.z - p3.z) * (p3.z - p1.z);
+   
+               math::vec2 interpolantVector = LinearSystemCramerSolver2D(a, b, c, d, e, f);
+   
+               outp1p2 = p1 + (p2 - p1) * math::clamp(interpolantVector.x,0.0f,1.0f);
+               outp3p4 = p3 + (p4 - p3) * math::clamp(interpolantVector.y,0.0f,1.0f);
+   
+           }
+   
+   
+           static math::vec2 LinearSystemCramerSolver2D(float a, float b, float c, float d, float e, float f)
+           {
+               //[ a c ] [x] [e]
+               //[ b d ] [y] [f]
+   
+               float denom = (a * d) - (c * b);
+   
+               //[ e c ] 
+               //[ f d ] 
+               float x  = ((e * d) - (c * f)) / denom;
+   
+               //[ a e ]
+               //[ b f ] 
+               float y = ((a * f) - (e * b)) / denom;
+   
+               return math::vec2(x,-y);
+           }
+   
+           static float PointDistanceToPlane(const math::vec3& planeNormal, const math::vec3& planePosition, const math::vec3& point)
+           {
+               return math::dot(point - planePosition, planeNormal);
+           }
+   
+           static bool IsPointAbovePlane(const math::vec3& planeNormal, const math::vec3& planePosition, const math::vec3& point)
+           {
+               return PointDistanceToPlane(planeNormal, planePosition, point) > 0.0f;
+           }
+   
+           static bool FindLineToPlaneIntersectionPoint(const math::vec3& planeNormal, const math::vec3& planePosition,
+               const math::vec3& startPoint, const math::vec3& endPoint, math::vec3& intersectionPoint)
+           {
+               math::vec3 direction = endPoint - startPoint;
+   
+               if (math::epsilonEqual(math::dot(direction, planeNormal), 0.0f, math::epsilon<float>()))
+               {
+                   return false;
+               }
+   
+               float t = FindLineToPointInterpolant(startPoint, endPoint, planePosition, planeNormal);
+   
+               intersectionPoint = startPoint + direction * t;
+   
+               return true;
+           }
+   
+           static bool FindLineToPlaneIntersectionPoint(const math::vec3& planeNormal, const math::vec3& planePosition,
+               const math::vec3& startPoint, const math::vec3& endPoint, math::vec3& intersectionPoint,float& interpolant)
+           {
+               math::vec3 direction = endPoint - startPoint;
+   
+               if (math::epsilonEqual(math::dot(direction, planeNormal), 0.0f, math::epsilon<float>()))
+               {
+                   return false;
+               }
+   
+               interpolant = FindLineToPointInterpolant(startPoint, endPoint, planePosition, planeNormal);
+               
+   
+               intersectionPoint = startPoint + direction * interpolant;
+   
+               return true;
+           }
+   
+   
+   
+           static float FindLineToPointInterpolant(const math::vec3& startPoint, const math::vec3& endPoint, const math::vec3& planePosition,
+               const math::vec3& planeNormal)
+           {
+               return math::dot(planePosition - startPoint, planeNormal) / math::dot(endPoint - startPoint, planeNormal);
+           }
+   
+   
+   
+   
+           static std::vector<std::vector<math::vec4>> GenerateVoronoi(std::vector<math::vec3> points,math::vec2 xRange, math::vec2 yRange,
+               math::vec2 zRange, math::vec3 containerResolution, bool xPeriodic = false, bool yPeriodic = false, bool zPeriodic = false, int initMem = 8)
+           {
+               return GenerateVoronoi(points,xRange.x,xRange.y,yRange.x,yRange.y,zRange.x,zRange.y,containerResolution.x,containerResolution.y,containerResolution.z,xPeriodic,yPeriodic,zPeriodic,initMem);
+           }
+   
+           static std::vector<std::vector<math::vec4>> GenerateVoronoi(std::vector<math::vec3> points,const double xMin = -5, const double xMax = 5, const double yMin = -5, const double yMax = 5, const double zMin = -5, const double zMax = 5,const double conResX = 10,const double conResY = 10 , const double conResZ = 10,bool xPeriodic = false,bool yPeriodic = false,bool zPeriodic = false,int initMem = 8)
+           {
+               voro::container con(xMin, xMax, yMin, yMax, zMin, zMax, conResX, conResY, conResZ, xPeriodic, yPeriodic, zPeriodic, initMem);
+               return GenerateVoronoi(con,points);
+           }
+   
+           static std::vector<std::vector<math::vec4>> GenerateVoronoi(voro::container& con,std::vector<math::vec3> points)
+           {
+               int i = 0;
+               for (math::vec3 point : points)
+               {
+                   con.put(i,point.x,point.y,point.z);
+                   i++;
+               }
+               return GenerateVoronoi(con);
+           }
+   
+           static std::vector<std::vector<math::vec4>> GenerateVoronoi(voro::container& con)
+           {
+               con.draw_cells_json("assets/voronoi/output/cells.json");
+               std::ifstream f("assets/voronoi/output/cells.json");
+               return serialization::SerializationUtil::JSONDeserialize< std::vector<std::vector<math::vec4>>>(f);
+           }
+   
+           static bool CollideAABB(const math::vec3 low0, const math::vec3 high0, const math::vec3 low1, const math::vec3 high1)
+           {
+               return low0.x <= high1.x && high0.x >= low1.x &&
+                   low0.y <= high1.y && high0.y >= low1.y
+                   && low0.z <= high1.z && high0.z >= low1.z;
+           }
+   
+           static bool CollideAABB(const std::pair<math::vec3, math::vec3> col0, const std::pair<math::vec3, math::vec3> col1)
+           {
+               auto& [low0, high0] = col0;
+               auto& [low1, high1] = col1;
+               return CollideAABB(low0, high0, low1, high1);
+           }
+   
+       private:
+   
+           static bool attemptBuildMinkowskiFace(HalfEdgeEdge* edgeA, HalfEdgeEdge* edgeB, const math::mat4& transformA,
+               const math::mat4& transformB)
+           {
+               //TODO the commmented parts are technically more robust and should work but somehow dont, figure out why.
+   
+               const math::vec3 transformedA1 = transformA *
+                   math::vec4(edgeA->getLocalNormal(), 0);
+   
+               const math::vec3 transformedA2 = transformA *
+                   math::vec4(edgeA->pairingEdge->getLocalNormal(), 0);
+   
+               const math::vec3 transformedEdgeDirectionA = math::cross(transformedA1, transformedA2);
+               //transformA * math::vec4(edgeA->getLocalEdgeDirection(), 0);
+              
+               const math::vec3 transformedB1 = transformB *
+                   math::vec4(edgeB->getLocalNormal(), 0);
+   
+               const math::vec3 transformedB2 = transformB *
+                   math::vec4(edgeB->pairingEdge->getLocalNormal(), 0);
+   
+               const math::vec3 transformedEdgeDirectionB = math::cross(-transformedB1, -transformedB2);
+               //transformB *math::vec4(edgeB->getLocalEdgeDirection(), 0);
+                   
+   
+               math::vec3 positionA = transformA * math::vec4(edgeA->edgePosition, 1);
+   
+               return isMinkowskiFace(transformedA1, transformedA2, -transformedB1, -transformedB2
+                   , transformedEdgeDirectionA, transformedEdgeDirectionB);
+           }
+   
+           static bool isMinkowskiFace(const math::vec3& transformedA1, const math::vec3& transformedA2,
+               const math::vec3& transformedB1, const math::vec3& transformedB2
+               ,const math::vec3& planeANormal, const math::vec3& planeBNormal)
+           {
+               //------------------------ Check if normals created by arcA seperate normals of B --------------------------------------//
+               //CBA
+               float planeADotB1 = math::dot(planeANormal, transformedB1);
+               //DBA
+               float planeADotB2 = math::dot(planeANormal, transformedB2);
+   
+               float dotMultiplyResultA =
+                   planeADotB1 * planeADotB2;
+   
+               //log::debug("dotMultiplyResultA {}", dotMultiplyResultA);
+   
+               if (dotMultiplyResultA > 0.0f )
+               {
+                   return false;
+               }
+   
+               //------------------------ Check if normals created by arcB seperate normals of A --------------------------------------//
+   
+               //ADC
+               float planeBDotA1 = math::dot(planeBNormal, transformedA1);
+               //BDC
+               float planeBDotA2 = math::dot(planeBNormal, transformedA2);
+   
+               float  dotMultiplyResultB = planeBDotA1 * planeBDotA2;
+   
+               //log::debug("dotMultiplyResultB {}", dotMultiplyResultB);
+   
+               if (dotMultiplyResultB > 0.0f )
+               {
+                   return false;
+               }
+   
+               //------------------------ Check if arcA and arcB are in the same hemisphere --------------------------------------------//
+   
+               float dotMultiplyResultAB = planeADotB1 * planeBDotA2;
+   
+               //log::debug("dotMultiplyResultAB {}", dotMultiplyResultAB);
+   
+               if (planeADotB1  * planeBDotA2  < 0.0f)
+               {
+                   return false;
+               }
+   
+               return true;
+           }
+       };
+   }
+   

@@ -1,0 +1,23 @@
+
+.. _program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_logging_logging.cpp:
+
+Program Listing for File logging.cpp
+====================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_logging_logging.cpp>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/logging/logging.cpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #include <core/logging/logging.hpp>
+   
+   
+   namespace legion::core::log {
+       cstring impl::log_file = "logs/legion-engine.log";
+       std::shared_ptr<spdlog::logger> impl::file_logger;
+       std::shared_ptr<spdlog::logger> impl::console_logger = spdlog::stdout_color_mt("does-not-matter");
+       std::shared_ptr<spdlog::logger> impl::logger = impl::console_logger;
+       std::unordered_map<std::thread::id, std::string> impl::thread_names;
+   
+   }

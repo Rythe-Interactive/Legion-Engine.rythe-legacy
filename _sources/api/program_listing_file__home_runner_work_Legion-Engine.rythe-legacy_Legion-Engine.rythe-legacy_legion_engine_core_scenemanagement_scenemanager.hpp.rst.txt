@@ -1,0 +1,85 @@
+
+.. _program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scenemanagement_scenemanager.hpp:
+
+Program Listing for File scenemanager.hpp
+=========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scenemanagement_scenemanager.hpp>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/scenemanagement/scenemanager.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   #include <core/engine/system.hpp>
+   #include <core/ecs/component_handle.hpp>
+   #include <core/filesystem/filesystem.hpp>
+   #include <core/filesystem/view.hpp>
+   #include <tinygltf/json.hpp>
+   
+   namespace legion::core::scenemanagement
+   {
+       struct scene;
+   
+       class SceneManager final : public core::System<SceneManager>
+       {
+           friend class legion::core::Engine;
+       public:
+           using additional_loader_fn = delegate<void(ecs::entity_handle)>;
+       private:
+           static std::unordered_map<id_type, additional_loader_fn> m_additionalLoaders;
+           static ecs::EcsRegistry* m_ecs;
+   
+       public:
+   
+           static int sceneCount;
+           static ecs::component_handle<scene> currentScene;
+           static std::unordered_map<id_type, std::string> sceneNames;
+           static std::unordered_map<id_type, ecs::component_handle<scene>> sceneList;
+   
+   
+           SceneManager() = default;
+   
+           virtual void setup()
+           {
+               fs::view fileView = fs::view("assets://scenes/");
+               auto files = fileView.ls();
+               if (files == common::valid)
+               {
+                   for (auto file : files.decay())
+                   {
+                       if (file.get_extension() == common::valid)
+                       {
+                           if (file.get_extension().decay() == ".cornflake")
+                           {
+                               auto fileName = file.get_filename().decay();
+                               fileName = fileName.substr(0, fileName.find_last_of('.'));
+                               log::debug("Added {}", fileName);
+                               sceneNames.emplace(nameHash(fileName), fileName);
+                           }
+                       }
+                   }
+               }
+           }
+   
+           static ecs::entity_handle create_scene_entity(const std::string& name = "Scene");
+   
+           static ecs::component_handle<scene> create_scene(const std::string& name = "Scene");
+   
+           static ecs::component_handle<scene> create_scene(const std::string& name, ecs::entity_handle& ent);
+   
+           static ecs::component_handle<scene> load_scene(const std::string& name);
+   
+           static ecs::component_handle<scene> save_scene(const std::string& name, ecs::entity_handle& ent);
+   
+           static ecs::component_handle<scene> get_scene(std::string name);
+   
+           static ecs::entity_handle get_scene_entity(std::string name);
+   
+           template <class component_type>
+           static void add_loader(additional_loader_fn additional_loader)
+           {
+               m_additionalLoaders[typeHash<component_type>()] = additional_loader;
+           }
+       };
+   }

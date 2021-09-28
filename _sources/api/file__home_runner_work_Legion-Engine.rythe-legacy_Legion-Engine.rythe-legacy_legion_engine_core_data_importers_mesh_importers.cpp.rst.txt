@@ -1,0 +1,80 @@
+
+.. _file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_data_importers_mesh_importers.cpp:
+
+File mesh_importers.cpp
+=======================
+
+|exhale_lsh| :ref:`Parent directory <dir__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_data_importers>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/data/importers``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. contents:: Contents
+   :local:
+   :backlinks: none
+
+Definition (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/data/importers/mesh_importers.cpp``)
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+.. toctree::
+   :maxdepth: 1
+
+   program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_data_importers_mesh_importers.cpp.rst
+
+
+
+
+
+Includes
+--------
+
+
+- ``algorithm`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_broadphasecollisionalgorithms_broadphasebruteforce.hpp`)
+
+- ``core/common/string_extra.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_common_string_extra.hpp`)
+
+- ``core/data/importers/mesh_importers.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_data_importers_mesh_importers.hpp`)
+
+- ``core/filesystem/basic_resolver.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_filesystem_basic_resolver.hpp`)
+
+- ``core/logging/logging.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_logging_logging.hpp`)
+
+- ``core/math/math.hpp`` (:ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_math_math.hpp`)
+
+- ``unordered_map``
+
+
+
+
+
+
+Namespaces
+----------
+
+
+- :ref:`namespace_legion`
+
+- :ref:`namespace_legion__core`
+
+- :ref:`namespace_legion__core__detail`
+
+
+Classes
+-------
+
+
+- :ref:`exhale_struct_structlegion_1_1core_1_1detail_1_1vertex__hash`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_mesh__importers_8cpp_1a925c6780e89d22e163ed4e210195e4ad`
+
+- :ref:`exhale_function_mesh__importers_8cpp_1a59311c6aa819339a257d0a3e7fbc4b1d`
+
+- :ref:`exhale_function_mesh__importers_8cpp_1a4fce35bbb6abbe16f1d597f8a8c1378f`
+
+- :ref:`exhale_function_mesh__importers_8cpp_1a215f3c09bf42927f7069e6c8114d3770`
+

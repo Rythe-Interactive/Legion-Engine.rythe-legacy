@@ -3,7 +3,7 @@
 Class vertexarray
 =================
 
-- Defined in :ref:`file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_rendering_data_vertexarray.hpp`
+- Defined in :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_vertexarray.hpp`
 
 
 Class Documentation

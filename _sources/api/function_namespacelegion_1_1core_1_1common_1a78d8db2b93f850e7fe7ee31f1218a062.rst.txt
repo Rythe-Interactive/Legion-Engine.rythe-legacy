@@ -3,7 +3,7 @@
 Template Function legion::core::common::join_strings_with(Range const&)
 =======================================================================
 
-- Defined in :ref:`file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_common_string_extra.hpp`
+- Defined in :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_common_string_extra.hpp`
 
 
 Function Documentation

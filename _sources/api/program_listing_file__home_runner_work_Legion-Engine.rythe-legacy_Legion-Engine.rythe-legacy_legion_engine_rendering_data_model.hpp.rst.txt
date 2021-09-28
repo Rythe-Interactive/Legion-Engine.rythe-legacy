@@ -1,0 +1,102 @@
+
+.. _program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_model.hpp:
+
+Program Listing for File model.hpp
+==================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_data_model.hpp>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/rendering/data/model.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   #include <application/application.hpp>
+   #include <rendering/util/bindings.hpp>
+   #include <rendering/data/buffer.hpp>
+   #include <rendering/data/vertexarray.hpp>
+   #include <rendering/data/material.hpp>
+   
+   #include <vector>
+   #include <unordered_map>
+   #include <set>
+   
+   namespace legion::rendering
+   {
+       struct model
+       {
+           bool buffered;
+           vertexarray vertexArray;
+           buffer vertexBuffer;
+           buffer colorBuffer;
+           buffer normalBuffer;
+           buffer uvBuffer;
+           buffer tangentBuffer;
+           buffer indexBuffer;
+   
+           std::vector<sub_mesh> submeshes;
+       };
+   
+       struct model_handle
+       {
+           id_type id;
+           
+           bool operator==(const model_handle& other) const { return id == other.id; }
+           bool is_buffered() const;
+           void buffer_data(const buffer& matrixBuffer) const;
+           void overwrite_buffer(buffer& newBuffer, uint bufferID, bool perInstance = false) const;
+   
+           mesh_handle get_mesh() const;
+           const model& get_model() const;
+       };
+   
+       constexpr model_handle invalid_model_handle { invalid_id };
+   
+       class ModelCache
+       {
+           friend class renderer;
+           friend struct model_handle;
+       private:
+           static sparse_map<id_type, model> m_models;
+           static async::rw_spinlock m_modelLock;
+   
+           static async::rw_spinlock m_modelNameLock;
+           static std::unordered_map<id_type, std::string> m_modelNames;
+   
+           static const model& get_model(id_type id);
+   
+       public:
+           static std::string get_model_name(id_type id);
+   
+           static void overwrite_buffer(id_type id, buffer& newBuffer, uint bufferID, bool perInstance = false);
+           static void buffer_model(id_type id, const buffer& matrixBuffer);
+           static model_handle create_model(const std::string& name, const fs::view& file, mesh_import_settings settings = default_mesh_settings);
+           static model_handle create_model(const std::string& name, const fs::view& file, std::vector<material_handle>& materials, mesh_import_settings settings = default_mesh_settings);
+           static model_handle create_model(const std::string& name);
+           static model_handle create_model(const std::string& name, id_type meshId);
+           static model_handle create_model(id_type meshId);
+           static model_handle create_model(const std::string& name, mesh_handle mesh);
+           static model_handle create_model(mesh_handle mesh);
+           static model_handle get_handle(const std::string& name);
+           static model_handle get_handle(id_type id);
+           static mesh_handle get_mesh(const std::string& name);
+           static mesh_handle get_mesh(id_type id);
+   
+           static void destroy_model(const std::string& name);
+   
+       };
+   }
+   
+   #if !defined(DOXY_EXCLUDE)
+   namespace std
+   {
+       template<>
+       struct hash<legion::rendering::model_handle>
+       {
+           std::size_t operator()(legion::rendering::model_handle const& handle) const noexcept
+           {
+               return static_cast<std::size_t>(handle.id);
+           }
+       };
+   }
+   #endif

@@ -3,7 +3,7 @@
 Struct Scheduler::thread_error
 ==============================
 
-- Defined in :ref:`file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_scheduling_scheduler.hpp`
+- Defined in :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scheduling_scheduler.hpp`
 
 
 Nested Relationships

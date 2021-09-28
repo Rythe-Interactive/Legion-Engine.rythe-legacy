@@ -1,0 +1,32 @@
+
+.. _program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_rendering.hpp:
+
+Program Listing for File rendering.hpp
+======================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_rendering_rendering.hpp>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/rendering/rendering.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   #include <rendering/data/model.hpp>
+   #include <rendering/systems/renderer.hpp>
+   #include <rendering/module/renderingmodule.hpp>
+   #include <rendering/debugrendering.hpp>
+   #include <rendering/pipeline/default/stages/postprocessingstage.hpp>
+   #include <rendering/pipeline/default/postfx/tonemapping.hpp>
+   #include <rendering/data/buffer.hpp>
+   #include <rendering/data/framebuffer.hpp>
+   #include <rendering/data/renderbuffer.hpp>
+   #include <rendering/data/vertexarray.hpp>
+   #include <rendering/data/material.hpp>
+   #include <rendering/data/postprocessingeffect.hpp>
+   #include <rendering/data/particle_system_base.hpp>
+   #include <rendering/data/particle_system_cache.hpp>
+   
+   namespace legion
+   {
+       namespace gfx = ::legion::rendering;
+   }

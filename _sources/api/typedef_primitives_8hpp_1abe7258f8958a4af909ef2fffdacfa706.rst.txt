@@ -3,7 +3,7 @@
 Typedef legion::core::cstring
 =============================
 
-- Defined in :ref:`file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_types_primitives.hpp`
+- Defined in :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_types_primitives.hpp`
 
 
 Typedef Documentation

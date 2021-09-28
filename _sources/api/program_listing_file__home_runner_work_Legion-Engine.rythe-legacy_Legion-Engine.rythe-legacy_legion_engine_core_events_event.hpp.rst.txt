@@ -1,0 +1,60 @@
+
+.. _program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_events_event.hpp:
+
+Program Listing for File event.hpp
+==================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_events_event.hpp>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/events/event.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   #include <core/types/primitives.hpp>
+   #include <core/types/type_util.hpp>
+   #include <core/platform/platform.hpp>
+   #include <core/async/ring_sync_lock.hpp>
+   #include <unordered_map>
+   
+   namespace legion::core::events
+   {
+       namespace detail
+       {
+           static async::rw_spinlock eventNameLock;
+           static std::unordered_map<id_type, std::string> eventNames;
+   
+           template<typename T>
+           id_type reportEventType()
+           {
+               eventNames[typeHash<T>()] = nameOfType<T>();
+               return typeHash<T>();
+           }
+       }
+   
+       struct event_base
+       {
+           virtual bool persistent() LEGION_IMPURE_RETURN(false);
+   
+           virtual bool unique() LEGION_IMPURE_RETURN(true);
+   
+           virtual ~event_base() = default;
+   
+           virtual id_type get_id() LEGION_PURE;
+       };
+   
+       template<typename Self>
+       struct event : public event_base
+       {
+           friend  class EventBus;
+   
+           inline static const id_type id = detail::reportEventType<Self>();
+   
+           virtual ~event() = default;
+       private:
+           virtual id_type get_id()
+           {
+               return id;
+           }
+       };
+   }

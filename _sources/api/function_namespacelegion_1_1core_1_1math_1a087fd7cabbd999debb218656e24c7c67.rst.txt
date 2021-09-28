@@ -3,7 +3,7 @@
 Template Function legion::core::math::get_highest_epsilon
 =========================================================
 
-- Defined in :ref:`file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_math_close_enough.hpp`
+- Defined in :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_math_close_enough.hpp`
 
 
 Function Documentation

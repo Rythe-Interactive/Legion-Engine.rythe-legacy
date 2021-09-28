@@ -3,7 +3,7 @@
 Struct mediumExplosion
 ======================
 
-- Defined in :ref:`file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_systems_physics_fracture_test_system.hpp`
+- Defined in :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_systems_physics_fracture_test_system.hpp`
 
 
 Inheritance Relationships

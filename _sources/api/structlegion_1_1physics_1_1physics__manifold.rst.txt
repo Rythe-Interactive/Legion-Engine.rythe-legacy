@@ -3,7 +3,7 @@
 Struct physics_manifold
 =======================
 
-- Defined in :ref:`file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_data_physics_manifold.hpp`
+- Defined in :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_data_physics_manifold.hpp`
 
 
 Struct Documentation

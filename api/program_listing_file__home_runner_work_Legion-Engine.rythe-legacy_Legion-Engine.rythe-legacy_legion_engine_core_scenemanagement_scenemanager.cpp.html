@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Program Listing for File scenemanager.cpp &#8212; LegionEngine v 0.2 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nameko.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+    <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Lora:400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">LegionEngine v 0.2 alpha documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Program Listing for File scenemanager.cpp</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="program-listing-for-file-scenemanager-cpp">
+<span id="program-listing-file-home-runner-work-legion-engine-rythe-legacy-legion-engine-rythe-legacy-legion-engine-core-scenemanagement-scenemanager-cpp"></span><h1>Program Listing for File scenemanager.cpp<a class="headerlink" href="#program-listing-for-file-scenemanager-cpp" title="Permalink to this headline">¶</a></h1>
+<p>↰ <a class="reference internal" href="file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scenemanagement_scenemanager.cpp.html#file-home-runner-work-legion-engine-rythe-legacy-legion-engine-rythe-legacy-legion-engine-core-scenemanagement-scenemanager-cpp"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/scenemanagement/scenemanager.cpp</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;core/scenemanagement/components/scene.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;core/serialization/serializationUtil.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;core/logging/logging.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;core/common/string_extra.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;core/defaults/defaultcomponents.hpp&gt;</span><span class="cp"></span>
+<span class="c1">//#include &lt;rendering/components/camera.hpp&gt;</span>
+
+
+<span class="k">namespace</span> <span class="nn">legion</span><span class="o">::</span><span class="nn">core</span><span class="o">::</span><span class="nn">scenemanagement</span>
+<span class="p">{</span>
+    <span class="n">ecs</span><span class="o">::</span><span class="n">EcsRegistry</span><span class="o">*</span> <span class="n">SceneManager</span><span class="o">::</span><span class="n">m_ecs</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">SceneManager</span><span class="o">::</span><span class="n">sceneCount</span><span class="p">;</span>
+    <span class="n">ecs</span><span class="o">::</span><span class="n">component_handle</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span> <span class="n">SceneManager</span><span class="o">::</span><span class="n">currentScene</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">id_type</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">SceneManager</span><span class="o">::</span><span class="n">sceneNames</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">id_type</span><span class="p">,</span> <span class="n">ecs</span><span class="o">::</span><span class="n">component_handle</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;&gt;</span> <span class="n">SceneManager</span><span class="o">::</span><span class="n">sceneList</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">id_type</span><span class="p">,</span> <span class="n">SceneManager</span><span class="o">::</span><span class="n">additional_loader_fn</span><span class="o">&gt;</span> <span class="n">SceneManager</span><span class="o">::</span><span class="n">m_additionalLoaders</span><span class="p">;</span>
+
+    <span class="n">ecs</span><span class="o">::</span><span class="n">entity_handle</span> <span class="nf">SceneManager::create_scene_entity</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">ecs</span><span class="o">::</span><span class="n">entity_handle</span> <span class="n">sceneEntity</span> <span class="o">=</span> <span class="n">get_scene_entity</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">sceneEntity</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">log</span><span class="o">::</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Creating a Scene Entity&quot;</span><span class="p">);</span>
+            <span class="n">sceneEntity</span> <span class="o">=</span> <span class="n">m_ecs</span><span class="o">-&gt;</span><span class="n">createEntity</span><span class="p">();</span>
+            <span class="n">sceneEntity</span><span class="p">.</span><span class="n">add_component</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span><span class="p">();</span>
+            <span class="k">auto</span> <span class="n">hry</span> <span class="o">=</span> <span class="n">world</span><span class="p">.</span><span class="n">read_component</span><span class="o">&lt;</span><span class="n">hierarchy</span><span class="o">&gt;</span><span class="p">();</span>
+            <span class="k">auto</span> <span class="n">worldHry</span> <span class="o">=</span> <span class="n">hry</span><span class="p">;</span>
+            <span class="n">hry</span><span class="p">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+            <span class="n">hry</span><span class="p">.</span><span class="n">children</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">sceneEntity</span><span class="p">);</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="n">ecs</span><span class="o">::</span><span class="n">entity_handle</span> <span class="nl">child</span> <span class="p">:</span> <span class="n">hry</span><span class="p">.</span><span class="n">children</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">child</span><span class="p">.</span><span class="n">has_component</span><span class="o">&lt;</span><span class="n">hierarchy</span><span class="o">&gt;</span><span class="p">())</span>
+                <span class="p">{</span>
+                    <span class="k">auto</span> <span class="n">h</span> <span class="o">=</span> <span class="n">child</span><span class="p">.</span><span class="n">read_component</span><span class="o">&lt;</span><span class="n">hierarchy</span><span class="o">&gt;</span><span class="p">();</span>
+                    <span class="n">h</span><span class="p">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">sceneEntity</span><span class="p">;</span>
+                    <span class="n">child</span><span class="p">.</span><span class="n">write_component</span><span class="p">(</span><span class="n">h</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="n">sceneEntity</span><span class="p">.</span><span class="n">add_component</span><span class="p">(</span><span class="n">hry</span><span class="p">);</span>
+
+            <span class="n">worldHry</span><span class="p">.</span><span class="n">children</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+            <span class="n">worldHry</span><span class="p">.</span><span class="n">children</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">sceneEntity</span><span class="p">);</span>
+            <span class="n">world</span><span class="p">.</span><span class="n">write_component</span><span class="p">(</span><span class="n">worldHry</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">sceneEntity</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">ecs</span><span class="o">::</span><span class="n">component_handle</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span> <span class="n">SceneManager</span><span class="o">::</span><span class="n">create_scene</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">ecs</span><span class="o">::</span><span class="n">entity_handle</span> <span class="n">sceneEntity</span> <span class="o">=</span> <span class="n">create_scene_entity</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">get_scene_entity</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">scene</span> <span class="n">s</span> <span class="o">=</span> <span class="n">sceneEntity</span><span class="p">.</span><span class="n">read_component</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span><span class="p">();</span>
+            <span class="n">s</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">nameHash</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+            <span class="n">sceneNames</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">id</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+            <span class="n">sceneEntity</span><span class="p">.</span><span class="n">write_component</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+            <span class="n">sceneList</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">nameHash</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="n">sceneEntity</span><span class="p">.</span><span class="n">get_component_handle</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span><span class="p">());</span>
+            <span class="n">sceneCount</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">SceneManager</span><span class="o">::</span><span class="n">save_scene</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">sceneEntity</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">ecs</span><span class="o">::</span><span class="n">component_handle</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span> <span class="n">SceneManager</span><span class="o">::</span><span class="n">create_scene</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">,</span> <span class="n">ecs</span><span class="o">::</span><span class="n">entity_handle</span><span class="o">&amp;</span> <span class="n">ent</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">ent</span><span class="p">.</span><span class="n">has_component</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="n">scene</span> <span class="n">s</span><span class="p">;</span>
+            <span class="n">s</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">nameHash</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+            <span class="n">sceneNames</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">id</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+            <span class="k">auto</span> <span class="n">sceneHandle</span> <span class="o">=</span> <span class="n">ent</span><span class="p">.</span><span class="n">add_component</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+            <span class="n">sceneList</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">nameHash</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="n">sceneHandle</span><span class="p">);</span>
+            <span class="n">sceneCount</span><span class="o">++</span><span class="p">;</span>
+            <span class="c1">//true if entity does not have the scene component</span>
+            <span class="k">return</span> <span class="n">save_scene</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">ent</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="k">auto</span> <span class="n">s</span> <span class="o">=</span> <span class="n">ent</span><span class="p">.</span><span class="n">read_component</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span><span class="p">();</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">id</span> <span class="o">!=</span> <span class="n">nameHash</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+            <span class="p">{</span>
+                <span class="n">s</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">nameHash</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+                <span class="n">sceneNames</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">id</span><span class="p">,</span> <span class="n">name</span><span class="p">);</span>
+                <span class="n">sceneList</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">id</span><span class="p">,</span> <span class="n">ent</span><span class="p">.</span><span class="n">get_component_handle</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span><span class="p">());</span>
+                <span class="n">sceneCount</span><span class="o">++</span><span class="p">;</span>
+                <span class="n">ent</span><span class="p">.</span><span class="n">set_name</span><span class="p">(</span><span class="n">name</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="n">save_scene</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">ent</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">ecs</span><span class="o">::</span><span class="n">component_handle</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span> <span class="n">SceneManager</span><span class="o">::</span><span class="n">load_scene</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">filename</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">common</span><span class="o">::</span><span class="n">ends_with</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&quot;.cornflake&quot;</span><span class="p">))</span> <span class="n">filename</span> <span class="o">+=</span> <span class="s">&quot;.cornflake&quot;</span><span class="p">;</span>
+
+        <span class="n">std</span><span class="o">::</span><span class="n">ifstream</span> <span class="nf">inFile</span><span class="p">(</span><span class="s">&quot;assets/scenes/&quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">);</span>
+
+        <span class="k">auto</span> <span class="n">hry</span> <span class="o">=</span> <span class="n">world</span><span class="p">.</span><span class="n">read_component</span><span class="o">&lt;</span><span class="n">hierarchy</span><span class="o">&gt;</span><span class="p">();</span>
+        <span class="n">log</span><span class="o">::</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Child Count Before: {}&quot;</span><span class="p">,</span> <span class="n">hry</span><span class="p">.</span><span class="n">children</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">child</span> <span class="p">:</span> <span class="n">hry</span><span class="p">.</span><span class="n">children</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">log</span><span class="o">::</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;children remaining {}&quot;</span><span class="p">,</span> <span class="n">world</span><span class="p">.</span><span class="n">child_count</span><span class="p">());</span>
+            <span class="n">child</span><span class="p">.</span><span class="n">destroy</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">hry</span><span class="p">.</span><span class="n">children</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+        <span class="n">world</span><span class="p">.</span><span class="n">write_component</span><span class="p">(</span><span class="n">hry</span><span class="p">);</span>
+        <span class="n">log</span><span class="o">::</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Child Count After: {}&quot;</span><span class="p">,</span> <span class="n">world</span><span class="p">.</span><span class="n">child_count</span><span class="p">());</span>
+
+        <span class="k">auto</span> <span class="n">sceneEntity</span> <span class="o">=</span> <span class="n">serialization</span><span class="o">::</span><span class="n">SerializationUtil</span><span class="o">::</span><span class="n">JSONDeserialize</span><span class="o">&lt;</span><span class="n">ecs</span><span class="o">::</span><span class="n">entity_handle</span><span class="o">&gt;</span><span class="p">(</span><span class="n">inFile</span><span class="p">);</span>
+        <span class="n">currentScene</span> <span class="o">=</span> <span class="n">sceneEntity</span><span class="p">.</span><span class="n">get_component_handle</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span><span class="p">();</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="p">[</span><span class="n">id</span><span class="p">,</span> <span class="n">fn</span><span class="p">]</span> <span class="o">:</span> <span class="n">m_additionalLoaders</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">hashed_sparse_set</span><span class="o">&lt;</span><span class="n">id_type</span><span class="o">&gt;</span> <span class="n">types</span><span class="p">;</span>
+            <span class="n">types</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+            <span class="k">auto</span> <span class="n">query</span> <span class="o">=</span> <span class="n">m_ecs</span><span class="o">-&gt;</span><span class="n">createQuery</span><span class="p">(</span><span class="n">types</span><span class="p">);</span>
+            <span class="n">query</span><span class="p">.</span><span class="n">queryEntities</span><span class="p">();</span>
+            <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="nl">child</span> <span class="p">:</span> <span class="n">query</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="n">fn</span><span class="p">(</span><span class="n">child</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+
+        <span class="k">static</span> <span class="k">auto</span> <span class="n">sceneQuery</span> <span class="o">=</span> <span class="n">m_ecs</span><span class="o">-&gt;</span><span class="n">createQuery</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span><span class="p">();</span>
+        <span class="n">sceneQuery</span><span class="p">.</span><span class="n">queryEntities</span><span class="p">();</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">ent</span> <span class="p">:</span> <span class="n">sceneQuery</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">auto</span> <span class="n">sceneHandle</span> <span class="o">=</span> <span class="n">ent</span><span class="p">.</span><span class="n">get_component_handle</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span><span class="p">();</span>
+            <span class="k">auto</span> <span class="n">s</span> <span class="o">=</span> <span class="n">sceneHandle</span><span class="p">.</span><span class="n">read</span><span class="p">();</span>
+
+            <span class="n">sceneList</span><span class="p">[</span><span class="n">s</span><span class="p">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">sceneHandle</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="c1">//SceneManager::saveScene(name, sceneEntity);</span>
+        <span class="c1">//log::debug(&quot;........Done saving scene&quot;);</span>
+        <span class="k">return</span> <span class="n">sceneEntity</span><span class="p">.</span><span class="n">get_component_handle</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="n">ecs</span><span class="o">::</span><span class="n">component_handle</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span> <span class="n">SceneManager</span><span class="o">::</span><span class="n">save_scene</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">name</span><span class="p">,</span> <span class="n">ecs</span><span class="o">::</span><span class="n">entity_handle</span><span class="o">&amp;</span> <span class="n">ent</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">ofstream</span> <span class="nf">outFile</span><span class="p">(</span><span class="s">&quot;assets/scenes/&quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;.cornflake&quot;</span><span class="p">);</span>
+        <span class="n">outFile</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+        <span class="n">serialization</span><span class="o">::</span><span class="n">SerializationUtil</span><span class="o">::</span><span class="n">JSONSerialize</span><span class="o">&lt;</span><span class="n">ecs</span><span class="o">::</span><span class="n">entity_handle</span><span class="o">&gt;</span><span class="p">(</span><span class="n">outFile</span><span class="p">,</span> <span class="n">ent</span><span class="p">);</span>
+        <span class="n">outFile</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+        <span class="k">return</span> <span class="n">ent</span><span class="p">.</span><span class="n">get_component_handle</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="n">ecs</span><span class="o">::</span><span class="n">component_handle</span><span class="o">&lt;</span><span class="n">scene</span><span class="o">&gt;</span> <span class="n">SceneManager</span><span class="o">::</span><span class="n">get_scene</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">sceneList</span><span class="p">[</span><span class="n">nameHash</span><span class="p">(</span><span class="n">name</span><span class="p">)];</span>
+    <span class="p">}</span>
+
+    <span class="n">ecs</span><span class="o">::</span><span class="n">entity_handle</span> <span class="n">SceneManager</span><span class="o">::</span><span class="n">get_scene_entity</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">sceneList</span><span class="p">[</span><span class="n">nameHash</span><span class="p">(</span><span class="n">name</span><span class="p">)].</span><span class="n">entity</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation index</a><ul>
+  </ul></li>
+</ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scenemanagement_scenemanager.cpp.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+  </body>
+</html>

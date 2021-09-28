@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Program Listing for File processchain.cpp &#8212; LegionEngine v 0.2 alpha documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nameko.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+    <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Lora:400' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  </head><body>
+  
+  
+
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">LegionEngine v 0.2 alpha documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Program Listing for File processchain.cpp</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="program-listing-for-file-processchain-cpp">
+<span id="program-listing-file-home-runner-work-legion-engine-rythe-legacy-legion-engine-rythe-legacy-legion-engine-core-scheduling-processchain-cpp"></span><h1>Program Listing for File processchain.cpp<a class="headerlink" href="#program-listing-for-file-processchain-cpp" title="Permalink to this headline">¶</a></h1>
+<p>↰ <a class="reference internal" href="file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scheduling_processchain.cpp.html#file-home-runner-work-legion-engine-rythe-legacy-legion-engine-rythe-legacy-legion-engine-core-scheduling-processchain-cpp"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/scheduling/processchain.cpp</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;core/scheduling/processchain.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;core/scheduling/process.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;core/scheduling/scheduler.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;core/common/exception.hpp&gt;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&lt;thread&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;core/logging/logging.hpp&gt;</span><span class="cp"></span>
+
+<span class="k">namespace</span> <span class="nn">legion</span><span class="o">::</span><span class="nn">core</span><span class="o">::</span><span class="nn">scheduling</span>
+<span class="p">{</span>
+    <span class="n">async</span><span class="o">::</span><span class="n">rw_spinlock</span> <span class="n">ProcessChain</span><span class="o">::</span><span class="n">m_callbackLock</span><span class="p">;</span>
+    <span class="n">multicast_delegate</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">()</span><span class="o">&gt;</span> <span class="n">ProcessChain</span><span class="o">::</span><span class="n">m_onFrameStart</span><span class="p">;</span>
+    <span class="n">multicast_delegate</span><span class="o">&lt;</span><span class="kt">void</span><span class="p">()</span><span class="o">&gt;</span> <span class="n">ProcessChain</span><span class="o">::</span><span class="n">m_onFrameEnd</span><span class="p">;</span>
+
+    <span class="kt">void</span> <span class="nf">ProcessChain::threadedRun</span><span class="p">(</span><span class="n">ProcessChain</span><span class="o">*</span> <span class="n">chain</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">log</span><span class="o">::</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Chain started.&quot;</span><span class="p">);</span>
+        <span class="n">chain</span><span class="o">-&gt;</span><span class="n">m_scheduler</span><span class="o">-&gt;</span><span class="n">subscribeToSync</span><span class="p">();</span>
+
+<span class="cp">#if USE_OPTICK</span>
+        <span class="n">Optick</span><span class="o">::</span><span class="n">Event</span><span class="o">*</span> <span class="n">frameEvent</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+<span class="cp">#endif</span>
+
+        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">chain</span><span class="o">-&gt;</span><span class="n">m_exit</span><span class="o">-&gt;</span><span class="n">load</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">memory_order_acquire</span><span class="p">))</span> <span class="c1">// Check for exit flag.</span>
+        <span class="p">{</span>
+<span class="cp">#if USE_OPTICK</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">frameEvent</span><span class="p">)</span>
+                <span class="k">delete</span> <span class="n">frameEvent</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">chain</span><span class="o">-&gt;</span><span class="n">m_name</span> <span class="o">==</span> <span class="s">&quot;Rendering&quot;</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="k">static</span> <span class="n">Optick</span><span class="o">::</span><span class="n">ThreadScope</span> <span class="n">mainThreadScope</span><span class="p">(</span><span class="s">&quot;Rendering&quot;</span><span class="p">);</span>
+                <span class="n">OPTICK_UNUSED</span><span class="p">(</span><span class="n">mainThreadScope</span><span class="p">);</span>
+                <span class="n">Optick</span><span class="o">::</span><span class="n">EndFrame</span><span class="p">();</span>
+                <span class="n">Optick</span><span class="o">::</span><span class="n">Update</span><span class="p">();</span>
+                <span class="kt">uint32_t</span> <span class="n">frameNumber</span> <span class="o">=</span> <span class="o">::</span><span class="n">Optick</span><span class="o">::</span><span class="n">BeginFrame</span><span class="p">();</span>
+
+                <span class="n">frameEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Optick</span><span class="o">::</span><span class="n">Event</span><span class="p">(</span><span class="o">*::</span><span class="n">Optick</span><span class="o">::</span><span class="n">GetFrameDescription</span><span class="p">());</span>
+
+                <span class="n">OPTICK_TAG</span><span class="p">(</span><span class="s">&quot;Frame&quot;</span><span class="p">,</span> <span class="n">frameNumber</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span>
+            <span class="p">{</span>
+                <span class="k">static</span> <span class="n">Optick</span><span class="o">::</span><span class="n">EventDescription</span><span class="o">*</span> <span class="n">frameEventDesc</span> <span class="o">=</span> <span class="n">Optick</span><span class="o">::</span><span class="n">CreateDescription</span><span class="p">(</span><span class="n">OPTICK_FUNC</span><span class="p">,</span> <span class="n">__FILE__</span><span class="p">,</span> <span class="n">__LINE__</span><span class="p">);</span>
+
+                <span class="n">frameEvent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Optick</span><span class="o">::</span><span class="n">Event</span><span class="p">(</span><span class="o">*</span><span class="n">frameEventDesc</span><span class="p">);</span>
+            <span class="p">}</span>
+<span class="cp">#endif</span>
+
+            <span class="n">chain</span><span class="o">-&gt;</span><span class="n">runInCurrentThread</span><span class="p">();</span> <span class="c1">// Execute all processes.</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">chain</span><span class="o">-&gt;</span><span class="n">m_scheduler</span><span class="o">-&gt;</span><span class="n">syncRequested</span><span class="p">())</span> <span class="c1">// Sync if requested.</span>
+                <span class="n">chain</span><span class="o">-&gt;</span><span class="n">m_scheduler</span><span class="o">-&gt;</span><span class="n">waitForProcessSync</span><span class="p">();</span>
+
+            <span class="p">{</span>
+                <span class="n">OPTICK_CATEGORY</span><span class="p">(</span><span class="s">&quot;Relieve LSU contention&quot;</span><span class="p">,</span> <span class="n">Optick</span><span class="o">::</span><span class="n">Category</span><span class="o">::</span><span class="n">Wait</span><span class="p">);</span>
+                <span class="n">L_PAUSE_INSTRUCTION</span><span class="p">();</span>
+                <span class="n">std</span><span class="o">::</span><span class="n">this_thread</span><span class="o">::</span><span class="n">yield</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+<span class="cp">#if USE_OPTICK</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">frameEvent</span><span class="p">)</span>
+            <span class="k">delete</span> <span class="n">frameEvent</span><span class="p">;</span>
+<span class="cp">#endif</span>
+
+        <span class="n">chain</span><span class="o">-&gt;</span><span class="n">m_scheduler</span><span class="o">-&gt;</span><span class="n">unsubscribeFromSync</span><span class="p">();</span>
+        <span class="n">chain</span><span class="o">-&gt;</span><span class="n">m_scheduler</span><span class="o">-&gt;</span><span class="n">reportExit</span><span class="p">(</span><span class="n">chain</span><span class="o">-&gt;</span><span class="n">m_threadId</span><span class="p">);</span> <span class="c1">// Mark Exit.</span>
+    <span class="p">}</span>
+
+    <span class="kt">bool</span> <span class="nf">ProcessChain::run</span><span class="p">(</span><span class="kt">bool</span> <span class="n">low_power</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_low_power</span> <span class="o">=</span> <span class="n">low_power</span><span class="p">;</span>
+        <span class="n">m_exit</span><span class="o">-&gt;</span><span class="n">store</span><span class="p">(</span><span class="nb">false</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">memory_order_release</span><span class="p">);</span>
+        <span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="o">::</span><span class="n">id</span> <span class="n">threadId</span> <span class="o">=</span> <span class="n">m_scheduler</span><span class="o">-&gt;</span><span class="n">getChainThreadId</span><span class="p">(</span><span class="n">m_nameHash</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">threadId</span> <span class="o">!=</span> <span class="n">std</span><span class="o">::</span><span class="kr">thread</span><span class="o">::</span><span class="n">id</span><span class="p">())</span>
+        <span class="p">{</span>
+            <span class="n">m_threadId</span> <span class="o">=</span> <span class="n">threadId</span><span class="p">;</span>
+
+            <span class="n">m_scheduler</span><span class="o">-&gt;</span><span class="n">sendCommand</span><span class="p">(</span><span class="n">threadId</span><span class="p">,</span> <span class="p">[</span><span class="o">&amp;</span><span class="p">]()</span> <span class="p">{</span> <span class="n">ProcessChain</span><span class="o">::</span><span class="n">threadedRun</span><span class="p">(</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">ProcessChain</span><span class="o">*&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">));</span> <span class="p">});</span>
+
+            <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="nf">ProcessChain::exit</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">m_exit</span><span class="o">-&gt;</span><span class="n">store</span><span class="p">(</span><span class="nb">true</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">memory_order_release</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="nf">ProcessChain::runInCurrentThread</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">OPTICK_EVENT</span><span class="p">(</span><span class="s">&quot;Run process chain&quot;</span><span class="p">);</span>
+        <span class="n">OPTICK_TAG</span><span class="p">(</span><span class="s">&quot;Process chain&quot;</span><span class="p">,</span> <span class="n">m_name</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+
+        <span class="p">{</span>
+            <span class="n">async</span><span class="o">::</span><span class="n">readonly_guard</span> <span class="n">guard</span><span class="p">(</span><span class="n">m_callbackLock</span><span class="p">);</span>
+            <span class="n">m_onFrameStart</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="n">hashed_sparse_set</span><span class="o">&lt;</span><span class="n">id_type</span><span class="o">&gt;</span> <span class="n">finishedProcesses</span><span class="p">;</span>
+        <span class="n">async</span><span class="o">::</span><span class="n">readonly_guard</span> <span class="n">guard</span><span class="p">(</span><span class="n">m_processesLock</span><span class="p">);</span> <span class="c1">// Hooking more processes whilst executing isn&#39;t allowed.</span>
+        <span class="k">do</span>
+        <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="p">[</span><span class="n">id</span><span class="p">,</span> <span class="n">process</span><span class="p">]</span> <span class="o">:</span> <span class="n">m_processes</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">finishedProcesses</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="n">id</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">process</span><span class="o">-&gt;</span><span class="n">execute</span><span class="p">(</span><span class="n">m_scheduler</span><span class="o">-&gt;</span><span class="n">getTimeScale</span><span class="p">()))</span> <span class="c1">// If the process wasn&#39;t finished then execute it and check if it&#39;s finished now.</span>
+                        <span class="n">finishedProcesses</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">id</span><span class="p">);</span>
+
+        <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">finishedProcesses</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">!=</span> <span class="n">m_processes</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">m_exit</span><span class="o">-&gt;</span><span class="n">load</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">memory_order_acquire</span><span class="p">));</span>
+
+        <span class="p">{</span>
+            <span class="n">async</span><span class="o">::</span><span class="n">readonly_guard</span> <span class="n">guard</span><span class="p">(</span><span class="n">m_callbackLock</span><span class="p">);</span>
+            <span class="n">m_onFrameEnd</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="nf">ProcessChain::addProcess</span><span class="p">(</span><span class="n">Process</span><span class="o">*</span> <span class="n">process</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">OPTICK_EVENT</span><span class="p">();</span>
+        <span class="n">async</span><span class="o">::</span><span class="n">readwrite_guard</span> <span class="n">guard</span><span class="p">(</span><span class="n">m_processesLock</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">m_processes</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">process</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">(),</span> <span class="n">process</span><span class="p">).</span><span class="n">second</span><span class="p">)</span>
+            <span class="n">process</span><span class="o">-&gt;</span><span class="n">m_hooks</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">m_nameHash</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="nf">ProcessChain::removeProcess</span><span class="p">(</span><span class="n">Process</span><span class="o">*</span> <span class="n">process</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">OPTICK_EVENT</span><span class="p">();</span>
+        <span class="n">async</span><span class="o">::</span><span class="n">readwrite_guard</span> <span class="n">guard</span><span class="p">(</span><span class="n">m_processesLock</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">m_processes</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">process</span><span class="o">-&gt;</span><span class="n">id</span><span class="p">()))</span>
+            <span class="n">process</span><span class="o">-&gt;</span><span class="n">m_hooks</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">m_nameHash</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation index</a><ul>
+  </ul></li>
+</ul>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scheduling_processchain.cpp.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  
+  </body>
+</html>

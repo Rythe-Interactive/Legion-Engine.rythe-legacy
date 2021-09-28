@@ -1,0 +1,102 @@
+
+.. _program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_halfedgeedge.hpp:
+
+Program Listing for File halfedgeedge.hpp
+=========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_halfedgeedge.hpp>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/physics/halfedgeedge.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   #include <core/core.hpp>
+   #include <physics/data/edge_label.hpp>
+   #include <physics/halfedgeface.hpp>
+   #include <rendering/debugrendering.hpp>
+   
+   namespace legion::physics
+   {
+       struct HalfEdgeEdge
+       {
+           HalfEdgeEdge* pairingEdge = nullptr;
+           HalfEdgeEdge* nextEdge = nullptr;
+           HalfEdgeEdge* prevEdge = nullptr;
+   
+           HalfEdgeFace* face = nullptr;
+   
+           EdgeLabel label;
+           
+           math::vec3 edgePosition;
+           std::string id;
+   
+           HalfEdgeEdge() = default;
+   
+           HalfEdgeEdge(math::vec3 newEdgePositionPtr) : edgePosition{ newEdgePositionPtr }
+           {
+   
+           }
+   
+           void setNextAndPrevEdge(HalfEdgeEdge* newPrevEdge,HalfEdgeEdge* newNextEdge)
+           {
+               nextEdge = newNextEdge;
+               prevEdge = newPrevEdge;
+           }
+   
+           void setPairingEdge(HalfEdgeEdge* edge)
+           {
+               pairingEdge = edge;
+               edge->pairingEdge = this;
+           }
+   
+           math::vec3 getLocalNormal() const
+           {
+               return face->normal;
+           }
+   
+           math::vec3 getLocalEdgeDirection()  const
+           {
+               return nextEdge->edgePosition - edgePosition;
+           }
+   
+           bool isVertexVisible(const math::vec3& vert)
+           {
+               float distanceToPlane =
+                   math::pointToPlane(vert, edgePosition, face->normal);
+   
+               return distanceToPlane > math::sqrt(math::epsilon<float>());
+           }
+   
+           bool isEdgeHorizonFromVertex(const math::vec3& vert)
+           {
+               return isVertexVisible(vert) && !pairingEdge->isVertexVisible(vert);
+           }
+   
+   
+           void DEBUG_drawEdge(const math::mat4& transform, const math::color& debugColor,float time = 20.0f, float width = 5.0f)
+           {
+               math::vec3 worldStart = transform * math::vec4(edgePosition, 1);
+               math::vec3 worldEnd = transform * math::vec4(nextEdge->edgePosition, 1);
+   
+               debug::user_projectDrawLine(worldStart, worldEnd, debugColor, width, time, true);
+           }
+   
+           void DEBUG_drawInsetEdge(const math::vec3 spacing, const math::color& debugColor, float time = 20.0f, float width = 5.0f)
+           {
+               math::vec3 worldCentroid = face->centroid + spacing;
+   
+               math::vec3 worldStart = edgePosition + spacing;
+               math::vec3 startDifference = (worldCentroid - worldStart) * 0.1f;
+         
+               math::vec3 worldEnd = nextEdge->edgePosition + spacing;
+               math::vec3 endDifference = (worldCentroid - worldEnd) * 0.1f;
+   
+   
+               debug::user_projectDrawLine(worldStart + startDifference, worldEnd + endDifference, debugColor, width, time, true);
+           }
+   
+   
+       };
+   }
+   

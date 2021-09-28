@@ -114,9 +114,9 @@ Functions
 
 - :ref:`exhale_function_namespacelegion_1_1core_1_1math_1ace96b6b04d3fdba65afe2db3aea2ae82`
 
-- :ref:`exhale_function_namespacelegion_1_1core_1_1math_1ad442880c50c4ee9180cffff65748fe57`
-
 - :ref:`exhale_function_namespacelegion_1_1core_1_1math_1aef2d3bd535d5b844d203e3aeecbf8b15`
+
+- :ref:`exhale_function_namespacelegion_1_1core_1_1math_1ad442880c50c4ee9180cffff65748fe57`
 
 - :ref:`exhale_function_namespacelegion_1_1core_1_1math_1a916beecf872ff0e82e74cd82703413ca`
 

@@ -3,7 +3,7 @@
 Template Class key_value_pair_iterator
 ======================================
 
-- Defined in :ref:`file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_containers_iterator_tricks.hpp`
+- Defined in :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_containers_iterator_tricks.hpp`
 
 
 Class Documentation

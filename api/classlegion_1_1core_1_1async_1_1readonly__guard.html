@@ -4,16 +4,16 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Class readonly_guard &#8212; LegionEngine v 0.2 alpha documentation</title>
-    <link rel="stylesheet" href="../_static/nameko.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nameko.css" />
     <link rel="stylesheet" type="text/css" href="../_static/collapsible-lists/css/tree_view.css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
     <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -52,51 +52,51 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="class-readonly-guard">
+  <section id="class-readonly-guard">
 <span id="exhale-class-classlegion-1-1core-1-1async-1-1readonly-guard"></span><h1>Class readonly_guard<a class="headerlink" href="#class-readonly-guard" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>Defined in <a class="reference internal" href="file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_rw_spinlock.hpp.html#file-home-runner-work-legion-engine-legion-engine-legion-engine-core-async-rw-spinlock-hpp"><span class="std std-ref">File rw_spinlock.hpp</span></a></p></li>
+<li><p>Defined in <a class="reference internal" href="file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_rw_spinlock.hpp.html#file-home-runner-work-legion-engine-rythe-legacy-legion-engine-rythe-legacy-legion-engine-core-async-rw-spinlock-hpp"><span class="std std-ref">File rw_spinlock.hpp</span></a></p></li>
 </ul>
-<div class="section" id="class-documentation">
+<section id="class-documentation">
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
 <dl class="cpp class">
-<dt id="_CPPv4N6legion4core5async14readonly_guardE">
-<span id="_CPPv3N6legion4core5async14readonly_guardE"></span><span id="_CPPv2N6legion4core5async14readonly_guardE"></span><span id="legion::core::async::readonly_guard"></span><span class="target" id="classlegion_1_1core_1_1async_1_1readonly__guard"></span><em class="property">class </em><code class="sig-prename descclassname">legion::core::async<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">readonly_guard</code><a class="headerlink" href="#_CPPv4N6legion4core5async14readonly_guardE" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6legion4core5async14readonly_guardE">
+<span id="_CPPv3N6legion4core5async14readonly_guardE"></span><span id="_CPPv2N6legion4core5async14readonly_guardE"></span><span id="legion::core::async::readonly_guard"></span><span class="target" id="classlegion_1_1core_1_1async_1_1readonly__guard"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">legion</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">core</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">async</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">readonly_guard</span></span></span><a class="headerlink" href="#_CPPv4N6legion4core5async14readonly_guardE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>RAII guard that uses ::async::rw_spinlock to lock for read-only. </p>
-<p><dl class="simple">
-<dt><strong>Note</strong></dt><dd><p>Read-only operations can happen simultaneously without waiting for each other. Read-only operations will only wait for Read-Write operations to be finished. <a class="reference internal" href="class_structlegion_1_1core_1_1async_1_1rw__spinlock.html#structlegion_1_1core_1_1async_1_1rw__spinlock"><span class="std std-ref">legion::core::async::rw_spinlock</span></a> </p>
-</dd>
-</dl>
+<p><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Read-only operations can happen simultaneously without waiting for each other. Read-only operations will only wait for Read-Write operations to be finished. <a class="reference internal" href="class_structlegion_1_1core_1_1async_1_1rw__spinlock.html#structlegion_1_1core_1_1async_1_1rw__spinlock"><span class="std std-ref">legion::core::async::rw_spinlock</span></a> </p>
+</div>
 </p>
 <div class="breathe-sectiondef docutils container">
-<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt id="_CPPv4N6legion4core5async14readonly_guard14readonly_guardERK11rw_spinlock13wait_priority">
-<span id="_CPPv3N6legion4core5async14readonly_guard14readonly_guardERK11rw_spinlock13wait_priority"></span><span id="_CPPv2N6legion4core5async14readonly_guard14readonly_guardERK11rw_spinlock13wait_priority"></span><span id="legion::core::async::readonly_guard::readonly_guard__rw_spinlockCR.wait_priority"></span><span class="target" id="classlegion_1_1core_1_1async_1_1readonly__guard_1ab2b7991e42609be3dfde2d43ebd90f9f"></span><em class="property">inline</em> <code class="sig-name descname">readonly_guard</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="class_structlegion_1_1core_1_1async_1_1rw__spinlock.html#_CPPv4N6legion4core5async11rw_spinlockE" title="legion::core::async::rw_spinlock">rw_spinlock</a> &amp;<em>lock</em>, <a class="reference internal" href="enum_wait__priority_8hpp_1ac3d04663d64559a0b7524486a4d42233.html#_CPPv4N6legion4core5async13wait_priorityE" title="legion::core::async::wait_priority">wait_priority</a> <em>priority</em> = <a class="reference internal" href="enum_wait__priority_8hpp_1ac3d04663d64559a0b7524486a4d42233.html#_CPPv4N6legion4core5async13wait_priorityE" title="legion::core::async::wait_priority">wait_priority</a>::<a class="reference internal" href="enum_wait__priority_8hpp_1ac3d04663d64559a0b7524486a4d42233.html#_CPPv4N6legion4core5async13wait_priority9real_timeE" title="legion::core::async::wait_priority::real_time">real_time</a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6legion4core5async14readonly_guard14readonly_guardERK11rw_spinlock13wait_priority" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6legion4core5async14readonly_guard14readonly_guardERK11rw_spinlock13wait_priority">
+<span id="_CPPv3N6legion4core5async14readonly_guard14readonly_guardERK11rw_spinlock13wait_priority"></span><span id="_CPPv2N6legion4core5async14readonly_guard14readonly_guardERK11rw_spinlock13wait_priority"></span><span id="legion::core::async::readonly_guard::readonly_guard__rw_spinlockCR.wait_priority"></span><span class="target" id="classlegion_1_1core_1_1async_1_1readonly__guard_1ab2b7991e42609be3dfde2d43ebd90f9f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">readonly_guard</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="class_structlegion_1_1core_1_1async_1_1rw__spinlock.html#_CPPv4N6legion4core5async11rw_spinlockE" title="legion::core::async::rw_spinlock"><span class="n"><span class="pre">rw_spinlock</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">lock</span></span>, <a class="reference internal" href="enum_wait__priority_8hpp_1ac3d04663d64559a0b7524486a4d42233.html#_CPPv4N6legion4core5async13wait_priorityE" title="legion::core::async::wait_priority"><span class="n"><span class="pre">wait_priority</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">priority</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="enum_wait__priority_8hpp_1ac3d04663d64559a0b7524486a4d42233.html#_CPPv4N6legion4core5async13wait_priorityE" title="legion::core::async::wait_priority"><span class="n"><span class="pre">wait_priority</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="enum_wait__priority_8hpp_1ac3d04663d64559a0b7524486a4d42233.html#_CPPv4N6legion4core5async13wait_priority9real_timeE" title="legion::core::async::wait_priority::real_time"><span class="n"><span class="pre">real_time</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6legion4core5async14readonly_guard14readonly_guardERK11rw_spinlock13wait_priority" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Creates readonly guard and locks for Read-only. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6legion4core5async14readonly_guard14readonly_guardERK14readonly_guard">
-<span id="_CPPv3N6legion4core5async14readonly_guard14readonly_guardERK14readonly_guard"></span><span id="_CPPv2N6legion4core5async14readonly_guard14readonly_guardERK14readonly_guard"></span><span id="legion::core::async::readonly_guard::readonly_guard__readonly_guardCR"></span><span class="target" id="classlegion_1_1core_1_1async_1_1readonly__guard_1a0af39ea8466f3f6cd26e3ba472a84d48"></span><code class="sig-name descname">readonly_guard</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv4N6legion4core5async14readonly_guard14readonly_guardERK14readonly_guard" title="legion::core::async::readonly_guard::readonly_guard">readonly_guard</a>&amp;<span class="sig-paren">)</span> = delete<a class="headerlink" href="#_CPPv4N6legion4core5async14readonly_guard14readonly_guardERK14readonly_guard" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6legion4core5async14readonly_guard14readonly_guardERK14readonly_guard">
+<span id="_CPPv3N6legion4core5async14readonly_guard14readonly_guardERK14readonly_guard"></span><span id="_CPPv2N6legion4core5async14readonly_guard14readonly_guardERK14readonly_guard"></span><span id="legion::core::async::readonly_guard::readonly_guard__readonly_guardCR"></span><span class="target" id="classlegion_1_1core_1_1async_1_1readonly__guard_1a0af39ea8466f3f6cd26e3ba472a84d48"></span><span class="sig-name descname"><span class="n"><span class="pre">readonly_guard</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N6legion4core5async14readonly_guard14readonly_guardERK14readonly_guard" title="legion::core::async::readonly_guard::readonly_guard"><span class="n"><span class="pre">readonly_guard</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N6legion4core5async14readonly_guard14readonly_guardERK14readonly_guard" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6legion4core5async14readonly_guardD0Ev">
-<span id="_CPPv3N6legion4core5async14readonly_guardD0Ev"></span><span id="_CPPv2N6legion4core5async14readonly_guardD0Ev"></span><span id="legion::core::async::readonly_guard::~readonly_guard"></span><span class="target" id="classlegion_1_1core_1_1async_1_1readonly__guard_1ac4d5f6671a9243136e1334a6b6379c21"></span><em class="property">inline</em> <code class="sig-name descname">~readonly_guard</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6legion4core5async14readonly_guardD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6legion4core5async14readonly_guardD0Ev">
+<span id="_CPPv3N6legion4core5async14readonly_guardD0Ev"></span><span id="_CPPv2N6legion4core5async14readonly_guardD0Ev"></span><span id="legion::core::async::readonly_guard::~readonly_guard"></span><span class="target" id="classlegion_1_1core_1_1async_1_1readonly__guard_1ac4d5f6671a9243136e1334a6b6379c21"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~readonly_guard</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6legion4core5async14readonly_guardD0Ev" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>RAII style unlocks lock from Read-only. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4N6legion4core5async14readonly_guardaSERR14readonly_guard">
-<span id="_CPPv3N6legion4core5async14readonly_guardaSERR14readonly_guard"></span><span id="_CPPv2N6legion4core5async14readonly_guardaSERR14readonly_guard"></span><span id="legion::core::async::readonly_guard::assign-operator__readonly_guardRR"></span><span class="target" id="classlegion_1_1core_1_1async_1_1readonly__guard_1a50434b712936d6289c4ed65e40a2d269"></span><a class="reference internal" href="#_CPPv4N6legion4core5async14readonly_guardE" title="legion::core::async::readonly_guard">readonly_guard</a> &amp;<code class="sig-name descname">operator=</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N6legion4core5async14readonly_guardE" title="legion::core::async::readonly_guard">readonly_guard</a>&amp;&amp;<span class="sig-paren">)</span> = delete<a class="headerlink" href="#_CPPv4N6legion4core5async14readonly_guardaSERR14readonly_guard" title="Permalink to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N6legion4core5async14readonly_guardaSERR14readonly_guard">
+<span id="_CPPv3N6legion4core5async14readonly_guardaSERR14readonly_guard"></span><span id="_CPPv2N6legion4core5async14readonly_guardaSERR14readonly_guard"></span><span id="legion::core::async::readonly_guard::assign-operator__readonly_guardRR"></span><span class="target" id="classlegion_1_1core_1_1async_1_1readonly__guard_1a50434b712936d6289c4ed65e40a2d269"></span><a class="reference internal" href="#_CPPv4N6legion4core5async14readonly_guardE" title="legion::core::async::readonly_guard"><span class="n"><span class="pre">readonly_guard</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N6legion4core5async14readonly_guardE" title="legion::core::async::readonly_guard"><span class="n"><span class="pre">readonly_guard</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N6legion4core5async14readonly_guardaSERR14readonly_guard" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -132,7 +132,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>

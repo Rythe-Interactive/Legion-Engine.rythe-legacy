@@ -3,7 +3,7 @@
 Template Class transferable_atomic
 ==================================
 
-- Defined in :ref:`file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_core_async_transferable_atomic.hpp`
+- Defined in :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_async_transferable_atomic.hpp`
 
 
 Class Documentation

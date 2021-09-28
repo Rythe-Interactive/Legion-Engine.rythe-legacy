@@ -1,0 +1,117 @@
+
+.. _program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_colliders_physicscollider.hpp:
+
+Program Listing for File physicscollider.hpp
+============================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_colliders_physicscollider.hpp>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/physics/colliders/physicscollider.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   
+   #include <core/core.hpp>
+   #include <memory>
+   #include <physics/halfedgeface.hpp>
+   #include <physics/data/convergance_identifier.hpp>
+   #include <physics/physics_contact.hpp>
+   
+   namespace legion::physics
+   {
+       struct physics_manifold;
+       class ConvexCollider;
+   
+   
+       class PhysicsCollider
+       {
+       public:
+           bool shouldBeDrawn = true;
+           std::vector<std::unique_ptr<ConverganceIdentifier>> converganceIdentifiers;
+   
+           PhysicsCollider()
+           {
+               static int colliderID = 0;
+               id = colliderID++;
+           }
+   
+           virtual void AddConverganceIdentifier(const  physics_contact& contact) = 0;
+   
+           void AttemptFindAndCopyConverganceID(physics_contact& contact)
+           {
+               if (!constants::applyWarmStarting) { return; }
+   
+               for (auto&& converganceId : converganceIdentifiers)
+               {
+                   if (converganceId->refColliderID == contact.refCollider->GetColliderID())
+                   {
+                       if (converganceId->IsEqual(contact))
+                       {
+                           converganceId->CopyLambdasToContact(contact);
+                           return;
+                       }
+                   }
+               }
+           }
+               
+           virtual void CheckCollision(
+               PhysicsCollider* physicsCollider, physics_manifold& manifold) {};
+   
+           virtual void CheckCollisionWith(ConvexCollider* convexCollider, physics_manifold& manifold) {};
+   
+           int GetColliderID() const
+           {
+               return id;
+           }
+   
+           virtual void PopulateContactPoints(
+               PhysicsCollider* physicsCollider, physics_manifold& manifold) {};
+   
+           virtual void PopulateContactPointsWith(
+               ConvexCollider* convexCollider, physics_manifold& manifold) {};
+   
+   
+           virtual void DrawColliderRepresentation(const math::mat4& transform, math::color usedColor, float width, float time, bool ignoreDepth = false) {};
+   
+           virtual void UpdateTransformedTightBoundingVolume(const math::mat4& transform) {};
+   
+           virtual void UpdateLocalAABB() {};
+   
+           inline virtual std::vector<HalfEdgeFace*>& GetHalfEdgeFaces()
+           {
+               return dummyHalfEdges;
+           }
+   
+           L_NODISCARD math::vec3 GetLocalCentroid() const noexcept
+           {
+               return localColliderCentroid;
+           }
+   
+           //
+           std::pair<math::vec3, math::vec3> GetMinMaxLocalAABB() const
+           {
+               return minMaxLocalAABB;
+           }
+   
+           std::pair<math::vec3, math::vec3> GetMinMaxWorldAABB() const
+           {
+               return minMaxWorldAABB;
+           }
+   
+       protected:
+   
+           math::vec3 localColliderCentroid = math::vec3(0, 0, 0);
+           std::pair<math::vec3, math::vec3> minMaxLocalAABB;
+           std::pair<math::vec3, math::vec3> minMaxWorldAABB;
+       private:
+   
+           int id = -1;
+          //this is not used, its mostly for debug reasons
+           std::vector<HalfEdgeFace*> dummyHalfEdges;
+   
+       };
+   }
+   
+   
+   

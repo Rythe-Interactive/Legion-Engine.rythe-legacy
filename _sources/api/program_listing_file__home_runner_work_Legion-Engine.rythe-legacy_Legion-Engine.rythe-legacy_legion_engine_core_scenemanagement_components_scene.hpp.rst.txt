@@ -1,0 +1,37 @@
+
+.. _program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scenemanagement_components_scene.hpp:
+
+Program Listing for File scene.hpp
+==================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_scenemanagement_components_scene.hpp>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/scenemanagement/components/scene.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   #include <core/engine/system.hpp>
+   #include <core/ecs/component_handle.hpp>
+   #include <core/scenemanagement/scenemanager.hpp>
+   
+   namespace legion::core::scenemanagement
+   {
+       struct scene
+       {
+       public:
+           id_type id = invalid_id;
+   
+           template<typename Archive>
+           void serialize(Archive& archive);
+       };
+   
+       template<typename Archive>
+       inline void scene::serialize(Archive& archive)
+       {
+           std::string name = SceneManager::sceneNames[id];
+           archive(cereal::make_nvp("NAME", name));
+           id = nameHash(name);
+           SceneManager::sceneNames[id] = name;
+       }
+   }

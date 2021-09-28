@@ -67,9 +67,9 @@ Functions
 
 - :ref:`exhale_function__im_guizmo_8cpp_1a32074291a1ddf46793976c73d2c3f52b`
 
-- :ref:`exhale_function__im_guizmo_8cpp_1a9b6ed8e40ab2e1a8b29bbc303ae08fbf`
-
 - :ref:`exhale_function__im_guizmo_8cpp_1a96143a1fce0715b44346b2c7d433e5f4`
+
+- :ref:`exhale_function__im_guizmo_8cpp_1a9b6ed8e40ab2e1a8b29bbc303ae08fbf`
 
 - :ref:`exhale_function__im_guizmo_8cpp_1a0ea833d3b5c228c3158ff32d67c0617a`
 

@@ -3,7 +3,7 @@
 Class PhysicsStatics
 ====================
 
-- Defined in :ref:`file__home_runner_work_Legion-Engine_Legion-Engine_legion_engine_physics_physics_statics.hpp`
+- Defined in :ref:`file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_physics_physics_statics.hpp`
 
 
 Class Documentation

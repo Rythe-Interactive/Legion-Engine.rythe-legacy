@@ -1,0 +1,20 @@
+
+.. _program_listing_file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_math_math.hpp:
+
+Program Listing for File math.hpp
+=================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file__home_runner_work_Legion-Engine.rythe-legacy_Legion-Engine.rythe-legacy_legion_engine_core_math_math.hpp>` (``/home/runner/work/Legion-Engine.rythe-legacy/Legion-Engine.rythe-legacy/legion/engine/core/math/math.hpp``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #pragma once
+   
+   #include <core/math/glm/glm_include.hpp>
+   #include <core/math/constants.hpp>
+   #include <core/math/trigonometry.hpp>
+   #include <core/math/color.hpp>
+   #include <core/math/close_enough.hpp>
+   #include <core/math/geometry.hpp>

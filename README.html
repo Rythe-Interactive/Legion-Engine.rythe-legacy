@@ -4,16 +4,16 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Legion-Engine &#8212; LegionEngine v 0.2 alpha documentation</title>
-    <link rel="stylesheet" href="_static/nameko.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/nameko.css" />
     <link rel="stylesheet" type="text/css" href="_static/collapsible-lists/css/tree_view.css" />
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script src="_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
     <script src="_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -57,23 +57,23 @@
 <a class="reference external" href="https://docs.legion-engine.com"><img alt="docs" src="https://github.com/Legion-Engine/Legion-Engine/workflows/docs-action/badge.svg" /></a>
 <a class="reference external" href="https://github.com/Legion-Engine/Legion-Engine/blob/main/LICENSE"><img alt="License-MIT" src="https://img.shields.io/github/license/Legion-Engine/Legion-Engine" /></a>
 <a class="reference external" href="https://discord.gg/unVNRbd"><img alt="Discord" src="https://img.shields.io/static/v1?label=Discord&amp;message=Join%20Our%20Discord%20Server%21&amp;color=white&amp;logo=discord" /></a></p>
-<div class="section" id="legion-engine">
+<section id="legion-engine">
 <h1>Legion-Engine<a class="headerlink" href="#legion-engine" title="Permalink to this headline">¶</a></h1>
 <p>Legion-Engine is a data oriented C++17 OpenGL game engine built to make optimal use of modern hardware.<br><br>
 The Legion-Core is built on an async compute minded design to take care of the logic and an ECS to take care of the data. This allows the engine and editor to utilize all the power they can find and to be extremely modular.</p>
-<div class="section" id="getting-started">
+<section id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="prerequisites">
+<section id="prerequisites">
 <h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
 <p>The engine is by default build using Visual Studio 19 using the Clang++ compiler and C++17.
 For linux we don’t provide any default IDE support. However, you can still compile the engine using Clang++.</p>
-</div>
-<div class="section" id="install">
+</section>
+<section id="install">
 <h3>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h3>
 <p>You can either build the engine yourself using Premake5 or the already provided Visual Studio 19 solution. As of now Legion does not support compilation to DLL.
 Copy the include folder to your project and link the libraries you compiled.</p>
-</div>
-<div class="section" id="setup">
+</section>
+<section id="setup">
 <h3>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h3>
 <p>Legion already defines the C++ entry point in it’s own source code. So in order to start making a program define <code class="docutils literal notranslate"><span class="pre">LEGION_ENTRY</span></code> and include any of modules main include files.
 eg:</p>
@@ -83,9 +83,9 @@ eg:</p>
 </div>
 <p>Since the entry point is already defined you need to define a different function to start working with Legion. Legion will already start itself, but it won’t have any modules attached. In order to attach modules you need to define the <code class="docutils literal notranslate"><span class="pre">reportModules</span></code> function like so:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;mymodule.hpp&quot;</span><span class="cp"></span>
-<span class="k">using</span> <span class="k">namespace</span> <span class="n">legion</span><span class="p">;</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="nn">legion</span><span class="p">;</span>
 
-<span class="kt">void</span> <span class="n">LEGION_CCONV</span> <span class="nf">reportModules</span><span class="p">(</span><span class="n">Engine</span><span class="o">*</span> <span class="n">engine</span><span class="p">)</span>
+<span class="kt">void</span> <span class="n">LEGION_CCONV</span> <span class="n">reportModules</span><span class="p">(</span><span class="n">Engine</span><span class="o">*</span> <span class="n">engine</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">engine</span><span class="o">-&gt;</span><span class="n">reportModule</span><span class="o">&lt;</span><span class="n">MyModule</span><span class="o">&gt;</span><span class="p">();</span>
     <span class="n">engine</span><span class="o">-&gt;</span><span class="n">reportModule</span><span class="o">&lt;</span><span class="n">app</span><span class="o">::</span><span class="n">ApplicationModule</span><span class="o">&gt;</span><span class="p">();</span>
@@ -110,16 +110,16 @@ eg:</p>
 <p>Legion engine uses an ECS for all of it’s core functionality. So for your own project you need to define your own systems and components:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&lt;core/core.hpp&gt;</span><span class="cp"></span>
 
-<span class="k">struct</span> <span class="n">my_component</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">myVal</span><span class="p">;</span> <span class="p">};</span>
+<span class="k">struct</span> <span class="nc">my_component</span> <span class="p">{</span> <span class="kt">int</span> <span class="n">myVal</span><span class="p">;</span> <span class="p">};</span>
 
 <span class="k">class</span> <span class="nc">MySystem</span> <span class="k">final</span> <span class="o">:</span> <span class="k">public</span> <span class="n">legion</span><span class="o">::</span><span class="n">System</span><span class="o">&lt;</span><span class="n">MySystem</span><span class="o">&gt;</span>
 <span class="p">{</span>
-    <span class="k">virtual</span> <span class="kt">void</span> <span class="n">setup</span><span class="p">()</span>
+    <span class="k">virtual</span> <span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span>
     <span class="p">{</span>
         <span class="n">createProcess</span><span class="o">&lt;&amp;</span><span class="n">MySystem</span><span class="o">::</span><span class="n">update</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;Update&quot;</span><span class="p">);</span>
     <span class="p">}</span>
     
-    <span class="kt">void</span> <span class="n">update</span><span class="p">(</span><span class="n">legion</span><span class="o">::</span><span class="n">time</span><span class="o">::</span><span class="n">span</span> <span class="n">deltaTime</span><span class="p">)</span>
+    <span class="kt">void</span> <span class="nf">update</span><span class="p">(</span><span class="n">legion</span><span class="o">::</span><span class="n">time</span><span class="o">::</span><span class="n">span</span> <span class="n">deltaTime</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="c1">// Do stuff every frame on the update thread</span>
         <span class="k">static</span> <span class="k">auto</span> <span class="n">myQuery</span> <span class="o">=</span> <span class="n">createQuery</span><span class="o">&lt;</span><span class="n">my_component</span><span class="p">,</span> <span class="n">position</span><span class="o">&gt;</span><span class="p">();</span>
@@ -132,9 +132,9 @@ eg:</p>
 </pre></div>
 </div>
 <p>For more information about the engine usage see the <a class="reference external" href="https://docs.legion-engine.com">docs</a>.</p>
-</div>
-</div>
-<div class="section" id="dependencies">
+</section>
+</section>
+<section id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
 <p>(All libraries can already be found in the <a class="reference external" href="https://github.com/Legion-Engine/Legion-Engine/tree/main/deps">deps</a> folder)</p>
 <ul class="simple">
@@ -150,12 +150,12 @@ eg:</p>
 <li><p><a class="reference external" href="https://github.com/lieff/minimp3">Minimp3</a></p></li>
 <li><p><a class="reference external" href="https://github.com/Legion-Engine/LegionShaderPreprocess">Legion shader preprocessor (lgnspre)</a></p></li>
 </ul>
-</div>
-<div class="section" id="contributing">
+</section>
+<section id="contributing">
 <h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
 <p>Please read <a class="reference internal" href="CONTRIBUTING.html"><span class="doc">CONTRIBUTING.md</span></a> for details on our code of conduct, and the process for submitting pull requests to us.</p>
-</div>
-<div class="section" id="authors">
+</section>
+<section id="authors">
 <h2>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><strong>Glyn Leine</strong> - <em>Core architecture, ECS, scheduling, import pipeline, and renderer</em> - [<a class="reference external" href="https://glynleine.com">Website</a>] [<a class="reference external" href="https://github.com/GlynLeine">Github</a>] [<a class="reference external" href="https://www.linkedin.com/in/glyn-leine-7140a8167/">LinkedIn</a>]</p></li>
@@ -165,12 +165,12 @@ eg:</p>
 <li><p><strong>Rowan Ramsey</strong> - <em>Serialization</em> - [<a class="reference external" href="https://blazinram.wixsite.com/rowanramsey">Website</a>] [<a class="reference external" href="https://github.com/Ragingram2">Github</a>] [<a class="reference external" href="https://www.linkedin.com/in/rowan-r-42a760125/">LinkedIn</a>]</p></li>
 </ul>
 <p>See also the list of <a class="reference internal" href="AUTHORS.html"><span class="doc">contributors</span></a> who participated in this project.</p>
-</div>
-<div class="section" id="license">
+</section>
+<section id="license">
 <h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
 <p>This project is licensed under the MIT License - see the <a class="reference external" href="LICENSE">LICENSE</a> file for details</p>
-</div>
-</div>
+</section>
+</section>
 
 
             <div class="clearer"></div>
@@ -213,7 +213,7 @@ eg:</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
